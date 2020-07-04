@@ -25,7 +25,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
 
     <!-- 使用style.css -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 
     <!-- 連結Bootstrap所需要的js -->
     <!-- jquery.min.js -->

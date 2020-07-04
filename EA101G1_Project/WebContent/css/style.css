@@ -104,7 +104,10 @@ button:focus {
     text-align: center;
     }
 }
-
+.navbar2  a {color:white; text-decoration:none;}
+.navbar2  a:visited {text-decoration:none;}
+.navbar2  a:hover {color:#00334e;text-decoration:none;}
+.navbar2  a:active {color:white;}
 
 /*=============================================
 =                   Section                   =

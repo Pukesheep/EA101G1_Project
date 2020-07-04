@@ -340,7 +340,7 @@
 					<input type="hidden" name="mem_id" value="${memberVO.mem_id}">
 					<input type="hidden" name="mem_autho" value="${memberVO.mem_autho}">
 					<input type="hidden" name="action" value="update-front">
-					<button type="submit" class="btn login_btn float-right submit">修改</button>
+					<button type="submit" class="btn login_btn float-right submit">送出修改</button>
 					
 				</div>
 			</form>

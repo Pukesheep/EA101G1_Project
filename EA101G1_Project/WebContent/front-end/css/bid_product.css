@@ -1,0 +1,88 @@
+
+
+.blank-3{
+    height: 350px;
+}
+
+/*=============================================
+=                 Auct-product                =
+=============================================*/
+.product-rel{
+    background:linear-gradient(rgb(241, 239, 234), #e0e0d9,rgb(214, 185, 131));
+    background-attachment: rgb(179, 178, 169);
+}
+.auct-list{
+    padding: 0;    
+}
+.auct-list1{
+    padding: 0;    
+    border: 3px solid rgba(255, 166, 0, 0.26);
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.produce-img{
+    width: 100%;
+    margin: 0;
+}
+.auct-title{
+    overflow: hidden;
+}
+
+
+/*=============================================
+=                     BID                     =
+=============================================*/
+.market{
+    /* font-size: 15px; */
+    font-weight: bolder;
+}
+
+
+/*=============================================
+=                 Auct-table                  =
+=============================================*/
+div h6{
+    color: rgb(112, 54, 7);
+    font-size:25px;
+    font-weight: bolder;
+}
+table,tr,th,td{
+    border:1px solid orange;
+    border-collapse:collapse;
+}
+table{
+    width:100%;
+    text-align:center;
+    color: rgb(95, 63, 4);
+    background-color:rgba(255, 166, 0, 0.055);
+}
+th{
+    height:35px;
+}
+td{
+    height: 25px;
+    font-size: 14.5px;
+}
+
+.describe{
+ font-size: 15px;
+}
+
+
+/*=============================================
+=           bact to - Auct-index              =
+=============================================*/
+
+.back-btn{
+    color: rgb(121, 22, 22);
+    font-size: 15px;
+    font-weight: bolder;
+    width: 150px;
+    height:35px ;
+    border: 3px solid orange;
+    border-radius: 5px;
+    background:linear-gradient(orange, #ecead3,orange);
+    position: relative;
+    left: 42.5%;
+}

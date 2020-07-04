@@ -14,13 +14,31 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
+<!--   jstl -->
+  <jsp-config>
+  	<taglib>
+  		<taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
+  		<taglib-location>/WEB-INF/c.tld</taglib-location>
+  	</taglib>
+  	
+  	<taglib>
+  		<taglib-uri>http://java.sun.com/jstl/fmt</taglib-uri>
+  		<taglib-location>/WEB-INF/fmt.tld</taglib-location>
+  	</taglib>
+  </jsp-config>
+<!--   jstl --> 
+  
+  
+<!--   	連線池 -->
      <resource-ref>
 		<description>DB Connection</description>
 		<res-ref-name>jdbc/TestDB</res-ref-name>
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
+<!--   	連線池 -->
 	
+<!-- 	會員 + 討論區 -->
 	<servlet>
 		<servlet-name>MemberServlet</servlet-name>
 		<servlet-class>com.member.controller.MemberServlet</servlet-class>
@@ -84,17 +102,6 @@
 		<url-pattern>/post/ShowPostPic.do</url-pattern>
 	</servlet-mapping>
 	
-	
-	
-	<servlet>
-		<servlet-name>LoginHandler</servlet-name>
-		<servlet-class>com.member.controller.LoginHandler</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>LoginHandler</servlet-name>
-		<url-pattern>/member/login.do</url-pattern>
-	</servlet-mapping>
-	
 	<servlet>
 		<servlet-name>CheckServlet</servlet-name>
 		<servlet-class>com.member.controller.CheckServlet</servlet-class>
@@ -102,6 +109,62 @@
 	<servlet-mapping>
 		<servlet-name>CheckServlet</servlet-name>
 		<url-pattern>/member/check.do</url-pattern>
+	</servlet-mapping>
+<!-- 	會員 + 討論區 -->
+
+<!--   	競標區 -->
+  	<servlet>
+		<servlet-name>AuctServlet</servlet-name>
+		<servlet-class>com.auct.controller.AuctServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuctServlet</servlet-name>
+		<url-pattern>/auct/auct.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Auct_pic</servlet-name>
+		<servlet-class>com.auct.controller.Auct_pic</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Auct_pic</servlet-name>
+		<url-pattern>/auct/pic.do</url-pattern>
+	</servlet-mapping>
+<!--   	競標區 -->
+
+<!-- 直購區 -->
+	<servlet>
+	    <servlet-name>ImmedServlet</servlet-name>
+	    <servlet-class>com.immed.controller.ImmedServlet</servlet-class>
+  	</servlet>
+	<servlet-mapping>
+	  <servlet-name>ImmedServlet</servlet-name>
+	  <url-pattern>/immed/immed.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+	  <servlet-name>ImmedPicRead</servlet-name>
+	  <servlet-class>com.immed.model.ImmedPicReader</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	  <servlet-name>ImmedPicRead</servlet-name>
+	  <url-pattern>/immed/ImmedPicRead</url-pattern>
+	</servlet-mapping>	
+<!-- 直購區 -->
+
+
+
+
+
+	
+	
+<!-- 	會員登入 + 會員登入濾器 -->
+	<servlet>
+		<servlet-name>LoginHandler</servlet-name>
+		<servlet-class>com.member.controller.LoginHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginHandler</servlet-name>
+		<url-pattern>/member/login.do</url-pattern>
 	</servlet-mapping>
 	
 	<filter>
@@ -117,5 +180,7 @@
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
+	<!-- 	會員登入 + 會員登入濾器 -->
+	
 	
 </web-app>

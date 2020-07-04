@@ -29,7 +29,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
 
     <!-- 使用style.css -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 
     <!-- 連結Bootstrap所需要的js -->
     <!-- jquery.min.js -->
@@ -208,7 +208,11 @@
 						<input type="text" class="form-control" id="mem_joindat" name="mem_joindat" value="${memberVO.mem_joindat}" readonly>
 					</div>
 					
-					
+					<c:if test="${requestScope.memberVO.mem_id == sessionScope.memberVO.mem_id}">
+						<input type="hidden" name="mem_id" value="${memberVO.mem_id}">
+						<input type="hidden" name="action" value="getOne_For_Update-front">
+						<button type="submit" class="btn login_btn float-right submit">修改資料</button>
+					</c:if>
 				</div>
 			</form>
 		</div>

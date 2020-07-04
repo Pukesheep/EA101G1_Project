@@ -40,7 +40,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
 
     <!-- 使用style.css -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 
     <!-- 連結Bootstrap所需要的js -->
     <!-- jquery.min.js -->
@@ -82,12 +82,13 @@
         
         <div class="navbar2 navbar-dark">
             <div class="row">
-                <div class="item col-md-2"><a href="#"></a>商城</div>
-                <div class="item col-md-2"><a href="#"></a>團購</div>
-                <div class="item col-md-2"><a href="#"></a>交易</div>
-                <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/post/listAllPost.jsp">討論區</a></div>
-                <div class="item col-md-2"><a href="#"></a>紅利</div>
-                <div class="item col-md-2"><a href="#"></a>Q&A</div>
+                    <div class="item col-md-2"><a href="#">商城 </a></div>
+                    <div class="item col-md-2"><a href="#">團購 </a></div> 
+                    <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/auct/Auct_index.jsp">競標區 </a></div> 
+                    <div class="item col-md-2"><a href="#">直購區 </a></div> 
+                    <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/post/listAllPost.jsp">討論區 </a></div> 
+                    <div class="item col-md-2"><a href="#">紅利</a></div> 
+                <div class="item col-md-2"><a href="#">Q&A</a></div>
             </div>
         </div>
 

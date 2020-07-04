@@ -1,3 +1,10 @@
+	html,body{
+/* 		background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg'); */
+		background-image: url('http://getwallpapers.com/wallpaper/full/6/e/8/90110.jpg');
+/* 		background-image: url('http://getwallpapers.com/wallpaper/full/a/e/e/7532.jpg'); */
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
 	div.card-group, div.card {
 		max-width: 95%;
 		margin: 2% auto;
