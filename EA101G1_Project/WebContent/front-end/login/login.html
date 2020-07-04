@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Login</title>
+<style>
+	#container {
+		border: 1px solid black;
+		margin: 0 auto;
+		width: 25%;
+		text-align: center;
+	}
+	#username {
+		margin: 5px;
+	}
+	#username > div {
+		display: inline;
+	}
+	#password > div {
+		display: inline;
+	}
+	#title > div {
+		font-size: 8px;
+	}
+	#btn {
+		margin: 10px 0;
+	}
+</style>
+</head>
+<body>
+
+	<form action="login.do" method="post">
+		<div id="container">
+			<div id="title">
+				<h2>登入</h2>
+			</div>
+			<div id="username">
+				<div class="left">帳號：</div>
+				<div class="right"><input type="text" name="mem_email" value="" size="15"></div>
+			</div>
+			<div id="password">
+				<div class="left">密碼：</div>
+				<div class="right"><input type="password" name="mem_pass" value="" size="15"></div>
+			</div>
+			<div id="btn">
+				<input type="hidden" name="action" value="login">
+				<input type="submit" value="登入">
+			</div>
+		</div>
+	</form>
+	
+</body>
+</html>
