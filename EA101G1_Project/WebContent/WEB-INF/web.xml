@@ -14,7 +14,7 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
-<!--   jstl -->
+<!-- jstl -->
   <jsp-config>
   	<taglib>
   		<taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
@@ -26,19 +26,20 @@
   		<taglib-location>/WEB-INF/fmt.tld</taglib-location>
   	</taglib>
   </jsp-config>
-<!--   jstl --> 
+<!-- jstl --> 
   
   
-<!--   	連線池 -->
+<!-- 連線池 -->
      <resource-ref>
 		<description>DB Connection</description>
 		<res-ref-name>jdbc/TestDB</res-ref-name>
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
-<!--   	連線池 -->
+<!-- 連線池 -->
 	
-<!-- 	會員 + 討論區 -->
+<!-- 會員 + 討論區 -->
+
 	<servlet>
 		<servlet-name>MemberServlet</servlet-name>
 		<servlet-class>com.member.controller.MemberServlet</servlet-class>
@@ -110,9 +111,11 @@
 		<servlet-name>CheckServlet</servlet-name>
 		<url-pattern>/member/check.do</url-pattern>
 	</servlet-mapping>
-<!-- 	會員 + 討論區 -->
+	
+<!-- 會員 + 討論區 -->
 
-<!--   	競標區 -->
+<!-- 競標區 -->
+ 
   	<servlet>
 		<servlet-name>AuctServlet</servlet-name>
 		<servlet-class>com.auct.controller.AuctServlet</servlet-class>
@@ -130,9 +133,11 @@
 		<servlet-name>Auct_pic</servlet-name>
 		<url-pattern>/auct/pic.do</url-pattern>
 	</servlet-mapping>
-<!--   	競標區 -->
+	
+<!-- 競標區 -->
 
 <!-- 直購區 -->
+
 	<servlet>
 	    <servlet-name>ImmedServlet</servlet-name>
 	    <servlet-class>com.immed.controller.ImmedServlet</servlet-class>
@@ -148,16 +153,81 @@
 	<servlet-mapping>
 	  <servlet-name>ImmedPicRead</servlet-name>
 	  <url-pattern>/immed/ImmedPicRead</url-pattern>
-	</servlet-mapping>	
+	</servlet-mapping>
+	
 <!-- 直購區 -->
 
+<!-- 商城 -->
+
+	<servlet>
+		<servlet-name>ProServlet</servlet-name>
+		<servlet-class>com.product.controller.ProServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ProServlet</servlet-name>
+		<url-pattern>/product/pro.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ProPic</servlet-name>
+		<servlet-class>com.product.controller.ProPic</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ProPic</servlet-name>
+		<url-pattern>/product/proPic.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ShopCartPic</servlet-name>
+		<servlet-class>com.shopCart.controller.ShopCartPic</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ShopCartPic</servlet-name>
+		<url-pattern>/shopCart/ShopCartPic.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>FavpServlet</servlet-name>
+		<servlet-class>com.favouriteProduct.controller.FavpServlet</servlet-class>
+	</servlet>        
+	
+	<servlet-mapping>
+		<servlet-name>FavpServlet</servlet-name>
+		<url-pattern>/favouriteProduct/favp.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		    <servlet-name>ShopCartServlet</servlet-name>
+		    <servlet-class>com.shopCart.controller.ShopCartServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+		    <servlet-name>ShopCartServlet</servlet-name>
+		    <url-pattern>/shopCart/Shopping.do</url-pattern>
+	  </servlet-mapping>
+	  
+	  <servlet>
+		    <servlet-name>PoServlet</servlet-name>
+		    <servlet-class>com.productOrder.controller.PoServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+		    <servlet-name>PoServlet</servlet-name>
+		    <url-pattern>/productOrder/Po.do</url-pattern>
+	  </servlet-mapping>
+
+<!-- 商城 -->	
+
+
+
+
 
 
 
 
 	
-	
-<!-- 	會員登入 + 會員登入濾器 -->
+<!-- 會員登入 + 會員登入濾器 -->
 	<servlet>
 		<servlet-name>LoginHandler</servlet-name>
 		<servlet-class>com.member.controller.LoginHandler</servlet-class>
@@ -180,7 +250,7 @@
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
-	<!-- 	會員登入 + 會員登入濾器 -->
+<!-- 會員登入 + 會員登入濾器 -->
 	
 	
 </web-app>
