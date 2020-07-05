@@ -2,10 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.psac.model.*"%>
+<%@ page import="com.adm.model.*"%>
 <%
     PsacService psacSvc = new PsacService();
-    List<PsacVO> list = psacSvc.getAll();
+    List<PsacVO> list = psacSvc.getStateEq0();
     pageContext.setAttribute("list",list);
+    AdmVO admVO  = (AdmVO) session.getAttribute("admVO");
 %>
 
 <html>
@@ -53,14 +55,14 @@
 
 <table id="a">
 	<tr><td>
-		 <h3>Ф┴─Ф°┴Ф√┤Г╚═Ф╙╒Х┬┴Ф║┬ХЁ┤Ф√≥ - listAllPsac.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/back-end/psac/select_page.jsp">Е⌡·И╕√И═│</a></h4>
+		 <h3>╘р╕Ё╓ЕЁ╧юка|╝в╦Й╝ф - listAllPsac.jsp</h3>
+		 <h4><a href="<%=request.getContextPath()%>/back-end/psac/select_page.jsp">╕^╜╨╜╤</a></h4>
 	</td></tr>
 </table>
 
-<%-- И▄╞Х╙╓Х║╗Е┬≈ --%>
+<%-- ©Ы╩~╙М╕C --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">Х╚▀Д©╝Ф╜ёД╩╔Д╦▀И▄╞Х╙╓:</font>
+	<font style="color:red">╫п╜в╔©╔H╓U©Ы╩~:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -70,16 +72,16 @@
 
 <table>
 	<tr>
-		<th>Ф╙╒Х┬┴Ф║┬Г╥╗Х≥÷</th>
-		<th>Ф╙╒Х┬┴Х─┘Г╥╗Х≥÷</th>
-		<th>Ф╙╒Х┬┴Ф√┤Г╚═Г╥╗Х≥÷</th>
-		<th>Г╝║Г░├Е⌠║Г╥╗Х≥÷</th>
-		<th>Ф╙╒Х┬┴Ф║┬Е┘╖Е╝╧</th>
-		<th>Ф╙╒Х┬┴Ф║┬Г▀─Ф┘▀</th>
-		<th>Д©╝Ф■╧</th>
-		<th>Е┬╙И≥╓</th>
+		<th>юка|╝в╫s╦╧</th>
+		<th>юка|╙л╫s╦╧</th>
+		<th>юка|╓ЕЁ╧╫s╦╧</th>
+		<th>╨ч╡z╜Ш╫s╦╧</th>
+		<th>юка|╝в╓╨╝e</th>
+		<th>юка|╝в╙╛╨A</th>
+		<th>юка|╕╗╔ъ</th>
+		<th>юка|╓ё╕╗╔ъ</th>
 	</tr>
-	<%@ include file="page1.file" %> 
+	<%@ include file="../../files/page1.file" %> 
 	<c:forEach var="psacVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
@@ -91,20 +93,28 @@
 			<td>${psacVO.psac_state}</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/psac/psac.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="Д©╝Ф■╧">
+			     <input type="submit" value="╫T╩{">
 			     <input type="hidden" name="psac_no"  value="${psacVO.psac_no}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			     <input type="hidden" name="mem_id"  value="${psacVO.mem_id}">
+			     <input type="hidden" name="post_id"  value="${psacVO.post_id}">
+			     <input type="hidden" name="adm_no"  value="${admVO.adm_no}">
+			     <input type="hidden" name="psac_content"  value="${psacVO.psac_content}">
+			     <input type="hidden" name="psac_state"  value="${psacVO.psac_state}">
+			     <input type="hidden" name="action"	value="psacConfirm">
+		    </FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/psac/psac.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="Е┬╙И≥╓">
+			     <input type="submit" value="╫T╩{">
 			     <input type="hidden" name="psac_no"  value="${psacVO.psac_no}">
-			     <input type="hidden" name="action" value="delete"></FORM>
+			     <input type="hidden" name="action" value="psacDenied">
+			  </FORM>
 			</td>
 		</tr>
+		
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %>
+<%@ include file="../../files/page2.file" %>
 
 </body>
 </html>

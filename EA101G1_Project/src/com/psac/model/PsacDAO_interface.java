@@ -8,5 +8,6 @@ public interface PsacDAO_interface {
     public void delete(String psac_no);
     public PsacVO findByPrimaryKey(String psac_no);
     public List<PsacVO> getAll();
+    public List<PsacVO> getStateEq0();
 	
 }

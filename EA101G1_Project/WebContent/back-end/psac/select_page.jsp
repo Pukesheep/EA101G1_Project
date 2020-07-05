@@ -33,14 +33,14 @@
 <body bgcolor='white'>
 
 <table id="a">
-   <tr><td><h2>Ф√┤Г╚═Ф╙╒Х┬┴Ф║┬ </h2><h4>( MVC )</h4></td></tr>
+   <tr><td><h2>╓ЕЁ╧юка|╝в </h2><h4>( MVC )</h4></td></tr>
 </table>
 
-<h3>Ф√┤Г╚═Ф╙╒Х┬┴Ф║┬Ф÷╔Х╘╒:</h3>
+<h3>╓ЕЁ╧юка|╝в╛d╦ъ:</h3>
 
-<%-- И▄╞Х╙╓Х║╗Е┬≈ --%>
+<%-- ©Ы╩~╙М╕C --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">Х╚▀Д©╝Ф╜ёД╩╔Д╦▀И▄╞Х╙╓:</font>
+	<font style="color:red">╫п╜в╔©╔H╓U©Ы╩~:</font>
 	<ul>
 	    <c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -51,35 +51,35 @@
 <div class="a">
 <ul>
 
- <li><a href='listAllPsac.jsp'>Ф÷╔Х╘╒Е┘╗И┐╗Ф╙╒Х┬┴Ф║┬</a>  <br><br></li>
+ <li><a href='<%=request.getContextPath()%>/back-end/psac/listAllPsac.jsp'>╛d╦ъ╔ЧЁ║юка|╝в</a>  <br><br></li>
  <li>
-    <FORM METHOD="post" ACTION="psac.do" >
-        <b>Х╪╦Е┘╔Ф√┤Г╚═Ф╙╒Х┬┴Ф║┬Г╥╗Х≥÷: (ex:p000001):</b>
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/psac/psac.do" >
+        <b>©И╓J╓ЕЁ╧юка|╝в╫s╦╧: (ex:p000001):</b>
         <input type="text" name="psac_no">
         <input type="hidden" name="action" value="select_One_Psac">
-        <input type="submit" value="И─│Е┤╨">
+        <input type="submit" value="╟e╔X">
     </FORM>
   </li>
 
  <jsp:useBean id="psacSvc" scope="page" class="com.psac.model.PsacService"/>
  
   <li>
-     <FORM METHOD="post" ACTION="psac.do" >
-       <b>И│╦Ф⌠┤Ф√┤Г╚═Ф╙╒Х┬┴Ф║┬Г╥╗Х≥÷:</b>
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/psac/psac.do" >
+       <b>©О╬э╓ЕЁ╧юка|╝в╫s╦╧:</b>
        <select size="1" name="psac_no">
          <c:forEach var="psacVO" items="${psacSvc.all}" > 
           <option value="${psacVO.psac_no}">${psacVO.psac_no}
          </c:forEach>  
        </select>
        <input type="hidden" name="action" value="select_One_Psac">
-       <input type="submit" value="Ф÷╔Х╘╒">
+       <input type="submit" value="╛d╦ъ">
     </FORM>
   </li>
 
 </ul>	
 
 <ul>
-  <li><a href='addPsac.jsp'>Ф√╟Е╒·Ф√┤Г╚═Ф╙╒Х┬┴Ф║┬</a></li>
+  <li><a href='<%=request.getContextPath()%>/back-end/psac/addPsac.jsp'>╥s╪W╓ЕЁ╧юка|╝в</a></li>
 </ul>
 </div>
 

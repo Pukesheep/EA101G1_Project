@@ -8,16 +8,12 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>åŠŸèƒ½æ–°å¢ - addFeat.jsp</title>
+<title>¥\¯à·s¼W - addFeat.jsp</title>
 
 <style>
-  table#a {
-	width: 100%;
-	background-color: #5588DD;
-	margin-top: 20px;
-	margin-bottom: 20px;
-    border: 5px solid Gray;
-    height: 50px;
+  table#table-1 {
+	background-color: #CCCCFF;
+    border: 2px solid black;
     text-align: center;
   }
   table#table-1 h4 {
@@ -49,18 +45,18 @@
 </head>
 <body bgcolor='white'>
 
-<table id="a">
+<table id="table-1">
 	<tr><td>
-		 <h3>åŠŸèƒ½æ–°å¢ - addFeat.jsp</h3></td><td>
-		 <h4><a href="<%=request.getContextPath()%>/back-end/feat/select_page.jsp">å›é¦–é </a></h4>
+		 <h3>¥\¯à·s¼W - addFeat.jsp</h3></td><td>
+		 <h4><a href="<%=request.getContextPath()%>/back-end/feat/select_page.jsp">¦^­º­¶</a></h4>
 	</td></tr>
 </table>
 
-<h3>è³‡æ–™æ–°å¢:</h3>
+<h3>¸ê®Æ·s¼W:</h3>
 
-<%-- éŒ¯èª¤è¡¨åˆ— --%>
+<%-- ¿ù»~ªí¦C --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
+	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -68,11 +64,11 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="feat.do" name="form1">
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/feat/feat.do" name="form1">
 <table>
 
 	<tr>
-		<td>åŠŸèƒ½æ€§è³ª:</td>
+		<td>¥\¯à©Ê½è:</td>
 		<td><input type="TEXT" name="f_type" size="45"
 			 value="<%= (fVO==null)? "anthoney" : fVO.getF_type()%>" /></td>
 	</tr>
@@ -81,6 +77,6 @@
 <br>
 
 <input type="hidden" name="action" value="insert">
-<input type="submit" value="é€å‡ºæ–°å¢"></FORM>
+<input type="submit" value="°e¥X·s¼W"></FORM>
 </body>
 </html>

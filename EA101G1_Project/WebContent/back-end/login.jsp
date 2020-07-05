@@ -27,16 +27,16 @@ background-color: #5588DD;
 </head>
 <body>
 <FORM METHOD="post" ACTION="<%= request.getContextPath()%>/loginhandler" >
-<h1>å“¡å·¥ç™»å…¥ç³»çµ±</h1>
+<h1>­û¤uµn¤J¨t²Î</h1>
 <div class="a">
 <div>
-å¸³è™Ÿ: <input type="text" name="adm_acco" value="" placeholder="è«‹è¼¸å…¥å¸³è™Ÿ">
+±b¸¹: <input type="text" name="adm_acco" value="" placeholder="½Ð¿é¤J±b¸¹">
 </div> 
 <div>
-å¯†ç¢¼: <input type="text" name="adm_pass" value="" placeholder="è«‹è¼¸å…¥å¯†ç¢¼">
+±K½X: <input type="password" name="adm_pass" value="" placeholder="½Ð¿é¤J±K½X">
 </div>
 <div id="b">
-<input type="submit" value="ç™»å…¥">
+<input type="submit" value="µn¤J">
 </div>
 </div>
 </FORM>

@@ -12,14 +12,9 @@
 <head>
 <title>Insert title here</title>
 <style>
-  table#a {
+  table#table-1 {
 	background-color: #CCCCFF;
-    border: 2px solid blacwidth: 100%;
-	background-color: #5588DD;
-	margin-top: 20px;
-	margin-bottom: 20px;
-    border: 5px solid Gray;
-    height: 50px;
+    border: 2px solid black;
     text-align: center;
   }
   table#table-1 h4 {
@@ -51,16 +46,16 @@
 </head>
 <body bgcolor='white'>
 
-<table id="a">
+<table id="table-1">
 	<tr><td>
-		 <h3>æ‰€æœ‰å“¡å·¥è³‡æ–™ - listAllAuth.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/back-end/auth/select_page.jsp">å›é¦–é </a></h4>
+		 <h3>©Ò¦³­û¤u¸ê®Æ - listAllAuth.jsp</h3>
+		 <h4><a href="<%=request.getContextPath()%>/back-end/auth/select_page.jsp">¦^­º­¶</a></h4>
 	</td></tr>
 </table>
 
-<%-- éŒ¯èª¤è¡¨åˆ— --%>
+<%-- ¿ù»~ªí¦C --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
+	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -70,12 +65,12 @@
 
 <table>
 	<tr>
-		<th>å“¡å·¥ç·¨è™Ÿ</th>
-		<th>åŠŸèƒ½ç·¨è™Ÿ</th>
-		<th>ä¿®æ”¹</th>
-		<th>åˆªé™¤</th>
+		<th>­û¤u½s¸¹</th>
+		<th>¥\¯à½s¸¹</th>
+		<th>­×§ï</th>
+		<th>§R°£</th>
 	</tr>
-	<%@ include file="page1.file" %> 
+	<%@ include file="../../files/page1.file" %> 
 	<c:forEach var="authVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
@@ -83,20 +78,20 @@
 			<td>${authVO.f_no}</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/auth/auth.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="ä¿®æ”¹">
+			     <input type="submit" value="­×§ï">
 			     <input type="hidden" name="adm_no"  value="${authVO.adm_no}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/auth/auth.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="åˆªé™¤">
+			     <input type="submit" value="§R°£">
 			     <input type="hidden" name="adm_no"  value="${authVO.adm_no}">
 			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %>
+<%@ include file="../../files/page2.file" %>
 
 </body>
 </html>

@@ -7,7 +7,7 @@
 
 <html>
 <head>
-<title>Ф√┤Г╚═Ф╙╒Х┬┴Ф║┬ХЁ┤Ф√≥ - listOnePsac.jsp</title>
+<title>╓ЕЁ╧юка|╝в╦Й╝ф - listOnePsac.jsp</title>
 
 <style>
   table#a {
@@ -51,19 +51,19 @@
 
 <table id="a">
 	<tr><td>
-		 <h3>Ф√┤Г╚═Ф╙╒Х┬┴Ф║┬ХЁ┤Ф√≥ - ListOnePsac.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/back-end/psac/select_page.jsp">Е⌡·И╕√И═│</a></h4>
+		 <h3>╓ЕЁ╧юка|╝в╦Й╝ф - ListOnePsac.jsp</h3>
+		 <h4><a href="<%=request.getContextPath()%>/back-end/psac/select_page.jsp">╕^╜╨╜╤</a></h4>
 	</td></tr>
 </table>
 
 <table>
 	<tr>
-		<th>Ф╙╒Х┬┴Ф║┬Г╥╗Х≥÷</th>
-		<th>Ф╙╒Х┬┴Х─┘Г╥╗Х≥÷</th>
-		<th>Ф╙╒Х┬┴Ф√┤Г╚═Г╥╗Х≥÷</th>
-		<th>Г╝║Г░├Е⌠║Г╥╗Х≥÷</th>
-		<th>Ф╙╒Х┬┴Ф║┬Е┘╖Е╝╧</th>
-		<th>Ф╙╒Х┬┴Ф║┬Г▀─Ф┘▀</th>
+		<th>юка|╝в╫s╦╧</th>
+		<th>юка|╙л╫s╦╧</th>
+		<th>юка|╓ЕЁ╧╫s╦╧</th>
+		<th>╨ч╡z╜Ш╫s╦╧</th>
+		<th>юка|╝в╓╨╝e</th>
+		<th>юка|╝в╙╛╨A</th>
 	</tr>
 	<tr>
 		<td><%=psacVO.getPsac_no()%></td>

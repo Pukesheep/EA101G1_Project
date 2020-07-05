@@ -8,13 +8,13 @@
 
 <style>
 
-  table#a {
-	width: 100%;
-	background-color: #5588DD;
-	margin-top: 20px;
-	margin-bottom: 20px;
-    border: 5px solid Gray;
-    height: 50px;
+  table#table-1 {
+	width: 450px;
+	background-color: #CCCCFF;
+	margin-top: 5px;
+	margin-bottom: 10px;
+    border: 3px ridge Gray;
+    height: 80px;
     text-align: center;
   }
 </style>
@@ -22,15 +22,15 @@
 </head>
 <body bgcolor='white'>
 
-<table id="a">
+<table id="table-1">
    <tr><td><h2>Feature Home page</h2><h4>( MVC )</h4></td></tr>
 </table>
 
-<h3>åŠŸèƒ½æŸ¥è©¢:</h3>
+<h3>¥\¯à¬d¸ß:</h3>
 
-<%-- éŒ¯èª¤è¡¨åˆ— --%>
+<%-- ¿ù»~ªí¦C --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
+	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
 	<ul>
 	    <c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -42,26 +42,26 @@
 
  <li><a href='listAllFeat.jsp'>List</a> all Feat.  <br><br></li>
  <li>
-    <FORM METHOD="post" ACTION="feat.do" >
-        <b>è¼¸å…¥åŠŸèƒ½ç·¨è™Ÿ: (ex:f000001):</b>
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/feat/feat.do" >
+        <b>¿é¤J¥\¯à½s¸¹: (ex:f000001):</b>
         <input type="text" name="f_no">
         <input type="hidden" name="action" value="select_One_Feat">
-        <input type="submit" value="é€å‡º">
+        <input type="submit" value="°e¥X">
     </FORM>
   </li>
 
  <jsp:useBean id="fSvc" scope="page" class="com.feat.model.FService"/>
  
   <li>
-     <FORM METHOD="post" ACTION="feat.do" >
-       <b>é¸æ“‡å“¡å·¥ç·¨è™Ÿ:</b>
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/feat/feat.do" >
+       <b>¿ï¾Ü­û¤u½s¸¹:</b>
        <select size="1" name="f_no">
          <c:forEach var="fVO" items="${fSvc.all}" > 
           <option value="${fVO.f_no}">${fVO.f_no}
          </c:forEach>  
        </select>
        <input type="hidden" name="action" value="select_One_Feat">
-       <input type="submit" value="æŸ¥è©¢">
+       <input type="submit" value="¬d¸ß">
     </FORM>
   </li>
 

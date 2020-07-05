@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>åŠŸèƒ½ä¿®æ”¹ - update_feat_input.jsp</title>
+<title>¥\¯à­×§ï - update_feat_input.jsp</title>
 
 <style>
   table#table-1 {
@@ -48,16 +48,16 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>å“¡å·¥ä¿®æ”¹ - update_feat_input.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/back-end/feat/select_page.jsp">å›é¦–é </a></h4>
+		 <h3>­û¤u­×§ï - update_feat_input.jsp</h3>
+		 <h4><a href="<%=request.getContextPath()%>/back-end/feat/select_page.jsp">¦^­º­¶</a></h4>
 	</td></tr>
 </table>
 
-<h3>è³‡æ–™ä¿®æ”¹:</h3>
+<h3>¸ê®Æ­×§ï:</h3>
 
-<%-- éŒ¯èª¤è¡¨åˆ— --%>
+<%-- ¿ù»~ªí¦C --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
+	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -68,11 +68,11 @@
 <FORM METHOD="post" ACTION="feat.do" name="form1">
 <table>
 	<tr>
-		<td>åŠŸèƒ½ç·¨è™Ÿ:<font color=red><b>*</b></font></td>
+		<td>¥\¯à½s¸¹:<font color=red><b>*</b></font></td>
 		<td><%=fVO.getF_no()%></td>
 	</tr>
 	<tr>
-		<td>åŠŸèƒ½æ€§è³ª:</td>
+		<td>¥\¯à©Ê½è:</td>
 		<td><input type="TEXT" name="f_type" size="45" value="<%=fVO.getF_type()%>" /></td>
 	</tr>
 
@@ -80,6 +80,6 @@
 <br>
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="f_no" value="<%=fVO.getF_no()%>">
-<input type="submit" value="é€å‡ºä¿®æ”¹"></FORM>
+<input type="submit" value="°e¥X­×§ï"></FORM>
 </body>
 </html>

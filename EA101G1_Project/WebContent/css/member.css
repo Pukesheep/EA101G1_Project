@@ -98,7 +98,7 @@
 		width: 250px;
 		height: 250px;
 		border: 5px solid black;
-		z-index: 999 ;
+		z-index: 998;
 	}
 	img.profile:hover {
 		cursor: pointer;
@@ -144,4 +144,16 @@
   	}
   	div.btn-toolbar {
   		margin-bottom: 10px 0;
+  	}
+  	img#chat_bubble {
+  		position: relative;
+  		margin-left: -100px;
+  		width: 150px;
+  		height: 150px;
+  		z-index: 999;
+  		top: -90px;
+  		right: -30px;
+  	}
+  	img#chat_bubble:hover {
+  		cursor: pointer;
   	}

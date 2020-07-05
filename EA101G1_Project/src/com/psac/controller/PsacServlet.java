@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.psac.model.PsacVO;
 import com.psac.model.*;
 
 
@@ -304,8 +303,107 @@ public class PsacServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+			
+		if ("report".equals(action)) { // 來自psac.jsp的請求
+			String[] sa = req.getParameterValues("reason");
+			String psac_content="";
+			for (String reason : sa) {
+				//System.out.println(reason);
+				psac_content += reason;
+			}
+		
+		
+		String mem_id = req.getParameter("mem_id");
+		String post_id = req.getParameter("post_id");
+		System.out.println(mem_id);
+		System.out.println(post_id);
+		
+		
+		Integer psac_state = 0;
+		
+		String adm_no = "";
+				
+		PsacVO psacVO = new PsacVO();
+		psacVO.setMem_id(mem_id);
+		psacVO.setPost_id(post_id);
+		psacVO.setAdm_no(adm_no);
+		psacVO.setPsac_content(psac_content);
+		psacVO.setPsac_state(psac_state);
+		
+//		{
+//			"reason1" : 0,
+//			"reason2" : 1,
+//			"reason3" : 0,
+//			"content" : "xxxxxxxx"
+//		}
+		
+		/***************************開始送資料到資料庫*****************************************/
+				
+		PsacService psacSv = new PsacService();
+		psacVO = psacSv.addPsac(mem_id, post_id, adm_no, psac_content, psac_state);
+		
+//String mem_id = (String)request.getAttribute("mem_id");
+//String post_id =(String)request.getAttribute("post_id");
+//String adm_no =(String)request.getAttribute("adm_no");
+//Integer psac_state =(Integer)request.getAttribute("psac_state");
+		/***************************轉交(Send the Success view)***********/								
+		String url = "/front-end/psac/psac.jsp";
+		RequestDispatcher successView = req.getRequestDispatcher(url);// 成功後,轉交回送出的來源網頁
+		successView.forward(req, res);
+	}
+	
+		if ("button".equals(action)) { 
+			
+		String mem_id = req.getParameter("mem_id");
+		String post_id = req.getParameter("post_id");
+		
+		PsacVO psacVO = new PsacVO();
+		psacVO.setMem_id(mem_id);
+		psacVO.setPost_id(post_id);
+		req.setAttribute("psacVO", psacVO);
+		
+		/***************************轉交檢舉表單網頁***********************************/								
+		String url = "/front-end/psac/psac.jsp";
+		RequestDispatcher View = req.getRequestDispatcher(url);// 轉交檢舉表單網頁
+		View.forward(req, res);
+		}
+		
+		if ("psacConfirm".equals(action)) { 
+				
+				/***************************接收請求參數****************************************/
+				String psac_no = req.getParameter("psac_no");
+				String post_id = req.getParameter("post_id");
+				String mem_id = req.getParameter("mem_id");
+				String adm_no = req.getParameter("adm_no");
+				String psac_content = req.getParameter("psac_content");
+				Integer psac_state = new Integer(req.getParameter("psac_state"));
+				System.out.print("hihihihi");
+				/***************************修改檢舉案狀態****************************************/
+				PsacVO psacVO = new PsacVO();
+				psacVO.setPsac_no(psac_no);
+				psacVO.setMem_id(mem_id);
+				psacVO.setPost_id(post_id);
+				psacVO.setAdm_no(adm_no);
+				psacVO.setPsac_content(psac_content);
+				psacVO.setPsac_state(1); //檢舉案處理完成，修改狀態為1(已完成)
+				
+				PsacService psacSv = new PsacService();
+				psacVO = psacSv.updatePsac(psac_no,mem_id, post_id, adm_no, psac_content, 1);
+				/***************************修改文章狀態****************************************/
+				
+				
+				
+								
+				/***************************轉交文章頁面****************************************/
+				
+				req.getSession().setAttribute("post_id", post_id);         // 將post_id存入session
+				String url = "/back-end/psac/listAllPsac.jsp";
+				RequestDispatcher post = req.getRequestDispatcher(url);// 轉交文章頁面 
+				post.forward(req, res);
+		}
+		
+		
 	}
 }
-	
-	
+			
 

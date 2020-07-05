@@ -52,4 +52,9 @@ public class PsacService {
 	public List<PsacVO> getAll() {
 		return dao.getAll();
 	}
+	
+	public List<PsacVO> getStateEq0() {
+		return dao.getStateEq0();
+	}
+	
 }

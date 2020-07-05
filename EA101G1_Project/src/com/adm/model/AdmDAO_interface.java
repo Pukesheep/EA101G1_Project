@@ -10,4 +10,5 @@ public interface AdmDAO_interface {
     public AdmVO findByPrimaryKey(String adm_no);
     public List<AdmVO> getAll();
     public String loginByAcco(String adm_acco);
+
 }

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>å“¡å·¥ä¿®æ”¹ - update_adm_input.jsp</title>
+<title>­û¤u­×§ï - update_adm_input.jsp</title>
 
 <style>
   table#a {
@@ -52,16 +52,16 @@
 
 <table id="a">
 	<tr><td>
-		 <h3>å“¡å·¥ä¿®æ”¹ - update_adm_input.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/back-end/adm/select_page.jsp">å›é¦–é </a></h4>
+		 <h3>­û¤u­×§ï - update_adm_input.jsp</h3>
+		 <h4><a href="<%=request.getContextPath()%>/back-end/adm/select_page.jsp">¦^­º­¶</a></h4>
 	</td></tr>
 </table>
 
-<h3>è³‡æ–™ä¿®æ”¹:</h3>
+<h3>¸ê®Æ­×§ï:</h3>
 
-<%-- éŒ¯èª¤è¡¨åˆ— --%>
+<%-- ¿ù»~ªí¦C --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
+	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -69,33 +69,33 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="adm.do" name="form1">
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adm/adm.do" name="form1">
 <table>
 	<tr>
-		<td>å“¡å·¥ç·¨è™Ÿ:<font color=red><b>*</b></font></td>
+		<td>­û¤u½s¸¹:<font color=red><b>*</b></font></td>
 		<td><%=admVO.getAdm_no()%></td>
 	</tr>
 	<tr>
-		<td>å“¡å·¥å¸³è™Ÿ:</td>
+		<td>­û¤u±b¸¹:</td>
 		<td><input type="TEXT" name="adm_acco" size="45" value="<%=admVO.getAdm_acco()%>" /></td>
 	</tr>
 	<tr>
-		<td>å“¡å·¥å¯†ç¢¼:</td>
+		<td>­û¤u±K½X:</td>
 		<td><input type="TEXT" name="adm_pass" size="45"	value="<%=admVO.getAdm_pass()%>" /></td>
 	</tr>
 	<tr>
-		<td>å“¡å·¥å§“å:</td>
+		<td>­û¤u©m¦W:</td>
 		<td><input type="TEXT" name="adm_name" size="45"	value="<%=admVO.getAdm_name()%>" /></td>
 	</tr>
 	<tr>
-		<td>å“¡å·¥ç‹€æ…‹:</td>
+		<td>­û¤uª¬ºA:</td>
 		<td><input type="TEXT" name="adm_state" size="45" value="<%=admVO.getAdm_state()%>" /></td>
 	</tr>
 
 </table>
 <br>
 <input type="hidden" name="action" value="update">
-<input type="hidden" name="psac_no" value="<%=admVO.getAdm_no()%>">
-<input type="submit" value="é€å‡ºä¿®æ”¹"></FORM>
+<input type="hidden" name="adm_no" value="<%=admVO.getAdm_no()%>">
+<input type="submit" value="°e¥X­×§ï"></FORM>
 </body>
 </html>

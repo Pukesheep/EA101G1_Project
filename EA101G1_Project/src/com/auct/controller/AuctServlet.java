@@ -107,7 +107,7 @@ System.out.println("--------------"+auctVO);
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-//			try {
+			try {
 				/***************************1.接收請求參數****************************************/
 				String auct_id = new String(req.getParameter("auct_id"));
 System.out.println("--------------"+auct_id);
@@ -123,12 +123,12 @@ System.out.println("--------------"+auct_id);
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理**********************************/
-//			} catch (Exception e) {
-//				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/front-end/auct/listAllAuct.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/auct/listAllAuct.jsp");
+				failureView.forward(req, res);
+			}
 		}  //listAllAuct.jsp的請求---end
 		
 		if ("update".equals(action)) {   //update_auct_input.jsp的請求

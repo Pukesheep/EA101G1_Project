@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="BIG5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.adm.model.*"%>
 <%
@@ -8,7 +8,7 @@ AdmVO admVO = (AdmVO) request.getAttribute("admVO");
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>ï¿½âˆªæ¥µï¿½å•£ï¿½ - addAdm.jsp</title>
+<title>­û¤u·s¼W - addAdm.jsp</title>
 
 <style>
   table#a {
@@ -51,16 +51,16 @@ AdmVO admVO = (AdmVO) request.getAttribute("admVO");
 
 <table id="a">
 	<tr><td>
-		 <h3>ï¿½âˆªæ¥µï¿½å•£ï¿½ - addAdm.jsp</h3></td><td>
-		 <h4><a href="<%=request.getContextPath()%>/back-end/adm/select_page.jsp">ï¿½ï¿½æ“ï¿½ï¿½ï¿½</a></h4>
+		 <h3>­û¤u·s¼W - addAdm.jsp</h3></td><td>
+		 <h4><a href="<%=request.getContextPath()%>/back-end/adm/select_page.jsp">¦^­º­¶</a></h4>
 	</td></tr>
 </table>
 
-<h3>éˆï¿½ï¿½ï¿½ï¿½å•£ï¿½:</h3>
+<h3>¸ê®Æ·s¼W:</h3>
 
-<%-- ï¿½èˆªç‚ŠéŠµå…¸ï¿½ï¿½ --%>
+<%-- ¿ù»~ªí¦C --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">éš¢ï¿½é½æ ¼è¿¤éšä¹©ï¿½ï¿½èˆªç‚Š:</font>
+	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -68,26 +68,26 @@ AdmVO admVO = (AdmVO) request.getAttribute("admVO");
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="adm.do" name="form1">
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adm/adm.do" name="form1">
 <table>
 
 	<tr>
-		<td>ï¿½âˆªæ¥µæ’£å”¾ï¿½ï¿½:</td>
+		<td>­û¤u±b¸¹:</td>
 		<td><input type="TEXT" name="adm_acco" size="45"
 			 value="<%= (admVO==null)? "anthoney" : admVO.getAdm_acco()%>" /></td>
 	</tr>
 	<tr>
-		<td>ï¿½âˆªæ¥µæ’–ï¿½è£ï¿½:</td>
+		<td>­û¤u±K½X:</td>
 		<td><input type="TEXT" name="adm_pass" size="45"
 			 value="<%= (admVO==null)? "123456" : admVO.getAdm_pass()%>" /></td>
 	</tr>
 	<tr>
-		<td>ï¿½âˆªæ¥µæ†ªï¿½ï¿½ï¿½:</td>
+		<td>­û¤u©m¦W:</td>
 		<td><input type="TEXT" name="adm_name" size="45"
 			 value="<%= (admVO==null)? "anthoney" : admVO.getAdm_name()%>" /></td>
 	</tr>
 	<tr>
-		<td>ï¿½âˆªæ¥µï¿½ï¿½ï¿½ï¿½:</td>
+		<td>­û¤uª¬ºA:</td>
 		<td><input type="TEXT" name="adm_state" size="45"
 			 value="<%= (admVO==null)? "" : admVO.getAdm_state()%>" /></td>
 	</tr>
@@ -95,6 +95,6 @@ AdmVO admVO = (AdmVO) request.getAttribute("admVO");
 <br>
 
 <input type="hidden" name="action" value="insert">
-<input type="submit" value="ï¿½ï¿½ï¿½ç®¸ï¿½å•£ï¿½"></FORM>
+<input type="submit" value="°e¥X·s¼W"></FORM>
 </body>
 </html>

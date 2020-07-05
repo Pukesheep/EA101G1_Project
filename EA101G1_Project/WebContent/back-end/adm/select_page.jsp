@@ -33,14 +33,14 @@
 <body bgcolor='white'>
 
 <table id="a">
-   <tr><td><h2>ï¿½âˆªæ¥µèžâˆ ï¿½ï¿½</h2><h4>( MVC )</h4></td></tr>
+   <tr><td><h2>­û¤uºÞ²z</h2><h4>( MVC )</h4></td></tr>
 </table>
 
-<h3>ï¿½âˆªæ¥µï¿½äº¥å²·:</h3>
+<h3>­û¤u¬d¸ß:</h3>
 
-<%-- ï¿½èˆªç‚ŠéŠµå…¸ï¿½ï¿½ --%>
+<%-- ¿ù»~ªí¦C --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">éš¢ï¿½é½æ ¼è¿¤éšžä¹©ï¿½ï¿½èˆªç‚Š:</font>
+	<font style="color:red">½Ð­×¥¿¥H¤U¿ù»~:</font>
 	<ul>
 	    <c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -51,13 +51,13 @@
 <div class="a">
 <ul>
 
- <li><a href='listAllAdm.jsp'>ï¿½äº¥å²·ï¿½åˆ¸ï¿½å…¸ï¿½âˆªæ¥µ</a>  <br><br></li>
+ <li><a href='listAllAdm.jsp'>¬d¸ß¥þ³¡­û¤u</a>  <br><br></li>
  <li>
     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adm/adm.do" >
-        <b>é ›è©¨ï¿½äº™ï¿½âˆªæ¥µèºåˆ»ï¿½ï¿½: (ex:ad000001):</b>
+        <b>¿é¤J­û¤u½s¸¹: (ex:ad000001):</b>
         <input type="text" name="adm_no">
         <input type="hidden" name="action" value="select_One_Adm">
-        <input type="submit" value="ï¿½ï¿½ï¿½ï¿½">
+        <input type="submit" value="°e¥X">
     </FORM>
   </li>
 
@@ -65,14 +65,14 @@
  
   <li>
      <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adm/adm.do" >
-       <b>ï¿½è±¢ï¿½ï¿½ï¿½âˆªæ¥µèºåˆ»ï¿½ï¿½:</b>
+       <b>¿ï¾Ü­û¤u½s¸¹:</b>
        <select size="1" name="adm_no">
          <c:forEach var="admVO" items="${admSvc.all}" > 
           <option value="${admVO.adm_no}">${admVO.adm_no}
          </c:forEach>  
        </select>
        <input type="hidden" name="action" value="select_One_Adm">
-       <input type="submit" value="ï¿½äº¥å²·">
+       <input type="submit" value="¬d¸ß">
     </FORM>
   </li>
 
@@ -81,7 +81,7 @@
 </ul>	
 
 <ul>
-  <li><a href='addAdm.jsp'>ï¿½å•£ï¿½ï¿½âˆªæ¥µ</a></li>
+  <li><a href='<%=request.getContextPath()%>/back-end/adm/addAdm.jsp'>·s¼W­û¤u</a></li>
 </ul>
 </div>
 

@@ -273,5 +273,10 @@ public class PsacJNDIDAO implements PsacDAO_interface {
 			}
 			return list;
 		}
+		@Override
+		public List<PsacVO> getStateEq0() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	
 }

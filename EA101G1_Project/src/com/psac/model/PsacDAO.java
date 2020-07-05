@@ -30,12 +30,16 @@ public class PsacDAO implements PsacDAO_interface{
 			"INSERT INTO postaccuse (psac_no,mem_id,post_id,adm_no,psac_content,psac_state) VALUES ('p'||LPAD(to_char(postaccuse_seq.NEXTVAL),6,'0'), ?, ?, ?, ?, ?)";
 		private static final String GET_ALL_STMT = 
 			"SELECT psac_no,mem_id,post_id,adm_no,psac_content,psac_state FROM postaccuse order by psac_no";
+		private static final String GET_StateEq0_STMT = 
+				"SELECT psac_no,mem_id,post_id,adm_no,psac_content,psac_state FROM postaccuse where psac_state=0 ";
 		private static final String GET_ONE_STMT = 
 			"SELECT psac_no,mem_id,post_id,adm_no,psac_content,psac_state FROM postaccuse where psac_no = ?";
 		private static final String DELETE = 
 			"DELETE FROM postaccuse where psac_no = ?";
 		private static final String UPDATE = 
 			"UPDATE postaccuse set mem_id=?, post_id=?, adm_no=?, psac_content=?, psac_state=? where psac_no = ?";
+		
+		
 		@Override
 		public void insert(PsacVO psacVO) {
 			
@@ -227,6 +231,64 @@ public class PsacDAO implements PsacDAO_interface{
 
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_ALL_STMT);
+				list = new ArrayList<PsacVO>();
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					
+					psacVO = new PsacVO();
+					psacVO.setPsac_no(rs.getString("psac_no"));
+					psacVO.setMem_id(rs.getString("mem_id"));
+					psacVO.setPost_id(rs.getString("post_id"));
+					psacVO.setAdm_no(rs.getString("adm_no"));
+					psacVO.setPsac_content(rs.getString("psac_content"));
+					psacVO.setPsac_state(rs.getInt("psac_state"));
+					list.add(psacVO); 
+				}
+
+				
+			} catch (SQLException se) {
+				throw new RuntimeException(
+				se.getMessage());
+				
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return list;
+		}
+		@Override
+		public List<PsacVO> getStateEq0() {
+			List<PsacVO> list = null;
+			PsacVO psacVO = null;
+
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_StateEq0_STMT);
 				list = new ArrayList<PsacVO>();
 				rs = pstmt.executeQuery();
 

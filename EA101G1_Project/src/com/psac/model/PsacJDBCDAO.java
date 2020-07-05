@@ -25,6 +25,8 @@ public class PsacJDBCDAO implements PsacDAO_interface {
 		"DELETE FROM postaccuse where psac_no = ?";
 	private static final String UPDATE = 
 		"UPDATE postaccuse set mem_id=?, post_id=?, adm_no=?, psac_content=?, psac_state=? where psac_no = ?";
+	private static final String GET_StateEq0_STMT = 
+			"SELECT psac_no,mem_id,post_id,adm_no,psac_content,psac_state FROM postaccuse where psac_state=0 ";
 	@Override
 	public void insert(PsacVO psacVO) {
 		
@@ -290,29 +292,29 @@ public class PsacJDBCDAO implements PsacDAO_interface {
 
 		PsacJDBCDAO dao = new PsacJDBCDAO();
 
-		// 新增
+		// �憓�
 //		PsacVO psacVO1 = new PsacVO();
 //		psacVO1.setMem_id("M000001");
 //		psacVO1.setPost_id("POST000001");
 //		psacVO1.setAdm_no("ad000006");
-//		psacVO1.setPsac_content("圖文不符");
+//		psacVO1.setPsac_content("����泵");
 //		psacVO1.setPsac_state(1);
 //		dao.insert(psacVO1);
 //
-//		// 修改
+//		// 靽格
 		PsacVO psacVO2 = new PsacVO();
 		psacVO2.setPsac_no("p000006");
 		psacVO2.setMem_id("M000002");
 		psacVO2.setPost_id("POST000001");
 		psacVO2.setAdm_no("ad000001");
-		psacVO2.setPsac_content("色情暴力");
+		psacVO2.setPsac_content("������");
 		psacVO2.setPsac_state(0);
 		dao.update(psacVO2);
 
-		// 刪除
+		// ��
 //		dao.delete("p000007");
 
-		// 查詢
+		// �閰�
 //		PsacVO psacVO3 = dao.findByPrimaryKey("p000001");
 //		System.out.print(psacVO3.getPsac_no() + ",");
 //		System.out.print(psacVO3.getMem_id() + ",");
@@ -321,7 +323,7 @@ public class PsacJDBCDAO implements PsacDAO_interface {
 //		System.out.print(psacVO3.getPsac_content() + ",");
 //		System.out.print(psacVO3.getPsac_state() + ",");
 //
-//		// 查詢
+//		// �閰�
 //		List<PsacVO> list = dao.getAll();
 //		for (PsacVO pPsac : list) {
 //			System.out.print(pPsac.getPsac_no() + ",");
@@ -332,6 +334,65 @@ public class PsacJDBCDAO implements PsacDAO_interface {
 //			System.out.print(pPsac.getPsac_state() + ",");
 //			System.out.println();
 //		}
+	}
+	@Override
+	public List<PsacVO> getStateEq0() {
+		List<PsacVO> list = null;
+		PsacVO psacVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+//			con = ds.getConnection();
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_StateEq0_STMT);
+			list = new ArrayList<PsacVO>();
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				
+				psacVO = new PsacVO();
+				psacVO.setPsac_no(rs.getString("psac_no"));
+				psacVO.setMem_id(rs.getString("mem_id"));
+				psacVO.setPost_id(rs.getString("post_id"));
+				psacVO.setAdm_no(rs.getString("adm_no"));
+				psacVO.setPsac_content(rs.getString("psac_content"));
+				psacVO.setPsac_state(rs.getInt("psac_state"));
+				list.add(psacVO); 
+			}
+
+			
+		} catch (SQLException se) {
+			throw new RuntimeException(
+			se.getMessage());
+			
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 	
 }

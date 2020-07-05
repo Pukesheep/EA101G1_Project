@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>Ф√┤Г╚═Ф╙╒Х┬┴Ф║┬Д©╝Ф■╧ - update_psac_input.jsp</title>
+<title>╓ЕЁ╧юка|╝в╜в╖О - update_psac_input.jsp</title>
 
 <style>
   table#table-1 {
@@ -55,16 +55,16 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>Ф√┤Г╚═Ф╙╒Х┬┴Ф║┬Д©╝Ф■╧ - update_psac_input.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/back-end/psac/select_page.jsp">Е⌡·И╕√И═│</a></h4>
+		 <h3>╓ЕЁ╧юка|╝в╜в╖О - update_psac_input.jsp</h3>
+		 <h4><a href="<%=request.getContextPath()%>/back-end/psac/select_page.jsp">╕^╜╨╜╤</a></h4>
 	</td></tr>
 </table>
 
-<h3>ХЁ┤Ф√≥Д©╝Ф■╧:</h3>
+<h3>╦Й╝ф╜в╖О:</h3>
 
-<%-- И▄╞Х╙╓Х║╗Е┬≈ --%>
+<%-- ©Ы╩~╙М╕C --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">Х╚▀Д©╝Ф╜ёД╩╔Д╦▀И▄╞Х╙╓:</font>
+	<font style="color:red">╫п╜в╔©╔H╓U©Ы╩~:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -75,27 +75,27 @@
 <FORM METHOD="post" ACTION="psac.do" name="form1">
 <table>
 	<tr>
-		<td>Ф╙╒Х┬┴Ф║┬Г╥╗Х≥÷:<font color=red><b>*</b></font></td>
+		<td>юка|╝в╫s╦╧:<font color=red><b>*</b></font></td>
 		<td><%=psacVO.getPsac_no()%></td>
 	</tr>
 	<tr>
-		<td>Ф╙╒Х┬┴Х─┘Г╥╗Х≥÷:</td>
+		<td>юка|╙л╫s╦╧:</td>
 		<td><input type="TEXT" name="mem_id" size="45" value="<%=psacVO.getMem_id()%>" /></td>
 	</tr>
 	<tr>
-		<td>Ф╙╒Х┬┴Ф√┤Г╚═Г╥╗Х≥÷:</td>
+		<td>юка|╓ЕЁ╧╫s╦╧:</td>
 		<td><input type="TEXT" name="post_id" size="45"	value="<%=psacVO.getPost_id()%>" /></td>
 	</tr>
 	<tr>
-		<td>Г╝║Г░├Е⌠║Г╥╗Х≥÷:</td>
+		<td>╨ч╡z╜Ш╫s╦╧:</td>
 		<td><input type="TEXT" name="adm_no" size="45"	value="<%=psacVO.getAdm_no()%>" /></td>
 	</tr>
 	<tr>
-		<td>Ф╙╒Х┬┴Ф║┬Е┘╖Е╝╧:</td>
+		<td>юка|╝в╓╨╝e:</td>
 		<td><input type="TEXT" name="psac_content" size="45"	value="<%=psacVO.getPsac_content()%>" /></td>
 	</tr>
 	<tr>
-		<td>Ф╙╒Х┬┴Ф║┬Г▀─Ф┘▀:</td>
+		<td>юка|╝в╙╛╨A:</td>
 		<td><input type="TEXT" name="psac_state" size="45" value="<%=psacVO.getPsac_state()%>" /></td>
 	</tr>
 
@@ -103,6 +103,6 @@
 <br>
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="psac_no" value="<%=psacVO.getPsac_no()%>">
-<input type="submit" value="И─│Е┤╨Д©╝Ф■╧"></FORM>
+<input type="submit" value="╟e╔X╜в╖О"></FORM>
 </body>
 </html>

@@ -12,13 +12,9 @@
 <head>
 <title>Insert title here</title>
 <style>
-  table#a {
-	width: 100%;
-	background-color: #5588DD;
-	margin-top: 20px;
-	margin-bottom: 20px;
-    border: 5px solid Gray;
-    height: 50px;
+  table#table-1 {
+	background-color: #CCCCFF;
+    border: 2px solid black;
     text-align: center;
   }
   table#table-1 h4 {
@@ -50,16 +46,16 @@
 </head>
 <body bgcolor='white'>
 
-<table id="a">
+<table id="table-1">
 	<tr><td>
-		 <h3>æ‰€æœ‰åŠŸèƒ½æ€§è³ª - listAllFeat.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/back-end/feat/select_page.jsp">å›é¦–é </a></h4>
+		 <h3>©Ò¦³¥\¯à©Ê½è - listAllFeat.jsp</h3>
+		 <h4><a href="<%=request.getContextPath()%>/back-end/feat/select_page.jsp">¦^­º­¶</a></h4>
 	</td></tr>
 </table>
 
-<%-- éŒ¯èª¤è¡¨åˆ— --%>
+<%-- ¿ù»~ªí¦C --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
+	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -69,26 +65,25 @@
 
 <table>
 	<tr>
-		<th>åŠŸèƒ½ç·¨è™Ÿ</th>
-		<th>åŠŸèƒ½æ€§è³ª</th>
-		<th>ä¿®æ”¹</th>
-		<th>åˆªé™¤</th>
+		<th>¥\¯à½s¸¹</th>
+		<th>¥\¯à©Ê½è</th>
+		<th>­×§ï</th>
+		<th>§R°£</th>
 	</tr>
 	
-	<c:forEach var="fVO" items="${list}" begin="" end="">
-		
+	<c:forEach var="fVO" items="${list}">
 		<tr>
 			<td>${fVO.f_no}</td>
 			<td>${fVO.f_type}</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/feat/feat.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="ä¿®æ”¹">
+			     <input type="submit" value="­×§ï">
 			     <input type="hidden" name="f_no"  value="${fVO.f_no}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/feat/feat.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="åˆªé™¤">
+			     <input type="submit" value="§R°£">
 			     <input type="hidden" name="f_no"  value="${fVO.f_no}">
 			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>

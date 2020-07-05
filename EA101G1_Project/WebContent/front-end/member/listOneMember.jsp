@@ -151,6 +151,9 @@
 		<div class="text-center">
 		<label for="upload">
 			<img alt="" src="<%=request.getContextPath()%>/member/ShowMemberPic.do?mem_id=${memberVO.mem_id}" class="profile rounded-circle showprofile" id="display">
+			<c:if test="${requestScope.memberVO.mem_id ne sessionScope.memberVO.mem_id}">
+				<img alt="" src="<%=request.getContextPath()%>/images/chat.png" id="chat_bubble" title="聊天">
+			</c:if>
 		</label>
 		</div>
 		</div>

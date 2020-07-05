@@ -8,13 +8,13 @@
 
 <style>
 
-  table#a {
-	width: 100%;
-	background-color: #5588DD;
-	margin-top: 20px;
-	margin-bottom: 20px;
-    border: 5px solid Gray;
-    height: 50px;
+  table#table-1 {
+	width: 450px;
+	background-color: #CCCCFF;
+	margin-top: 5px;
+	margin-bottom: 10px;
+    border: 3px ridge Gray;
+    height: 80px;
     text-align: center;
   }
 </style>
@@ -22,15 +22,15 @@
 </head>
 <body bgcolor='white'>
 
-<table id="a">
+<table id="table-1">
    <tr><td><h2>Auth Home page</h2><h4>( MVC )</h4></td></tr>
 </table>
 
-<h3>å“¡å·¥æŸ¥è©¢:</h3>
+<h3>­û¤u¬d¸ß:</h3>
 
-<%-- éŒ¯èª¤è¡¨åˆ— --%>
+<%-- ¿ù»~ªí¦C --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
+	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
 	<ul>
 	    <c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -42,26 +42,26 @@
 
  <li><a href='listAllAuth.jsp'>List</a> all Auth.  <br><br></li>
  <li>
-    <FORM METHOD="post" ACTION="auth.do" >
-        <b>è¼¸å…¥å“¡å·¥ç·¨è™Ÿ: (ex:ad000001):</b>
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/auth/auth.do" >
+        <b>¿é¤J­û¤u½s¸¹: (ex:ad000001):</b>
         <input type="text" name="adm_no">
         <input type="hidden" name="action" value="select_One_Auth">
-        <input type="submit" value="é€å‡º">
+        <input type="submit" value="°e¥X">
     </FORM>
   </li>
 
  <jsp:useBean id="authSvc" scope="page" class="com.auth.model.AuthService"/>
  
   <li>
-     <FORM METHOD="post" ACTION="auth.do" >
-       <b>é¸æ“‡å“¡å·¥ç·¨è™Ÿ:</b>
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/auth/auth.do" >
+       <b>¿ï¾Ü­û¤u½s¸¹:</b>
        <select size="1" name="adm_no">
          <c:forEach var="authVO" items="${authSvc.all}" > 
           <option value="${authVO.adm_no}">${authVO.adm_no}
          </c:forEach>  
        </select>
        <input type="hidden" name="action" value="select_One_Auth">
-       <input type="submit" value="æŸ¥è©¢">
+       <input type="submit" value="¬d¸ß">
     </FORM>
   </li>
 

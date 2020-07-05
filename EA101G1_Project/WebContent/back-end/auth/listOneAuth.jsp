@@ -7,16 +7,12 @@
 
 <html>
 <head>
-<title>å“¡å·¥è³‡æ–™ - listOneAuth.jsp</title>
+<title>­û¤u¸ê®Æ - listOneAuth.jsp</title>
 
 <style>
-  table#a {
-	width: 100%;
-	background-color: #5588DD;
-	margin-top: 20px;
-	margin-bottom: 20px;
-    border: 5px solid Gray;
-    height: 50px;
+  table#table-1 {
+	background-color: #CCCCFF;
+    border: 2px solid black;
     text-align: center;
   }
   table#table-1 h4 {
@@ -49,17 +45,17 @@
 </head>
 <body bgcolor='white'>
 
-<table id="a">
+<table id="table-1">
 	<tr><td>
-		 <h3>å“¡å·¥è³‡æ–™ - ListOneAuth.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/back-end/auth/select_page.jsp">å›é¦–é </a></h4>
+		 <h3>­û¤u¸ê®Æ - ListOneAuth.jsp</h3>
+		 <h4><a href="<%=request.getContextPath()%>/back-end/auth/select_page.jsp">¦^­º­¶</a></h4>
 	</td></tr>
 </table>
 
 <table>
 	<tr>
-		<th>å“¡å·¥ç·¨è™Ÿ</th>
-		<th>åŠŸèƒ½ç·¨è™Ÿ</th>
+		<th>­û¤u½s¸¹</th>
+		<th>¥\¯à½s¸¹</th>
 		
 	</tr>
 	<tr>
