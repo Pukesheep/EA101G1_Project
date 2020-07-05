@@ -126,7 +126,7 @@
                     <a href="">戰利品</a>
                 </li>
                 <li class="auct-navbtn">
-                    <a href="listAllAuct.jsp">我的拍賣區</a>
+                    <a href="<%=request.getContextPath()%>/front-end/auct/2_listAllAuct.jsp">我的拍賣區</a>
                 </li>
             </ul>
             <h6 class="h6"> <a class="a-index" href="All_index.jsp">首頁</a> > 競標區</h6>
@@ -163,7 +163,7 @@
                                     	<li>市價 : ${auctVO.marketPrice}元</li>
                                         <li>
                                             <a href="bid_product.jsp">
-                                            	<img src="<%=request.getContextPath()%>/front-end/auct/pic.do?auct_id=${auctVO.auct_id}" height="200px">
+                                            	<img src="<%=request.getContextPath()%>/auct/pic.do?auct_id=${auctVO.auct_id}" height="200px">
                                             </a>
                                         </li>
                                         

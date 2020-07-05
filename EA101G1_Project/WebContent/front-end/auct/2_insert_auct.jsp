@@ -55,7 +55,7 @@
 	<table id="table-1">
 		<tr><td>
 			 <h3>我的拍賣區 --- 商品管理</h3></td><td>
-			 <a href="Auct_index.jsp" class="back-btn"><button type="submit" class="back-btn mb-4">新增商品</button></a>
+			 <a href="<%=request.getContextPath()%>/front-end/auct/Auct_index.jsp" class="back-btn"><button type="submit" class="back-btn mb-4">新增商品</button></a>
 		     <a href="Auct_index.jsp" class="back-btn"><button type="submit" class="back-btn mb-4">回競標專區</button></a>
 		</td></tr>
 	</table>
@@ -72,7 +72,7 @@
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="auct.do" name="form1" enctype = "multipart/form-data">
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/auct/auct.do" name="form1" enctype = "multipart/form-data">
 		<table>
 					
 			<tr>
@@ -144,9 +144,9 @@
 	<!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 	
 	<!-- 參考網站: https://xdsoft.net/jqplugins/datetimepicker/ -->
-	<link   rel="stylesheet" type="text/css" href="datetimepicker/jquery.datetimepicker.css" />
-	<script src="datetimepicker/jquery.js"></script>
-	<script src="datetimepicker/jquery.datetimepicker.full.js"></script>
+	<link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/files/datetimepicker/jquery.datetimepicker.css" />
+	<script src="<%=request.getContextPath()%>/files/datetimepicker/jquery.js"></script>
+	<script src="<%=request.getContextPath()%>/files/datetimepicker/jquery.datetimepicker.full.js"></script>
 	
 	<style>
 	  .xdsoft_datetimepicker .xdsoft_datepicker {

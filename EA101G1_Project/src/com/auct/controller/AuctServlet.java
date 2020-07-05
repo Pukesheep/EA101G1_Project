@@ -325,7 +325,7 @@ String auct_id = req.getParameter("auct_id");
 					 initPrice, auct_inc, auct_desc,auct_pic, auct_sold, auct_down, pay_end);
 			
 			req.setAttribute("auctVO", auctVO);
-			String url = "/front-end/auct/listAllAuct.jsp";
+			String url = "/front-end/auct/2_listAllAuct.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 			
@@ -357,7 +357,7 @@ String auct_id = req.getParameter("auct_id");
 				/***************************3.修改完成,準備轉交(Send the Success view)***********/	
 				req.setAttribute("auctVO", auctVO);
 				
-				String url = "/front-end/auct/listAllAuct.jsp";
+				String url = "/front-end/auct/2_listAllAuct.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 下架成功後,轉交回送出下架的來源網頁
 				successView.forward(req, res);
 				
@@ -365,7 +365,7 @@ String auct_id = req.getParameter("auct_id");
 			} catch (Exception e) {
 				errorMsgs.add("修改狀態失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/auct/listAllAuct.jsp");
+						.getRequestDispatcher("/front-end/auct/2_listAllAuct.jsp");
 				failureView.forward(req, res);
 			}
 			
@@ -393,7 +393,7 @@ String auct_id = req.getParameter("auct_id");
 				/***************************3.修改完成,準備轉交(Send the Success view)***********/	
 				req.setAttribute("auctVO", auctVO);
 				
-				String url = "/front-end/auct/listAllAuct.jsp";
+				String url = "/front-end/auct/2_listAllAuct.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 上架成功後,轉交回送出上架的來源網頁
 				successView.forward(req, res);
 				
@@ -401,7 +401,7 @@ String auct_id = req.getParameter("auct_id");
 			} catch (Exception e) {
 				errorMsgs.add("修改狀態失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/auct/listAllAuct.jsp");
+						.getRequestDispatcher("/front-end/auct/2_listAllAuct.jsp");
 				failureView.forward(req, res);
 			}
 			

@@ -50,11 +50,11 @@
 	</c:if>
 
 <ul>
- 	  <li><a href='listAllAuct.jsp'>List</a> all Aucts.  <br><br></li>
+ 	  <li><a href='<%=request.getContextPath()%>/front-end/auct/2_listAllAuct.jsp'>List</a> all Aucts.  <br><br></li>
   
   
 	  <li>
-	    <FORM METHOD="post" ACTION="auct.do" >
+	    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/auct/auct.do" >
 	        <b>輸入商品編號 (AUCT000008):</b>
 	        <input type="text" name="auct_id">
 	        
@@ -66,7 +66,7 @@
   	<jsp:useBean id="auctSvc" scope="page" class="com.auct.model.AuctService" />
    
 	  <li>
-	     <FORM METHOD="post" ACTION="auct.do" >
+	     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/auct/auct.do" >
 	       <b>選擇商品編號:</b>
 	       <select size="1" name="auct_id">
 	         <c:forEach var="auctVO" items="${auctSvc.all}" > 
@@ -81,7 +81,7 @@
 	  </li>
   
 	  <li>
-	     <FORM METHOD="post" ACTION="auct.do" >
+	     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/auct/auct.do" >
 	       <b>選擇商品名稱:</b>
 	       <select size="1" name="auct_id">
 	         <c:forEach var="auctVO" items="${auctSvc.all}" > 
@@ -97,7 +97,7 @@
 	<h3>商品管理</h3>
 	
 	<ul>
-	  <li><a href='insert_auct.jsp'>Add</a> 新增一個競標商品.</li>
+	  <li><a href='<%=request.getContextPath()%>/front-end/auct/2_insert_auct.jsp'>Add</a> 新增一個競標商品.</li>
 	</ul>
 
 

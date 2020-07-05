@@ -57,7 +57,7 @@
 	<table id="table-1">
 		<tr><td>
 			 <h3>所有競標商品資料 - listAllAuct.jsp</h3>
-			 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+			 <h4><a href="<%=request.getContextPath()%>/front-end/auct/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 		</td></tr>
 	</table>
 	
@@ -90,7 +90,7 @@
 		
 		
 	</tr>
-	<%@ include file="page1.file" %> 
+	<%@ include file="../../files/page1.file" %> 
 	<c:forEach var="auctVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
@@ -116,7 +116,7 @@
 			<td>${auctVO.auct_inc}</td>
 			
 			<td>
-				<img src="<%=request.getContextPath()%>/front-end/auct/pic.do?auct_id=${auctVO.auct_id}" width="100px">
+				<img src="<%=request.getContextPath()%>/auct/pic.do?auct_id=${auctVO.auct_id}" width="100px">
 			</td>
 			
 			<td>${auctVO.auct_desc}</td>
@@ -138,19 +138,19 @@
 			</td>
 			
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/auct/auct.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/auct/auct.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="auct_id"  value="${auctVO.auct_id}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/auct/auct.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/auct/auct.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="下架">
 			     <input type="hidden" name="auct_id"  value="${auctVO.auct_id}">
 			     <input type="hidden" name="action" value="update_down"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/auct/auct.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/auct/auct.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="上架">
 			     <input type="hidden" name="auct_id"  value="${auctVO.auct_id}">
 			     <input type="hidden" name="action" value="update_up"></FORM>
@@ -158,7 +158,7 @@
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %>
+<%@ include file="../../files/page2.file" %>
 
 
 

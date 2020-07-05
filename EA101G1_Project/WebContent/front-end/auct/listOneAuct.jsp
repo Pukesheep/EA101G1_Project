@@ -55,7 +55,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>競標商品資訊 - ListOneAuct.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h4><a href="<%=request.getContextPath()%>/front-end/auct/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -98,7 +98,7 @@
 			<td>${auctVO.auct_inc}</td>
 			
 			<td>
-				<img src="<%=request.getContextPath()%>/front-end/auct/pic.do?auct_id=${auctVO.auct_id}" style="width:100px;">
+				<img src="<%=request.getContextPath()%>/auct/pic.do?auct_id=${auctVO.auct_id}" style="width:100px;">
 			</td>
 			
 			<td>${auctVO.auct_desc}</td>
