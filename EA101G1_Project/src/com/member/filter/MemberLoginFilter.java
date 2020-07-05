@@ -16,7 +16,7 @@ import com.member.model.*;
 import com.adm.model.*;
 
 //@WebFilter("/LoginFilter")
-public class LoginFilter implements Filter {
+public class MemberLoginFilter implements Filter {
 	
 	private FilterConfig config;
 	
