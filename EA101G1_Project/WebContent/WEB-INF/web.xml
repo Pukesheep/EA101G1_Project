@@ -280,6 +280,63 @@
 	</servlet-mapping>
 
 <!-- 員工 + 檢舉 -->
+
+<!-- 團購 -->
+
+	<servlet>
+		<servlet-name>GroupBuyServlet</servlet-name>
+		<servlet-class>com.groupBuy.controller.GroupBuyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GroupBuyServlet</servlet-name>
+		<url-pattern>/groupBuy/groupbuy.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>RebateServlet</servlet-name>
+		<servlet-class>com.rebate.controller.RebateServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RebateServlet</servlet-name>
+		<url-pattern>/rebate/rebate.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Gro_memServlet</servlet-name>
+		<servlet-class>com.gro_mem.controller.Gro_memServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Gro_memServlet</servlet-name>
+		<url-pattern>/gro_mem/gro_mem.do</url-pattern>
+	</servlet-mapping>
+       
+     <servlet>
+		<servlet-name>Favourite_groServlet</servlet-name>
+		<servlet-class>com.favourite_gro.controller.Favourite_groServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Favourite_groServlet</servlet-name>
+		<url-pattern>/favourite_gro/favourite_gro.do</url-pattern>
+	</servlet-mapping>
+	
+     <servlet>
+		<servlet-name>Gro_orderServlet</servlet-name>
+		<servlet-class>com.gro_order.controller.Gro_orderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Gro_orderServlet</servlet-name>
+		<url-pattern>/back-end/gro_order/Gro_order.do</url-pattern>
+	</servlet-mapping>
+
+<!-- 團購 -->
+
+<!-- 團購監聽器 -->
+
+	<listener>
+		<listener-class>com.timerUtil.ListenerUtil</listener-class>
+	</listener>
+
+<!-- 團購監聽器 -->
 	
 <!-- 會員登入 + 會員登入濾器 -->
 
@@ -324,6 +381,6 @@
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
 
-<!-- 員工登入濾器 -->	
+<!-- 員工登入濾器 -->
 	
 </web-app>
