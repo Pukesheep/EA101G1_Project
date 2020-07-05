@@ -330,6 +330,37 @@
 
 <!-- 團購 -->
 
+<!-- 訊息 + Q&A -->
+
+	<servlet>
+		<servlet-name>CustomerMessageServlet</servlet-name>
+		<servlet-class>com.CustomerMessage.controller.CustomerMessageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CustomerMessageServlet</servlet-name>
+		<url-pattern>/CustomerMessage/CustomerMessage.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>hello</servlet-name>
+		<servlet-class>com.CustomerMessage.controller.picture</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>hello</servlet-name>
+		<url-pattern>/CustomerMessage/pic.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>QuestionServlet</servlet-name>
+		<servlet-class>com.question.controller.QuestionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QuestionServlet</servlet-name>
+		<url-pattern>/Question/Question.do</url-pattern>
+	</servlet-mapping>
+
+<!-- 訊息 + Q&A -->
+
 <!-- 團購監聽器 -->
 
 	<listener>
