@@ -544,7 +544,7 @@ public class MemberServlet extends HttpServlet {
 				
 				byte[] mem_icon = getPartByteArray(req);
 				if (mem_icon.length == 0) {
-					// 上船的圖片大小為 0 , 則取出資料庫該筆資料的圖片取代成要修改的圖片
+					// 上傳的圖片大小為 0 , 則取出資料庫該筆資料的圖片取代成要修改的圖片
 					MemberService msv = new MemberService();
 					MemberVO memberVODB = msv.getOneMember(mem_id);
 					byte[] mem_iconDB = memberVODB.getMem_icon();
