@@ -35,7 +35,7 @@ public class LoginFilter implements Filter {
 			Object account = session.getAttribute("adm_acco");
 			if (account == null) {
 				session.setAttribute("location", req.getRequestURI());
-				res.sendRedirect(req.getContextPath() + "/back-end//login.jsp");
+				res.sendRedirect(req.getContextPath() + "/back-end/login.jsp");
 				return;
 			} else {
 				chain.doFilter(request, response);

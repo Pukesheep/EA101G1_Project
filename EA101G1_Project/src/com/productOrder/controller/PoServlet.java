@@ -33,7 +33,7 @@ public class PoServlet extends HttpServlet {
 		
 		HttpSession session = req.getSession();
 		
-		String end = "/front-end/shopCart/End.jsp";
+		String end = "/front-end/protected/shopCart/End.jsp";
 		
 		if("insert".equals(action)) {
 			try {
@@ -44,7 +44,7 @@ public class PoServlet extends HttpServlet {
 				
 				System.out.println("訂單已成立");
 				
-				String url = "End.jsp";
+				String url = "/front-end/protected/shoppingCart/End.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(end);
 				successView.forward(req, res);
 			}catch (Exception e) {

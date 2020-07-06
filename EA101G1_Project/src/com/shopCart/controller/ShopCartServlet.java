@@ -83,7 +83,7 @@ public class ShopCartServlet extends HttpServlet {
 
 			String amount = String.valueOf(total);
 			session.setAttribute("amount", amount);
-			String url = "/front-end/shopCart/Checkout.jsp";
+			String url = "/front-end/protected/shopCart/Checkout.jsp";
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
 		}
