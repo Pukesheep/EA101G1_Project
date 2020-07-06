@@ -1096,7 +1096,7 @@ public class MemberServlet extends HttpServlet {
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "";
-				String to = "aa00245@gmail.com";
+				String to = mem_email;
 				String subject = "密碼通知";
 				String messageText = "親愛的 " + mem_name + " 您好： \n\n	您已經註冊成為了 S.F.G 的會員， \n\n請使用這組密碼登入本網站： " + mem_pass + ", 共8碼";
 				
