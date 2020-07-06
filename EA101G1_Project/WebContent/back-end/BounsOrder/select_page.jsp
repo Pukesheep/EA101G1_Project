@@ -1,24 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="java.util.*"%>
-<%@ page import="com.BounsOrder.model.*"%>
-<%-- 此頁練習採用 EL 的寫法取值 --%>
 
-<%
-    BOService bmSvc = new BOService();
-    List<BOVO> list = bmSvc.getAll();
-    pageContext.setAttribute("list",list);
-%>
-<jsp:useBean id="deptSvc" scope="page" class="com.BounsMall.model.BMService" />
+<jsp:useBean id="boSvc" scope="page" class="com.BounsOrder.model.BOService" />
+<jsp:useBean id="bmSvc" scope="page" class="com.BounsMall.model.BMService" />
+<jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
 
 <html>
 <head>
-<title>所有訂單資料</title>
+<title>紅利訂單查詢</title>
 
 <style>
   table#table-1 {
+	width: 450px;
 	background-color: #CCCCFF;
-    border: 2px solid black;
+	margin-top: 5px;
+	margin-bottom: 10px;
+    border: 3px ridge Gray;
+    height: 80px;
     text-align: center;
   }
   table#table-1 h4 {
@@ -32,32 +30,18 @@
   }
 </style>
 
-<style>
-  table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-</style>
-
 </head>
 <body bgcolor='white'>
 
 	<table id="table-1">
-		<tr><td>
-			<h3>所有訂單資料</h3>
-<!-- 			<h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4> -->
-		</td></tr>
+		<tr>
+			<td>
+				<h3>紅利訂單查詢 - /back-end/BounsOrder/select_page.jsp</h3>
+			</td>
+		</tr>
 	</table>
 	
+<!-- 	錯誤列表 -->
 	<c:if test="${not empty errorMsgs}">
 		<font style="color:red">請修正以下錯誤：</font>
 		<ul>
@@ -68,32 +52,53 @@
 	</c:if>
 	
 	<table>
-		<tr>
-			<td>訂單編號</td>
-			<td>會員編號</td>
-			<td>紅利商品編號</td>
-			<td>下定日期</td>
-			<td>訂單狀態編號</td>
-			<th colspan="2">欲執行之動作</th>
-		</tr>
-		<%@ include file="../../files/page1.file" %>
-		<c:forEach var="bmVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-			<tr>
-				<td>${bmVO.ord_id}</td>
-				<td>${bmVO.mem_id}</td>
-				<td>${bmVO.bon_id}</td>
-				<td>${bmVO.ord_Date}</td>
-				<td>${bmVO.bs_id}</td>
-				<td>
-					<form method="post" action="<%=request.getContextPath()%>/">
-					</form>
-				</td>
-				<td>
-					
-				</td>
-			</tr>
-		</c:forEach>
+		<ul>
+			<li><a href="<%=request.getContextPath()%>/back-end/BounsOrder/ListAll.jsp">List</a> all BounsOrder.</li>
+			
+			<li>
+				<form method="post" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do">
+					<b>選擇訂單編號：</b>
+					<select size="1" name="ord_id">
+						<c:forEach var="boVO" items="${boSvc.all}">
+							<option value="${boVO.ord_id}">${boVO.ord_id}
+						</c:forEach>
+					</select>
+					<input type="hidden" name="action" value="getOneForDisplay">
+					<input type="submit" value="送出" >
+				</form>
+			</li>
+			
+			<li>
+				<form method="post" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do">
+					<b>選擇商品名稱：</b>
+					<select size="1" name="bon_id">
+						<c:forEach var="bmVO" items="${bmSvc.all}">
+							<option value="${bmVO.bon_id}">${bmVO.bon_name}
+						</c:forEach>
+					</select>
+					<input type="hidden" name="action" value="getAllByName">
+					<input type="submit" value="送出" >
+				</form>
+			</li>
+			
+			<li>
+				<form method="post" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do">
+					<b>選擇會員名稱：</b>
+					<select size="1" name="mem_id">
+						<c:forEach var="memVO" items="${memSvc.all}">
+							<option value="${memVO.mem_id}">${memVO.mem_name}
+						</c:forEach>
+					</select>
+					<input type="hidden" name="action" value="getAllByMember">
+					<input type="submit" value="送出" >
+				</form>
+			</li>
+		</ul>
+		
+		<form method="post" action="<%=request.getContextPath()%>/back-end/BounsOrder/addBO.jsp">
+			<input type="hidden" name="action" value="insert">
+			<input type="submit" value="新增訂單" >
+		</form>
 	</table>
-
 </body>
 </html>
