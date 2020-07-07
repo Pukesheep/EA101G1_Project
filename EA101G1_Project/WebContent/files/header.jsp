@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,10 +57,10 @@
                 </li>
           	</c:if>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">我的最愛</a>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/favouriteProduct/listAllFavouriteProduct.jsp">我的最愛</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">購物車</a>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/shopCart/shopCart.jsp">購物車<c:if test="${not empty shoppingcart}">(${shoppingcart.size()})</c:if></a>
                 </li>
 
             </ul>
