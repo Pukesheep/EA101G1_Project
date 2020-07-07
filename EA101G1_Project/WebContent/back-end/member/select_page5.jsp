@@ -1,5 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.member.model.*" %>
 
+<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
 
 <!doctype html>
 <html lang="en">
@@ -28,10 +31,15 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
 
-    <title>Swap Flea Game 後台管理</title>
+    <title>會員查詢</title>
 	<!-- back-end.css -->
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/back-end.css">
 	
+	<!-- SweetAlert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	
+	<!-- member.css -->
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/member.css">	
 	
 	
 </head>
@@ -114,7 +122,7 @@
                                     <a class="nav-link active pl-4" href="#">會員權限管理</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link pl-4" href="#">會員資料管理</a>
+                                    <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/member/select_page.jsp">會員資料管理</a>
                                 </li>
                             </ul>
                         </li>
@@ -214,48 +222,140 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-10 col-xl-10 px-0"><div class="mask"></div></div>
+            <div class="col-lg-10 col-xl-10 px-0">
+            	<div class="mask">
+            		
+            		
+            		         <%-- 內容 --%>
+
+
+<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs }">
+<%
+	java.util.List<String> errorMsgs = (java.util.List<String>) request.getAttribute("errorMsgs");
+	String message = "";
+	for (String msg : errorMsgs) {
+		message += msg;
+		message += "\\n";
+	}
+%>
+<script>
+	Swal.fire({
+		  icon: 'error',
+		  title: '<%=message%>'
+		});
+
+</script>
+
+
+</c:if>
+<%-- 錯誤表列 --%>
+
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-8">
+			<div class="card text-white back-end-form">
+				<div class="card-body">
+					<h2 class="card-title">會員查詢</h2>
+					<form action="<%=request.getContextPath()%>/member/member.do" method="post">
+						<div class="input-group mb-3">
+							<input type="text" class="form-control" name="mem_id" id="inlineFormInputGroup" placeholder="請輸入會員編號 ex: M000001">
+							<div class="input-group-append">
+								<input type="hidden" name="action" value="getOne_For_Display-back">
+								<button class="btn btn-outline-warning" type="submit">單筆查詢</button>
+							</div>
+						</div>
+					</form>
+
+					<form action="<%=request.getContextPath()%>/member/member.do" method="post">
+						<div class="input-group mb-3">
+							<select class="custom-select" id="mem_idQuery" name="mem_id">
+								<c:forEach var="memberVO" items="${memberSvc.all}">
+									<option value="${memberVO.mem_id}">${memberVO.mem_id}</option>
+								</c:forEach>
+							</select>
+							<div class="input-group-append">
+								<input type="hidden" name="action" value="getOne_For_Display-back">
+								<button class="btn btn-outline-warning" type="submit">單筆查詢</button>
+							</div>
+						</div>
+					</form>				
+				<br>
+				
+					<form action="<%=request.getContextPath()%>/member/member.do" method="post">
+					
+						<div class="form-group">
+							<input type="text" class="form-control" id="mem_id" name="mem_id" placeholder="請輸入會員編號 ex: M000001" autocomplete="off">
+						</div>
+						
+						<div class="form-group">
+							<input type="text" class="form-control" id="mem_name" name="mem_name" placeholder="請輸入會員名稱 ex: 早餐店大冰奶" autocomplete="off">
+						</div>
+						
+						<div class="form-group">
+							<input type="text" class="form-control" id="mem_email" name="mem_email" placeholder="請輸入會員信箱 ex: servereDiarrhea@gmail.com" autocomplete="off">
+							<label for="mem_autho">會員權限</label>
+							<div class="input-group mb-3">
+								<select class="custom-select" id="mem_autho" name="mem_autho">
+									<option></option>
+									<option value="0">停權會員</option>
+									<option value="1">一般會員</option>
+									<option value="2">賣家資格會員</option>
+									<option value="99">平台管理員</option>
+								</select>
+							</div>	
+						</div>
+						<input type="hidden" name="action" value="listMembers_ByCompositeQuery">
+						<button type="submit" class="btn btn-outline-warning float-right">複合查詢</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>   
+    
+    <%-- 內容 --%>   
+        
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            	</div>
+            </div>
         </div>
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     </div>
     
-    <%-- 內容 --%>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <%-- 內容 --%>
+
 </body>
 
-</html>
+</html></html>
