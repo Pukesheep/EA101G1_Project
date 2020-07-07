@@ -44,6 +44,7 @@
 			polvo.setOrder_qua(quantity);
 			polvo.setP_price(price);
 			
+			
 			list.add(polvo);
 	%>
 	<tr>
@@ -67,6 +68,7 @@
           <form name="checkoutForm" action="<%=request.getContextPath()%>/productOrder/Po.do" method="POST">
               <input type="hidden" name="action" value="insert"> 
               <input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
+              <input type="hidden" name="amount" value=<%= amount%>>
               <input type="submit" value="確認結帳">
           </form>
 <p><a href="<%=request.getContextPath() %>/front-end/product/listAllProduct.jsp">是否繼續購物</a>

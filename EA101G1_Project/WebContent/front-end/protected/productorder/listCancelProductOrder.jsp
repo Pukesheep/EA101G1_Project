@@ -3,19 +3,23 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.productOrder.model.*"%>
+<%@ page import="com.member.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-PoService poSvc = new PoService();
-List<PoVO> list = poSvc.getOrder("003");
-pageContext.setAttribute("list",list);
+    PoService poSvc = new PoService();
+	MemberVO memVO = (MemberVO) session.getAttribute("memberVO");
+	String mem_id = memVO.getMem_id();
+    List<PoVO> listAll = poSvc.getOrder("007");
+    List<PoVO> list = poSvc.getOrderByMemId(mem_id, listAll);
+    pageContext.setAttribute("list",list);
 %>
 <jsp:useBean id="polSvc" scope="page" class="com.productOrderList.model.PolService" />
 <jsp:useBean id="ordSvc" scope="page" class="com.ordstat.model.OrdstatService" />
 <jsp:useBean id="proSvc" scope="page" class="com.product.model.ProService" />
 <html>
 <head>
-<title>未出貨訂單列表</title>
+<title>已取消訂單列表</title>
 
 <style>
   table#table-1 {
@@ -57,24 +61,15 @@ pageContext.setAttribute("list",list);
 </head>
 <body bgcolor='white'>
 
-<h4>此頁練習採用 EL 的寫法取值:</h4>
-<table id="table-1">
-	<tr><td>
-		 <h3>所有商品資料 - listAllProduct.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
-
 
 <table>
-<%@ include file="../../files/page1.file" %> 
-	<c:forEach var="poVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+
+	<c:forEach var="poVO" items="${list}" >
 	<tr>
 		<th>訂單編號</th>
 		<th>日期</th>
 		<th>狀態</th>
 		<th>總金額</th>
-		<th>操作</th>
 	</tr>
 		
 		<tr>
@@ -82,14 +77,6 @@ pageContext.setAttribute("list",list);
 			<td>${poVO.add_date}</td>
 			<td>${ordSvc.listOneOrdstat(poVO.ordstat_id).ordstat}</td>
 			<td>${poVO.amount}</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/productOrder/Po.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="出貨">
-			     <input type="hidden" name="po_id"  value="${poVO.po_id}">
-			     <input type="hidden" name="ordstat_id"  value="006">
-			     <input type="hidden" name="url" value="<%=request.getServletPath()%>?<%=request.getQueryString()%>">
-			     <input type="hidden" name="action"	value="updateOrdStat"></FORM>
-			</td>
 		</tr>
 		<c:forEach var="polVO" items="${polSvc.getPolbyPoId(poVO.po_id)}">
 		<tr>
@@ -98,9 +85,12 @@ pageContext.setAttribute("list",list);
 			<td>${polVO.p_price}</td>
 		</tr>	
 		</c:forEach>
-</c:forEach>
+		
+
+		
+	</c:forEach>
 </table>
-<%@ include file="../../files/page2.file" %> 
+
 
 </body>
 </html>

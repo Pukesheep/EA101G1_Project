@@ -89,6 +89,7 @@ public class PoServlet extends HttpServlet {
 				req.setAttribute("show", show);
 				
 				String url = req.getParameter("url");
+				System.out.println(url);
 				RequestDispatcher failureView = req.getRequestDispatcher(url);
 				failureView.forward(req, res);
 			}catch (Exception e) {
