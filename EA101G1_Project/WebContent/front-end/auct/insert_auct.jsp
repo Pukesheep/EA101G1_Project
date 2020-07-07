@@ -1,18 +1,25 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.auct.model.*"%>
+<%@ page import="com.member.model.*"%>
 
 <%
   AuctVO auctVO = (AuctVO) request.getAttribute("auctVO");
+
+  MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
+  String sale_id = memVO.getMem_id();
+  
+  pageContext.setAttribute("sale_id",sale_id);
 %>
+
+<jsp:useBean id="MemberSvc" scope="page" class="com.member.model.MemberService" />
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BID競標專區</title>
+    <title>新增競標商品</title>
     <!-- TODO: 換title 的icon -->
     <link rel="icon shortcut" href="images/ICON(yellow).ico">
     <!-- Bootstrap官方網站 https://getbootstrap.com/ -->
@@ -28,36 +35,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
 
     <!-- 使用style.css -->
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/Auct_index.css">
-    <link rel="stylesheet" href="../css/insert_auct.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/Auct_index.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/insert_auct.css">
 
-    <!-- 連結Bootstrap所需要的js -->
-    <!-- jquery.min.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- popper.min.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <!-- bootstrap.min.js -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+    <link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />    
+    <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+    
 </head>
 
 <body>
 
-    <!-- 賣家商品管理頁面 -->
-    <section class="banner pt-5 mb-3 text-center">
-        <div>
-            <h2>我的拍賣區 --- 商品管理</h2>
-            <a href="Auct_index.jsp">
-            	<button type="submit" class="back-btn mb-4">新增商品</button>
-            </a>
-            
-            <a href="Auct_index.jsp">
-            <button type="submit" class="back-btn mb-4">回競標專區</button>
-            </a>
+    <!-- 賣家新增競標商品--頁面banner -->
+    <section class="banner pt-3 mb-3 text-center">
+        <div class="row">
+            <div class="LOGO col-md-2 pl-5 mt-2">
+                <div>
+                    <a class="navbar-brand" href="../index.html">
+                        <span class="logo"><i class="fas fa-bomb"></i></span>
+                        <span class="logo2">S.F.G</span>
+                        <span class="logo3">{{{</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-8 mt-3">
+                <h2>新增競標商品</h2>
+                
+            </div>
         </div>
     </section>
 
@@ -73,52 +79,127 @@
 		</ul>
 	</c:if>
 	
-    <!-- 賣家商品管理頁面 end-->
+ <!-- 賣家新增競標商品--頁面 -->
     <section class="section-2 container mb-5">
-        <form>
+        <form METHOD="post" ACTION="auct.do" name="form1" enctype = "multipart/form-data">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputEmail4">賣家ID:</label>
-                    <input type="email" class="form-control mb-2" id="inputEmail4">
+                    <label for="inputEmail4">賣家名稱: ${MemberSvc.getOneMember(sale_id).mem_name}</label>
+                    <br><br>
+         <jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">商品類別:</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <c:forEach var="ptVO" items="${ptSvc.all}">
+						    	<option value="${ptVO.pt_id}" ${(auctVO.pt_id==ptVO.pt_id)?'selected':'' } >${ptVO.typename}
+							</c:forEach>
+                        </select>
+                     </div>
                     
-                    <label for="inputEmail4">商品類別:</label>
-                    <input type="email" class="form-control mb-2" id="inputEmail4">
+                    <label for="auct_name">商品名稱:</label>
+                    <input type="text" class="form-control mb-2" name="auct_name" id="auct_name" value="<%=(auctVO == null)? "商品名稱" : auctVO.getAuct_name()%>" maxlength="39" required>
                     
-                    <label for="inputEmail4">商品名稱:</label>
-                    <input type="email" class="form-control mb-2" id="inputEmail4">
+                    <label for="start_dateTime">競標開始時間:</label>
+                    <input type="text" class="form-control mb-2" name="auct_start" id="start_dateTime" required>
                     
-                    <label for="inputEmail4">競標開始時間:</label>
-                    <input type="email" class="form-control mb-2" id="inputEmail4">
+                    <label for="end_dateTime">競標結束時間:</label>
+                    <input type="text" class="form-control mb-2" name="auct_end" id="end_dateTime" required>
                     
-                    <label for="inputEmail4">市價:</label>
-                    <input type="email" class="form-control mb-2" id="inputEmail4">
+                    <label for="marketPrice">市價:</label>
+                    <input type="text" class="form-control mb-2" name="marketPrice" id="marketPrice" value="<%=(auctVO == null)? "1" :auctVO.getMarketPrice()%>" required>
                     
-                    <label for="inputEmail4">起拍價:</label>
-                    <input type="email" class="form-control mb-2" id="inputEmail4">
+                    <label for="initPrice">起拍價:</label>
+                    <input type="text" class="form-control mb-2" name="initPrice" id="initPrice" value="<%=(auctVO == null)? "1" :auctVO.getInitPrice()%>" required>
                     
-                    <label for="inputEmail4">出價增額:</label>
-                    <input type="email" class="form-control mb-2" id="inputEmail4">
+                    <label for="auct_inc">出價增額:</label>
+                    <input type="text" class="form-control mb-2" name="auct_inc" id="auct_inc" value="<%=(auctVO == null)? "200" :auctVO.getAuct_inc()%>" required>
                 </div>
 
                 <div class="form-group col-md-1"></div>
 
                 <div class="form-group col-md-5">
-                    <label for="inputAuct_desc">商品描述:</label>
-                    <textarea class="inputAuct_desc form-control mb-2" id="inputAuct_desc" rows="4"
-                        cols="10"></textarea>
-                        
-                    <label for="inputAuct_pic">商品圖片:</label>
-                    <input type="password" class="inputAuct_pic form-control mb-2" id="inputAuct_pic">
+                    <label for="auct_desc">商品描述:</label>
+                    <textarea class="inputAuct_desc form-control mb-2" name="auct_desc" id="auct_desc" rows="4" cols="10" required>
+                    <%=(auctVO == null)?"商品描述":auctVO.getAuct_desc()%>
+                    </textarea>
+
+                    <label for="auct_pic">商品圖片: </label>
+                    <div>
+					<img id="previewPic" src="<%=request.getContextPath()%>/front-end/auct/images/NOPIC.jpg" width="250px" height="250px"  style="border-radius: 5px;">
+					<input type="FILE" id="auct_pic" name="auct_pic" value="<%=(auctVO == null) ? "" : auctVO.getAuct_pic()%>" placeholder="請上傳圖片"  class=" mb-5"  required/>
+					</div>
 
                     <br>
-                    <button type="submit" class=" add-btn btn btn-info">新增商品</button>
-                    
+                    <input type="hidden" name="action" value="insert">
+                    <button type="submit" class="add-btn btn btn-info">新增商品</button>
+					
                 </div>
             </div>
         </form>
     </section>
+    <!-- 賣家新增商品頁面 end-->
+    
+    <a href="Auct_index.jsp">
+        <button id="goBackBtn" class="bg-primary">
+            <h6 class="backbtn">BID</h6>
+        </button>
+    </a>
 
-    <section class="blank-3"></section>
+    <!-- <section class="blank-3"></section> -->
+    
+<!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
+<style>
+	  .xdsoft_datetimepicker .xdsoft_datepicker {
+	           width:  300px;   /* width:  300px; */
+	  }
+	  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+	           height: 151px;   /* height:  151px; */
+	  }
+	</style>
+	
+	<script>
+	$.datetimepicker.setLocale('zh'); // kr ko ja en
+	$(function(){
+		 $('#start_dateTime').datetimepicker({
+		  format:'Y-m-d H:i:s',
+		  onShow:function(){
+		   this.setOptions({
+		    maxDate:$('#end_dateTime').val()?$('#end_dateTime').val():false
+		   })
+		  },
+		  timepicker:true,
+		  step: 1
+		 });
+		 
+		 $('#end_dateTime').datetimepicker({
+			  format:'Y-m-d H:i:s',
+			  onShow:function(){
+			   this.setOptions({
+			    minDate:$('#start_dateTime').val()?$('#start_dateTime').val():false
+			   })
+			  },
+			  timepicker:true,
+			  step: 1
+			 });
+		});
+</script>    
+
+<script>
+		//圖片預覽
+		$("#auct_pic").change(function() {
+			readURL(this);
+		});
+
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$("#previewPic").attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+</script>	
+
 </body>
-
 </html>

@@ -4,10 +4,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.auct.model.*"%>
+<%@ page import="com.member.model.*"%>
 
 <%
-    AuctService auctSvc = new AuctService();
-    List<AuctVO> list = auctSvc.getAll();
+	AuctService auctSvc = new AuctService();
+
+	MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
+	String sale_id = memVO.getMem_id();
+
+    List<AuctVO> list = auctSvc.getAllByMem(sale_id);
     pageContext.setAttribute("list",list);
 %>
 <jsp:useBean id="PtSvc" scope="page" class="com.productType.model.PtService" />
@@ -77,15 +82,15 @@
                 <h2>我的拍賣區 --- 競標商品管理</h2>              
             </div>
     <!-- 競標訂單 -->
-            <a href="listAllAuct.jsp">
+            <a href=" ">
                 <button class="add-btn btn btn-outline-warning mx-3" class="bg-primary">
-                    <h6 class="backbtn">商品管理</h6>
+                    <h6 class="backbtn">商品訂單</h6>
                 </button>
             </a>
     <!-- 新增商品 -->
             <a href="insert_auct.jsp">
                 <button class="add-btn btn  btn-outline-light" class="bg-primary">
-                    <h6 class="backbtn">繼續新增</h6>
+                    <h6 class="backbtn">新增商品</h6>
                 </button>
             </a>
         </div>
@@ -100,7 +105,6 @@
                     <th scope="col">商品名稱</th>
                     <th scope="col">商品類別</th>
                     <th scope="col">賣家ID</th>
-                    <th scope="col">賣家名稱</th>
                     <th scope="col">競標開始時間</th>
                     <th scope="col">競標結束時間</th>
                     <th scope="col">市價</th>
@@ -110,18 +114,21 @@
                     <th scope="col">商品描述</th>
                     <th scope="col">售出狀態</th>
                     <th scope="col">上下架狀態</th> 
+                    <th scope="col">修改</th> 
+                    <th scope="col">下架</th>           
                 </tr>
             </thead>
 
             <tbody>
 
 <!-- JSTL for-each -->
+<%@ include file="page1.file" %> 
+	<c:forEach var="auctVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
               <tr>
                 <th>${auctVO.auct_id}</th>
                 <td>${auctVO.auct_name}</td>
                 <td>${PtSvc.getOneProductType(auctVO.pt_id).typename}</td>
                 <td>${auctVO.sale_id}</td>
-                <td>${MemberSvc.getOneMember(auctVO.sale_id).mem_name}</td>
                 <td> <fmt:formatDate value="${auctVO.auct_start}" pattern="yyyy-MM-dd HH:mm:ss" /> </td>
                 <td> <fmt:formatDate value="${auctVO.auct_end}" pattern="yyyy-MM-dd HH:mm:ss" /> </td>
                 <td>${auctVO.marketPrice}</td>
@@ -151,6 +158,69 @@
 					</c:if>
 				</td>
 
+                <td>
+                <jsp:useBean id="auctVO" scope="page" class="com.auct.model.AuctVO" />
+				<%
+				java.util.GregorianCalendar time = new java.util.GregorianCalendar();
+				long now_ms = time.getTimeInMillis();
+				pageContext.setAttribute("now_ms", now_ms);
+				
+					Timestamp startTime = auctVO.getAuct_start();
+					long startTime2 = startTime.getTime();
+					pageContext.setAttribute("startTime2", startTime2);
+					
+					Timestamp endTime = auctVO.getAuct_end();
+					long endTime2 = endTime.getTime();
+					pageContext.setAttribute("endTime2", endTime2);
+													
+				%>
+					 <c:if test="${auctVO.auct_down == 1 && auctVO.auct_sold == 0}">   <!-- 下架 且 未售出 -->
+	                    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/auct/auct.do" style="margin-bottom: 0px;">
+	                        <input class="btn btn-info" type="submit" value="修改">
+	                        <input type="hidden" name="auct_id"  value="${auctVO.auct_id}">
+	                        <input type="hidden" name="action"	value="getOne_For_Update">
+	                    </FORM>
+	                </c:if>
+	              
+	                <c:if test="${auctVO.auct_down == 0 && now_ms < startTime2}">   <!-- 上架 且 開始前 -->
+	                    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/auct/auct.do" style="margin-bottom: 0px;">
+	                        <input class="btn btn-info" type="submit" value="修改">
+	                        <input type="hidden" name="auct_id"  value="${auctVO.auct_id}">
+	                        <input type="hidden" name="action"	value="getOne_For_Update">
+	                    </FORM>
+	                </c:if>
+	              
+	                <c:if test="${auctVO.auct_down == 0 && now_ms >= startTime2}">   <!-- 上架 且 開始後 -->
+	                  	<input class="btn btn-dark" type="submit" value="修改" disable>
+	                </c:if>
+	                
+	                <c:if test="${auctVO.auct_down == 1 && auctVO.auct_sold == 1}">   <!-- 下架 && 售出 -->
+	                  	<input class="btn btn-dark" type="submit" value="修改" disable>
+	                </c:if>
+	                
+<!-- 	              下架 && 售出 沒有 button -->
+                </td>
+                
+                <td>
+<%--                 	--${auctVO.auct_down == 0 && now_ms < startTime2}---${now_ms}--${startTime2} -- --%>
+	                <c:if test="${auctVO.auct_down == 0 && now_ms < startTime2}">	<!-- 上架 且 在拍賣開始前 -->
+	                    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/auct/auct.do" style="margin-bottom: 0px;">
+	                        <input class="btn btn-info" type="submit" value="下架">
+	                        <input type="hidden" name="auct_id"  value="${auctVO.auct_id}">
+	                        <input type="hidden" name="action"	value="update_down">
+	                    </FORM>
+	                </c:if>
+	                
+	                <c:if test="${auctVO.auct_down == 0 && now_ms >= startTime2}">   <!-- 上架 且 拍賣開始 -->
+	                  	<input class="btn btn-dark" type="submit" value="下架" disable>
+	                </c:if>
+	                
+	                <c:if test="${auctVO.auct_down == 1 }">   <!-- 下架  -->
+	                  	<input class="btn btn-dark" type="submit" value="下架" disable>
+	                </c:if>
+<!-- 付款後商品自動下架，所以商品開始拍賣後，就無法手動下架了 -->
+	                
+                </td> 
                 
 
                  <td></td>
@@ -158,7 +228,9 @@
 
 	        </tbody>
 	        
+		</c:forEach>
 	</table>
+<%@ include file="page2.file" %>
 <!-- JSTL for-each   end-->
 
     </div>  

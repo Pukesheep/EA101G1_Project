@@ -39,66 +39,7 @@ public class AuctServlet extends HttpServlet{
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
-	
-		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
-
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			try {
-				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				String auct_id = req.getParameter("auct_id");
-System.out.println("----------"+auct_id);
-				if (auct_id == null || (auct_id.trim()).length() == 0) {
-					errorMsgs.add("請輸入商品編號");
-				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/auct/select_page.jsp");
-					failureView.forward(req, res);
-					return;//程式中斷
-				}
-				
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/auct/select_page.jsp");
-					failureView.forward(req, res);
-					return;//程式中斷
-				}
-				
-				/***************************2.開始查詢資料*****************************************/
-				AuctService auctSvc = new AuctService();
-				AuctVO auctVO = auctSvc.listOneAuct(auct_id);
-System.out.println("--------------"+auctVO);
-				if (auctVO == null) {
-					errorMsgs.add("查無資料");
-				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/auct/select_page.jsp");
-					failureView.forward(req, res);
-					return;//程式中斷
-				}
-				
-				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("auctVO", auctVO); // 資料庫取出的auctVO物件,存入req
-				String url = "/front-end/auct/listOneAuct.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneAuct.jsp
-				successView.forward(req, res);
-
-				/***************************其他可能的錯誤處理*************************************/
-			} catch (Exception e) {
-				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/auct/select_page.jsp");
-				failureView.forward(req, res);
-			}
-		}//select_page.jsp的請求---end
+		
 		
 		if ("getOne_For_Update".equals(action)) { // 來自listAllAuct.jsp的請求
 
@@ -115,24 +56,31 @@ System.out.println("--------------"+auct_id);
 				/***************************2.開始查詢資料****************************************/
 				AuctService auctSvc = new AuctService();
 				AuctVO auctVO = auctSvc.listOneAuct(auct_id);
-								
+				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("auctVO", auctVO);         // 資料庫取出的auctVO物件,存入req
-				String url = "/front-end/auct/update_auct_input.jsp";
+				String url = "/front-end/protected/auct/update_auct_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_auct_input.jsp
 				successView.forward(req, res);
-
+				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/auct/listAllAuct.jsp");
+						.getRequestDispatcher("/front-end/protected/auct/listAllAuct.jsp");
 				failureView.forward(req, res);
 			}
 		}  //listAllAuct.jsp的請求---end
 		
 		if ("update".equals(action)) {   //update_auct_input.jsp的請求
-
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+		try {
+			/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 			String pt_id = req.getParameter("pt_id");
 			System.out.println(pt_id);
 			System.out.println("---------------------");
@@ -141,13 +89,26 @@ System.out.println("--------------"+auct_id);
 			System.out.println(auct_name);
 			System.out.println("---------------------");
 			
+			java.util.GregorianCalendar time = new java.util.GregorianCalendar(); //現在時間
+			long now_ms = time.getTimeInMillis();
+			
 			java.sql.Timestamp auct_start = java.sql.Timestamp.valueOf(req.getParameter("auct_start"));
-			System.out.println(auct_start);
-			System.out.println("---------------------");
+			System.out.println("---------------------"+auct_start);
+			
+			long auct_start_long = auct_start.getTime(); 				//Timestamp 轉 long
+			Timestamp auct_start_OK =null;
+			if(now_ms >= auct_start_long) {
+				errorMsgs.add("拍賣開始時間錯誤");
+			}else{
+			auct_start_OK = new Timestamp(auct_start_long) ;  //long 轉 Timestamp
+			}
 			
 			java.sql.Timestamp auct_end = java.sql.Timestamp.valueOf(req.getParameter("auct_end"));
-			System.out.println(auct_end);
-			System.out.println("---------------------");
+			System.out.println("---------------------"+auct_end);
+			
+			long auct_end_long = auct_end.getTime();			 //Timestamp 轉 long
+			Timestamp auct_end_OK = new Timestamp(auct_end_long) ;  //long 轉 Timestamp
+			
 			
 			Integer marketPrice =new Integer (req.getParameter("marketPrice"));
 			System.out.println(marketPrice);
@@ -180,7 +141,7 @@ String auct_id = req.getParameter("auct_id");
 			InputStream in = null;
 			
 			try {
-				// 房型圖片
+				// 圖片
 				Part part = req.getPart("auct_pic");
 				in = part.getInputStream();
 				System.out.println(in.available());
@@ -209,34 +170,42 @@ String auct_id = req.getParameter("auct_id");
 			AuctVO auctVO = new AuctVO();
 			auctVO.setPt_id(pt_id);      //商品分類編號
 			auctVO.setAuct_name(auct_name);   //商品名稱
-			auctVO.setAuct_start(auct_start); //拍賣上架時間（開始時間）		
-			auctVO.setAuct_end(auct_end);     //拍賣結束時間  
+			auctVO.setAuct_start(auct_start_OK); //拍賣上架時間（開始時間）		
+			auctVO.setAuct_end(auct_end_OK);     //拍賣結束時間  
 			
 			auctVO.setMarketPrice(marketPrice);//市價
 			auctVO.setInitPrice(initPrice);  //拍賣出價（一開始為底價）
 			auctVO.setAuct_inc(auct_inc);  //出價增額
 			auctVO.setAuct_desc(auct_desc);  //商品描述
 			auctVO.setAuct_pic(auct_pic);
+			int auct_down = 0;
+			auctVO.setAuct_down(auct_down);
 			auctVO.setAuct_id(auct_id);
 			//付款截止時間
-			long pay_end_long = auct_end.getTime()+ 24*60*60*1000L; //Timestamp 轉 long
+			long pay_end_long = auct_end_OK.getTime()+ 24*60*60*1000L; //Timestamp 轉 long
 			Timestamp pay_end = new Timestamp(pay_end_long) ;       //long 轉 Timestamp
 			auctVO.setPay_end(pay_end);
 			
 			AuctService auctSvc = new AuctService();
-			auctVO = auctSvc.update_auct( pt_id, auct_name, auct_start, auct_end,marketPrice, initPrice, auct_inc, auct_desc, auct_pic, pay_end, auct_id);
+			auctVO = auctSvc.update_auct( pt_id, auct_name, auct_start, auct_end,marketPrice, initPrice, auct_inc, auct_desc, auct_pic, pay_end,auct_down, auct_id);
 			
 			req.setAttribute("auctVO", auctVO);
-			String url = "/front-end/auct/listOneAuct.jsp";
+			String url = "/front-end/protected/auct/listAllAuct.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
-			
+			/***************************其他可能的錯誤處理*************************************/
+			} catch (Exception e) {
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/protected/auct/listAllAuct.jsp");
+				failureView.forward(req, res);
+			}
 
 		}   //update_auct_input.jsp的請求 ---end
 
 		
 
-		if ("insert".equals(action)) {   //addAuct.jsp的請求
+		if ("insert".equals(action)) {   //insert_auct.jsp的請求
 
 			String sale_id = req.getParameter("sale_id");
 			System.out.println(sale_id);
@@ -325,12 +294,13 @@ String auct_id = req.getParameter("auct_id");
 					 initPrice, auct_inc, auct_desc,auct_pic, auct_sold, auct_down, pay_end);
 			
 			req.setAttribute("auctVO", auctVO);
-			String url = "/front-end/auct/2_listAllAuct.jsp";
+			String url = "/front-end/protected/auct/listAllAuct.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 			
+			
 
-		}   //addAuct.jsp的請求 ---end
+		}   //insert_auct.jsp的請求 ---end
 		
 		
 		
@@ -357,7 +327,7 @@ String auct_id = req.getParameter("auct_id");
 				/***************************3.修改完成,準備轉交(Send the Success view)***********/	
 				req.setAttribute("auctVO", auctVO);
 				
-				String url = "/front-end/auct/2_listAllAuct.jsp";
+				String url = "/front-end/protected/auct/listAllAuct.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 下架成功後,轉交回送出下架的來源網頁
 				successView.forward(req, res);
 				
@@ -365,52 +335,52 @@ String auct_id = req.getParameter("auct_id");
 			} catch (Exception e) {
 				errorMsgs.add("修改狀態失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/auct/2_listAllAuct.jsp");
+						.getRequestDispatcher("/front-end/protected/auct/listAllAuct.jsp");
 				failureView.forward(req, res);
 			}
 			
 		}  // listAllAuct.jsp的 "下架" 請求---end
 		
 
-		if ("update_up".equals(action)) { // 來自listAllAuct.jsp的 "上架" 請求
-
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-	
-			try {
-				/***************************1.接收請求參數***************************************/
-				Integer auct_down = 0;
-				String  auct_id = req.getParameter("auct_id");
-				
-				AuctVO auctVO = new AuctVO();
-				
-				/***************************2.開始修改狀態***************************************/
-				AuctService auctSvc = new AuctService();
-				auctVO = auctSvc.update_auct_down(auct_down, auct_id);
-				
-				/***************************3.修改完成,準備轉交(Send the Success view)***********/	
-				req.setAttribute("auctVO", auctVO);
-				
-				String url = "/front-end/auct/2_listAllAuct.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 上架成功後,轉交回送出上架的來源網頁
-				successView.forward(req, res);
-				
-				/***************************其他可能的錯誤處理**********************************/
-			} catch (Exception e) {
-				errorMsgs.add("修改狀態失敗:"+e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/auct/2_listAllAuct.jsp");
-				failureView.forward(req, res);
-			}
-			
-		}  // listAllAuct.jsp的 "上架" 請求---end
-		
 
 //===========================================================================================================================
-		
+		if("bid_info".equals(action)) {  // bid頁面, 抓取該商品的值
 			
+			/*************************** 1.接收請求參數 ****************************************/
+			String auct_id = new String(req.getParameter("auct_id"));
+			System.out.println("--------------" + auct_id);
+			
+			java.sql.Timestamp auct_start = java.sql.Timestamp.valueOf(req.getParameter("auct_start"));
+			System.out.println("--------------" + auct_start);
+			
+			long auct_start_long = auct_start.getTime(); //Timestamp 轉 long
+			
+			java.util.GregorianCalendar time = new java.util.GregorianCalendar();
+			long now_ms = time.getTimeInMillis();
+			
+			// 拍賣開始，才能進入競標頁面
+			if(now_ms >= auct_start_long ) {
+			/*************************** 2.開始查詢資料 ****************************************/
+			AuctService auctSvc = new AuctService();
+			AuctVO auctVO = auctSvc.listOneAuct(auct_id);
+			
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+			req.setAttribute("auctVO", auctVO); // 資料庫取出的auctVO物件,存入req
+			String url = "/front-end/protected/auct/bid_product.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 bid_product.jsp
+			successView.forward(req, res);
+			}else {
+				String url = "/front-end/protected/auct/Auct_index.jsp"; //拍賣未開始
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+			}
+		}
+
+//===========================================================================================================================
+
+		
+		
+		
 
 
 	}//HttpServletRequest-end

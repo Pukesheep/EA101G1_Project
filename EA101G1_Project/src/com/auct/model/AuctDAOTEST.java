@@ -40,7 +40,7 @@ public class AuctDAOTEST {
 	
 	
 	//修改商品內容(賣家編號不變)
-	AuctVO auctVO2 = new AuctVO();
+//	AuctVO auctVO2 = new AuctVO();
 //	
 //	auctVO2.setPt_id("PT001");      //商品分類編號
 //	auctVO2.setAuct_name(" 主機+++");   //商品名稱
@@ -55,13 +55,13 @@ public class AuctDAOTEST {
 //	auctVO2.setInitPrice(300);  //拍賣出價（一開始為底價）
 //	auctVO2.setAuct_inc(50);  //出價增額
 //	auctVO2.setAuct_desc("二手主機 PS4");  //商品描述
-	auctVO2.setAuct_id("AUCT000010");
+//	auctVO2.setAuct_id("AUCT000010");
 //	
-	auctVO2.setAuct_down(0); //上架
-	dao.update_auct_down(auctVO2);
-	
+//	auctVO2.setAuct_down(0); //上架
+//	dao.update_auct_down(auctVO2);
+//	
 //	dao.update_product(auctVO2);
-	System.out.println("修改成功");
+//	System.out.println("修改成功");
 	
 	
 //	//查詢單一商品
@@ -123,6 +123,30 @@ public class AuctDAOTEST {
 //	}
 //		
 //	System.out.println("查詢結束");
+		
+	//賣家查詢自己上架的商品
+		List<AuctVO> list = new ArrayList<AuctVO>();
+		list = dao.getAllByMem("M000003");
+		
+		for(AuctVO one_auctVO : list) {
+			System.out.println(one_auctVO.getAuct_id() + ",");
+			System.out.println(one_auctVO.getSale_id() + ",");
+			System.out.println(one_auctVO.getPt_id() + ","); 
+			System.out.println(one_auctVO.getAuct_name() + ",");
+			
+			System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(one_auctVO.getAuct_start()) + ",");
+			System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(one_auctVO.getAuct_end()) + ",");
+			System.out.println(one_auctVO.getMarketPrice() + ",");
+			System.out.println(one_auctVO.getInitPrice() + ",");
+			System.out.println(one_auctVO.getAuct_inc() + ",");
+			System.out.println(one_auctVO.getAuct_desc() + ",");
+			System.out.println(one_auctVO.getAuct_pic() + ",");
+			System.out.println(one_auctVO.getAuct_sold() + ",");
+			System.out.println(one_auctVO.getAuct_down() + ",");
+			System.out.println("======================================");
+			
+		} System.out.println("查詢結束");
+	
 	
 	//查詢該商品，對應的出價
 //	Set<BidVO> set = dao.getBidsBy_auctId("AUCT000004");

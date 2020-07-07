@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -30,7 +31,7 @@ public class AuctDAO implements AuctDAO_interface{
 			+ "VALUES('AUCT'||LPAD(to_char(AUCT_SEQ.NEXTVAL), 6, '0'),?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	
 	private static final String UPDATE_PRO_STMT = "UPDATE auct set pt_id=?, auct_name=?, auct_start=?," + 
-			"		auct_end=?,marketPrice=?, initPrice=?, auct_inc=?, auct_desc=?, auct_pic=?,pay_end=?"
+			"		auct_end=?,marketPrice=?, initPrice=?, auct_inc=?, auct_desc=?, auct_pic=?,pay_end=?,auct_down=?"
 			+ "WHERE auct_id=?";
 	
 	private static final String GET_ONE_STMT = "SELECT auct_id, sale_id, pt_id, auct_name, auct_start," + 
@@ -38,6 +39,9 @@ public class AuctDAO implements AuctDAO_interface{
 	
 	private static final String GET_ALL_STMT = "SELECT auct_id, sale_id, pt_id, auct_name, auct_start," + 
 			"auct_end,marketPrice, initPrice, auct_inc, auct_desc, auct_pic, auct_sold, auct_down,pay_end FROM auct order by auct_id desc";
+	
+	private static final String GET_ALL_BY_MEM = "SELECT auct_id, sale_id, pt_id, auct_name, auct_start," + 
+			"auct_end,marketPrice, initPrice, auct_inc, auct_desc, auct_pic, auct_sold, auct_down,pay_end FROM auct WHERE sale_id=? order by auct_id desc";
 	
 	private static final String GET_Bids_ByAuctId_STMT = "SELECT * FROM bid WHERE auct_id=?";
 	
@@ -128,9 +132,9 @@ public class AuctDAO implements AuctDAO_interface{
 			
 			pstmt.setBytes(9,auctVO.getAuct_pic());
 			pstmt.setTimestamp(10,auctVO.getPay_end());
-			pstmt.setString(11,auctVO.getAuct_id());
-
-
+			pstmt.setInt(11,auctVO.getAuct_down());
+			pstmt.setString(12,auctVO.getAuct_id());
+			
 			pstmt.executeUpdate();
 			
 			
@@ -302,6 +306,79 @@ public class AuctDAO implements AuctDAO_interface{
 		}
 		return list;
 	}
+	
+	//賣家查詢自己上架的商品
+		@Override
+		public List<AuctVO> getAllByMem(String sale_id) {
+			List<AuctVO> list = new ArrayList<AuctVO>();
+			AuctVO auctVO =null;
+			
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+		
+		try {	
+			Class.forName(driver);
+			con = DriverManager.getConnection(url,userid,passwd);
+			pstmt = con.prepareStatement(GET_ALL_BY_MEM);
+			
+			pstmt.setString(1, sale_id);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				auctVO = new AuctVO();
+				
+				auctVO.setAuct_id(rs.getString("auct_id"));
+				auctVO.setSale_id(rs.getString("sale_id"));
+				auctVO.setPt_id(rs.getString("pt_id"));
+				auctVO.setAuct_name(rs.getString("auct_name"));
+				
+				auctVO.setAuct_start(rs.getTimestamp("auct_start"));
+				auctVO.setAuct_end(rs.getTimestamp("auct_end"));
+				
+				auctVO.setMarketPrice(rs.getInt("marketPrice"));
+				auctVO.setInitPrice(rs.getInt("initPrice"));
+				auctVO.setAuct_inc(rs.getInt("auct_inc"));
+				auctVO.setAuct_desc(rs.getString("auct_desc"));
+				auctVO.setAuct_pic(rs.getBytes("auct_pic"));			
+				auctVO.setAuct_sold(rs.getInt("auct_sold"));
+				auctVO.setAuct_down(rs.getInt("auct_down"));			
+				
+				auctVO.setPay_end(rs.getTimestamp("pay_end"));
+				
+				list.add(auctVO);
+			}//while迴圈
+			
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			return list;
+		}
 	
 	//查詢該商品，對應的出價
 	@Override
@@ -703,7 +780,12 @@ public class AuctDAO implements AuctDAO_interface{
 		while(rs.next()) {
 			auctVO = new AuctVO();
 			
-			if(rs.getInt("auct_down")==0){
+			java.util.GregorianCalendar time = new java.util.GregorianCalendar();
+			long now_ms = time.getTimeInMillis();
+			
+			long b = (rs.getTimestamp("auct_end") ).getTime();			
+			
+			if(rs.getInt("auct_down")==0 && rs.getInt("auct_sold")==0 && now_ms<=b ){ //if （上架=0）&& (未售出=1)&& 必須在 結束前 
 			auctVO.setAuct_id(rs.getString("auct_id"));
 			auctVO.setSale_id(rs.getString("sale_id"));
 			auctVO.setPt_id(rs.getString("pt_id"));
@@ -723,7 +805,8 @@ public class AuctDAO implements AuctDAO_interface{
 			auctVO.setPay_end(rs.getTimestamp("pay_end"));
 			
 			list.add(auctVO);
-			}//if （下架=1）
+			}//if （上架=0）
+			
 		}//while迴圈
 		
 		} catch (ClassNotFoundException e) {
@@ -756,6 +839,81 @@ public class AuctDAO implements AuctDAO_interface{
 		
 		return list;
 	}
+	
+	//前台結標（陳列）
+		@Override
+		public List<AuctVO> getAllResult() {
+			List<AuctVO> list = new ArrayList<AuctVO>();
+			AuctVO auctVO =null;
+			
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+		
+		try {	
+			Class.forName(driver);
+			con = DriverManager.getConnection(url,userid,passwd);
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				auctVO = new AuctVO();
+				
+				if(rs.getInt("auct_down")==1 && rs.getInt("auct_sold")==1 ){ //if （下架=1）&& (售出=1)
+					auctVO.setAuct_id(rs.getString("auct_id"));
+					auctVO.setSale_id(rs.getString("sale_id"));
+					auctVO.setPt_id(rs.getString("pt_id"));
+					auctVO.setAuct_name(rs.getString("auct_name"));
+					
+					auctVO.setAuct_start(rs.getTimestamp("auct_start"));
+					auctVO.setAuct_end(rs.getTimestamp("auct_end"));
+					
+					auctVO.setMarketPrice(rs.getInt("marketPrice"));
+					auctVO.setInitPrice(rs.getInt("initPrice"));
+					auctVO.setAuct_inc(rs.getInt("auct_inc"));
+					auctVO.setAuct_desc(rs.getString("auct_desc"));
+					auctVO.setAuct_pic(rs.getBytes("auct_pic"));			
+					auctVO.setAuct_sold(rs.getInt("auct_sold"));
+					auctVO.setAuct_down(rs.getInt("auct_down"));			
+					
+					auctVO.setPay_end(rs.getTimestamp("pay_end"));
+					
+					list.add(auctVO);
+					} //if （下架=1）&& (售出=1)
+				
+			}//while迴圈
+			
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			
+			return list;
+		}
 	
 	
 }

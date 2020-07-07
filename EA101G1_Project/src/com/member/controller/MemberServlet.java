@@ -153,7 +153,7 @@ public class MemberServlet extends HttpServlet {
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			String update_member_input = "/front-end/protected/update_member_input.jsp";
+			String update_member_input = "/front-end/member/update_member_input.jsp";
 			String listOneMember = "/front-end/member/listOneMember.jsp";
 			
 			try {

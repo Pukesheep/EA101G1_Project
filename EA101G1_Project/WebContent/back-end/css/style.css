@@ -25,9 +25,6 @@ header .navbar-brand span.logo3{
     font-family: 'Lakki Reddy', cursive;
     margin-left:  0.3125rem;
 }
-main {
-	width: 100%;	
-}
 /*========================  .content 包 aside main  =====================r*/
 .content{
     margin-top: 73px;
@@ -35,9 +32,9 @@ main {
     /*========================  aside  =====================r*/
     aside {
         position: sticky;
-        top: 4.59rem;
+        top: 73px;
         z-index: 1000;
-        height: calc(100vh - 4.59rem);
+        height: calc(100vh - 73px);
     }
     aside.navbar-collapse {
         background: linear-gradient(to bottom right, #101a2ef5, #13203bf5);

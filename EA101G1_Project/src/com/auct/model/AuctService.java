@@ -43,7 +43,7 @@ public AuctVO insert_auct(String sale_id,String pt_id,String auct_name,Timestamp
 
 //修改商品內容(賣家編號不變)
 public AuctVO update_auct(String pt_id,String auct_name,Timestamp auct_start,Timestamp auct_end,Integer marketPrice,
-		Integer initPrice,Integer auct_inc,String auct_desc,byte[] auct_pic,Timestamp pay_end,String auct_id) {
+		Integer initPrice,Integer auct_inc,String auct_desc,byte[] auct_pic,Timestamp pay_end,Integer auct_down,String auct_id) {
 
 	AuctVO auctVO = new AuctVO();
 	
@@ -60,6 +60,7 @@ public AuctVO update_auct(String pt_id,String auct_name,Timestamp auct_start,Tim
 	auctVO.setAuct_pic(auct_pic);    //商品圖片
 //	auctVO.setAuct_sold(auct_sold);  //是否售出 （0:在售）
 	auctVO.setPay_end(pay_end);      //訂單付款截止時間
+	auctVO.setAuct_down(auct_down);  //是否上架 （0:上架）
 	auctVO.setAuct_id(auct_id);
 	
 	dao.update_auct(auctVO);
@@ -76,6 +77,11 @@ public AuctVO update_auct(String pt_id,String auct_name,Timestamp auct_start,Tim
 	//查詢（全部）商品
 	public List<AuctVO> getAll(){
 		return dao.getAll();
+	}
+	
+	//賣家查詢自己上架的商品
+	public List<AuctVO> getAllByMem(String sale_id){
+		return dao.getAllByMem(sale_id);
 	}
 	
 	//查詢該商品，對應的出價
@@ -168,4 +174,8 @@ public AuctVO update_auct(String pt_id,String auct_name,Timestamp auct_start,Tim
 			return dao.getAllFront();
 		}
 
+	//前台結標（陳列）
+		public List<AuctVO> getAllResult(){
+			return dao.getAllResult();
+		}
 }

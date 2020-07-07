@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="com.member.model.*" %>
 
 <%
@@ -14,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>修改會員資料</title>
+    <title>會員中心</title>
     <!-- TODO: 換title 的icon -->
     <link rel="icon shortcut" href="<%=request.getContextPath()%>/front-end/img/ICON.ico">
     <!-- Bootstrap官方網站 https://getbootstrap.com/ -->
@@ -30,7 +29,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
 
     <!-- 使用style.css -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 
     <!-- 連結Bootstrap所需要的js -->
     <!-- jquery.min.js -->
@@ -48,7 +47,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	
 	<!-- member.css -->
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/member.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/member.css">
 	<!-- datetimepicker -->
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/files/datetimepicker/jquery.datetimepicker.css" />
 	<script src="<%=request.getContextPath()%>/files/datetimepicker/jquery.js"></script>
@@ -64,7 +63,63 @@
 
 <body>
     <!-- navbar -->
-		<%@ include file="../../files/header.jsp" %>
+    <!-- 使用Boostrap Navbar -->
+    <!-- 設定Navbar緊貼畫面上緣 -->
+    <!-- b4-navbar-default 安裝Bootstrap外掛,可以使用快捷指令 -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+        <a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/index.jsp">
+            <span class="logo"><i class="fas fa-bomb"></i></span>
+            <span class="logo2">S.F.G</span>
+            <span class="logo3">{{{</span>
+        </a>
+        <!-- 手機選單按鈕 -->
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+            aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="navbar2 navbar-dark">
+            <div class="row">
+                <div class="item col-md-2"><a href="#"></a>商城</div>
+                <div class="item col-md-2"><a href="#"></a>團購</div>
+                <div class="item col-md-2"><a href="#"></a>交易</div>
+                <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/post/listAllPost.jsp" id="">討論區</a></div>
+                <div class="item col-md-2"><a href="#"></a>紅利</div>
+                <div class="item col-md-2"><a href="#"></a>Q&A</div>
+            </div>
+        </div>
+
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav ml-auto">
+                <c:if test="${memberVO == null}">
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/member/login.jsp">登入</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/member/addMember.jsp">註冊</a>
+                </li>
+            </c:if>
+            <c:if test="${sessionScope.memberVO ne null}">
+            	
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/member/member.do?action=getOne_For_Update-front&mem_id=${sessionScope.memberVO.mem_id}">會員中心</a>
+                </li>
+                <li class="nav-item">
+                	<a class="nav-link" href="<%=request.getContextPath()%>/member/login.do?action=logout">登出</a>
+                </li>
+          	</c:if>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">我的最愛</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">購物車</a>
+                </li>
+
+            </ul>
+        </div>
+
+
+    </nav>
     <!-- navbar end -->
     <section class="blank0"></section>
     <!-- 內容 -->
@@ -151,16 +206,11 @@
 								</div>
 							</div>
 						</div>
-						
-						<%
-							String addr = memberVO.getMem_addr();
-							String deatil = addr.substring(6);
-						%>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text">細項</span>
 							</div>
-							<input type="text" class="form-control" name="detail" id="detail" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<%=deatil%>" autocomplete="off">
+							<input type="text" class="form-control" name="detail" id="detail" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" autocomplete="off">
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
@@ -171,7 +221,6 @@
 					</div>
 					<%-- 處理地址下拉式選單與手動輸入合併的區塊 --%>
 					<script>
-					
 						$('#county').change(function(){
 							
 							$('#mem_addr').val($('#county').val() + $('#district').val() + $('#detail').val());
@@ -195,7 +244,12 @@
 					<div class="form-group">
 						<label for="mem_birth">會員生日</label>
 						<input type="text" class="form-control" id="mem_birth" name="mem_birth" autocomplete="off">
-					</div>		
+					</div>					
+					
+					<div class="form-group">
+						<label for="mem_autho">會員權限</label>
+						<input type="text" class="form-control" id="mem_autho" value="${memberVO.mem_autho}" readonly>
+					</div>
 					
 					<%
 						String autho = "";
@@ -209,16 +263,8 @@
 							case 2:
 								autho = "賣家資格會員";
 								break;
-							case 99:
-								autho = "平台管理員";
-								break;
 						}
-					%>			
-					
-					<div class="form-group">
-						<label for="mem_autho">會員權限</label>
-						<input type="text" class="form-control" id="mem_autho" value="<%=autho%>" readonly>
-					</div>
+					%>
 
 					<div class="form-group">
 						<label for="mem_bonus">紅利點數</label>
@@ -284,7 +330,7 @@
 					<input type="hidden" name="mem_id" value="${memberVO.mem_id}">
 					<input type="hidden" name="mem_autho" value="${memberVO.mem_autho}">
 					<input type="hidden" name="action" value="update-front">
-					<button type="submit" class="btn login_btn float-right submit">送出修改</button>
+					<button type="submit" class="btn login_btn float-right submit">修改</button>
 					
 				</div>
 			</form>
@@ -428,8 +474,83 @@ $('#mem_birth').datetimepicker({
 
 
         <!-- footer -->
-        	<%@ include file="../../files/footer.jsp" %>
-		<!-- footer -->
+        <footer id="footer" class="pt-5 ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 footer-list">
+                        <h5>快速連結</h5>
+                        <ul>
+                            <li>
+                                <a class="footer-link" href="<%=request.getContextPath()%>/front-end/index.jsp">S.F.G首頁</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="<%=request.getContextPath()%>/front-end/member/addMember.jsp">註冊會員</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="">商城</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="">團購</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-6 footer-list">
+                        <h5 class="text-uppercase">會員互動</h5>
+                        <ul>
+                            <li>
+                                <a class="footer-link" href="">競標區</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="">直購區</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="<%=request.getContextPath()%>/front-end/post/listAllPost.jsp">討論區</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="">聊天室</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-6 footer-list">
+                        <h5 class="text-uppercase">關於我們</h5>
+                        <ul>
+                            <li>
+                                <a class="footer-link" href="">關於S.F.G</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="">最新消息</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="">隱私權政策</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-6 footer-list">
+                        <h5 class="text-uppercase">技術支援</h5>
+                        <ul>
+                            <li>
+                                <a class="footer-link" href="">新手上路</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="">幫助&支援</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="">服務條款</a>
+                            </li>
+                        </ul>                    
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-end bg-dark mt-5 py-2">
+                <p class="text-center">&copy; Copy right 2020</p>
+            </div>
+        </footer>
+
+        <button id="chatBtn" class="bg-primary">
+            <i class="fas fa-comments"></i>
+        </button>
+
 </body>
 
 </html>
