@@ -22,7 +22,7 @@ public class AuctDAO implements AuctDAO_interface{
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "EA101G1";
+	String userid = "EA101";
 	String passwd = "123456";
 	
 	private static final String INSERT_PRO_STMT = "INSERT INTO auct (auct_id, sale_id, pt_id, auct_name, auct_start," + 
