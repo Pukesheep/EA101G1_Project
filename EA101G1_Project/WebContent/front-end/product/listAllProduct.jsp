@@ -192,7 +192,6 @@
 <body>
 <!-- navbar -->
     <%@ include file="../../files/header.jsp" %>
-    </nav>
     <!-- navbar end -->
     <section class="blank0"></section>
     
