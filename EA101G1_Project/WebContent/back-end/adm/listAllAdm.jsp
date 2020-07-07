@@ -77,7 +77,7 @@
 		<th>­×§ï</th>
 		<th>§R°£</th>
 	</tr>
-	<%@ include file="../../files/page1.file" %> 
+	<%@ include file="/files/page1.file" %> 
 	<c:forEach var="admVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
@@ -101,7 +101,7 @@
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="../../files/page2.file" %>
+<%@ include file="/files/page2.file" %>
 
 </body>
 </html>
