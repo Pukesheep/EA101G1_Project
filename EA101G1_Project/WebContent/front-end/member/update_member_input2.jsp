@@ -1,321 +1,566 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="BIG5"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="com.member.model.*" %>
 
 <%
-	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO"); 
-	// MemberServlet.java (Controller) ¦s¤J req ªº memberVO ª«¥ó(¥]¬AÀ°¦£¨ú¥Xªº memberVO, ¤]¥]¬A¿é¤J¸ê®Æ¿ù»~®Éªº memberVO ª«¥ó)
+	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 %>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
-<title>·|­û¸ê®Æ­×§ï - update_member_input.jsp</title>
-<%-- 
-<script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
---%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script src="<%=request.getContextPath()%>/files/jQuery-TWzipcode-master/jquery.twzipcode.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ä¿®æ”¹æœƒå“¡è³‡æ–™</title>
+    <!-- TODO: æ›title çš„icon -->
+    <link rel="icon shortcut" href="<%=request.getContextPath()%>/front-end/img/ICON.ico">
+    <!-- Bootstrapå®˜æ–¹ç¶²ç«™ https://getbootstrap.com/ -->
+    <!-- é€£çµBootstrap.min.css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <!-- ä½¿ç”¨font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <!-- ä½¿ç”¨google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
+
+    <!-- ä½¿ç”¨style.css -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+
+    <!-- é€£çµBootstrapæ‰€éœ€è¦çš„js -->
+    <!-- jquery.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- popper.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <!-- bootstrap.min.js -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        
+    <!-- SweetAlert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	
+	<!-- member.css -->
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/member.css">
+	<!-- datetimepicker -->
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/files/datetimepicker/jquery.datetimepicker.css" />
+	<script src="<%=request.getContextPath()%>/files/datetimepicker/jquery.js"></script>
+	<script src="<%=request.getContextPath()%>/files/datetimepicker/jquery.datetimepicker.full.js"></script>
+	
+	<!-- tw-city-selector -->
+	<script src="<%=request.getContextPath()%>/files/tw-city-selector/tw-city-selector.min.js"></script>
+	
 <style>
-	table#table-1 {
-		background-color: #CCCCFF;
-		border: 2px solid black;
-		text-align: center;
-	}
-	table#table-1 h4 {
-		color: red;
-		display: block;
-		matgin-bottom: 1px;
-	}
-	h4 {
-		color: blue;
-		display: inline;
-	}
-	table {
-		width: 700px;
-		background-color: white;
-		margin-top: 1px;
-		margin-bottom: 1px;
-	}
-	table, th, td {
-		border: 0px solid #CCCCFF;
-	}
-	th, td {
-		padding: 1px;
-	}
-	body {
-		background-color: white;
-	}
-	#back {
-		width: 100px;
-		height: 32px;
-	}
-	font {
-		color: red;
-	}
-	li {
-		color: red;
-	}
-	img#display {
-		width: 200px;
-		height: 200px;
-	}
-	input#address, select#city, select#district {
-		display: inline;
-	}
-</style>
-
+</style>	
+	
 </head>
+
 <body>
+    <!-- navbar -->
+    <!-- ä½¿ç”¨Boostrap Navbar -->
+    <!-- è¨­å®šNavbarç·Šè²¼ç•«é¢ä¸Šç·£ -->
+    <!-- b4-navbar-default å®‰è£Bootstrapå¤–æ›,å¯ä»¥ä½¿ç”¨å¿«æ·æŒ‡ä»¤ -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+        <a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/index.jsp">
+            <span class="logo"><i class="fas fa-bomb"></i></span>
+            <span class="logo2">S.F.G</span>
+            <span class="logo3">{{{</span>
+        </a>
+        <!-- æ‰‹æ©Ÿé¸å–®æŒ‰éˆ• -->
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+            aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="navbar2 navbar-dark">
+            <div class="row">
+                <div class="item col-md-2"><a href="#"></a>å•†åŸ</div>
+                <div class="item col-md-2"><a href="#"></a>åœ˜è³¼</div>
+                <div class="item col-md-2"><a href="#"></a>äº¤æ˜“</div>
+                <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/post/listAllPost.jsp" id="">è¨è«–å€</a></div>
+                <div class="item col-md-2"><a href="#"></a>ç´…åˆ©</div>
+                <div class="item col-md-2"><a href="#"></a>Q&A</div>
+            </div>
+        </div>
 
-<table id="table-1">
-	<tr>
-		<td>
-			<h3>·|­û¸ê®Æ­×§ï - update_member_input.jsp</h3>
-			<h4><a href="<%=request.getContextPath()%>/front-end/member/select_page.jsp"><img alt="" src="<%=request.getContextPath()%>/images/back1.gif" id="back">¦^­º­¶</a></h4>
-		</td>
-	</tr>
-</table>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav ml-auto">
+                <c:if test="${memberVO == null}">
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/member/login.jsp">ç™»å…¥</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/member/addMember.jsp">è¨»å†Š</a>
+                </li>
+            </c:if>
+            <c:if test="${sessionScope.memberVO ne null}">
+            	
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/member/member.do?action=getOne_For_Display-front&mem_id=${sessionScope.memberVO.mem_id}">æœƒå“¡ä¸­å¿ƒ</a>
+                </li>
+                <li class="nav-item">
+                	<a class="nav-link" href="<%=request.getContextPath()%>/member/login.do?action=logout">ç™»å‡º</a>
+                </li>
+          	</c:if>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">æˆ‘çš„æœ€æ„›</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">è³¼ç‰©è»Š</a>
+                </li>
 
-<h3>¸ê®Æ­×§ï</h3>
+            </ul>
+        </div>
 
-<%-- ¿ù»~ªí¦C --%>
-<c:if test="${not empty errorMsgs}">
-	<font>½Ğ­×¥¿¥H¤U¿ù»~</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li>${message}</li>
-		</c:forEach>
-	</ul>
+
+    </nav>
+    <!-- navbar end -->
+    <section class="blank0"></section>
+    <!-- å…§å®¹ -->
+        
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
+<c:if test="${not empty errorMsgs }">
+<%
+	java.util.List<String> errorMsgs = (java.util.List<String>) request.getAttribute("errorMsgs");
+	String message = "";
+	for (String msg : errorMsgs) {
+		message += msg;
+		message += "\\n";
+	}
+%>
+<script>
+	Swal.fire({
+		  icon: 'error',
+		  title: '<%=message%>'
+		});
+
+</script>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
+
 </c:if>
 
-<form action="member.do" method="post" enctype="multipart/form-data">
-	<table>
-		<tr>
-			<td>·|­û½s¸¹¡G<font><b>*</b></font></td>
-			<td><%=memberVO.getMem_id()%></td>
-		</tr>
-		<tr>
-			<td>·|­û«H½c¡G<font><b>*</b></font></td>
-			<td><%=memberVO.getMem_email()%></td>
-		</tr>
-		<tr>
-			<td>·|­û±K½X¡G</td>
-			<td><input type="text" name="mem_pass" size="45" value="<%=memberVO.getMem_pass()%>"></td>
-		</tr>
-		<tr>
-			<td>·|­û¦WºÙ¡G</td>
-			<td><input type="text" name="mem_name" size="45" value="<%=memberVO.getMem_name()%>"></td>
-		</tr>
-		<tr>
-			<td>·|­û¹Ï¤ù¡G</td>
-			<td>
-				<label for="upload">
-					<img alt="" src="<%=request.getContextPath()%>/member/ShowMemberPic.do?mem_id=<%=memberVO.getMem_id()%>" id="display">
-				</label>
-				<input type="file" name="mem_icon" id="upload">
-			</td>
-		</tr>
-		<tr>
-			<td>·|­û¤â¾÷¡G</td>
-			<td><input type="text" name="mem_phone" size="45" value="<%=memberVO.getMem_phone()%>"></td>
-		</tr>
-		<tr>
-			<td>·|­û¦a§}¡G</td>
-			<td>
-				<div id="twzipcode">
-				<script>
-					$('#twzipcode').twzipcode({
-						zipcodeIntoDistrict : true,
-					});
-				</script>
+<div class="container">
+	<div class="row justify-content-center">
+	<div class="col">
+		<div class="text-center">
+		<label for="upload">
+			<img alt="" src="<%=request.getContextPath()%>/member/ShowMemberPic.do?mem_id=${memberVO.mem_id}" class="profile rounded-circle" id="display">
+		</label>
+		</div>
+		</div>
+		</div>
+		<div class="card profile text-white">
+			<form action="<%=request.getContextPath()%>/member/member.do" method="post" enctype="multipart/form-data" class="profile">
+				<div class="card-body">
 				
-				<input type="text" name="mem_addr" size="45" value="<%=memberVO.getMem_addr()%>" id="address">
+					<div class="form-group profile-header">
+						<label for="mem_name">æœƒå“¡åç¨±</label>
+						<input type="text" class="form-control" id="mem_name" name="mem_name" value="${memberVO.mem_name}" autocomplete="off">
+					</div>
+					
+					<div class="form-group">
+						<label for="mem_email">æœƒå“¡ä¿¡ç®±</label>
+						<input type="email" class="form-control" id="mem_email" name="mem_email" value="${memberVO.mem_email}" readonly>
+					</div>
+					
+					<div class="form-group">
+						<label for="mem_pass">æœƒå“¡å¯†ç¢¼</label>
+						<div class="input-group mb-3">
+							<input type="password" class="form-control" id="mem_pass" name="mem_pass" value="${memberVO.mem_pass}">
+							<div class="input-group-append">
+								<span class="input-group-text"><img alt="" src="<%=request.getContextPath()%>/images/icons/opend-eye.png" class="float-right img-icon mem_pass" title="é¡¯ç¤º"></span>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="mem_phone">æœƒå“¡æ‰‹æ©Ÿ</label>
+						<input type="text" class="form-control" id="mem_phone" name="mem_phone" value="${memberVO.mem_phone}" autocomplete="off">
+					</div>
+					
+					<div class="form-group">
+						<label for="exampleFormControlSelect1">æœƒå“¡åœ°å€</label>
+						<div class="my-selector-c">
+							<div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text">ç¸£å¸‚</span>
+									</div>
+									<select class="form-control county" name="county" id="county">
+									</select>
+								</div>
+							</div>
+							<div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text">é„‰é®</span>
+									</div>
+									<select class="form-control district" name="district" id="district">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<%
+							String addr = memberVO.getMem_addr();
+							String deatil = addr.substring(5);
+						%>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">ç´°é …</span>
+							</div>
+							<input type="text" class="form-control" name="detail" id="detail" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<%=deatil%>" autocomplete="off">
+						</div>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">åœ°å€</span>
+							</div>
+							<input type="text" class="form-control" name="mem_addr" id="mem_addr" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${memberVO.mem_addr}" readonly>
+						</div>						
+					</div>
+					<%-- è™•ç†åœ°å€ä¸‹æ‹‰å¼é¸å–®èˆ‡æ‰‹å‹•è¼¸å…¥åˆä½µçš„å€å¡Š --%>
+					<script>
+					
+						$('#county').change(function(){
+							
+							$('#mem_addr').val($('#county').val() + $('#district').val() + $('#detail').val());
+							
+						});
+						
+						$('#district').change(function(){
+							
+							$('#mem_addr').val($('#county').val() + $('#district').val() + $('#detail').val());
+							
+						});
+						
+						$('#detail').keyup(function(){
+							
+							$('#mem_addr').val($('#county').val() + $('#district').val() + $('#detail').val());
+							
+						});
+					</script>
+					<%-- è™•ç†åœ°å€ä¸‹æ‹‰å¼é¸å–®èˆ‡æ‰‹å‹•è¼¸å…¥åˆä½µçš„å€å¡Š --%>
+					
+					<div class="form-group">
+						<label for="mem_birth">æœƒå“¡ç”Ÿæ—¥</label>
+						<input type="text" class="form-control" id="mem_birth" name="mem_birth" autocomplete="off">
+					</div>		
+					
+					<%
+						String autho = "";
+						switch (memberVO.getMem_autho()){
+							case 0:
+								autho = "åœæ¬Š";
+								break;
+							case 1:
+								autho = "ä¸€èˆ¬æœƒå“¡";
+								break;
+							case 2:
+								autho = "è³£å®¶è³‡æ ¼æœƒå“¡";
+								break;
+							case 99:
+								autho = "å¹³å°ç®¡ç†å“¡";
+								break;
+						}
+					%>			
+					
+					<div class="form-group">
+						<label for="mem_autho">æœƒå“¡æ¬Šé™</label>
+						<input type="text" class="form-control" id="mem_autho" value="<%=autho%>" readonly>
+					</div>
+
+					<div class="form-group">
+						<label for="mem_bonus">ç´…åˆ©é»æ•¸</label>
+						<input type="text" class="form-control" id="mem_bonus" name="mem_bonus" value="${memberVO.mem_bonus}" readonly>
+					</div>
+
+					<div class="form-group">
+						<label for="mem_warn">è­¦å‘Šæ¬¡æ•¸</label>
+						<input type="text" class="form-control" id="mem_warn" name="mem_warn" value="${memberVO.mem_warn}" readonly>
+					</div>
+
+					<div class="form-group">
+						<label for="mem_joindat">åŠ å…¥æ—¥æœŸ</label>
+						<input type="text" class="form-control" id="mem_joindat" name="mem_joindat" value="${memberVO.mem_joindat}" readonly>
+					</div>
+					
+					<div class="form-group">
+						<label for="bank_acc">éŠ€è¡Œå¸³æˆ¶</label>
+						<input type="text" class="form-control" id="bank_acc" name="bank_acc" value="${memberVO.bank_acc}" autocomplete="off">
+					</div>
+
+					<div class="form-group">
+						<label for="card_no">ä¿¡ç”¨å¡è™Ÿ</label>
+						<div class="input-group mb-3">
+						<input type="password" class="form-control" id="card_no" name="card_no" value="${memberVO.card_no}" autocomplete="off">
+							<div class="input-group-append">
+								<span class="input-group-text"><img alt="" src="<%=request.getContextPath()%>/images/icons/opend-eye.png" class="float-right img-icon card_no" title="é¡¯ç¤º"></span>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="card_yy">åˆ°æœŸå¹´ä»½</label>
+						<div class="input-group mb-3">
+						<input type="password" class="form-control" id="card_yy" name="card_yy" value="${memberVO.card_yy}" autocomplete="off">
+							<div class="input-group-append">
+								<span class="input-group-text"><img alt="" src="<%=request.getContextPath()%>/images/icons/opend-eye.png" class="float-right img-icon card_yy" title="é¡¯ç¤º"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="card_mm">åˆ°æœŸæœˆä»½</label>
+						<div class="input-group mb-3">
+						<input type="password" class="form-control" id="card_mm" name="card_mm" value="${memberVO.card_mm}" autocomplete="off">
+							<div class="input-group-append">
+								<span class="input-group-text"><img alt="" src="<%=request.getContextPath()%>/images/icons/opend-eye.png" class="float-right img-icon card_mm" title="é¡¯ç¤º"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="card_sec">å¡ç‰‡å®‰å…¨ç¢¼</label>
+						<div class="input-group mb-3">
+						<input type="password" class="form-control" id="card_sec" name="card_sec" value="${memberVO.card_sec}" autocomplete="off">
+							<div class="input-group-append">
+								<span class="input-group-text"><img alt="" src="<%=request.getContextPath()%>/images/icons/opend-eye.png" class="float-right img-icon card_sec" title="é¡¯ç¤º"></span>
+							</div>
+						</div>
+					</div>
+					
+					<input class="d-none" type="file" id="upload" name="mem_icon">
+					<input type="hidden" name="mem_id" value="${memberVO.mem_id}">
+					<input type="hidden" name="mem_autho" value="${memberVO.mem_autho}">
+					<input type="hidden" name="action" value="update-front">
+					<button type="submit" class="btn login_btn float-right submit">é€å‡ºä¿®æ”¹</button>
+					
 				</div>
-			</td>
-		</tr>
-		<tr>
-			<td>»È¦æ±b¤á¡G</td>
-			<td><input type="text" name="bank_acc" size="45" value="<%=memberVO.getBank_acc()%>"></td>
-		</tr>
-		<tr>
-			<td>«H¥Î¥d¸¹¡G</td>
-			<td><input type="text" name="card_no" size="45" value="<%=memberVO.getCard_no()%>"></td>
-		</tr>
-		<tr>
-			<td>¨ì´Á¦~¥÷¡G</td>
-			<td><input type="text" name="card_yy" size="45" value="<%=memberVO.getCard_yy()%>"></td>
-		</tr>
-		<tr>
-			<td>¨ì´Á¤ë¥÷¡G</td>
-			<td><input type="text" name="card_mm" size="45" value="<%=memberVO.getCard_mm()%>"></td>
-		</tr>
-		<tr>
-			<td>¥d¤ù¦w¥ş½X¡G</td>
-			<td><input type="text" name="card_sec" size="45" value="<%=memberVO.getCard_sec()%>"></td>
-		</tr>
-		<tr>
-			<td>·|­ûÅv­­¡G</td>
-			<td>
-				<select name="mem_autho">
-					<option value="0" ${memberVO.mem_autho eq 0 ? "selected" : ""}>°±Åv</option>
-					<option value="1" ${memberVO.mem_autho eq 1 ? "selected" : ""}>¤@¯ë·|­û</option>
-					<option value="2" ${memberVO.mem_autho eq 2 ? "selected" : ""}>½æ®a¸ê®æ·|­û</option>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td>¬õ§QÂI¼Æ¡G</td>
-			<td><input type="text" name="mem_bonus" size="45" value="<%=memberVO.getMem_bonus()%>"></td>
-		</tr>
-		<tr>
-			<td>¥[¤J®É¶¡¡G</td>
-			<td><input type="text" name="mem_joindat" size="45" id="f_date1"></td>
-		</tr>
-		<tr>
-			<td>·|­û¥Í¤é¡G</td>
-			<td><input type="text" name="mem_birth" size="45" id="f_date2"></td>
-		</tr>
-		<tr>
-			<td>Äµ§i¦¸¼Æ¡G</td>
-			<td><input type="text" name="mem_warn" size="45" value="<%=memberVO.getMem_warn()%>"></td>
-		</tr>
+			</form>
+		</div>
 		
-	</table>
-	<br>
-	<input type="hidden" name="action" value="update-front">
-	<input type="hidden" name="mem_id" value="<%=memberVO.getMem_id()%>">
-	<input type="hidden" name="mem_email" value="<%=memberVO.getMem_email()%>">
-	<input type="submit" value="°e¥X­×§ï">
-</form>
 
+		
+		
+		
+		
+</div>
 
-</body>
-
-
-<!-- =========================================¥H¤U¬° datetimepicker ¤§¬ÛÃö³]©w========================================== -->
-
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/files/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getContextPath()%>/files/datetimepicker/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/files/datetimepicker/jquery.datetimepicker.full.js"></script>
-
-<style>
-  .xdsoft_datetimepicker .xdsoft_datepicker {
-           width:  300px;   /* width:  300px; */
-  }
-  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-           height: 151px;   /* height:  151px; */
-  }
-</style>
 <script>
-        $.datetimepicker.setLocale('zh');
-        $('#f_date1').datetimepicker({
-           theme: '',              //theme: 'dark',
- 	       timepicker:false,       //timepicker:true,
- 	       step: 1,                //step: 60 (³o¬Otimepickerªº¹w³]¶¡¹j60¤ÀÄÁ)
- 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
- 		   value: '<%=memberVO.getMem_joindat()%>', // value:   new Date(),
-           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // ¥h°£¯S©w¤£§t
-           //startDate:	            '2017/07/10',  // °_©l¤é
-           //minDate:               '-1970-01-01', // ¥h°£¤µ¤é(¤£§t)¤§«e
-           //maxDate:               '+1970-01-01'  // ¥h°£¤µ¤é(¤£§t)¤§«á
-        });
-        
-        $('#f_date2').datetimepicker({
-           theme: '',              //theme: 'dark',
-  	       timepicker:false,       //timepicker:true,
-  	       step: 1,                //step: 60 (³o¬Otimepickerªº¹w³]¶¡¹j60¤ÀÄÁ)
-  	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-  		   value: '<%=memberVO.getMem_birth()%>', // value:   new Date(),
-            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // ¥h°£¯S©w¤£§t
-            //startDate:	            '2017/07/10',  // °_©l¤é
-            //minDate:               '-1970-01-01', // ¥h°£¤µ¤é(¤£§t)¤§«e
-            //maxDate:               '+1970-01-01'  // ¥h°£¤µ¤é(¤£§t)¤§«á
-         });
-        
-        
-   
-        // ----------------------------------------------------------¥H¤U¥Î¨Ó±Æ©wµLªk¿ï¾Üªº¤é´Á-----------------------------------------------------------
 
-        //      1.¥H¤U¬°¬Y¤@¤Ñ¤§«eªº¤é´ÁµLªk¿ï¾Ü
-        //      var somedate1 = new Date('2017-06-15');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() <  somedate1.getYear() || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-
-        
-        //      2.¥H¤U¬°¬Y¤@¤Ñ¤§«áªº¤é´ÁµLªk¿ï¾Ü
-        //      var somedate2 = new Date('2017-06-15');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
+new TwCitySelector({
+    el: ".my-selector-c",
+    elCounty: ".county", // åœ¨ el è£¡æŸ¥æ‰¾ dom
+    elDistrict: ".district" // åœ¨ el è£¡æŸ¥æ‰¾ dom
+  });
 
 
-        //      3.¥H¤U¬°¨â­Ó¤é´Á¤§¥~ªº¤é´ÁµLªk¿ï¾Ü (¤]¥i«ö»İ­n´«¦¨¨ä¥L¤é´Á)
-        //      var somedate1 = new Date('2017-06-15');
-        //      var somedate2 = new Date('2017-06-25');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() <  somedate1.getYear() || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-        //		             ||
-        //		            date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-        
-        function init() {
-        var display = document.getElementById("display");
-        var upload = document.getElementById("upload");
 
-        upload.addEventListener("change", function(e){
-            var files = upload.files;
-            if (files && files[0]) {
-                for (i = 0; i < files.length; i ++) {
-                    if (files[i].type.indexOf("image") < 0) {
-                        alert("¤W¶Çªº®æ¦¡¤£²Å");
-                        upload.value = null;
-                    } else {
-                        var file = files[i];
-                        var reader = new FileReader();
+$('img.img-icon').click(function(){
+	var source = $(this).attr('src');
+	var thisClass = $(this).attr('class');
+	var target = thisClass.substring(21);
+	
+	if (source.includes('opend')){
+		$('#' + target).attr('type', 'text');
+		$(this).attr('title', 'éš±è—');
+		$(this).attr('src', '<%=request.getContextPath()%>/images/icons/closed-eye.png');
+	} else if (source.includes('closed')){
+		$('#' + target).attr('type', 'password');
+		$(this).attr('title', 'é¡¯ç¤º');
+		$(this).attr('src', '<%=request.getContextPath()%>/images/icons/opend-eye.png');
+	}
+});
 
-                        reader.onload = function(e) {
-                            var result = e.target.result;
+function init() {
+	 
+    var display = document.getElementById("display");
+    var upload = document.getElementById("upload");
 
-                            display.setAttribute("src", result);
+    upload.addEventListener("change", function(e){
+        var files = upload.files;
+        if (files && files[0]) {
+            for (i = 0; i < files.length; i ++) {
+                if (files[i].type.indexOf("image") < 0) {
+					Swal.fire({
+						icon: 'error',
+						title: 'ä¸Šå‚³çš„æ ¼å¼ä¸ç¬¦'
+					})
+                } else {
+                    var file = files[i];
+                    var reader = new FileReader();
 
-                        }
-                        reader.readAsDataURL(file);
+                    reader.onload = function(e) {
+                        var result = e.target.result;
+
+                        display.setAttribute("src", result);
+
                     }
+                    reader.readAsDataURL(file);
                 }
             }
-        });
-    }
-    window.onload = init;
+        }
+    });
     
+}
 
-        
+window.onload = init;	
+
+$.datetimepicker.setLocale('zh');
+
+$('#mem_birth').datetimepicker({
+    theme: '',              //theme: 'dark',
+     timepicker:false,       //timepicker:true,
+     step: 1,                //step: 60 (é€™æ˜¯timepickerçš„é è¨­é–“éš”60åˆ†é˜)
+     format:'Y-m-d',         //format:'Y-m-d H:i:s',
+	   value: '${memberVO.mem_birth}', // value:   new Date(),
+    //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // å»é™¤ç‰¹å®šä¸å«
+    //startDate:	            '2017/07/10',  // èµ·å§‹æ—¥
+    //minDate:               '-1970-01-01', // å»é™¤ä»Šæ—¥(ä¸å«)ä¹‹å‰
+    //maxDate:               '+1970-01-01'  // å»é™¤ä»Šæ—¥(ä¸å«)ä¹‹å¾Œ
+ });
+
+
+// ----------------------------------------------------------ä»¥ä¸‹ç”¨ä¾†æ’å®šç„¡æ³•é¸æ“‡çš„æ—¥æœŸ-----------------------------------------------------------
+
+//      1.ä»¥ä¸‹ç‚ºæŸä¸€å¤©ä¹‹å‰çš„æ—¥æœŸç„¡æ³•é¸æ“‡
+//      var somedate1 = new Date('2017-06-15');
+//      $('#f_date1').datetimepicker({
+//          beforeShowDay: function(date) {
+//        	  if (  date.getYear() <  somedate1.getYear() || 
+//		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
+//		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
+//              ) {
+//                   return [false, ""]
+//              }
+//              return [true, ""];
+//      }});
+
+
+//      2.ä»¥ä¸‹ç‚ºæŸä¸€å¤©ä¹‹å¾Œçš„æ—¥æœŸç„¡æ³•é¸æ“‡
+//      var somedate2 = new Date('2017-06-15');
+//      $('#f_date1').datetimepicker({
+//          beforeShowDay: function(date) {
+//        	  if (  date.getYear() >  somedate2.getYear() || 
+//		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
+//		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
+//              ) {
+//                   return [false, ""]
+//              }
+//              return [true, ""];
+//      }});
+
+
+//      3.ä»¥ä¸‹ç‚ºå…©å€‹æ—¥æœŸä¹‹å¤–çš„æ—¥æœŸç„¡æ³•é¸æ“‡ (ä¹Ÿå¯æŒ‰éœ€è¦æ›æˆå…¶ä»–æ—¥æœŸ)
+//      var somedate1 = new Date('2017-06-15');
+//      var somedate2 = new Date('2017-06-25');
+//      $('#f_date1').datetimepicker({
+//          beforeShowDay: function(date) {
+//        	  if (  date.getYear() <  somedate1.getYear() || 
+//		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
+//		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
+//		             ||
+//		            date.getYear() >  somedate2.getYear() || 
+//		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
+//		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
+//              ) {
+//                   return [false, ""]
+//              }
+//              return [true, ""];
+//      }});
+
 </script>
 
+
+	
+    <!-- å…§å®¹ ---end  -->
+
+
+        <!-- footer -->
+        <footer id="footer" class="pt-5 ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 footer-list">
+                        <h5>å¿«é€Ÿé€£çµ</h5>
+                        <ul>
+                            <li>
+                                <a class="footer-link" href="<%=request.getContextPath()%>/front-end/index.jsp">S.F.Gé¦–é </a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="<%=request.getContextPath()%>/front-end/member/addMember.jsp">è¨»å†Šæœƒå“¡</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="">å•†åŸ</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="">åœ˜è³¼</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-6 footer-list">
+                        <h5 class="text-uppercase">æœƒå“¡äº’å‹•</h5>
+                        <ul>
+                            <li>
+                                <a class="footer-link" href="">ç«¶æ¨™å€</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="">ç›´è³¼å€</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="<%=request.getContextPath()%>/front-end/post/listAllPost.jsp">è¨è«–å€</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="">èŠå¤©å®¤</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-6 footer-list">
+                        <h5 class="text-uppercase">é—œæ–¼æˆ‘å€‘</h5>
+                        <ul>
+                            <li>
+                                <a class="footer-link" href="">é—œæ–¼S.F.G</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="">æœ€æ–°æ¶ˆæ¯</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="">éš±ç§æ¬Šæ”¿ç­–</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-6 footer-list">
+                        <h5 class="text-uppercase">æŠ€è¡“æ”¯æ´</h5>
+                        <ul>
+                            <li>
+                                <a class="footer-link" href="">æ–°æ‰‹ä¸Šè·¯</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="">å¹«åŠ©&æ”¯æ´</a>
+                            </li>
+                            <li>
+                                <a class="footer-link" href="">æœå‹™æ¢æ¬¾</a>
+                            </li>
+                        </ul>                    
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-end bg-dark mt-5 py-2">
+                <p class="text-center">&copy; Copy right 2020</p>
+            </div>
+        </footer>
+
+        <button id="chatBtn" class="bg-primary">
+            <i class="fas fa-comments"></i>
+        </button>
+
+</body>
 
 </html>

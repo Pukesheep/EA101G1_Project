@@ -88,7 +88,7 @@
                     <div class="item col-md-2"><a href="#">直購區 </a></div> 
                     <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/post/listAllPost.jsp">討論區 </a></div> 
                     <div class="item col-md-2"><a href="#">紅利</a></div> 
-                <div class="item col-md-2"><a href="#">Q&A</a></div>
+                	<div class="item col-md-2"><a href="#">Q&A</a></div>
             </div>
         </div>
 
