@@ -40,7 +40,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
 
     <!-- 使用style.css -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 
     <!-- 連結Bootstrap所需要的js -->
     <!-- jquery.min.js -->
@@ -59,7 +59,7 @@
 	<!-- CKEditor -->
 	<script src="<%=request.getContextPath()%>/files/ckeditor/ckeditor.js"></script>
 	<!-- post.css -->
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/post.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/post.css">
 	
 	
 </head>
@@ -82,12 +82,13 @@
         
         <div class="navbar2 navbar-dark">
             <div class="row">
-                <div class="item col-md-2"><a href="#"></a>商城</div>
-                <div class="item col-md-2"><a href="#"></a>團購</div>
-                <div class="item col-md-2"><a href="#"></a>交易</div>
-                <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/post/listAllPost.jsp">討論區</a></div>
-                <div class="item col-md-2"><a href="#"></a>紅利</div>
-                <div class="item col-md-2"><a href="#"></a>Q&A</div>
+                    <div class="item col-md-2"><a href="#">商城 </a></div>
+                    <div class="item col-md-2"><a href="#">團購 </a></div> 
+                    <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/auct/Auct_index.jsp">競標區 </a></div> 
+                    <div class="item col-md-2"><a href="#">直購區 </a></div> 
+                    <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/post/listAllPost.jsp">討論區 </a></div> 
+                    <div class="item col-md-2"><a href="#">紅利</a></div> 
+                <div class="item col-md-2"><a href="#">Q&A</a></div>
             </div>
         </div>
 
@@ -104,7 +105,7 @@
             <c:if test="${sessionScope.memberVO ne null}">
             	
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/member/member.do?action=getOne_For_Update-front&mem_id=${sessionScope.memberVO.mem_id}">會員中心</a>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/member/member.do?action=getOne_For_Display-front&mem_id=${sessionScope.memberVO.mem_id}">會員中心</a>
                 </li>
                 <li class="nav-item">
                 	<a class="nav-link" href="<%=request.getContextPath()%>/member/login.do?action=logout">登出</a>
@@ -274,7 +275,7 @@
 					      					<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/reportpost.png" id="${postVO.post_id}${memberVO.mem_id}" title="檢舉文章">
 											<c:if test="${sessionScope.memberVO.mem_id == postVO.mem_id}">
 												<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/remove.png" id="${postVO.post_id}${memberVO.mem_id}" title="移除文章">
-												<img class="img-icon ${postVO.post_id}" alt="" src="<%=request.getContextPath()%>/images/icons/update.png" id="${postVO.post_id}${memberVO.mem_id}" title="修改文章">
+												<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/update.png" id="${postVO.post_id}${memberVO.mem_id}" title="修改文章">
 											</c:if>
 			      						</c:if>
 									</c:if>
@@ -561,17 +562,6 @@
 </c:if>
 <%-- 開啟收藏文章按鈕 --%>
 
-
-<a type="button" class="btn btn-secondary" data-container="body" data-toggle="popover${memberVO.mem_id}" data-placement="top" data-content="${memberVO.mem_id}">
-  Popover on top
-</a>
-
-<script>
-	$(function () {
-		$('[data-toggle="popover${memberVO.mem_id}"]').popover();
-	})
-</script>
-
 <script>
 	// 處理icon圖片及功能的切換
 	$('img.img-icon').click(function(){
@@ -710,7 +700,7 @@
 			} else if (splitID !== 'COMM') {
 				
 				var thisClass = $(this).attr('class');
-				var post_id = thisClass.substring(9);
+				var post_id = thisID.substring(0, 10);
 				//modal-update${postVO.post_id}
 				$('#modal-update' + post_id).modal('toggle');
 

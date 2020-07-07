@@ -2,10 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.member.model.*" %>
 
-<%
-	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-%>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,9 +9,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>S.F.G首頁</title>
+    <title>註冊會員</title>
     <!-- TODO: 換title 的icon -->
-    <link rel="icon shortcut" href="./img/ICON.ico">
+    <link rel="icon shortcut" href="<%=request.getContextPath()%>/front-end/img/ICON.ico">
     <!-- Bootstrap官方網站 https://getbootstrap.com/ -->
     <!-- 連結Bootstrap.min.css -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -29,7 +25,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
 
     <!-- 使用style.css -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 
     <!-- 連結Bootstrap所需要的js -->
     <!-- jquery.min.js -->
@@ -46,17 +42,9 @@
 	<!-- SweetAlert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	
-<style>
-	img#submit {
-		width: 100px;
-		height: 30px;
-	}
-	img#check {
-		width: 20px;
-		height: 20px;
-		display: none;
-	}
-</style>
+	<!-- member.css -->
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/member.css">
+	
 </head>
 
 <body>
@@ -81,7 +69,7 @@
                 <div class="item col-md-2"><a href="#"></a>商城</div>
                 <div class="item col-md-2"><a href="#"></a>團購</div>
                 <div class="item col-md-2"><a href="#"></a>交易</div>
-                <div class="item col-md-2"><a href="#"></a>討論區</div>
+                <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/post/listAllPost.jsp">討論區</a></div>
                 <div class="item col-md-2"><a href="#"></a>紅利</div>
                 <div class="item col-md-2"><a href="#"></a>Q&A</div>
             </div>
@@ -102,7 +90,7 @@
                     <a class="nav-link" href="<%=request.getContextPath()%>/front-end/protected/listOneMember.jsp">會員中心</a>
                 </li>
                 <li class="nav-item">
-                	<a class="nav-link" href="<%=request.getContextPath()%>/member/member.do?action=logout">登出</a>
+                	<a class="nav-link" href="<%=request.getContextPath()%>/member/login.do?action=logout">登出</a>
                 </li>
           	</c:if>
                 <li class="nav-item">
@@ -140,32 +128,77 @@
 			</script>
 		</c:if>
 		
-<div class="row">
-	<div class="col-md-12">
-		<div class="row  align-items-center">
-			<div class="col-md-5 full">
+<div class="container">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card login">
+			<div class="card-header">
+				<h3>註冊</h3>
+				<div class="d-flex justify-content-end social_icon">
+					<span><i class="fas fa-user-plus"></i></span>
+				</div>
 			</div>
-  			 <div class="col-md-5 align-self-center">
+			<div class="card-body">
 				<form action="<%=request.getContextPath()%>/member/member.do" method="post">
-					<div class="form-group col-md-4 align-self-center">
-						<label for="formGroupExampleInput1">會員名稱</label>
-	    				<input type="text" class="form-control" id="formGroupExampleInput1" placeholder="請輸入會員名稱" name="mem_name" value="<%= (memberVO == null) ? "" : memberVO.getMem_name() %>">
-	    				<label for="formGroupExampleInput2">電子信箱</label>
-	    				<img id="check">
-	    				<input type="text" class="form-control" id="formGroupExampleInput2" placeholder="請輸入E-Mail" name="mem_email" value="<%= (memberVO == null) ? "" : memberVO.getMem_email() %>">
-	  				</div>
-	  				<div class="form-row col-md-4 justify-content-around">
-	  					<button type="submit" class="btn btn-success btn-lg" name="action" value="signup">註冊</button>
-	  				</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend forlogin">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input type="text" name="mem_name" class="form-control" placeholder="會員名稱" autocomplete="off" id="mem_name">
+						
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend forlogin">
+							<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+						</div>
+						<input id="mem_email" type="text" name="mem_email" class="form-control" placeholder="電子信箱" autocomplete="off" id="mem_email">
+					</div>
+					<font id="font" class="hint"></font>
+					<img id="check" class="invisible">
+					<div class="form-group">
+						<input type="hidden" name="action" value="signup">
+						<input type="submit" value="註冊" class="btn float-right login_btn" id="btn-submit">
+					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
+
+
+<div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content bg-dark">
+			<div class="modal-header text-white">
+				<h6 class="modal-title display-4" id="exampleModalCenterTitle">註冊成功</h6>
+			</div>
+		<div class="modal-body text-white">
+			<p>
+				歡迎成為 S.F.G 的會員！
+			</p>
+			<p>
+				請到註冊的電子信箱收取信件,
+			</p>
+			<p>
+				 並使用當中的密碼登入
+			</p>
+		</div>
+		<div class="modal-footer text-white">
+			<font>
+				三秒後轉至登入頁面	或	
+			</font>
+			<a href="<%=request.getContextPath()%>/front-end/member/login.jsp"><button type="button" class="btn btn-warning btn-tologin">前往登入</button></a>
+		</div>
+		</div>
+	</div>
+</div>
+
+
 <script>
-	$('#formGroupExampleInput2').blur(function() {
+	$('#mem_email').blur(function() {
+		
+		var font = document.getElementById('font');
 		var mem_email = $(this).val().trim();
-		var ok = /[@.(a-zA-Z)0-9]/g.test(mem_email);
+		var ok = /[.(a-zA-Z)0-9]/g.test(mem_email) && mem_email.includes('@');
 		if (ok === true) {
 			$.ajax({
 				url: '<%=request.getContextPath()%>/member/check.do',
@@ -177,24 +210,30 @@
 				dataType: 'json',
 				success: function(data){
 					if (data !== null) {
+						$('#check').attr('class', 'visible');
 						if (data.isUsed === false){
-							$('#check').css('display', 'inline');
 							$('#check').attr('src', '<%=request.getContextPath()%>/images/icons/checked.png');
+							font.innerText = '此電子信箱可使用';
 						} else {
-							$('#check').css('display', 'inline');
 							$('#check').attr('src', '<%=request.getContextPath()%>/images/icons/cross.png');
+							font.innerText = '此電子信箱不可使用';
 						}
-					} 
-				},
-				error: function(xhr, status, error) {
-					console.log("error");
-					console.log(xhr.responseText);
+					}
 				}
 			});
-		} else {
-			$('#check').css('display', 'none');
-		}
+		} 
 	});
+	
+	$('#mem_email').focus(function(){
+		var font = document.getElementById('font');
+		font.innerText = '';
+		$('#check').attr('class', 'invisible');
+	});
+	
+	$('#btn-submit').click(function(){
+		$('#success').modal('show');
+	})
+	
 	
 </script>
 
