@@ -77,7 +77,7 @@
 			<td>${ordSvc.listOneOrdstat(poVO.ordstat_id).ordstat}</td>
 			<td>${poVO.amount}</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/productorder/Po.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/productOrder/Po.do" style="margin-bottom: 0px;">
 			  	<c:if test="${poVO.ordstat_id == '003'}">
 			     <input type="submit" value="¨ú®ø">
 			     <input type="hidden" name="ordstat_id"  value="007">

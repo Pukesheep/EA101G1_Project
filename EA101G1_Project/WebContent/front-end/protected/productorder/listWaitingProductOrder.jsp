@@ -4,12 +4,13 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.productOrder.model.*"%>
 <%@ page import="com.member.model.*"%>
+<%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
     PoService poSvc = new PoService();
 	MemberVO memVO = (MemberVO) session.getAttribute("memberVO");
 	String mem_id = memVO.getMem_id();
-    List<PoVO> listAll = poSvc.getAll();
+    List<PoVO> listAll = poSvc.getOrder("003");
     List<PoVO> list = poSvc.getOrderByMemId(mem_id, listAll);
     pageContext.setAttribute("list",list);
 %>
@@ -18,7 +19,7 @@
 <jsp:useBean id="proSvc" scope="page" class="com.product.model.ProService" />
 <html>
 <head>
-<title>所有訂單資料</title>
+<title>所有商品資料 - listAllPro.jsp</title>
 
 <style>
   table#table-1 {
@@ -61,8 +62,9 @@
 <body bgcolor='white'>
 
 
-<table style:"margin:0px auto">
-	<c:forEach var="poVO" items="${list}">
+<table>
+
+	<c:forEach var="poVO" items="${list}" >
 	<tr>
 		<th>訂單編號</th>
 		<th>日期</th>
@@ -77,17 +79,12 @@
 			<td>${ordSvc.listOneOrdstat(poVO.ordstat_id).ordstat}</td>
 			<td>${poVO.amount}</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/productorder/Po.do" style="margin-bottom: 0px;">
-			  	<c:if test="${poVO.ordstat_id == '003'}">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/productOrder/Po.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="取消">
-			     <input type="hidden" name="ordstat_id"  value="007">
-			    </c:if> 
-			    <c:if test="${poVO.ordstat_id == '006'}">
-			     <input type="submit" value="完成">
-			     <input type="hidden" name="ordstat_id"  value="007">
-			    </c:if> 
-			     <input type="hidden" name="url" value="<%=request.getServletPath()%>?<%=request.getQueryString()%>">
 			     <input type="hidden" name="po_id"  value="${poVO.po_id}">
+			     <input type="hidden" name="ordstat_id"  value="007">
+			     <input type="hidden" name="show" value="#nav-waiting-tab">
+			     <input type="hidden" name="url" value="<%=request.getServletPath()%>?<%=request.getQueryString()%>">
 			     <input type="hidden" name="action"	value="updateOrdStat"></FORM>
 			</td>
 		</tr>
@@ -103,6 +100,7 @@
 		
 	</c:forEach>
 </table>
+
 
 </body>
 </html>

@@ -7,12 +7,7 @@
 <%@ page import="com.shopCart.model.PRODUCT" %>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
-<%	Vector<PRODUCT> buylist=null; //購物車顯示有多少東西
-	if(session.getAttribute("shoppingcart")!=null){
-	buylist = (Vector<PRODUCT>) session.getAttribute("shoppingcart");
-	}else{
-		buylist= new Vector<PRODUCT>();
-	}
+<%	
     ProService proSvc = new ProService();
     List<ProVO> list = proSvc.getAllFront();
     pageContext.setAttribute("list",list);
@@ -196,55 +191,7 @@
 </head>
 <body>
 <!-- navbar -->
-    <!-- 使用Boostrap Navbar -->
-    <!-- 設定Navbar緊貼畫面上緣 -->
-    <!-- b4-navbar-default 安裝Bootstrap外掛,可以使用快捷指令 -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
-        <a class="navbar-brand" href="index.html">
-            <span class="logo"><i class="fas fa-bomb"></i></span>
-            <span class="logo2">S.F.G</span>
-            <span class="logo3">{{{</span>
-        </a>
-        <!-- 手機選單按鈕 -->
-        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
-            aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <div class="navbar2 navbar-dark">
-            <div class="row">
-                <div class="item col-md-2"><a href="#"></a>商城</div>
-                <div class="item col-md-2"><a href="#"></a>團購</div>
-                <div class="item col-md-2"><a href="#"></a>交易</div>
-                <div class="item col-md-2"><a href="#"></a>討論區</div>
-                <div class="item col-md-2"><a href="#"></a>紅利</div>
-                <div class="item col-md-2"><a href="#"></a>Q&A</div>
-            </div>
-        </div>
-
-        <div class="collapse navbar-collapse" id="collapsibleNavId">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">登入</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">註冊</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">會員中心</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/favouriteProduct/listAllFavouriteProduct.jsp">我的最愛</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/shopCart/shopCart.jsp">購物車(<%=buylist.size() %>)</a>
-                </li>
-
-            </ul>
-        </div>
-
-
-    </nav>
+    <%@ include file="../../files/header.jsp" %>
     <!-- navbar end -->
     <section class="blank0"></section>
     
