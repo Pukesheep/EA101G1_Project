@@ -12,6 +12,9 @@ public interface AuctDAO_interface {
 	public AuctVO listOneAuct(String auct_id);
 	public List<AuctVO> getAll();
 	
+	//賣家查詢自己上架的商品
+	public List<AuctVO> getAllByMem(String sale_id);
+	
 	//查詢該商品，對應的出價
 	public Set<BidVO> getBidsBy_auctId(String auct_id);
 	
@@ -36,6 +39,7 @@ public interface AuctDAO_interface {
 	
 	//前台上架（陳列）
 	public List<AuctVO> getAllFront();
-	
+	//前台結標（陳列）
+	public List<AuctVO> getAllResult();
 	
 }
