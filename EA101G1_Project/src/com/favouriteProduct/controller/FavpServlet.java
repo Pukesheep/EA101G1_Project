@@ -26,44 +26,26 @@ public class FavpServlet extends HttpServlet {
 		
 		String listAllFavouriteProduct = "/front-end/favouriteProduct/listAllFavouriteProduct.jsp";
 		
-		if("delete".equals(action)) {
+		if("delete".equals(action)||"delete2".equals(action)) {
 			try {
 				String p_id = req.getParameter("p_id");
 				String mem_id = req.getParameter("mem_id");
 				
 				FavpService favpSvc = new FavpService();
 				favpSvc.deleteFavp(p_id, mem_id);
-				
+				if("delete".equals(action)) {
 				String url = "listAllFavouriteProduct.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(listAllFavouriteProduct);// �������,頧漱���������雯���
-				successView.forward(req, res);
+				successView.forward(req, res);}
 			} catch(Exception e) {
 				RequestDispatcher failureView = req.getRequestDispatcher(listAllFavouriteProduct);
 				failureView.forward(req, res);
 			}
 		}
 		
-		if("delete2".equals(action)) {// ajax用 不轉傳任何網頁
-			try {
-				System.out.println("delete");
-				String p_id = req.getParameter("p_id");
-				String mem_id = req.getParameter("mem_id");
-				
-				FavpService favpSvc = new FavpService();
-				favpSvc.deleteFavp(p_id, mem_id);
-				
-			} catch(Exception e) {
-				RequestDispatcher failureView = req.getRequestDispatcher("listAllFavouriteProduct.jsp");
-				failureView.forward(req, res);
-			}
-		}
 		
-		if("insert".equals(action)) {
-			
-			String listAllProduct = "/front-end/product/listAllProduct.jsp";
-			
+		if("insert".equals(action)||"insert2".equals(action)) {
 			try {
-				
 				String p_id = req.getParameter("p_id");
 				String mem_id = req.getParameter("mem_id");
 				if("guest".equals(mem_id)) {
@@ -78,12 +60,15 @@ public class FavpServlet extends HttpServlet {
 					FavpService favpSvc = new FavpService();
 					favpSvc.addFavp(favpVO);
 					
-					String url = "listAllProduct.jsp";
-					RequestDispatcher failureView = req.getRequestDispatcher(listAllProduct);
+					String url;
+					if("insert".equals(action)) {
+					url = "listAllProduct.jsp";
+					RequestDispatcher failureView = req.getRequestDispatcher(url);
 					failureView.forward(req, res);
+					}
 				}
 			}catch (Exception e) {
-				RequestDispatcher failureView = req.getRequestDispatcher(listAllProduct);
+				RequestDispatcher failureView = req.getRequestDispatcher("listAllProduct.jsp");
 				failureView.forward(req, res);
 			}
 		}

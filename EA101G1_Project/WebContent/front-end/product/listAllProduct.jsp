@@ -319,7 +319,7 @@ $('img.img-icon').click(function(){
 			data: {
 				p_id: p_id,
 				mem_id: mem_id,
-				action: 'insert'
+				action: 'insert2'
 			},
 			success: function(){
 				Swal.fire({
