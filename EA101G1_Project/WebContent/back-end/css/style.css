@@ -25,7 +25,7 @@ header .navbar-brand span.logo3{
     font-family: 'Lakki Reddy', cursive;
     margin-left:  0.3125rem;
 }
-/*========================  .content 包 aside main  =====================r*/
+/*========================  .content ��� aside main  =====================r*/
 .content{
     margin-top: 73px;
 }
@@ -60,6 +60,7 @@ header .navbar-brand span.logo3{
     /*========================  main  =====================r*/
     main{
        min-height: calc(100vh - 73px);
+       width: 100%;
     }
 /*========================   Media Query 768px =====================r*/
 @media (max-width: 767px){
