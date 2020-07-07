@@ -39,7 +39,7 @@ public class AuctDAOTEST {
 
 	
 	
-//	//修改商品內容(賣家編號不變)
+	//修改商品內容(賣家編號不變)
 //	AuctVO auctVO2 = new AuctVO();
 //	
 //	auctVO2.setPt_id("PT001");      //商品分類編號
@@ -59,38 +59,38 @@ public class AuctDAOTEST {
 //	
 //	auctVO2.setAuct_down(0); //上架
 //	dao.update_auct_down(auctVO2);
-	
+//	
 //	dao.update_product(auctVO2);
 //	System.out.println("修改成功");
 	
 	
 //	//查詢單一商品
-	AuctVO auctVO3 = dao.listOneAuct("AUCT000010");
-	System.out.println(auctVO3.getAuct_id() + ",");
-	System.out.println(auctVO3.getSale_id() + ",");
-	System.out.println(auctVO3.getPt_id() + ",");
-	System.out.println(auctVO3.getAuct_name() + ",");	
-	System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(auctVO3.getAuct_start()) + ",");
-	System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(auctVO3.getAuct_end()) + ",");
+//	AuctVO auctVO3 = dao.listOneAuct("AUCT000010");
+//	System.out.println(auctVO3.getAuct_id() + ",");
+//	System.out.println(auctVO3.getSale_id() + ",");
+//	System.out.println(auctVO3.getPt_id() + ",");
+//	System.out.println(auctVO3.getAuct_name() + ",");	
+//	System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(auctVO3.getAuct_start()) + ",");
+//	System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(auctVO3.getAuct_end()) + ",");
 		
 //	System.out.println(one_auctVO.getMarketPrice() + ",");
-	System.out.println(auctVO3.getInitPrice() + ",");
-	System.out.println(auctVO3.getAuct_inc() + ",");
-	System.out.println(auctVO3.getAuct_desc() + ",");
-	System.out.println(auctVO3.getAuct_pic() + ",");
-	System.out.println(auctVO3.getAuct_sold() + ",");
-	System.out.println(auctVO3.getAuct_down() + ",");
+//	System.out.println(auctVO3.getInitPrice() + ",");
+//	System.out.println(auctVO3.getAuct_inc() + ",");
+//	System.out.println(auctVO3.getAuct_desc() + ",");
+//	System.out.println(auctVO3.getAuct_pic() + ",");
+//	System.out.println(auctVO3.getAuct_sold() + ",");
+//	System.out.println(auctVO3.getAuct_down() + ",");
 //	
-	System.out.println(auctVO3.getBuy_id() + ",");
-	System.out.println(auctVO3.getMaxPrice() + ",");
+////	System.out.println(auctVO3.getBuy_id() + ",");
+//	System.out.println(auctVO3.getMaxPrice() + ",");
 	
-	System.out.println(auctVO3.getOrdstat_id() + ",");
-	System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(auctVO3.getOrd_time()) + ",");
-	System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(auctVO3.getPay_end()) + ",");
-	System.out.println(auctVO3.getRcpt_name() + ",");
-	System.out.println(auctVO3.getRcpt_cel() + ",");
-	System.out.println(auctVO3.getRcpt_add());
-	System.out.println("查詢結束");
+//	System.out.println(auctVO3.getOrdstat_id() + ",");
+//	System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(auctVO3.getOrd_time()) + ",");
+//	System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(auctVO3.getPay_end()) + ",");
+//	System.out.println(auctVO3.getRcpt_name() + ",");
+//	System.out.println(auctVO3.getRcpt_cel() + ",");
+//	System.out.println(auctVO3.getRcpt_add());
+//	System.out.println("查詢結束");
 	
 	//查詢（全部）商品
 //	List<AuctVO> list = new ArrayList<AuctVO>();
@@ -123,6 +123,30 @@ public class AuctDAOTEST {
 //	}
 //		
 //	System.out.println("查詢結束");
+		
+	//賣家查詢自己上架的商品
+		List<AuctVO> list = new ArrayList<AuctVO>();
+		list = dao.getAllByMem("M000003");
+		
+		for(AuctVO one_auctVO : list) {
+			System.out.println(one_auctVO.getAuct_id() + ",");
+			System.out.println(one_auctVO.getSale_id() + ",");
+			System.out.println(one_auctVO.getPt_id() + ","); 
+			System.out.println(one_auctVO.getAuct_name() + ",");
+			
+			System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(one_auctVO.getAuct_start()) + ",");
+			System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(one_auctVO.getAuct_end()) + ",");
+			System.out.println(one_auctVO.getMarketPrice() + ",");
+			System.out.println(one_auctVO.getInitPrice() + ",");
+			System.out.println(one_auctVO.getAuct_inc() + ",");
+			System.out.println(one_auctVO.getAuct_desc() + ",");
+			System.out.println(one_auctVO.getAuct_pic() + ",");
+			System.out.println(one_auctVO.getAuct_sold() + ",");
+			System.out.println(one_auctVO.getAuct_down() + ",");
+			System.out.println("======================================");
+			
+		} System.out.println("查詢結束");
+	
 	
 	//查詢該商品，對應的出價
 //	Set<BidVO> set = dao.getBidsBy_auctId("AUCT000004");
