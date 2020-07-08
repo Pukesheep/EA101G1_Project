@@ -246,8 +246,15 @@
 	<servlet-mapping>
 		<servlet-name>BOServlet</servlet-name>
 		<url-pattern>/BounsOrder/BounsOrder.do</url-pattern>
-		<url-pattern>/front-end/BounsOrder/BounsOrder.do</url-pattern>
-		<url-pattern>/back-end/BounsOrder/BounsOrder.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>FBServlet</servlet-name>
+		<servlet-class>com.FavoriteBouns.controller.FBServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FBServlet</servlet-name>
+		<url-pattern>/FavoriteBouns/FBServlet.do</url-pattern>
 	</servlet-mapping>
 	
 <!-- 紅利商城 -->
