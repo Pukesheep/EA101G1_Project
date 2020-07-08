@@ -195,7 +195,7 @@ public class BMServlet extends HttpServlet {
 				/***************************2.開始新增資料***************************************/
 				
 				BMService bmSvc = new BMService();
-				bmVO = bmSvc.addByPK(pt_id, bon_name, bon_price, bon_image, bon_info, bon_stock);
+				bmVO = bmSvc.addBM(pt_id, bon_name, bon_price, bon_image, bon_info, bon_stock);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/back-end/BounsMall/ListAll.jsp";

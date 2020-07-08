@@ -238,7 +238,18 @@
 		<servlet-name>ImageServlet</servlet-name>
 		<url-pattern>/BounsMall/ImageServlet.do</url-pattern>
 	</servlet-mapping>
-
+	
+	<servlet>
+		<servlet-name>BOServlet</servlet-name>
+		<servlet-class>com.BounsOrder.controller.BOServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BOServlet</servlet-name>
+		<url-pattern>/BounsOrder/BounsOrder.do</url-pattern>
+		<url-pattern>/front-end/BounsOrder/BounsOrder.do</url-pattern>
+		<url-pattern>/back-end/BounsOrder/BounsOrder.do</url-pattern>
+	</servlet-mapping>
+	
 <!-- 紅利商城 -->
 
 <!-- 員工 + 檢舉 -->
