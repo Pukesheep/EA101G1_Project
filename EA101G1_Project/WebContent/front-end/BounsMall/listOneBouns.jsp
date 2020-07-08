@@ -91,7 +91,7 @@
 					<div class="col-4">
 <!-- 						<button type="button" class="btn btn-danger float-left">我要購買</button> -->
 						<a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=insert&mem_id=${memVO.mem_id}&bon_id=${bmVO.bon_id}"><button type="button" class="btn btn-danger float-left">我要購買</button></a>
-						<button type="button" class="btn btn-secondary float-right">加入最愛</button>
+						<a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=insert&mem_id=${memVO.mem_id}&bon_id=${bmVO.bon_id}"><button type="button" class="btn btn-secondary float-right">加入最愛</button></a>
 					</div>
 				</div>
 			</div>
