@@ -403,7 +403,7 @@
 		<filter-class>com.member.filter.MemberLoginFilter</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>LoginFilter</filter-name>
+		<filter-name>MemberLoginFilter</filter-name>
 		<url-pattern>/front-end/protected/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
