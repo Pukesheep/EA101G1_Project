@@ -3,12 +3,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.BounsMall.model.*" %>
+<%@ page import="com.member.model.*" %>
 
 <%
 	BMService bmSvc = new BMService();
 	List<BMVO> list = bmSvc.getAll();
 	pageContext.setAttribute("list",list);
 	BMVO bmVO = (BMVO) request.getAttribute("bmVO");
+	MemberService memSvc = new MemberService(); 
+	MemberVO memVO = (MemberVO) request.getAttribute("memVO");
 %>
 
 <html lang="en">
@@ -86,8 +89,9 @@
 				</div>
 				<div class="row justify-content-center">
 					<div class="col-4">
-						<button type="button" class="btn btn-danger float-left">我要購買</button>
-						<button type="button" class="btn btn-dark float-right">加入最愛</button>
+<!-- 						<button type="button" class="btn btn-danger float-left">我要購買</button> -->
+						<a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=insert&mem_id=${memVO.mem_id}&bon_id=${bmVO.bon_id}"><button type="button" class="btn btn-danger float-left">我要購買</button></a>
+						<button type="button" class="btn btn-secondary float-right">加入最愛</button>
 					</div>
 				</div>
 			</div>
