@@ -54,6 +54,10 @@
   td>img{
   width:200px;
   }
+  
+  front{
+		font-family:Microsoft JhengHei;
+		}
 </style>
 
 
@@ -64,8 +68,8 @@
     <a class="nav-item nav-link active" id="nav-all-tab" data-toggle="tab" href="#nav-all" role="tab" aria-controls="nav-all" aria-selected="true">全部</a>
     <a class="nav-item nav-link" name="003" id="nav-waiting-tab" data-toggle="tab" href="#nav-waiting" role="tab" aria-controls="nav-waiting" aria-selected="false">待出貨</a>
     <a class="nav-item nav-link" name="006" id="nav-arrival-tab" data-toggle="tab" href="#nav-arrival" role="tab" aria-controls="nav-arrival" aria-selected="false">已到貨</a>
-    <a class="nav-item nav-link" name="014" id="nav-finsh-tab" data-toggle="tab" href="#nav-finsh" role="tab" aria-controls="nav-finsh" aria-selected="false">完成</a>
-    <a class="nav-item nav-link" name="007" id="nav-cancel-tab-tab" data-toggle="tab" href="#nav-cancel-tab" role="tab" aria-controls="nav-cancel-tab" aria-selected="false">取消</a>
+    <a class="nav-item nav-link" name="014" id="nav-finsh-tab" data-toggle="tab" href="#nav-finsh" role="tab" aria-controls="nav-finsh" aria-selected="false">已完成</a>
+    <a class="nav-item nav-link" name="007" id="nav-cancel-tab-tab" data-toggle="tab" href="#nav-cancel-tab" role="tab" aria-controls="nav-cancel-tab" aria-selected="false">已取消</a>
   </div>
 </nav>
 

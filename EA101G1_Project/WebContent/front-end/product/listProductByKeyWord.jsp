@@ -7,11 +7,8 @@
 <%@ page import="com.shopCart.model.PRODUCT" %>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
-<%	
-    ProService proSvc = new ProService();
-    List<ProVO> list = proSvc.getAllFront();
-    session.setAttribute("keyWordlist",list);
-    pageContext.setAttribute("list",list);
+<% 
+	List<ProVO> list = (ArrayList<ProVO>)request.getAttribute("list");
 %>
 
 <jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
@@ -89,9 +86,6 @@
   width:200px;
   }
   
-  front{
-		font-family:Microsoft JhengHei;
-		}
 </style>
 
 <style type="text/css" media="screen">
@@ -190,6 +184,10 @@
 			cursor:pointer;
 			color:red;
 		}
+		
+		front{
+		font-family:Microsoft JhengHei;
+		}
 	</style>
 
 </head>
@@ -209,9 +207,8 @@
 <div class="ptlist" style="margin-top:10px;margin-right:60px;width:170px">
 
 <div class="Now block" style="width:170px;height:170px;display: flex;background-color:#c6d4df;margin-bottom:4px;border-radius:10px">
-	<div style="text-align:center; margin-top:70px;width:100%"><font style="font-weight:bold;font-size:20px;font-family:Microsoft JhengHei;">全部商品</font></div>
+	<div style="text-align:center; margin-top:70px;width:100%"><font style="font-weight:bold;font-size:20px;font-family:Microsoft JhengHei;">搜尋結果</font></div>
 	</div>
-	
 <div class="list-group">
 	<a href="#" class="list-group-item active">
 		<h4 class="list-group-item-heading">
@@ -285,9 +282,9 @@
 
 </div>
 
-<div id="productShow" style="margin-top:10px">
+<div id="productShow" style="margin-top:10px;width:750px">
 <div class="col-lg-12">
-			<form action="<%=request.getContextPath()%>/product/pro.do" method="POST">
+               <form action="<%=request.getContextPath()%>/product/pro.do" method="POST">
                 <div class="input-group">
                     <input type="text" class="form-control" name="keyword" placeholder="搜尋商品">
                     <input type="hidden" name="action" value="searchByKeyWord">
@@ -297,6 +294,7 @@
                 </div>
               </form>    
             </div>
+            <%if (list != null && (list.size() > 0)) {%>
 	<%@ include file="../../files/page1.file" %> 
 	<c:forEach var="proVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<div class="display" >
@@ -342,6 +340,9 @@
 		
 	</c:forEach>
 	<%@ include file="../../files/page2.file" %>
+	<%}else{%>
+	<div class="shopee-search-empty-result-section" style="text-align:center;"><img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/62d2399b89039bd1dc90ca2d50d3e802.png" class="shopee-search-empty-result-section__icon"><div class="shopee-search-empty-result-section__title" style="opacity: 0.5; font-size:20px">未找到商品</div><div class="shopee-search-empty-result-section__hint" style="opacity: 0.5; font-size:20px;">嘗試不同或更常見的關鍵字</div></div>
+<%}%>
 </div>
 </div>
 </div>

@@ -9,9 +9,12 @@
 
 <%	
     ProService proSvc = new ProService();
-    List<ProVO> list = proSvc.getAllFront();
+    List<ProVO> listAll = proSvc.getAllFront();
+    String pt_id = request.getParameter("pt_id");
+    List<ProVO> list = proSvc.getFrontByPtId(pt_id, listAll);
     session.setAttribute("keyWordlist",list);
     pageContext.setAttribute("list",list);
+    pageContext.setAttribute("pt_id",pt_id);
 %>
 
 <jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
@@ -89,9 +92,6 @@
   width:200px;
   }
   
-  front{
-		font-family:Microsoft JhengHei;
-		}
 </style>
 
 <style type="text/css" media="screen">
@@ -186,6 +186,10 @@
 			cursor:pointer;
 		}
 		
+		front{
+		font-family:Microsoft JhengHei;
+		}
+		
 		front.p_name:hover {
 			cursor:pointer;
 			color:red;
@@ -207,12 +211,12 @@
 <div class="row">
 
 <div class="ptlist" style="margin-top:10px;margin-right:60px;width:170px">
+<div class="list-group">
 
-<div class="Now block" style="width:170px;height:170px;display: flex;background-color:#c6d4df;margin-bottom:4px;border-radius:10px">
-	<div style="text-align:center; margin-top:70px;width:100%"><font style="font-weight:bold;font-size:20px;font-family:Microsoft JhengHei;">全部商品</font></div>
+	<div class="Now block" style="width:170px;height:170px;display: flex;background-color:#c6d4df;margin-bottom:4px;border-radius:10px">
+	<div style="text-align:center; margin-top:70px;width:100%"><font style="font-weight:bold;font-size:20px;font-family:Microsoft JhengHei;">${ptSvc.getOneProductType(pt_id).typename}</font></div>
 	</div>
 	
-<div class="list-group">
 	<a href="#" class="list-group-item active">
 		<h4 class="list-group-item-heading">
 			Switch
@@ -287,7 +291,7 @@
 
 <div id="productShow" style="margin-top:10px">
 <div class="col-lg-12">
-			<form action="<%=request.getContextPath()%>/product/pro.do" method="POST">
+                <form action="<%=request.getContextPath()%>/product/pro.do" method="POST">
                 <div class="input-group">
                     <input type="text" class="form-control" name="keyword" placeholder="搜尋商品">
                     <input type="hidden" name="action" value="searchByKeyWord">
@@ -342,6 +346,7 @@
 		
 	</c:forEach>
 	<%@ include file="../../files/page2.file" %>
+	
 </div>
 </div>
 </div>
