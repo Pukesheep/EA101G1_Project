@@ -79,7 +79,7 @@ public class BMServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			String url = "/front-end/BounsMall/select_page.jsp";
-			String success = "/front-end/BounsMall/ListOne.jsp";
+			String success = "/front-end/BounsMall/listOneBouns.jsp";
 			
 			try {
 				String str = req.getParameter("BON_ID");
