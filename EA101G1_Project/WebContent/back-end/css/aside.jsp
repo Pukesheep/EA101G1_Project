@@ -18,7 +18,7 @@
                             <a class="nav-link pl-4" href="#">會員權限管理</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">會員資料管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/member/select_page.jsp">會員資料管理</a>
                         </li>
                     </ul>
                 </li>

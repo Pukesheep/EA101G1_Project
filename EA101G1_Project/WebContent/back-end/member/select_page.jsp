@@ -89,7 +89,7 @@
 					<h2 class="card-title">會員查詢</h2>
 					<form action="<%=request.getContextPath()%>/member/member.do" method="post">
 						<div class="input-group mb-3">
-							<input type="text" class="form-control" name="mem_id" id="inlineFormInputGroup" placeholder="請輸入會員編號 ex: M000001">
+							<input type="text" class="form-control" name="mem_id" id="inlineFormInputGroup" placeholder="請輸入會員編號 ex: M000001" autocomplete="off">
 							<div class="input-group-append">
 								<input type="hidden" name="action" value="getOne_For_Display-back">
 								<button class="btn btn-outline-warning" type="submit">單筆查詢</button>
