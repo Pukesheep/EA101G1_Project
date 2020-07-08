@@ -190,6 +190,10 @@
 			cursor:pointer;
 			color:red;
 		}
+		
+		a {
+    	text-decoration:none;
+			}
 	</style>
 
 </head>
@@ -213,11 +217,11 @@
 	</div>
 	
 <div class="list-group">
-	<a href="#" class="list-group-item active">
+	<div class="list-group-item active">
 		<h4 class="list-group-item-heading">
 			Switch
 		</h4>
-	</a>
+	</div>
 	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT001" class="list-group-item">
 		<h4 class="list-group-item-heading">
 			Switch主機
@@ -237,11 +241,11 @@
 </div>
 
 <div class="list-group">
-	<a href="#" class="list-group-item active">
+	<div class="list-group-item active">
 		<h4 class="list-group-item-heading">
 			PS4
 		</h4>
-	</a>
+	</div>
 	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT004" class="list-group-item">
 		<h4 class="list-group-item-heading">
 			PS4主機
@@ -260,11 +264,11 @@
 </div> 
 
 <div class="list-group">
-	<a href="#" class="list-group-item active">
+	<div class="list-group-item active">
 		<h4 class="list-group-item-heading">
 			XBOX
 		</h4>
-	</a>
+	</div>
 	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT007" class="list-group-item">
 		<h4 class="list-group-item-heading">
 			XBOX主機
