@@ -83,15 +83,19 @@
 						<img src="<%=request.getContextPath()%>/BounsMall/ImageServlet.do?bon_id=${bmVO.bon_id}" class="mr-3 bon_image" alt="...">
 						<div class="media-body">
 							<h5 class="mt-0">${bmVO.bon_name}</h5>
+							<h6> －  <i class="fas fa-clock"></i>${bmVO.bon_price}</h6>
 							${bmVO.bon_info}
 						</div>
 					</div>
 				</div>
 				<div class="row justify-content-center">
 					<div class="col-4">
-<!-- 						<button type="button" class="btn btn-danger float-left">我要購買</button> -->
-						<a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=insert&mem_id=${memVO.mem_id}&bon_id=${bmVO.bon_id}"><button type="button" class="btn btn-danger float-left">我要購買</button></a>
-						<a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=insert&mem_id=${memVO.mem_id}&bon_id=${bmVO.bon_id}"><button type="button" class="btn btn-secondary float-right">加入最愛</button></a>
+<!-- 						try -->
+						<a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=exchange&mem_id=M000007&bon_id=${bmVO.bon_id}"><button type="button" class="btn btn-danger float-left">我要購買</button></a>
+						<a href="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do?action=favorite&mem_id=M000007&bon_id=${bmVO.bon_id}"><button type="button" class="btn btn-secondary float-right">加入最愛</button></a>
+<!-- 						try end -->
+<%-- 						<a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=exchange&mem_id=${memVO.mem_id}&bon_id=${bmVO.bon_id}"><button type="button" class="btn btn-danger float-left">我要購買</button></a> --%>
+<%-- 						<a href="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do?action=favorite&mem_id=${memVO.mem_id}&bon_id=${bmVO.bon_id}"><button type="button" class="btn btn-secondary float-right">加入最愛</button></a> --%>
 					</div>
 				</div>
 			</div>

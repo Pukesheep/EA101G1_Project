@@ -34,6 +34,16 @@ public class BOService {
 		return boVO;
 	}
 	
+	public BOVO cancelBO ( String ord_id, String bs_id ) {
+		BOVO boVO = new BOVO();
+		
+		boVO.setOrd_id(ord_id);
+		boVO.setBs_id(bs_id);
+		dao.cancel(ord_id, bs_id);
+		
+		return boVO;
+	}
+	
 	public void deleteBO ( String ord_id ) {
 		dao.delete(ord_id);
 	}

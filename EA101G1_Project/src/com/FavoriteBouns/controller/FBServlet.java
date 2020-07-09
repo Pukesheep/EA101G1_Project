@@ -143,5 +143,46 @@ public class FBServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+
+		if ( "favorite".equals(action) ) {
+			List<FBVO> list = new ArrayList<FBVO>();
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			String success = "/front-end/BounsMall/listFavoriteByMember.jsp";
+			String fail = "/front-end/BounsMall/listOneBouns.jsp";
+			
+			try {
+				String mem_id = req.getParameter("mem_id");
+				if ( mem_id == null || mem_id.trim().length() == 0 ) {
+					errorMsgs.add("請輸入會員資料");
+				}
+				String bon_id = req.getParameter("bon_id");
+				
+				FBDAO dao = new FBDAO();
+				FBVO fbVO = new FBVO();
+				FBService fbSvc = new FBService();
+				
+				fbVO = dao.findByPrimaryKey(mem_id, bon_id);
+				if ( fbVO == null ) {
+					fbVO = fbSvc.addFB(mem_id, bon_id);
+				} else {
+					fbSvc.deleteFB(mem_id, bon_id);
+				}
+				
+				list = fbSvc.getMemFB(mem_id);
+				
+				req.setAttribute("list", list);
+				req.setAttribute("mem_id", mem_id);
+				RequestDispatcher successView = req.getRequestDispatcher(success);
+				successView.forward(req, res);
+				
+			} catch ( Exception e ) {
+				RequestDispatcher failureView = req.getRequestDispatcher(fail);
+				failureView.forward(req, res);
+			}
+		}
+
+		
 	}
 }

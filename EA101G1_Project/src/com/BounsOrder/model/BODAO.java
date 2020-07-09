@@ -39,7 +39,10 @@ public class BODAO implements BODAO_interface {
 			"DELETE FROM BOUNS_ORDER WHERE ORD_ID=?";
 	private static final String UPDATE = 
 			"UPDATE BOUNS_ORDER SET MEM_ID=?, BON_ID=?, BS_ID=?"
-					+ "WHERE ORD_ID=? ";
+					+ " WHERE ORD_ID=? ";
+	private static final String UPDATE_BS_ID =
+			"UPDATE BOUNS_ORDER SET BS_ID=?"
+					+ " WHERE ORD_ID=?";
 	
 	@Override
 	public void insert(BOVO boVO) {
@@ -409,6 +412,40 @@ public class BODAO implements BODAO_interface {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void cancel(String ord_id, String bs_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_BS_ID);
+			pstmt.setString(1, bs_id);
+			pstmt.setString(2, ord_id);
+			
+			pstmt.executeUpdate();
+
+		} catch ( SQLException se ) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if ( pstmt != null ) {
+				try {
+					pstmt.close();
+				} catch ( SQLException se ) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if ( con != null ) {
+				try {
+					con.close();
+				} catch ( SQLException se ) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 	
 }
