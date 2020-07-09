@@ -146,13 +146,14 @@
 	  <servlet-name>ImmedServlet</servlet-name>
 	  <url-pattern>/immed/immed.do</url-pattern>
 	</servlet-mapping>
+	
 	<servlet>
-	  <servlet-name>ImmedPicRead</servlet-name>
-	  <servlet-class>com.immed.model.ImmedPicReader</servlet-class>
+		<servlet-name>ImmedPicRead</servlet-name>
+		<servlet-class>com.immed.controller.ImmedPicReader</servlet-class>
 	</servlet>
 	<servlet-mapping>
-	  <servlet-name>ImmedPicRead</servlet-name>
-	  <url-pattern>/immed/ImmedPicRead</url-pattern>
+		<servlet-name>ImmedPicRead</servlet-name>
+		<url-pattern>/immed/ImmedPic.do</url-pattern>
 	</servlet-mapping>
 	
 <!-- 直購區 -->

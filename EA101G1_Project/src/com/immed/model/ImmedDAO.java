@@ -1,5 +1,8 @@
 package com.immed.model;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.sql.*;
 import java.util.*;
 
@@ -23,6 +26,9 @@ public class ImmedDAO implements ImmedDAO_interface {
 			+ "VALUES ('IMMED'||LPAD(to_char(IMMED_SEQ.NEXTVAL), 6, '0'), ?, ?, ?, SYSTIMESTAMP, ?, ?, ?, 0, 0)";
 	private static final String DELETE = "DELETE FROM IMMED WHERE IMMED_ID = ?";
 	private static final String UPDATE = "UPDATE IMMED SET BUY_ID= ?, PT_ID= ?, IMMED_NAME= ?, IMMED_PRC= ?, IMMED_PIC= ?, IMMED_DESC= ?, IMMED_SOLD= ?, IMMED_DOWN= ?, ORD_TIME= ?, ORDSTAT_ID= ?, RCPT_NAME= ?, RCPT_CELL= ?, RCPT_ADD= ? WHERE IMMED_ID = ?";
+	private static final String UPDATE_UP = "UPDATE IMMED SET IMMED_DOWN= 0 WHERE IMMED_ID = ?";
+	private static final String UPDATE_DOWN = "UPDATE IMMED SET IMMED_DOWN= 1 WHERE IMMED_ID = ?";
+	private static final String UPDATE_ONE_BUY = "UPDATE IMMED SET BUY_ID= ?, IMMED_SOLD= 1, ORD_TIME= SYSTIMESTAMP, ORDSTAT_ID= '003', RCPT_NAME= ?, RCPT_CELL= ?, RCPT_ADD= ? WHERE IMMED_ID = ?";
 	private static final String GET_ALL_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED ORDER BY IMMED_ID";
 	private static final String GET_ONE_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_ID = ?";
 	private static final String GET_FROM_NAME = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE UPPER(IMMED_NAME) LIKE UPPER(?) ORDER BY IMMED_PRC";
@@ -113,7 +119,124 @@ public class ImmedDAO implements ImmedDAO_interface {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public void update_up(ImmedVO immedVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
 
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_UP);
+
+			pstmt.setString(1, immedVO.getImmed_id());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void update_down(ImmedVO immedVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_DOWN);
+
+			pstmt.setString(1, immedVO.getImmed_id());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void update_one_buy(ImmedVO immedVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_ONE_BUY);
+
+			pstmt.setString(1, immedVO.getBuy_id());
+//			pstmt.setString(2, immedVO.getPt_id());
+//			pstmt.setString(3, immedVO.getImmed_name());
+//			pstmt.setInt(4, immedVO.getImmed_prc());
+//			pstmt.setBytes(5, immedVO.getImmed_pic());
+//			pstmt.setString(6, immedVO.getImmed_desc());
+//			pstmt.setInt(2, immedVO.getImmed_sold());
+//			pstmt.setInt(8, immedVO.getImmed_down());
+//			pstmt.setTimestamp(9, immedVO.getOrd_time());
+//			pstmt.setString(3, immedVO.getOrdstat_id());
+			pstmt.setString(2, immedVO.getRcpt_name());
+			pstmt.setString(3, immedVO.getRcpt_cell());
+			pstmt.setString(4, immedVO.getRcpt_add());
+			pstmt.setString(5, immedVO.getImmed_id());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -150,6 +273,18 @@ public class ImmedDAO implements ImmedDAO_interface {
 		}
 	}
 
+	public static String readString(Reader reader) throws IOException   {
+		StringBuilder sb = new StringBuilder();
+		BufferedReader br = new BufferedReader(reader);
+		String str;
+		while((str = br.readLine()) != null) {
+			sb.append("<p>").append(str).append("</p>");
+			sb.append("\n");
+		}
+		br.close();
+		return sb.toString();
+	}
+	
 	@Override
 	public ImmedVO findByPrimaryKey(String immed_id) {
 		ImmedVO immedVO = null;
@@ -176,7 +311,10 @@ public class ImmedDAO implements ImmedDAO_interface {
 				immedVO.setImmed_start(rs.getTimestamp("immed_start"));
 				immedVO.setImmed_prc(rs.getInt("immed_prc"));
 				immedVO.setImmed_pic(rs.getBytes("immed_pic"));
-				immedVO.setImmed_desc(rs.getString("immed_desc"));
+				
+				Reader reader = rs.getCharacterStream("immed_desc");
+				immedVO.setImmed_desc(readString(reader));
+				
 				immedVO.setImmed_sold(rs.getInt("immed_sold"));
 				immedVO.setImmed_down(rs.getInt("immed_down"));
 				immedVO.setOrd_time(rs.getTimestamp("ord_time"));
@@ -189,6 +327,9 @@ public class ImmedDAO implements ImmedDAO_interface {
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			if (rs != null) {
 				try {
@@ -292,11 +433,10 @@ public class ImmedDAO implements ImmedDAO_interface {
 		ResultSet rs = null;
 
 		try {
-
 			con = ds.getConnection();
-			System.out.println(search_str);
+//			System.out.println(search_str);
 			pstmt = con.prepareStatement(GET_FROM_NAME);
-			pstmt.setString(1, "%"+ search_str + "%");
+			pstmt.setString(1, "%" + search_str + "%");
 
 			rs = pstmt.executeQuery();
 

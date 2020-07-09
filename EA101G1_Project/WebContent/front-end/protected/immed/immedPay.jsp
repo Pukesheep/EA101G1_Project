@@ -3,21 +3,29 @@
 <%@ page import="com.productType.model.*"%>
 <%@ page import="com.member.model.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
+<%--
+	ImmedService immedSvc = new ImmedService();
+	ImmedVO immedVO = immedSvc.getOneImmed(request.getParameter("immed_id")); 
+	pageContext.setAttribute("immedVO", immedVO);
+--%>
 <%
-	ImmedVO immedVO = (ImmedVO) request.getAttribute("immedVO"); //ImmedServlet.java(Concroller), 存入req的immedVO物件
+	ImmedVO immedVO = (ImmedVO) session.getAttribute("immedBuyVO"); //ImmedServlet.java (Concroller) 存入req的immedVO物件 (包括幫忙取出的immedVO
 %>
 
-<%
+<%--
 	PtService ptSvc = new PtService();
 	PtVO ptVO = ptSvc.getOneProductType(immedVO.getPt_id());
-%>
+--%>
 
 <%
 	MemberService memberSvc = new MemberService();
 	MemberVO memberVO = memberSvc.getOneMember(immedVO.getSale_id());
+	pageContext.setAttribute("memberVO", memberVO);
 %>
+
 
 <html>
 <head>
@@ -28,6 +36,7 @@
 
 <!-- Bootstrap官方網站 https://getbootstrap.com/ -->
 <!-- 連結Bootstrap.min.css -->
+<!-- CSS only -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
@@ -263,23 +272,48 @@ div.intro_right div.saleInfo div {
 /* } */
 div.immedDesc {
 	margin-top: 40px;
-	padding: 0px 150px 0px 170px;
 }
 
 /* content */
 div.content {
 	background-color: white;
-	min-height: 100vh;
+	min-height: 800px;
+}
+
+form.recipi {
+	width: 100%;
+}
+
+form.recipi thead th {
+	font-size: 22px;
+}
+
+table th {
+	padding: .5rem 1rem;
+}
+
+form.recipi tbody th {
+	width: 14%;
+}
+
+form.recipi tbody tr:nth-child(3) input {
+	width: 50%;
+}
+
+div.errMsg ul li {
+	float: left;
+	border: 0;
+	width: 25%;
 }
 
 @media ( max-width : 1023px) {
-	.immed_nav .form-inline .form-control {
+	header .form-inline .form-control {
 		width: 250px;
 	}
 }
 
 @media ( max-width : 767px) {
-	.immed_nav .form-inline .form-control {
+	header .form-inline .form-control {
 		width: 200px;
 	}
 	.logo3 {
@@ -287,6 +321,7 @@ div.content {
 	}
 }
 </style>
+
 </head>
 
 <body>
@@ -300,11 +335,6 @@ div.content {
 				href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">
 				<span class="logo2">Immed</span> <span class="logo3">Trade</span>
 			</a>
-			<!-- 				<a class="navbar-brand" -->
-			<%-- 					href="<%=request.getContextPath()%>/front-end/index.jsp"> <span --%>
-			<!-- 					class="logo"><i class="fas fa-bomb"></i></span> <span class="logo2">交易區</span> -->
-			<!-- 					<span class="logo3">直購商品</span> -->
-			<!-- 				</a> -->
 
 			<form class="form-inline mr-auto ml-2" method="post"
 				action="<%=request.getContextPath()%>/immed/immed.do">
@@ -316,13 +346,6 @@ div.content {
 				</button>
 			</form>
 
-			<!-- 		<BUTTON CLASS="NAVBAR-TOGGLER" TYPE="BUTTON" DATA-TOGGLE="COLLAPSE" -->
-			<!-- 			DATA-TARGET="#NAVBARTOGGLERDEMO03" -->
-			<!-- 			ARIA-CONTROLS="NAVBARTOGGLERDEMO03" ARIA-EXPANDED="FALSE" -->
-			<!-- 			ARIA-LABEL="TOGGLE NAVIGATION"> -->
-			<!-- 			<SPAN CLASS="NAVBAR-TOGGLER-ICON"></SPAN> -->
-			<!-- 		</BUTTON> -->
-			<!-- 		<div class="collapse navbar-collapse" id="navbarTogglerDemo03"> -->
 			<ul class="navbar-nav">
 				<li class="nav-item d-flex"><a class="nav-link text-white"
 					href="<%=request.getContextPath()%>/front-end/protected/immed/addImmed.jsp">
@@ -341,173 +364,170 @@ div.content {
 				<li class="nav-item d-flex pl-md-2"><a
 					class="nav-link text-white" href="#">
 						<div>
-							<i class="fas fa-heart pl-md-3 pl-2 pb-1"></i>
+							<i class="fas fa-shopping-cart pl-md-1 pl-1 pb-1"></i>
 						</div>
-						<div>追蹤商品</div>
+						<div>購物車</div>
 				</a></li>
-				<!-- 				<li class="nav-item d-flex pl-md-2"><a -->
-				<!-- 					class="nav-link text-white" href="#"> -->
-				<!-- 						<div class="d-flex justify-content-center avator"> -->
-				<!-- 							<img -->
-				<%-- 								src="<%=request.getContextPath()%>/member/ShowMemberPic.do?mem_id=${memberVO.mem_id}" --%>
-				<!-- 								class="" alt="..." width="30px"> -->
-				<!-- 						</div> -->
-				<%-- 						<div>${memberVO.mem_name}您好</div> --%>
-				<!-- 				</a></li> -->
 			</ul>
-			<!-- 		</div> -->
+
 		</nav>
 	</div>
+
+
+
+
 
 	<div class="container content">
 
 		<div class="row pt-3">
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
+					<li class="breadcrumb-item"><a
+						href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
 					<li class="breadcrumb-item"><a
 						href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">直購商品</a></li>
-					<li class="breadcrumb-item"><a href="#"><%=ptVO.getTypename()%></a></li>
+					<!-- 						<li class="breadcrumb-item active" aria-current="page">Data</li> -->
 				</ol>
 			</nav>
 		</div>
 
-		<div class="immedName">
-			<h4>${immedVO.immed_name}</h4>
-		</div>
-
-		<div class="row mt-4">
-			<div class="col-md-3">
-				<div class="intro_left">
-
-					<div class="slider-for m-2">
-						<div class="p-3">
-							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
-								class="card-img-top" alt="...">
-						</div>
-						<div class="p-3">
-							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
-								class="card-img-top" alt="...">
-						</div>
-						<div class="p-3">
-							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
-								class="card-img-top" alt="...">
-						</div>
-						<div class="p-3">
-							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
-								class="card-img-top" alt="...">
-						</div>
-					</div>
-					<div class="slider-nav px-4 py-2">
-						<div class="p-1 slider_nav_img">
-							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
-								class="card-img-top" alt="...">
-						</div>
-						<div class="p-1 slider_nav_img">
-							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
-								class="card-img-top" alt="...">
-						</div>
-						<div class="p-1 slider_nav_img">
-							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
-								class="card-img-top" alt="...">
-						</div>
-						<div class="p-1 slider_nav_img">
-							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
-								class="card-img-top" alt="...">
-						</div>
-					</div>
-
-					<h6 class="immedId">商品標號: ${immedVO.immed_id}</h6>
-
-					<div class="immedRemark">
-						<h6>商品備註:</h6>
-						<ul>
-							<li>物品所在地:</li>
-							<li>上架時間: <fmt:formatDate value="${immedVO.immed_start}"
-									pattern="yyyy-MM-dd HH:mm:ss" /></li>
-							<li>可能會提前結束販售</li>
-						</ul>
-					</div>
-
-				</div>
-			</div>
-
-			<div class="col-md-9">
-				<div class="intro_right">
-					<div class="row mx-3 my-4">
-						<div class="immedBuy py-3 px-2 d-flex">
-							<span>直購價: </span> <span class="price">$${immedVO.immed_prc}</span>
-
-							<form class="form-inline mr-auto ml-2" method="post"
-								<%-- 								action="<%=request.getContextPath()%>/front-end/immed/immedPay.jsp?immed_id=${immedVO.immed_id}"> --%>
-								action="<%=request.getContextPath()%>/immed/immed.do">
-
-								<!-- 								<input type="hidden" name="action" value="find_By_Immed_Name"> -->
-								<%-- 								<input type="hidden" name="immedVO" value=<%=immedVO%>> --%>
-								<%-- 								<input type="hidden" name="buy_id" value="${memberVO.mem_id}"> --%>
-								<input type="hidden" name="action"
-									value="getOne_For_Update_OneBuy"> <input type="hidden"
-									name="immed_id" value="${immedVO.immed_id}">
-								<%-- 								<input type="hidden" name="buy_id" value="${memberVO.mem_id}"> --%>
-								<button type="submit" class="btn btn-danger immed_buy"
-									title="立即購買">立即購買</button>
-							</form>
-
-						</div>
-					</div>
-
-					<div style="border-top: 1px solid #D3D3D3;" class="row mx-2 mt-4">
-						<div class="col-md-8 mt-3">
-							<div class="immedPay d-flex">
-								<span>運送方式: </span>
-								<ul>
-									<li>7-11取貨付款 60 元</li>
-									<li>全家、OK、萊爾富取貨付款 60 元</li>
-									<li>宅配/快遞 90 元</li>
-								</ul>
-							</div>
-
-						</div>
-						<div class="col-md-4">
-							<div class="saleInfo mt-3">
-								<h6>賣家資訊</h6>
-								<div style="border-bottom: 1px dashed #E6E9ED;">
-									賣家名稱:
-									<%=memberVO.getMem_name()%></div>
-								<div>全部商品:</div>
-								<div>評價分數:</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
 		<div class="row">
-			<div class="immedDesc ">
-				<h4 class="mb-5">商品描述</h4>
-				<div><%=immedVO.getImmed_desc()%></div>
-			
+			<div class="col">
+				<table class="immedInfo">
+					<thead>
+						<tr>
+							<th><div>購買的商品明細</div></th>
+							<td><div>賣家: ${memberVO.mem_name}</div></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">商品名稱:</th>
+							<td>${immedVO.immed_name}</td>
+						</tr>
+						<!-- 					<tr> -->
+						<!-- 						<th scope="row">收件人電話:</th> -->
+						<!-- 						<td><input type="text" name="rcpt_cell"></td> -->
+						<!-- 					</tr> -->
+						<!-- 					<tr> -->
+						<!-- 						<th scope="row">收件地址:</th> -->
+						<!-- 						<td><input type="text" name="rcpt_add"></td> -->
+						<!-- 					</tr> -->
+					</tbody>
+				</table>
 			</div>
 		</div>
+
+		<form class="creit_form" action="#">
+			<div class="container-fluid">
+				<div class="row pull-center">
+					<div class="col-md-4">
+						<div class="well">
+							<div class="row card"></div>
+							<br />
+							<div class="row">
+								<div class="col-md-8">
+									<div class="form-group">
+										<label>信用卡卡號 </label> <input type="text" name="number"
+											class="form-control" />
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>有效期限</label> <input type="text" placeholder="MM/YY"
+											name="expiry" class="form-control" />
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-8">
+									<div class="form-group">
+										<label>持卡人姓名</label> <input type="text" name="name"
+											class="form-control" />
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>認證碼 </label> <input type="text" name="cvv"
+											class="form-control" />
+									</div>
+								</div>
+							</div>
+							<div class="row ">
+
+								<div class="col-md-12 text-right">
+									<button type="button" class="btn btn-success">Submit</button>
+									<button type="button" class="btn btn-info">Clear</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-4">
+						<div>
+							<%-- 錯誤表列 --%>
+							<c:if test="${not empty errorMsgs}">
+								<font style="color: red">請修正以下錯誤:</font>
+								<ul>
+									<c:forEach var="message" items="${errorMsgs}">
+										<li style="color: red; float: left; border: 0; width: 25%;">${message}</li>
+									</c:forEach>
+								</ul>
+							</c:if>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<!-- 						<form class="recipi" -->
+						<%-- 							action="<%=request.getContextPath()%>/immed/immed.do" method="post"> --%>
+						<table>
+							<thead>
+								<tr>
+									<th scope="row">收件人資料</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">收件人姓名:</th>
+									<td><input type="text" name="rcpt_name"></td>
+								</tr>
+								<tr>
+									<th scope="row">收件人電話:</th>
+									<td><input type="text" name="rcpt_cell"></td>
+								</tr>
+								<tr>
+									<th scope="row">收件地址:</th>
+									<td><input type="text" name="rcpt_add"></td>
+								</tr>
+								<tr>
+									<th><input type="hidden" name="action"
+										value="update_one_buy"> <input type="hidden"
+										name="immed_id" value="${immedVO.immed_id}"> <input
+										type="hidden" name="buy_id" value="${memberVO.mem_id}">
+										<input type="submit" value="送出"></th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</form>
+
 	</div>
 
+
 	<!-- footer -->
-	<%@ include file="../../files/footer.jsp"%>
+	<%@ include file="/files/footer.jsp"%>
 	<!-- footer -->
 
 	<!-- 連結Bootstrap所需要的js -->
-	<!-- jquery.min.js -->
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
-		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+	<!-- JS, Popper.js, and jQuery -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -520,6 +540,9 @@ div.content {
 
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/card/1.3.1/js/card.min.js"></script>
 
 	<script type="text/javascript">
 		$('.slider-for').slick({
@@ -538,9 +561,30 @@ div.content {
 			asNavFor : '.slider-for',
 			dots : false,
 			focusOnSelect : true
-
 		});
 	</script>
 
+	<script>
+		new Card({
+			form : '.creit_form',
+			container : '.card',
+			formSelectors : {
+				numberInput : 'input[name=number]',
+				expiryInput : 'input[name=expiry]',
+				cvcInput : 'input[name=cvv]',
+				nameInput : 'input[name=name]'
+			},
+
+			width : 350, // optional — default 350px
+			formatting : true,
+
+			placeholders : {
+				number : '‧‧‧‧ ‧‧‧‧ ‧‧‧‧ ‧‧‧‧',
+				name : 'Full Name',
+				expiry : '‧‧/‧‧',
+				cvc : '‧‧‧'
+			}
+		})
+	</script>
 </body>
 </html>

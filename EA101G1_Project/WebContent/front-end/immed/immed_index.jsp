@@ -5,23 +5,16 @@
 <%@ page import="com.immed.model.*"%>
 
 <%
-	request.setCharacterEncoding("UTF-8");
-	// 	String immed_name = request.getParameter("immed_search");
-	// 	ImmedService immedSvc = new ImmedService();
-	// 	List<ImmedVO> list = immedSvc.findByImmedName(immed_name);
-	// 	pageContext.setAttribute("list", list);
-	// 	pageContext.setAttribute("immed_search", immed_name);
-	List<ImmedVO> list = (List<ImmedVO>) session.getAttribute("immed_list");
+	ImmedService immedSvc = new ImmedService();
+	List<ImmedVO> list = immedSvc.getAll();
 	pageContext.setAttribute("list", list);
 %>
 
 <html>
 <head>
-<title>EA101G1 Immed: HOME</title>
+<title>直購商品首頁</title>
 
-<link rel="icon shortcut"
-	href="<%=request.getContextPath()%>/front-end/immed/images/ICON.ico">
-
+<link rel="icon shortcut" href="<%=request.getContextPath()%>/front-end/immed/images/ICON.ico">
 <!-- Bootstrap官方網站 https://getbootstrap.com/ -->
 <!-- 連結Bootstrap.min.css -->
 <link rel="stylesheet"
@@ -186,15 +179,14 @@ section.blank1 .card .card-title {
 
 section.blank1 .card-img-top {
 	height: 200px;
-	/* 	transition: 0.25s; */
+
+	/* 	 	transition: 0.3s;  */
 }
 
-section.blank1 .card-img-top:hover {
-	/* 	transform: scale(1.06); */
-	/* 	transition: 0.25s; */
-	
-}
-
+/* section.blank1 .card-img-top:hover {  */
+/*  	transform: scale(1.06);  */
+/*  	transition: 0.3s;  */
+/*  }  */
 section.blank1 .card .card-price {
 	color: red;
 	font-size: 1.5rem;
@@ -202,13 +194,13 @@ section.blank1 .card .card-price {
 }
 
 @media ( max-width : 1023px) {
-	header .form-inline .form-control {
+	.immed_nav .form-inline .form-control {
 		width: 250px;
 	}
 }
 
 @media ( max-width : 767px) {
-	header .form-inline .form-control {
+	.immed_nav .form-inline .form-control {
 		width: 200px;
 	}
 	.logo3 {
@@ -217,6 +209,7 @@ section.blank1 .card .card-price {
 }
 </style>
 </head>
+
 <body>
 	<!-- navbar -->
 	<%@ include file="/files/immed/immed_header.jsp"%>
@@ -275,19 +268,20 @@ section.blank1 .card .card-price {
 				</a></li>
 
 			</ul>
-
+		
 		</nav>
 	</div>
 
+
 	<!-- 內容 -->
 	<section class="blank1">
-
+		
 		<div class="container">
 			<div class="row py-3">
+				
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a
-							href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
+						<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
 						<li class="breadcrumb-item"><a
 							href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">直購商品</a></li>
 						<!-- 						<li class="breadcrumb-item active" aria-current="page">Data</li> -->
@@ -315,11 +309,7 @@ section.blank1 .card .card-price {
 			<!-- 			</form> -->
 
 			<div class="row pb-4">
-				<div class="col-md-3 left_side pt-2">
-					123
-
-					<%=request.getRequestURI()%>
-				</div>
+				<div class="col-md-3 left_side pt-2">123</div>
 
 				<div class="col-md-9">
 					<div class="row mb-4 pl-3">
@@ -332,11 +322,12 @@ section.blank1 .card .card-price {
 								<div class="card mb-4 px-2 py-2">
 									<a
 										href="<%=request.getContextPath()%>/immed/immed.do?action=getOne_For_Display&immed_id=${immedVO.immed_id}"
-										title="${immedVO.immed_name}"><img
+										title="${immedVO.immed_name}"> <img
 										src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
 										class="card-img-top"
 										style="${immedVO.immed_sold==1 ? 'opacity: 0.5;':'opacity: 1;' }"
-										alt="..."> </a>
+										alt="...">
+									</a>
 									<div class="card-body">
 										<a
 											href="<%=request.getContextPath()%>/immed/immed.do?action=getOne_For_Display&immed_id=${immedVO.immed_id}"
@@ -354,17 +345,19 @@ section.blank1 .card .card-price {
 				</div>
 			</div>
 		</div>
+</body>
+</html>
 
-	</section>
-	<!-- 內容 ---end  -->
+</section>
+<!-- 內容 ---end  -->
 
-	<!-- footer -->
-	<%@ include file="/files/footer.jsp"%>
-	<!-- footer -->
+<!-- footer -->
+<%@ include file="/files/footer.jsp"%>
+<!-- footer -->
 
-	<!-- 連結Bootstrap所需要的js -->
-	<!-- jquery.min.js -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+<!-- 連結Bootstrap所需要的js -->
+<!-- jquery.min.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>
 	<script
