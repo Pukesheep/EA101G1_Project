@@ -1,34 +1,40 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.immed.model.*"%>
-<%-- ¦¹­¶½m²ß±Ä¥Î EL ªº¼gªk¨ú­È --%>
 
-<%	request.setCharacterEncoding("UTF-8");
-	String immedName = request.getParameter("immed_search"); 
-	ImmedService immedSvc = new ImmedService();
-	List<ImmedVO> list = immedSvc.findByImmedName(immedName);
+<%
+	request.setCharacterEncoding("UTF-8");
+	// 	String immed_name = request.getParameter("immed_search");
+	// 	ImmedService immedSvc = new ImmedService();
+	// 	List<ImmedVO> list = immedSvc.findByImmedName(immed_name);
+	// 	pageContext.setAttribute("list", list);
+	// 	pageContext.setAttribute("immed_search", immed_name);
+	List<ImmedVO> list = (List<ImmedVO>) session.getAttribute("immed_list");
 	pageContext.setAttribute("list", list);
 %>
 
 <html>
 <head>
-<title>©Ò¦³°Ó«~¸ê®Æ - listAllImmed.jsp</title>
-<link rel="icon shortcut" href="./img/ICON.ico">
-<!-- Bootstrap©x¤èºô¯¸ https://getbootstrap.com/ -->
-<!-- ³sµ²Bootstrap.min.css -->
+<title>EA101G1 Immed: HOME</title>
+
+<link rel="icon shortcut"
+	href="<%=request.getContextPath()%>/front-end/immed/images/ICON.ico">
+
+<!-- Bootstrapå®˜æ–¹ç¶²ç«™ https://getbootstrap.com/ -->
+<!-- é€£çµBootstrap.min.css -->
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 	crossorigin="anonymous">
 
-<!-- ¨Ï¥Îfont awesome -->
+<!-- ä½¿ç”¨font awesome -->
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
 	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
 	crossorigin="anonymous">
-<!-- ¨Ï¥Îgoogle Fonts -->
+<!-- ä½¿ç”¨google Fonts -->
 <link
 	href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap"
 	rel="stylesheet">
@@ -36,344 +42,338 @@
 	href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap"
 	rel="stylesheet">
 
-<!-- ¨Ï¥Îstyle.css -->
+<!-- ä½¿ç”¨style.css -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/style.css">
+	href="<%=request.getContextPath()%>/front-end/css/immed/immed_header_footer.css">
 
 <style>
-table {
-	border-collapse: collapse;
-	margin-top: 5px;
-	margin-bottom: 5px;
+body {
+	padding-top: 90px;
+	background-color: #F5F5F5;
 }
 
-table, th, td {
-	border: 1px solid #CCCCFF;
+.immed_nav {
+	background: linear-gradient(#4475b6, #00334e);
 }
 
-th, td {
-	padding: 5px;
-	text-align: center;
+.immed_nav .navbar {
+	padding: 0rem 1rem;
 }
 
-table#table-1 {
-	width: 100%;
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
+.immed_nav .navbar-brand {
+	/* 	padding-top: 0.5rem; */
+	padding-top: 1rem;
+	padding-bottom: 0rem;
 }
 
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
+.immed_nav .form-inline {
+	padding-top: 1rem;
 }
 
-table#table-2 img.immed_pic {
-	width: 100px;
+.immed_nav .form-inline .form-control {
+	width: 350px;
 }
 
-table#table-2 p.immed_name {
-	width: 130px;
+.immed_nav .form-inline button {
+	margin-left: -42px;
 }
 
-table#table-2 p.immed_desc {
-	width: 250px;
+.immed_nav .navbar-collapse {
+	flex-grow: initial;
+}
+
+.immed_nav a.nav-link div {
+	font-size: 0.9rem;
+}
+
+.immed_nav a.nav-link i {
+	font-size: 1.5rem;
+	padding-top: 0.25rem;
+}
+
+.immed_nav div.avator img {
+	border-radius: 50%;
+	width: 30px;
+}
+
+.logo {
+	font-family: 'Sedgwick Ave Display', cursive;
+	font-size: 35px;
+	color: #16e8f7f8;
+}
+
+.logo2 {
+	font-family: 'Lakki Reddy', cursive;
+	font-size: 35px;
+	color: #f1edd2f8;
+	margin-left: 5px;
+}
+
+.logo3 {
+	font-family: 'Sedgwick Ave Display', cursive;
+	font-size: 15px;
+	color: #f3efd5f8;
+	margin-left: 5px;
+}
+/*=============================================
+=                   Section                   =
+=============================================*/
+section.blank1 {
+	min-height: 600px;
+}
+
+section.blank1 nav ol.breadcrumb {
+	background-color: white;
+	padding: 0rem 1rem;
+}
+
+section.blank1 nav ol.breadcrumb a {
+	color: rgb(102, 102, 102);
+}
+
+section.blank1 nav.breadcrumb {
+	border: 1px solid #ddd;
+}
+
+section.blank1 nav ol.breadcrumb {
+	margin-bottom: 0rem;
+}
+
+dl, ol, ul {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+section.blank1 li.breadcrumb-item+li.breadcrumb-item::before {
+	content: ">";
+}
+
+section.blank1 div.container {
+	background-color: white;
+}
+
+section.blank1 div.left_side {
+	min-height: calc(100vh - 116px);
+	/* 	background-color: #F5F5F5; */
+	border: 1px solid #ddd;
+}
+
+section.blank1 .card {
+	height: 300px;
+	overflow: hidden;
+}
+
+section.blank1 .card-body {
+	padding: 0.5rem 0rem 0rem 0rem;
+}
+
+section.blank1 .card:hover {
+	transform: scale(1.03);
+	box-shadow: 0px 0px 3px #888888;
+}
+
+section.blank1 .card .card-title {
+	color: #006ab4;
+	font-size: 1rem;
+	margin-bottom: 0.5rem;
+	min-height: 40px;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	text-overflow: ellipsis;
+}
+
+section.blank1 .card-img-top {
 	height: 200px;
-	overflow: auto;
-	text-align: justify;
+	/* 	transition: 0.25s; */
 }
 
-table#table-2 p.rcpt_add {
-	width: 100px;
+section.blank1 .card-img-top:hover {
+	/* 	transform: scale(1.06); */
+	/* 	transition: 0.25s; */
+	
 }
 
-h4 {
-	color: blue;
-	display: inline;
+section.blank1 .card .card-price {
+	color: red;
+	font-size: 1.5rem;
+	font-weight: 600;
+}
+
+@media ( max-width : 1023px) {
+	header .form-inline .form-control {
+		width: 250px;
+	}
+}
+
+@media ( max-width : 767px) {
+	header .form-inline .form-control {
+		width: 200px;
+	}
+	.logo3 {
+		display: none;
+	}
 }
 </style>
 </head>
 <body>
 	<!-- navbar -->
-	<!-- ¨Ï¥ÎBoostrap Navbar -->
-	<!-- ³]©wNavbarºò¶Kµe­±¤W½t -->
-	<!-- b4-navbar-default ¦w¸ËBootstrap¥~±¾,¥i¥H¨Ï¥Î§Ö±¶«ü¥O -->
-	<nav class="navbar navbar-expand-md navbar-dark fixed-top">
-		<a class="navbar-brand" href="index.html"> <span class="logo"><i
-				class="fas fa-bomb"></i></span> <span class="logo2">S.F.G</span> <span
-			class="logo3">{{{</span>
-		</a>
-		<!-- ¤â¾÷¿ï³æ«ö¶s -->
-		<button class="navbar-toggler d-lg-none" type="button"
-			data-toggle="collapse" data-target="#collapsibleNavId"
-			aria-controls="collapsibleNavId" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+	<%@ include file="/files/immed/immed_header.jsp"%>
+	<!-- navbar end -->
 
-		<div class="navbar2 navbar-dark">
-			<div class="row">
-				<div class="item col-md-2">
-					<a href="#"></a>°Ó«°
-				</div>
-				<div class="item col-md-2">
-					<a href="#"></a>¹ÎÁÊ
-				</div>
-				<div class="item col-md-2">
-					<a href="#"></a>¥æ©ö
-				</div>
-				<div class="item col-md-2">
-					<a href="#"></a>°Q½×°Ï
-				</div>
-				<div class="item col-md-2">
-					<a href="#"></a>¬õ§Q
-				</div>
-				<div class="item col-md-2">
-					<a href="#"></a>Q&A
-				</div>
-			</div>
-		</div>
+	<div class="container immed_nav">
+		<nav class="navbar navbar-expand-md navbar-light">
+			<a class="navbar-brand"
+				href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">
+				<span class="logo2">Immed</span> <span class="logo3">Trade</span>
+			</a>
+			<!-- 				<a class="navbar-brand" -->
+			<%-- 					href="<%=request.getContextPath()%>/front-end/index.jsp"> <span --%>
+			<!-- 					class="logo"><i class="fas fa-bomb"></i></span> <span class="logo2">äº¤æ˜“å€</span> -->
+			<!-- 					<span class="logo3">ç›´è³¼å•†å“</span> -->
+			<!-- 				</a> -->
 
-		<div class="collapse navbar-collapse" id="collapsibleNavId">
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item"><a class="nav-link" href="#">µn¤J</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">µù¥U</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">·|­û¤¤¤ß</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">§Úªº³Ì·R</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">ÁÊª«¨®</a></li>
+			<form class="form-inline mr-auto ml-2" method="post"
+				action="<%=request.getContextPath()%>/immed/immed.do">
+				<input class="form-control" type="text" placeholder="æœå°‹å•†å“"
+					aria-label="Search" name="immed_name_search" autocomplete="off">
+				<input type="hidden" name="action" value="find_By_Immed_Name">
+				<button class="btn btn-light my-2 my-sm-0" type="submit">
+					<i class="fas fa-search"></i>
+				</button>
+			</form>
+
+			<!-- 		<BUTTON CLASS="NAVBAR-TOGGLER" TYPE="BUTTON" DATA-TOGGLE="COLLAPSE" -->
+			<!-- 			DATA-TARGET="#NAVBARTOGGLERDEMO03" -->
+			<!-- 			ARIA-CONTROLS="NAVBARTOGGLERDEMO03" ARIA-EXPANDED="FALSE" -->
+			<!-- 			ARIA-LABEL="TOGGLE NAVIGATION"> -->
+			<!-- 			<SPAN CLASS="NAVBAR-TOGGLER-ICON"></SPAN> -->
+			<!-- 		</BUTTON> -->
+			<!-- 		<div class="collapse navbar-collapse" id="navbarTogglerDemo03"> -->
+			<ul class="navbar-nav">
+				<li class="nav-item d-flex"><a class="nav-link text-white"
+					href="<%=request.getContextPath()%>/front-end/protected/immed/addImmed.jsp">
+						<div>
+							<i class="fas fa-gavel  pl-2 pb-1"></i>
+						</div>
+						<div>è³£æ±è¥¿</div>
+				</a></li>
+				<li class="nav-item d-flex pl-md-2"><a
+					class="nav-link text-white" href="#">
+						<div>
+							<i class="fas fa-user pl-md-3 pl-2 pb-1"></i>
+						</div>
+						<div>æˆ‘çš„æ‹è³£</div>
+				</a></li>
+				<li class="nav-item d-flex pl-md-2"><a
+					class="nav-link text-white" href="#">
+						<div>
+							<i class="fas fa-heart pl-md-3 pl-2 pb-1"></i>
+						</div>
+						<div>è¿½è¹¤å•†å“</div>
+				</a></li>
 
 			</ul>
+
+		</nav>
+	</div>
+
+	<!-- å…§å®¹ -->
+	<section class="blank1">
+
+		<div class="container">
+			<div class="row py-3">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a
+							href="<%=request.getContextPath()%>/front-end/index.jsp">é¦–é </a></li>
+						<li class="breadcrumb-item"><a
+							href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">ç›´è³¼å•†å“</a></li>
+						<!-- 						<li class="breadcrumb-item active" aria-current="page">Data</li> -->
+					</ol>
+				</nav>
+
+				<%-- éŒ¯èª¤è¡¨åˆ— --%>
+				<c:if test="${not empty errorMsgs}">
+					<font style="color: red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
+					<ul>
+						<c:forEach var="message" items="${errorMsgs}">
+							<li style="color: red">${message}</li>
+						</c:forEach>
+					</ul>
+				</c:if>
+			</div>
+
+			<div>${memberVO.mem_name}${memberVO.mem_id}</div>
+
+			<!-- 			<form method="post" -->
+			<%-- 				action="<%=request.getContextPath()%>/front-end/immed/findByImmedName.jsp"> --%>
+			<!-- 				<input type="text" name="immed_search"> <input type="hidden" -->
+			<!-- 					name="action" value="find_By_Immed_Name"> <input -->
+			<!-- 					type="submit" value="æœå°‹"> -->
+			<!-- 			</form> -->
+
+			<div class="row pb-4">
+				<div class="col-md-3 left_side pt-2">
+					123
+
+					<%=request.getRequestURI()%>
+				</div>
+
+				<div class="col-md-9">
+					<div class="row mb-4 pl-3">
+						<%@ include file="/files/immed/immedPage1.file"%>
+					</div>
+					<div class="row no-gutters">
+						<c:forEach var="immedVO" items="${list}" begin="<%=pageIndex%>"
+							end="<%=pageIndex+rowsPerPage-1%>">
+							<div class="col-6 col-md-3">
+								<div class="card mb-4 px-2 py-2">
+									<a
+										href="<%=request.getContextPath()%>/immed/immed.do?action=getOne_For_Display&immed_id=${immedVO.immed_id}"
+										title="${immedVO.immed_name}"><img
+										src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
+										class="card-img-top"
+										style="${immedVO.immed_sold==1 ? 'opacity: 0.5;':'opacity: 1;' }"
+										alt="..."> </a>
+									<div class="card-body">
+										<a
+											href="<%=request.getContextPath()%>/immed/immed.do?action=getOne_For_Display&immed_id=${immedVO.immed_id}"
+											title="${immedVO.immed_name}"><h5 class="card-title">${immedVO.immed_name}</h5></a>
+										<p class="card-price">$${immedVO.immed_prc}</p>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+
+					<div class="row pl-3">
+						<%@ include file="/files/immed/immedPage2.file"%>
+					</div>
+				</div>
+			</div>
 		</div>
 
-
-	</nav>
-	<!-- navbar end -->
-	<section class="blank0"></section>
-	<!-- ¤º®e -->
-	<section class="blank1">
-		<div class="container">
-			<!-- 			<div class="row mb-1"> -->
-			<!-- 				<table id="table-1"> -->
-			<!-- 					<tr> -->
-			<!-- 						<td> -->
-			<!-- 							<h3>©Ò¦³°Ó«~¸ê®Æ - listAllImmed.jsp</h3> -->
-			<!-- 							<h4> -->
-			<!-- 								<a -->
-			<%-- 									href="<%=request.getContextPath()%>/front-end/immed/select_page.jsp"><img --%>
-			<%-- 									src="<%=request.getContextPath()%>/front-end/immed/images/back1.gif" --%>
-			<!-- 									width="100" height="32" border="0">¦^­º­¶</a> -->
-			<!-- 							</h4> -->
-			<!-- 						</td> -->
-			<!-- 					</tr> -->
-			<!-- 				</table> -->
-			<!-- 			</div> -->
-
-			<!-- 			<div class="row"> -->
-			<%-- 				¿ù»~ªí¦C --%>
-			<%-- 				<c:if test="${not empty errorMsgs}"> --%>
-			<!-- 					<font style="color: red">½Ğ­×¥¿¥H¤U¿ù»~:</font> -->
-			<!-- 					<ul> -->
-			<%-- 						<c:forEach var="message" items="${errorMsgs}"> --%>
-			<%-- 							<li style="color: red">${message}</li> --%>
-			<%-- 						</c:forEach> --%>
-			<!-- 					</ul> -->
-			<%-- 				</c:if> --%>
-			<!-- 			</div> -->
-			<div class="row mb-4">
-				<%@ include file="../../files/page1.file"%>
-			</div>
-
-			<form method="post" action="<%=request.getContextPath()%>/immed/immed.do">
-				<input type="text" name="immed_search"> <input
-					type="hidden" name="action" value="findByImmedName"> <input
-					type="submit" value="·j´M">
-			</form>
-			
-			<div class="row mb-4">
-				<c:forEach var="immedVO" items="${list}" begin="<%=pageIndex%>"
-					end="<%=pageIndex+rowsPerPage-1%>">
-					<div class="col-6 col-md-3">
-						<div class="card mb-4 px-2 pt-2">
-							<a
-								href="<%=request.getContextPath()%>/immed/immed.do?action=getOne_For_Display&immed_id=${immedVO.immed_id}"
-								title="${immedVO.immed_name}"><img
-								src="<%=request.getContextPath()%>/immed/ImmedPicRead?ID=${immedVO.immed_id}"
-								class="card-img-top" alt="..."></a>
-							<div class="card-body">
-								<a
-									href="<%=request.getContextPath()%>/front-end/immed/immed.do?immed=${immedVO.immed_id}"
-									title="${immedVO.immed_name}"><h5 class="card-title">${immedVO.immed_name}</h5></a>
-								<p class="card-price">$${immedVO.immed_prc}</p>
-							</div>
-						</div>
-					</div>
-				</c:forEach>
-			</div>
-			<div class="row">
-				<%@ include file="../../files/page2.file"%>
-			</div>
-			<!-- 			<table id="table-1"> -->
-			<!-- 				<tr> -->
-			<!-- 					<td> -->
-			<!-- 						<h3>©Ò¦³°Ó«~¸ê®Æ - listAllImmed.jsp</h3> -->
-			<!-- 						<h4> -->
-			<!-- 							<a -->
-			<%-- 								href="<%=request.getContextPath()%>/front-end/immed/select_page.jsp"><img --%>
-			<%-- 								src="<%=request.getContextPath()%>/front-end/immed/images/back1.gif" --%>
-			<!-- 								width="100" height="32" border="0">¦^­º­¶</a> -->
-			<!-- 						</h4> -->
-			<!-- 					</td> -->
-			<!-- 				</tr> -->
-			<!-- 			</table> -->
-
-			<%-- ¿ù»~ªí¦C --%>
-			<%-- 			<c:if test="${not empty errorMsgs}"> --%>
-			<!-- 				<font style="color: red">½Ğ­×¥¿¥H¤U¿ù»~:</font> -->
-			<!-- 				<ul> -->
-			<%-- 					<c:forEach var="message" items="${errorMsgs}"> --%>
-			<%-- 						<li style="color: red">${message}</li> --%>
-			<%-- 					</c:forEach> --%>
-			<!-- 				</ul> -->
-			<%-- 			</c:if> --%>
-
-			<!-- 			<table id="table-2"> -->
-			<!-- 				<tr> -->
-			<!-- 					<th>°Ó«~½s¸¹</th> -->
-			<!-- 					<th>½æ®a½s¸¹</th> -->
-			<!-- 					<th>¶R®a½s¸¹</th> -->
-			<!-- 					<th>°Ó«~ºØÃş½s¸¹</th> -->
-			<!-- 					<th>°Ó«~¦WºÙ</th> -->
-			<!-- 					<th>°Ó«~¤W¬[®É¶¡</th> -->
-			<!-- 					<th>°Ó«~»ù®æ</th> -->
-			<!-- 					<th>°Ó«~¹Ï¤ù</th> -->
-			<!-- 					<th>°Ó«~´y­z</th> -->
-			<!-- 					<th>°Ó«~°â¥Xª¬ºA</th> -->
-			<!-- 					<th>°Ó«~¤U¬[ª¬ºA</th> -->
-			<!-- 					<th>­q³æ®É¶¡</th> -->
-			<!-- 					<th>­q³æª¬ºA½s¸¹</th> -->
-			<!-- 					<th>¦¬¥ó¤H©m¦W</th> -->
-			<!-- 					<th>¦¬¥ó¤H¹q¸Ü</th> -->
-			<!-- 					<th>¦¬¥ó¤H¦a§}</th> -->
-			<!-- 					<th>­×§ï</th> -->
-			<!-- 					<th>§R°£</th> -->
-			<!-- 				</tr> -->
-
-			<%-- 							<%@ include file="../file/page1.file"%> --%>
-			<%-- 				<c:forEach var="immedVO" items="${list}" begin="<%=pageIndex%>" --%>
-			<%-- 					end="<%=pageIndex+rowsPerPage-1%>"> --%>
-			<!-- 					<tr> -->
-			<%-- 						<td>${immedVO.immed_id}</td> --%>
-			<%-- 						<td>${immedVO.sale_id}</td> --%>
-			<%-- 						<td>${immedVO.buy_id}</td> --%>
-			<%-- 						<td>${immedVO.pt_id}</td> --%>
-			<%-- 						<td><p class="immed_name">${immedVO.immed_name}</p></td> --%>
-			<%-- 						<td><fmt:formatDate value="${immedVO.immed_start}" --%>
-			<%-- 								pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
-			<!-- 						<td>$${immedVO.immed_prc}</td> -->
-			<!-- 						<td><img class="immed_pic" -->
-			<%-- 							src="<%=request.getContextPath()%>/front-end/immed/ImmedPicRead?ID='${immedVO.immed_id}'"></td> --%>
-			<%-- 						<td><p class="immed_desc">${immedVO.immed_desc}</p></td> --%>
-			<%-- 						<td>${immedVO.immed_sold eq 1 ? "¤w°â¥X" : "¥¼°â¥X"}</td> --%>
-			<%-- 						<td>${immedVO.immed_down eq 1 ? "¤w¤U¬[" : "¥¼¤U¬["}</td> --%>
-			<%-- 						<td><fmt:formatDate value="${immedVO.ord_time}" --%>
-			<%-- 								pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
-			<%-- 						<td>${immedVO.ordstat_id}</td> --%>
-			<%-- 						<td>${immedVO.rcpt_name}</td> --%>
-			<%-- 						<td>${immedVO.rcpt_cell}</td> --%>
-			<%-- 						<td><p class="rcpt_add">${immedVO.rcpt_add}</p></td> --%>
-			<!-- 						<td> -->
-			<!-- 							<FORM METHOD="post" -->
-			<%-- 								ACTION="<%=request.getContextPath()%>/front-end/immed/immed.do" --%>
-			<!-- 								style="margin-bottom: 0px;"> -->
-			<!-- 								<input type="submit" value="­×§ï"> <input type="hidden" -->
-			<%-- 									name="immed_id" value="${immedVO.immed_id}"> <input --%>
-			<!-- 									type="hidden" name="action" value="getOne_For_Update"> -->
-			<!-- 							</FORM> -->
-			<!-- 						</td> -->
-			<!-- 						<td> -->
-			<!-- 							<FORM METHOD="post" -->
-			<%-- 								ACTION="<%=request.getContextPath()%>/front-end/immed/immed.do" --%>
-			<!-- 								style="margin-bottom: 0px;"> -->
-			<!-- 								<input type="submit" value="§R°£"> <input type="hidden" -->
-			<%-- 									name="immed_id" value="${immedVO.immed_id}"> <input --%>
-			<!-- 									type="hidden" name="action" value="delete"> -->
-			<!-- 							</FORM> -->
-			<!-- 						</td> -->
-			<!-- 					</tr> -->
-			<%-- 				</c:forEach> --%>
-			<!-- 			</table> -->
-			<%-- 						<%@ include file="../file/page2.file"%> --%>
 	</section>
-	<!-- ¤º®e ---end  -->
-
+	<!-- å…§å®¹ ---end  -->
 
 	<!-- footer -->
-	<footer id="footer" class="pt-5 ">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-3 col-sm-6 footer-list">
-					<h5>
-						§Ö³t³sµ²
-						</h4>
-						<ul>
-							<li><a class="footer-link" href="">S.F.G­º­¶</a></li>
-							<li><a class="footer-link" href="">µù¥U·|­û</a></li>
-							<li><a class="footer-link" href="">°Ó«°</a></li>
-							<li><a class="footer-link" href="">¹ÎÁÊ</a></li>
-						</ul>
-				</div>
-				<div class="col-md-3 col-sm-6 footer-list">
-					<h5 class="text-uppercase">·|­û¤¬°Ê</h5>
-					<ul>
-						<li><a class="footer-link" href="">Äv¼Ğ°Ï</a></li>
-						<li><a class="footer-link" href="">ª½ÁÊ°Ï</a></li>
-						<li><a class="footer-link" href="">°Q½×°Ï</a></li>
-						<li><a class="footer-link" href="">²á¤Ñ«Ç</a></li>
-					</ul>
-				</div>
-				<div class="col-md-3 col-sm-6 footer-list">
-					<h5 class="text-uppercase">Ãö©ó§Ú­Ì</h5>
-					<ul>
-						<li><a class="footer-link" href="">Ãö©óS.F.G</a></li>
-						<li><a class="footer-link" href="">³Ì·s®ø®§</a></li>
-						<li><a class="footer-link" href="">Áô¨pÅv¬Fµ¦</a></li>
-					</ul>
-				</div>
-				<div class="col-md-3 col-sm-6 footer-list">
-					<h5 class="text-uppercase">§Ş³N¤ä´©</h5>
-					<ul>
-						<li><a class="footer-link" href="">·s¤â¤W¸ô</a></li>
-						<li><a class="footer-link" href="">À°§U&¤ä´©</a></li>
-						<li><a class="footer-link" href="">ªA°È±ø´Ú</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
+	<%@ include file="/files/footer.jsp"%>
+	<!-- footer -->
 
-		<div class="footer-end bg-dark mt-5 py-2">
-			<p class="text-center">&copy; Copy right 2020</p>
-		</div>
-	</footer>
-
-	<button id="chatBtn" class="bg-primary">
-		<i class="fas fa-comments"></i>
-	</button>
-
-
-	<!-- ³sµ²Bootstrap©Ò»İ­nªºjs -->
+	<!-- é€£çµBootstrapæ‰€éœ€è¦çš„js -->
 	<!-- jquery.min.js -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<!-- popper.min.js -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>
-	<!-- bootstrap.min.js -->
 	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 		crossorigin="anonymous"></script>
 
 </body>

@@ -136,7 +136,7 @@
     </section>
     <!-- 賣家新增商品頁面 end-->
     
-    <a href="Auct_index.jsp">
+    <a href="<%=request.getContextPath()%>/front-end/protected/auct/Auct_index.jsp">
         <button id="goBackBtn" class="bg-primary">
             <h6 class="backbtn">BID</h6>
         </button>

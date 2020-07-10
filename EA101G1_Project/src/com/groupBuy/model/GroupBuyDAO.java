@@ -293,7 +293,7 @@ public class GroupBuyDAO implements GroupBuyDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
+		
 		try {
 
 			con = ds.getConnection();

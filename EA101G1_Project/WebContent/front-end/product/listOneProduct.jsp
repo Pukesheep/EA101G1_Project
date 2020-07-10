@@ -130,11 +130,23 @@ img.rounded{
 		button{
 		width
 		}
+		body {
+/* 			background-image: url('https://pixabay.com/get/51e3d34b4257b108f5d08460da293277113ddee4515973_1280.jpg'); */
+			background-color: #216583;
+		}
+		
+		front{
+		font-family:Microsoft JhengHei;
+		}
 	</style>
 
 
 </head>
-<body bgcolor='white'>
+<body>
+<%@ include file="../../files/header.jsp" %>
+
+<section class="blank0"></section>
+<section class="blank1">
 	<!-- sm 以上範圍，三欄均分 -->
 <div class="container">
   <div class="row">
@@ -200,7 +212,7 @@ img.rounded{
     
   </div>
 </div>
-
+</section>
 
     <!-- body 結束標籤之前，載入Bootstrap 的 JS 及其相依性安裝(jQuery、Popper) -->
     <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
