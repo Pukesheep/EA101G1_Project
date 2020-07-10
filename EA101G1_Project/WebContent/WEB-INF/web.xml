@@ -381,9 +381,9 @@
 
 <!-- 團購監聽器 -->
 
-	<listener>
-		<listener-class>com.timerUtil.ListenerUtil</listener-class>
-	</listener>
+<!-- 	<listener> -->
+<!-- 		<listener-class>com.timerUtil.ListenerUtil</listener-class> -->
+<!-- 	</listener> -->
 
 <!-- 團購監聽器 -->
 	
