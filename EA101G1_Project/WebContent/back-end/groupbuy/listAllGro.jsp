@@ -43,7 +43,7 @@
     border: 1px solid #CCCCFF;
   }
   th, td {
-    padding: 5px;
+    padding: 15px;
     text-align: center;
   }
 </style>
