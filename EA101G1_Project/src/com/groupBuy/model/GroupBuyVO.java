@@ -19,7 +19,7 @@ public class GroupBuyVO implements java.io.Serializable {
 	private Integer status;
 	private String people;
 	private Integer money;
-
+//
 	public String getGro_Id() {
 		return gro_Id;
 	}

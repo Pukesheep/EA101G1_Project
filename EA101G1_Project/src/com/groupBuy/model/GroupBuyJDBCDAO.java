@@ -81,7 +81,7 @@ public class GroupBuyJDBCDAO implements GroupBuyDAO_interface {
 		}
 
 	}
-
+//
 	@Override
 	public void update(GroupBuyVO groupBuyVO) {
 

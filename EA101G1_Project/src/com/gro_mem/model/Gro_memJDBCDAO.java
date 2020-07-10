@@ -289,7 +289,7 @@ public class Gro_memJDBCDAO implements Gro_memDAO_interface {
 //
 //		List<Gro_memVO> groMemList = dao.getAll();
 //		groMemList.size();
-		
+//		
 		//修改團購案人數 (PK,people)
 		GroupBuyVO people = new GroupBuyVO();
 		people.setGro_Id("G000000005");
