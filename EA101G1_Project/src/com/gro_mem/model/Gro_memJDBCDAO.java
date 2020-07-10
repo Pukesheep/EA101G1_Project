@@ -295,7 +295,7 @@ public class Gro_memJDBCDAO implements Gro_memDAO_interface {
 		people.setGro_Id("G000000005");
 		people.setPeople("555");
 	    System.out.println("???????1");
-	
+//	
 //		GroupBuyVO groupBuyVO = groDao.findByPrimaryKey("G000000005");
 //		if (groupBuyVO.getReb1_No() != null) {
 //			Integer groBuyPeople = Integer.valueOf(groupBuyVO.getPeople());

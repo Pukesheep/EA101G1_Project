@@ -107,5 +107,5 @@ public class GroupBuyVO implements java.io.Serializable {
 	public void setMoney(Integer money) {
 		this.money = money;
 	}
-
+//
 }

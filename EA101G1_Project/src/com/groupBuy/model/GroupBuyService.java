@@ -80,7 +80,7 @@ public class GroupBuyService {
 
 		return groupBuyVO;
 	}
-
+//
 	public List<GroupBuyVO> openGroupBuy() {
 		return dao.getAllByOpen();
 	}

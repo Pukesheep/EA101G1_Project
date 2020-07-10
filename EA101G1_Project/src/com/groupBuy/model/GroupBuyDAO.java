@@ -11,7 +11,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import javax.swing.ListModel;
 
 public class GroupBuyDAO implements GroupBuyDAO_interface {
 	private static DataSource ds = null;
@@ -420,5 +419,23 @@ public class GroupBuyDAO implements GroupBuyDAO_interface {
 				}
 			}
 		}
+	}
+
+	@Override
+	public void gropeo(GroupBuyVO groupBuyVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void gromon(GroupBuyVO groupBuyVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<GroupBuyVO> getAllByGroId(String gro_Id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

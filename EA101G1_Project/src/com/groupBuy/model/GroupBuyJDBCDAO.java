@@ -595,6 +595,12 @@ public class GroupBuyJDBCDAO implements GroupBuyDAO_interface {
 		}
 		return list;
 	}
+
+	@Override
+	public List<GroupBuyVO> getAllByGroId(String gro_Id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }
