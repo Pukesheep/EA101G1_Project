@@ -199,9 +199,10 @@
             </div>
         </footer>
 
-        <button id="chatBtn" class="bg-primary">
+        <button id="chatBtn" class="bg-primary"  onclick="on()" >
             <i class="fas fa-comments"></i>
         </button>
+        <%@ include file="/front-end/frontchat/chat.jsp" %>
 
 </body>
 

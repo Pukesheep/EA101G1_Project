@@ -24,14 +24,14 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
 	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 	crossorigin="anonymous"></script>
-<link rel="stylesheet" href="css/chat.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/frontchat/css/chat.css">
 <style type="text/css">
 
 </style>
 <title>最大私人聊天室</title>
 </head>
 <body onload="connect();" onunload="disconnect();">
-	<div id="button" onclick="on()" ></div>
+	
 	<div id="body">
 		<div id="close" onclick="dbclick()">close</div>
 		<h3 id="statusOutput" class="statusOutput alert alert-primary"></h3>
