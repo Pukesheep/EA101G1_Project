@@ -30,7 +30,7 @@
 </style>
 <title>最大私人聊天室</title>
 </head>
-<body onload="connect();" onunload="disconnect();">
+<body>
 	
 	<div id="body">
 		<div id="close" onclick="dbclick()">close</div>
@@ -202,9 +202,11 @@
 	}
 	function on(){
 		document.getElementById("body").style.display = "block";
+		connect();
 	}
 	function dbclick(){
 		document.getElementById("body").style.display = "none";
+		disconnect();
 	}
 	
 </script>
