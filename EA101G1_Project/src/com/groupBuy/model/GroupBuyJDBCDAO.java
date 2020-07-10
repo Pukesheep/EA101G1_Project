@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.gro_mem.model.Gro_memJDBCDAO;
+import com.rebate.model.RebateJDBCDAO;
+import com.rebate.model.RebateVO;
+
 public class GroupBuyJDBCDAO implements GroupBuyDAO_interface {
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -25,9 +29,9 @@ public class GroupBuyJDBCDAO implements GroupBuyDAO_interface {
 	private static final String UPDATE = "UPDATE GROUPBUY set P_ID=? , REB1_NO=? , REB2_NO=? , REB3_NO=? , START_DATE=? , END_DATE=? , GROTIME_DATE=? , STATUS=? , PEOPLE=? , MONEY=? where GRO_ID = ?";
 	private static final String UPDATE_STATUS = "UPDATE GROUPBUY set status=? WHEREgri_id=?";
 	private static final String GET_ALL_OPEN_GROUPBUY = "SELECT GRO_ID , START_DATE , END_DATE FROM GROUPBUY WHERE STATUS ='0' ";
+	private static final String UPDATEPEO = "UPDATE GROUPBUY set PEOPLE=? WHERE GRO_ID=?";
+	private static final String UPDATEMON = "UPDATE GROUPBUY set MONEY = ? WHERE GRO_ID=?";
 
-	// "SELECT GRO_ID,P_ID,REB1_NO,REB2_NO,REB3_NO, GROTIME_DATE, START_DATE,
-	// END_DATE,MONEY,PEOPLE,STATUS FROM GROUPBUY order by GRO_ID";
 	@Override
 	public void insert(GroupBuyVO groupBuyVO) {
 
@@ -39,7 +43,7 @@ public class GroupBuyJDBCDAO implements GroupBuyDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
-
+//
 			pstmt.setString(1, groupBuyVO.getP_Id());
 			pstmt.setString(2, groupBuyVO.getReb1_No());
 			pstmt.setString(3, groupBuyVO.getReb2_No());
@@ -77,7 +81,7 @@ public class GroupBuyJDBCDAO implements GroupBuyDAO_interface {
 		}
 
 	}
-
+//
 	@Override
 	public void update(GroupBuyVO groupBuyVO) {
 
@@ -101,6 +105,86 @@ public class GroupBuyJDBCDAO implements GroupBuyDAO_interface {
 			pstmt.setString(9, groupBuyVO.getPeople());
 			pstmt.setInt(10, groupBuyVO.getMoney());
 			pstmt.setString(11, groupBuyVO.getGro_Id());
+			pstmt.executeUpdate();
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
+	@Override
+	public void gropeo(GroupBuyVO groupBuyVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATEPEO);
+
+			pstmt.setString(1, groupBuyVO.getPeople());
+			pstmt.setString(2, groupBuyVO.getGro_Id());
+			pstmt.executeUpdate();
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
+	@Override
+	public void gromon(GroupBuyVO groupBuyVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			System.err.println(groupBuyVO.getMoney());
+			pstmt = con.prepareStatement(UPDATEMON);
+			pstmt.setInt(1, groupBuyVO.getMoney());
+			pstmt.setString(2, groupBuyVO.getGro_Id());
 			pstmt.executeUpdate();
 
 		} catch (ClassNotFoundException e) {
@@ -301,8 +385,9 @@ public class GroupBuyJDBCDAO implements GroupBuyDAO_interface {
 
 	public static void main(String[] args) {
 
-		GroupBuyJDBCDAO dao = new GroupBuyJDBCDAO();
-//�閰Ｗ�		
+		GroupBuyJDBCDAO groDao = new GroupBuyJDBCDAO();
+
+
 //		List<GroupBuyVO> list = dao.getAll();
 //	for (GroupBuyVO grobuy : list) {
 //		System.out.print(grobuy.getGro_Id() + ",");
@@ -320,16 +405,16 @@ public class GroupBuyJDBCDAO implements GroupBuyDAO_interface {
 //	}
 //		
 
-		List<GroupBuyVO> list = dao.getAllByOpen();
-		for (GroupBuyVO groupBuyVO : list) {
-			Timestamp starDate = groupBuyVO.getStart_Date();
-			Timestamp endDate = groupBuyVO.getEnd_Date();
-			if (starDate.before(endDate)) {
-				System.out.println(groupBuyVO.getGro_Id());
-			}
-		}
+//		List<GroupBuyVO> list = dao.getAllByOpen();
+//		for (GroupBuyVO groupBuyVO : list) {
+//			Timestamp starDate = groupBuyVO.getStart_Date();
+//			Timestamp endDate = groupBuyVO.getEnd_Date();
+//			if (starDate.before(endDate)) {
+//				System.out.println(groupBuyVO.getGro_Id());
+//			}
+//		}
 
-		// ��
+		//
 		// dao.delete("G000000007");
 
 		// insert
@@ -345,7 +430,44 @@ public class GroupBuyJDBCDAO implements GroupBuyDAO_interface {
 //		g1.setPeople("7");
 //		g1.setMoney(0);
 //		dao.insert(g1);
-//		System.err.println("�憓���");
+//		System.err.println("123");
+
+		// 修改團購案人數 (PK,people)
+		GroupBuyVO p = new GroupBuyVO();
+		p.setGro_Id("G000000006");
+		p.setPeople("50");
+		groDao.gropeo(p);
+		System.out.println("???????1");
+
+//		GroupBuyVO groupBuyVO = groDao.findByPrimaryKey("G000000006");
+//		if (groupBuyVO.getReb1_No() != null) {
+//			Integer groBuyPeople = Integer.valueOf(groupBuyVO.getPeople());
+//			String reb1 = groupBuyVO.getReb1_No();
+//			RebateVO rebateVO = rebDao.findByPrimaryKey(reb1);
+//			Integer reb1People = Integer.valueOf(rebateVO.getPeople());
+//			Integer money = 0;
+//			if (groBuyPeople >= reb1People) {
+//				money = groupBuyVO.getMoney() * rebateVO.getDiscount();
+//			String reb2 = groupBuyVO.getReb2_No();
+//			RebateVO rebateVO2 = rebDao.findByPrimaryKey(reb2);
+//			Integer reb2People = Integer.valueOf(rebateVO.getPeople());
+//			if (groBuyPeople >= reb2People) {
+//				money = groupBuyVO.getMoney() * rebateVO.getDiscount();
+//			String reb3 = groupBuyVO.getReb3_No();
+//			RebateVO rebateVO3 = rebDao.findByPrimaryKey(reb3);
+//			Integer reb3People = Integer.valueOf(rebateVO.getPeople());
+//			if (groBuyPeople >= reb3People) {
+//				money = groupBuyVO.getMoney() * rebateVO.getDiscount();
+//			}
+//		}
+//			}
+//		}
+//		//修改團購案價錢(pK,money)
+		GroupBuyVO reb = new GroupBuyVO();
+		reb.setGro_Id("G000000006");
+		reb.setMoney(123456);
+		groDao.gromon(reb);
+		System.out.println("????");
 
 		// update
 //		GroupBuyVO g1=new GroupBuyVO();
@@ -360,9 +482,9 @@ public class GroupBuyJDBCDAO implements GroupBuyDAO_interface {
 //		g1.setStatus(1);
 //		g1.setPeople("7");
 //		g1.setMoney(4);	
-//		dao.update(g1);
-//		System.err.println("靽格����");
-////	 �閰�
+//		groDao.update(g1);
+//		System.err.println("123");
+////	
 //		GroupBuyVO gro2 = dao.findByPrimaryKey("G000000003");
 //		System.out.print(gro2.getGro_Id() + ",");
 //		System.out.print(gro2.getP_Id() + ",");
@@ -473,4 +595,12 @@ public class GroupBuyJDBCDAO implements GroupBuyDAO_interface {
 		}
 		return list;
 	}
+
+	@Override
+	public List<GroupBuyVO> getAllByGroId(String gro_Id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
 }

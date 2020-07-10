@@ -1,26 +1,36 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ page import="com.immed.model.*"%>
+<%@ page import="com.productType.model.*"%>
+<%@ page import="com.member.model.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-	String immed_id = request.getParameter("immedID");
-	ImmedService immedSvc = new ImmedService();
-	ImmedVO immedVO = immedSvc.getOneImmed(immed_id);
-	pageContext.setAttribute("immedVO", immedVO);
+	ImmedVO immedVO = (ImmedVO) request.getAttribute("immedVO"); //ImmedServlet.java(Concroller), 存入req的immedVO物件
+%>
+
+<%
+	PtService ptSvc = new PtService();
+	PtVO ptVO = ptSvc.getOneProductType(immedVO.getPt_id());
+%>
+
+<%
+	MemberService memberSvc = new MemberService();
+	MemberVO memberVO = memberSvc.getOneMember(immedVO.getSale_id());
 %>
 
 <html>
 <head>
-<title>直購商品資料 - listOneImmed.jsp</title>
+<title>${immedVO.immed_name}直購商品資料-listOneImmed.jsp</title>
 
-<link rel="icon shortcut" href="./img/ICON.ico">
+<link rel="icon shortcut"
+	href="<%=request.getContextPath()%>/front-end/immed/images/ICON.ico">
 
 <!-- Bootstrap官方網站 https://getbootstrap.com/ -->
 <!-- 連結Bootstrap.min.css -->
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 	crossorigin="anonymous">
 
 <!-- 使用font awesome -->
@@ -39,65 +49,94 @@
 
 <!-- 使用style.css -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/style.css">
+	href="<%=request.getContextPath()%>/front-end/css/immed/immed_header_footer.css">
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css">
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://kenwheeler.github.io/slick/slick/slick-theme.css"> -->
 
 <style>
-table {
-	border-collapse: collapse;
-	margin-top: 5px;
-	margin-bottom: 5px;
+body {
+	padding-top: 90px;
+	background-color: #F5F5F5;
 }
 
-table, th, td {
-	border: 1px solid #CCCCFF;
+.immed_nav {
+	background: linear-gradient(#4475b6, #00334e);
 }
 
-th, td {
-	padding: 5px;
-	text-align: center;
+.immed_nav .navbar {
+	padding: 0rem 1rem;
 }
 
-table#table-1 {
-	width: 100%;
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
+.immed_nav .navbar-brand {
+	/* 	padding-top: 0.5rem; */
+	padding-top: 1rem;
+	padding-bottom: 0rem;
 }
 
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
+.immed_nav .form-inline {
+	padding-top: 1rem;
 }
 
-table#table-2 {
-	width: 100%
+.immed_nav .form-inline .form-control {
+	width: 350px;
 }
 
-table#table-2 img.immed_pic {
-	width: 100px;
+.immed_nav .form-inline button {
+	margin-left: -42px;
 }
 
-table#table-2 p.immed_name {
-	width: 130px;
+.immed_nav .navbar-collapse {
+	flex-grow: initial;
 }
 
-table#table-2 p.immed_desc {
-	width: 250px;
-	height: 200px;
-	overflow: auto;
-	text-align: justify;
+.immed_nav a.nav-link div {
+	font-size: 0.9rem;
 }
 
-table#table-2 p.rcpt_add {
-	width: 100px;
+.immed_nav a.nav-link i {
+	font-size: 1.5rem;
+	padding-top: 0.25rem;
+}
+
+.immed_nav div.avator img {
+	border-radius: 50%;
+	width: 30px;
+}
+
+.logo {
+	font-family: 'Sedgwick Ave Display', cursive;
+	font-size: 35px;
+	color: #16e8f7f8;
+}
+
+.logo2 {
+	font-family: 'Lakki Reddy', cursive;
+	font-size: 35px;
+	color: #f1edd2f8;
+	margin-left: 5px;
+}
+
+.logo3 {
+	font-family: 'Sedgwick Ave Display', cursive;
+	font-size: 15px;
+	color: #f3efd5f8;
+	margin-left: 5px;
+}
+
+div.content nav ol.breadcrumb {
+	background-color: white;
+	padding: 0rem 1rem;
+}
+
+div.content nav ol.breadcrumb a {
+	color: rgb(102, 102, 102);
+}
+
+div.content li.breadcrumb-item+li.breadcrumb-item::before {
+	content: ">";
 }
 
 div.immedName h4 {
@@ -224,27 +263,115 @@ div.intro_right div.saleInfo div {
 /* } */
 div.immedDesc {
 	margin-top: 40px;
+	padding: 0px 150px 0px 170px;
 }
 
+/* content */
+div.content {
+	background-color: white;
+	min-height: 100vh;
+}
+
+@media ( max-width : 1023px) {
+	.immed_nav .form-inline .form-control {
+		width: 250px;
+	}
+}
+
+@media ( max-width : 767px) {
+	.immed_nav .form-inline .form-control {
+		width: 200px;
+	}
+	.logo3 {
+		display: none;
+	}
+}
 </style>
-
 </head>
-<body style="">
 
-	<h4>此頁暫練習採用 Script 的寫法取值:</h4>
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>直購商品資料 - ListOneImmed.jsp</h3>
-				<h5>
-					<a href="select_page.jsp"><img src="images/back1.gif"
-						width="100" height="32" border="0">回首頁</a>
-				</h5>
-			</td>
-		</tr>
-	</table>
+<body>
+	<!-- navbar -->
+	<%@ include file="/files/immed/immed_header.jsp"%>
+	<!-- navbar end -->
 
-	<div class="container">
+	<div class="container immed_nav">
+		<nav class="navbar navbar-expand-md navbar-light">
+			<a class="navbar-brand"
+				href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">
+				<span class="logo2">Immed</span> <span class="logo3">Trade</span>
+			</a>
+			<!-- 				<a class="navbar-brand" -->
+			<%-- 					href="<%=request.getContextPath()%>/front-end/index.jsp"> <span --%>
+			<!-- 					class="logo"><i class="fas fa-bomb"></i></span> <span class="logo2">交易區</span> -->
+			<!-- 					<span class="logo3">直購商品</span> -->
+			<!-- 				</a> -->
+
+			<form class="form-inline mr-auto ml-2" method="post"
+				action="<%=request.getContextPath()%>/immed/immed.do">
+				<input class="form-control" type="text" placeholder="搜尋商品"
+					aria-label="Search" name="immed_name_search" autocomplete="off">
+				<input type="hidden" name="action" value="find_By_Immed_Name">
+				<button class="btn btn-light my-2 my-sm-0" type="submit">
+					<i class="fas fa-search"></i>
+				</button>
+			</form>
+
+			<!-- 		<BUTTON CLASS="NAVBAR-TOGGLER" TYPE="BUTTON" DATA-TOGGLE="COLLAPSE" -->
+			<!-- 			DATA-TARGET="#NAVBARTOGGLERDEMO03" -->
+			<!-- 			ARIA-CONTROLS="NAVBARTOGGLERDEMO03" ARIA-EXPANDED="FALSE" -->
+			<!-- 			ARIA-LABEL="TOGGLE NAVIGATION"> -->
+			<!-- 			<SPAN CLASS="NAVBAR-TOGGLER-ICON"></SPAN> -->
+			<!-- 		</BUTTON> -->
+			<!-- 		<div class="collapse navbar-collapse" id="navbarTogglerDemo03"> -->
+			<ul class="navbar-nav">
+				<li class="nav-item d-flex"><a class="nav-link text-white"
+					href="<%=request.getContextPath()%>/front-end/protected/immed/addImmed.jsp">
+						<div>
+							<i class="fas fa-gavel  pl-2 pb-1"></i>
+						</div>
+						<div>賣東西</div>
+				</a></li>
+				<li class="nav-item d-flex pl-md-2"><a
+					class="nav-link text-white" href="#">
+						<div>
+							<i class="fas fa-user pl-md-3 pl-2 pb-1"></i>
+						</div>
+						<div>我的拍賣</div>
+				</a></li>
+				<li class="nav-item d-flex pl-md-2"><a
+					class="nav-link text-white" href="#">
+						<div>
+							<i class="fas fa-heart pl-md-3 pl-2 pb-1"></i>
+						</div>
+						<div>追蹤商品</div>
+				</a></li>
+				<!-- 				<li class="nav-item d-flex pl-md-2"><a -->
+				<!-- 					class="nav-link text-white" href="#"> -->
+				<!-- 						<div class="d-flex justify-content-center avator"> -->
+				<!-- 							<img -->
+				<%-- 								src="<%=request.getContextPath()%>/member/ShowMemberPic.do?mem_id=${memberVO.mem_id}" --%>
+				<!-- 								class="" alt="..." width="30px"> -->
+				<!-- 						</div> -->
+				<%-- 						<div>${memberVO.mem_name}您好</div> --%>
+				<!-- 				</a></li> -->
+			</ul>
+			<!-- 		</div> -->
+		</nav>
+	</div>
+
+	<div class="container content">
+
+		<div class="row pt-3">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
+					<li class="breadcrumb-item"><a
+						href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">直購商品</a></li>
+					<li class="breadcrumb-item"><a href="#"><%=ptVO.getTypename()%></a></li>
+				</ol>
+			</nav>
+		</div>
+
 		<div class="immedName">
 			<h4>${immedVO.immed_name}</h4>
 		</div>
@@ -256,44 +383,44 @@ div.immedDesc {
 					<div class="slider-for m-2">
 						<div class="p-3">
 							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPicRead?ID=${immedVO.immed_id}"
+								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
 								class="card-img-top" alt="...">
 						</div>
 						<div class="p-3">
 							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPicRead?ID=${immedVO.immed_id}"
+								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
 								class="card-img-top" alt="...">
 						</div>
 						<div class="p-3">
 							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPicRead?ID=${immedVO.immed_id}"
+								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
 								class="card-img-top" alt="...">
 						</div>
 						<div class="p-3">
 							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPicRead?ID=${immedVO.immed_id}"
+								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
 								class="card-img-top" alt="...">
 						</div>
 					</div>
 					<div class="slider-nav px-4 py-2">
 						<div class="p-1 slider_nav_img">
 							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPicRead?ID=${immedVO.immed_id}"
+								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
 								class="card-img-top" alt="...">
 						</div>
 						<div class="p-1 slider_nav_img">
 							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPicRead?ID=${immedVO.immed_id}"
+								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
 								class="card-img-top" alt="...">
 						</div>
 						<div class="p-1 slider_nav_img">
 							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPicRead?ID=${immedVO.immed_id}"
+								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
 								class="card-img-top" alt="...">
 						</div>
 						<div class="p-1 slider_nav_img">
 							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPicRead?ID=${immedVO.immed_id}"
+								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
 								class="card-img-top" alt="...">
 						</div>
 					</div>
@@ -304,7 +431,7 @@ div.immedDesc {
 						<h6>商品備註:</h6>
 						<ul>
 							<li>物品所在地:</li>
-							<li>上架時間: <fmt:formatDate value="${immedVO.ord_time}"
+							<li>上架時間: <fmt:formatDate value="${immedVO.immed_start}"
 									pattern="yyyy-MM-dd HH:mm:ss" /></li>
 							<li>可能會提前結束販售</li>
 						</ul>
@@ -315,11 +442,25 @@ div.immedDesc {
 
 			<div class="col-md-9">
 				<div class="intro_right">
-					<div class="row m-2">
-						<div class="immedBuy py-3 px-2">
+					<div class="row mx-3 my-4">
+						<div class="immedBuy py-3 px-2 d-flex">
 							<span>直購價: </span> <span class="price">$${immedVO.immed_prc}</span>
-							<button type="button" class="btn btn-danger immed_buy"
-								title="直接購買">直接購買</button>
+
+							<form class="form-inline mr-auto ml-2" method="post"
+								<%-- 								action="<%=request.getContextPath()%>/front-end/immed/immedPay.jsp?immed_id=${immedVO.immed_id}"> --%>
+								action="<%=request.getContextPath()%>/immed/immed.do">
+
+								<!-- 								<input type="hidden" name="action" value="find_By_Immed_Name"> -->
+								<%-- 								<input type="hidden" name="immedVO" value=<%=immedVO%>> --%>
+								<%-- 								<input type="hidden" name="buy_id" value="${memberVO.mem_id}"> --%>
+								<input type="hidden" name="action"
+									value="getOne_For_Update_OneBuy"> <input type="hidden"
+									name="immed_id" value="${immedVO.immed_id}">
+								<%-- 								<input type="hidden" name="buy_id" value="${memberVO.mem_id}"> --%>
+								<button type="submit" class="btn btn-danger immed_buy"
+									title="立即購買">立即購買</button>
+							</form>
+
 						</div>
 					</div>
 
@@ -338,7 +479,9 @@ div.immedDesc {
 						<div class="col-md-4">
 							<div class="saleInfo mt-3">
 								<h6>賣家資訊</h6>
-								<div style="border-bottom: 1px dashed #E6E9ED;">${immedVO.sale_id}</div>
+								<div style="border-bottom: 1px dashed #E6E9ED;">
+									賣家名稱:
+									<%=memberVO.getMem_name()%></div>
 								<div>全部商品:</div>
 								<div>評價分數:</div>
 							</div>
@@ -349,60 +492,17 @@ div.immedDesc {
 		</div>
 
 		<div class="row">
-			<div class="immedDesc px-5 mx-5">
-				<p class="immed_desc">${immedVO.immed_desc}</p>
+			<div class="immedDesc ">
+				<h4 class="mb-5">商品描述</h4>
+				<div><%=immedVO.getImmed_desc()%></div>
+			
 			</div>
 		</div>
 	</div>
 
-	<!-- 	<table id="table-2"> -->
-	<!-- 		<tr> -->
-	<!-- 			<th>商品編號</th> -->
-	<!-- 			<th>賣家編號</th> -->
-	<!-- 			<th>買家編號</th> -->
-	<!-- 			<th>商品種類編號</th> -->
-	<!-- 			<th>商品名稱</th> -->
-	<!-- 			<th>商品上架時間</th> -->
-	<!-- 			<th>商品價格</th> -->
-	<!-- 			<th>商品圖片</th> -->
-	<!-- 			<th>商品描述</th> -->
-	<!-- 			<th>商品售出狀態</th> -->
-	<!-- 			<th>商品下架狀態</th> -->
-	<!-- 			<th>訂單時間</th> -->
-	<!-- 			<th>訂單狀態編號</th> -->
-	<!-- 			<th>收件人姓名</th> -->
-	<!-- 			<th>收件人電話</th> -->
-	<!-- 			<th>收件人地址</th> -->
-
-	<!-- 		</tr> -->
-	<!-- 		<tr> -->
-	<%-- 			<td>${immedVO.immed_id}</td> --%>
-	<%-- 			<td>${immedVO.sale_id}</td> --%>
-	<%-- 			<td>${immedVO.buy_id}</td> --%>
-	<%-- 			<td>${immedVO.pt_id}</td> --%>
-	<%-- 			<td><p class="immed_name">${immedVO.immed_name}</p></td> --%>
-	<%-- 			<td><fmt:formatDate value="${immedVO.immed_start}" --%>
-	<%-- 					pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
-	<!-- 			<td>$${immedVO.immed_prc}</td> -->
-	<!-- 			<td><img class="immed_pic" -->
-	<%-- 				src="ImmedPicRead?ID=${immedVO.immed_id}"></td> --%>
-	<%-- 			<td><p class="immed_desc">${immedVO.immed_desc}</p></td> --%>
-	<%-- 			<td>${(immedVO.immed_sold eq 1) ? '已售出' : '未售出'}</td> --%>
-	<%-- 			<td>${(immedVO.immed_down eq 1) ? "已下架" : "未下架"}</td> --%>
-	<%-- 			<td><fmt:formatDate value="${immedVO.ord_time}" --%>
-	<%-- 					pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
-	<%-- 			<td>${immedVO.ordstat_id}</td> --%>
-	<%-- 			<td>${immedVO.rcpt_name}</td> --%>
-	<%-- 			<td>${immedVO.rcpt_cell}</td> --%>
-	<%-- 			<td><p class="rcpt_add">${immedVO.rcpt_add}</p></td> --%>
-	<%-- 			<%-- 		<td><%=immedVO.getEname()%></td> --%>
-	<%-- 			<%-- 		<td><%=immedVO.getJob()%></td> --%>
-	<%-- 			<%-- 		<td><%=immedVO.getHiredate()%></td> --%>
-	<%-- 			<%-- 		<td><%=immedVO.getSal()%></td> --%>
-	<%-- 			<%-- 		<td><%=immedVO.getComm()%></td> --%>
-	<%-- 			<%-- 		<td><%=immedVO.getDeptno()%></td> --%>
-	<!-- 		</tr> -->
-	<!-- 	</table> -->
+	<!-- footer -->
+	<%@ include file="../../files/footer.jsp"%>
+	<!-- footer -->
 
 	<!-- 連結Bootstrap所需要的js -->
 	<!-- jquery.min.js -->
@@ -417,12 +517,6 @@ div.immedDesc {
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 		crossorigin="anonymous"></script>
-
-	<!-- 	<script type="text/javascript" -->
-	<!-- 		src="https://code.jquery.com/jquery-1.11.0.min.js"></script> -->
-
-	<!-- 	<script type="text/javascript" -->
-	<!-- 		src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
 
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
@@ -444,6 +538,7 @@ div.immedDesc {
 			asNavFor : '.slider-for',
 			dots : false,
 			focusOnSelect : true
+
 		});
 	</script>
 

@@ -88,7 +88,7 @@
                 </button>
             </a>
     <!-- 新增商品 -->
-            <a href="insert_auct.jsp">
+            <a href="<%=request.getContextPath()%>/front-end/protected/auct/insert_auct.jsp">
                 <button class="add-btn btn  btn-outline-light" class="bg-primary">
                     <h6 class="backbtn">新增商品</h6>
                 </button>
@@ -237,7 +237,7 @@
     
     </section>
 
-    <a href="Auct_index.jsp">
+    <a href="<%=request.getContextPath()%>/front-end/protected/auct/Auct_index.jsp">
         <button id="goBackBtn" class="bg-primary">
             <h6 class="backbtn">BID</h6>
         </button>

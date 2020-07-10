@@ -130,6 +130,14 @@ img.rounded{
 		button{
 		width
 		}
+		body {
+/* 			background-image: url('https://pixabay.com/get/51e3d34b4257b108f5d08460da293277113ddee4515973_1280.jpg'); */
+			background-color: #216583;
+		}
+		
+		front{
+		font-family:Microsoft JhengHei;
+		}
 	</style>
 
 

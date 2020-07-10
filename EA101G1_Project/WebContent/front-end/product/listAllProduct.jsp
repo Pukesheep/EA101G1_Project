@@ -10,6 +10,7 @@
 <%	
     ProService proSvc = new ProService();
     List<ProVO> list = proSvc.getAllFront();
+    session.setAttribute("keyWordlist",list);
     pageContext.setAttribute("list",list);
 %>
 
@@ -27,7 +28,7 @@
     <!-- 連結Bootstrap.min.css -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+	
     <!-- 使用font awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
         integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
@@ -52,7 +53,7 @@
         
     <!-- SweetAlert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-
+	
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -88,6 +89,9 @@
   width:200px;
   }
   
+  front{
+		font-family:Microsoft JhengHei;
+		}
 </style>
 
 <style type="text/css" media="screen">
@@ -186,6 +190,10 @@
 			cursor:pointer;
 			color:red;
 		}
+		
+		a {
+    	text-decoration:none;
+			}
 	</style>
 
 </head>
@@ -197,9 +205,102 @@
     
     <!-- 內容 -->
     <section class="blank1">
+    
+<div class="container main">
 
-<div id="productShow" style="margin-left:350px">
+<div class="row">
+
+<div class="ptlist" style="margin-top:10px;margin-right:60px;width:170px">
+
+<div class="Now block" style="width:170px;height:170px;display: flex;background-color:#c6d4df;margin-bottom:4px;border-radius:10px">
+	<div style="text-align:center; margin-top:70px;width:100%"><font style="font-weight:bold;font-size:20px;font-family:Microsoft JhengHei;">全部商品</font></div>
+	</div>
 	
+<div class="list-group">
+	<div class="list-group-item active">
+		<h4 class="list-group-item-heading">
+			Switch
+		</h4>
+	</div>
+	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT001" class="list-group-item">
+		<h4 class="list-group-item-heading">
+			Switch主機
+		</h4>
+	</a>
+	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT002" class="list-group-item">
+		<h4 class="list-group-item-heading">
+			Switch遊戲
+		</h4>
+	</a>
+	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT003" class="list-group-item">
+		<h4 class="list-group-item-heading">
+			Switch周邊
+		</h4>
+	</a>
+	
+</div>
+
+<div class="list-group">
+	<div class="list-group-item active">
+		<h4 class="list-group-item-heading">
+			PS4
+		</h4>
+	</div>
+	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT004" class="list-group-item">
+		<h4 class="list-group-item-heading">
+			PS4主機
+		</h4>
+	</a>
+	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT005" class="list-group-item">
+		<h4 class="list-group-item-heading">
+			PS4遊戲
+		</h4>
+	</a>
+	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT006" class="list-group-item">
+		<h4 class="list-group-item-heading">
+			PS4周邊
+		</h4>
+	</a>
+</div> 
+
+<div class="list-group">
+	<div class="list-group-item active">
+		<h4 class="list-group-item-heading">
+			XBOX
+		</h4>
+	</div>
+	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT007" class="list-group-item">
+		<h4 class="list-group-item-heading">
+			XBOX主機
+		</h4>
+	</a>
+	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT008" class="list-group-item">
+		<h4 class="list-group-item-heading">
+			XBOX遊戲
+		</h4>
+	</a>
+	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT009" class="list-group-item">
+		<h4 class="list-group-item-heading">
+			XBOX周邊
+		</h4>
+	</a>
+	
+</div>
+
+</div>
+
+<div id="productShow" style="margin-top:10px">
+<div class="col-lg-12">
+			<form action="<%=request.getContextPath()%>/product/pro.do" method="POST">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="keyword" placeholder="搜尋商品">
+                    <input type="hidden" name="action" value="searchByKeyWord">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><i class="fas fa-search"></i></button>
+                    </span>
+                </div>
+              </form>    
+            </div>
 	<%@ include file="../../files/page1.file" %> 
 	<c:forEach var="proVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<div class="display" >
@@ -244,8 +345,10 @@
 	</div>
 		
 	</c:forEach>
+	<%@ include file="../../files/page2.file" %>
 </div>
-<%@ include file="../../files/page2.file" %>
+</div>
+</div>
 <br>
 
 <script>

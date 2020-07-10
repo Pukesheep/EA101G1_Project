@@ -74,4 +74,21 @@ public class ProService {
 		
 		return list;
 	}
+	
+	public List<ProVO> getFrontByPtId(String pt_id,List<ProVO> list){
+		List<ProVO> list2 =list.stream()
+		.filter(p ->p.getPt_id().equals(pt_id))
+		.collect(Collectors.toList());
+		
+		return list2;
+	}
+	
+	public List<ProVO> getByKeyWord(String keyword, List<ProVO> list){
+		
+		List<ProVO> list2 = list.stream()
+				.filter(p ->p.getP_name().toUpperCase().contains(keyword.toUpperCase()))
+				.collect(Collectors.toList());
+		
+		return list2;
+	}
 }

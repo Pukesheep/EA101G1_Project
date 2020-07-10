@@ -75,10 +75,10 @@
 
 <table>
 	<tr>
-		<th>商品編號</th>
+		<th><pre>商品編號</pre></th>
 		<th>分類</th>
 		<th>商品名稱</th>
-		<th>商品價格</th>
+		<th><pre>商品價格</pre></th>
 		<th>商品圖片</th>
 		<th>商品描述</th>
 		<th>銷售量</th>
@@ -92,14 +92,14 @@
 		
 		<tr>
 			<td>${proVO.p_id}</td>
-			<td>${ ptSvc.getOneProductType(proVO.pt_id).typename }</td>
-			<td>${proVO.p_name}</td>
+			<td><pre>${ ptSvc.getOneProductType(proVO.pt_id).typename }</pre></td>
+			<td><pre>${proVO.p_name}</pre></td>
 			<td>${proVO.p_price}</td>
 			<td><img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${proVO.p_id}"></td>
-			<td>${proVO.p_info}</td>
+			<td><pre>${proVO.p_info}</pre></td>
 			<td>${proVO.p_sales}</td>
 			<td>${proVO.p_stock}</td>
-			<td><fmt:formatDate value="${proVO.p_add_date}" pattern="yyyy-MM-dd"/></td>
+			<td><pre><fmt:formatDate value="${proVO.p_add_date}" pattern="yyyy-MM-dd"/></pre></td>
 			<td>${(proVO.p_stat==0)? "下架中":"上架中"}</td>
 			
 			<td>

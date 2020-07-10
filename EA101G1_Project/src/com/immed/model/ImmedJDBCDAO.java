@@ -8,13 +8,16 @@ import java.util.*;
 public class ImmedJDBCDAO implements ImmedDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "EA101";
+	String userid = "EA101G1";
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO IMMED (IMMED_ID, SALE_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN) "
 			+ "VALUES ('IMMED'||LPAD(to_char(IMMED_SEQ.NEXTVAL), 6, '0'), ?, ?, ?, SYSTIMESTAMP, ?, ?, ?, 0, 0)";
 	private static final String DELETE = "DELETE FROM IMMED WHERE IMMED_ID = ?";
 	private static final String UPDATE = "UPDATE IMMED SET BUY_ID= ?, PT_ID= ?, IMMED_NAME= ?, IMMED_PRC= ?, IMMED_PIC= ?, IMMED_DESC= ?, IMMED_SOLD= ?, IMMED_DOWN= ?, ORD_TIME= ?, ORDSTAT_ID= ?, RCPT_NAME= ?, RCPT_CELL= ?, RCPT_ADD= ? WHERE IMMED_ID = ?";
+	private static final String UPDATE_UP = "UPDATE IMMED SET IMMED_DOWN= 0 WHERE IMMED_ID = ?";
+	private static final String UPDATE_DOWN = "UPDATE IMMED SET IMMED_DOWN= 1 WHERE IMMED_ID = ?";
+	private static final String UPDATE_ONE_BUY = "UPDATE IMMED SET BUY_ID= ?, IMMED_SOLD= 1, ORD_TIME= SYSTIMESTAMP, ORDSTAT_ID= '003', RCPT_NAME= ?, RCPT_CELL= ?, RCPT_ADD= ? WHERE IMMED_ID = ?";
 	private static final String GET_ALL_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED ORDER BY IMMED_ID";
 	private static final String GET_ONE_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_ID = ?";
 	private static final String GET_FROM_NAME = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE UPPER(IMMED_NAME) LIKE UPPER(?) ORDER BY IMMED_PRC";
@@ -91,6 +94,136 @@ public class ImmedJDBCDAO implements ImmedDAO_interface {
 
 			pstmt.executeUpdate();
 
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void update_up(ImmedVO immedVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_UP);
+
+			pstmt.setString(1, immedVO.getImmed_id());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void update_down(ImmedVO immedVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_DOWN);
+
+			pstmt.setString(1, immedVO.getImmed_id());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void update_one_buy(ImmedVO immedVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_ONE_BUY);
+			
+			pstmt.setString(1, immedVO.getBuy_id());
+//			pstmt.setString(2, immedVO.getPt_id());
+//			pstmt.setString(3, immedVO.getImmed_name());
+//			pstmt.setInt(4, immedVO.getImmed_prc());
+//			pstmt.setBytes(5, immedVO.getImmed_pic());
+//			pstmt.setString(6, immedVO.getImmed_desc());
+//			pstmt.setInt(2, immedVO.getImmed_sold());
+//			pstmt.setInt(8, immedVO.getImmed_down());
+//			pstmt.setTimestamp(9, immedVO.getOrd_time());
+//			pstmt.setString(3, immedVO.getOrdstat_id());
+			pstmt.setString(2, immedVO.getRcpt_name());
+			pstmt.setString(3, immedVO.getRcpt_cell());
+			pstmt.setString(4, immedVO.getRcpt_add());
+			pstmt.setString(5, immedVO.getImmed_id());
+			
+			pstmt.executeUpdate();
+			
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -368,16 +501,15 @@ public class ImmedJDBCDAO implements ImmedDAO_interface {
 		return list;
 	}
 
-	// ===================== Get DB image (Save to local)
+	/** ================= Get DB image (Save to local) =====================**/
 	public static void readPicture(byte[] bytes, String imgId) throws IOException {
 		FileOutputStream fos = new FileOutputStream("src/dbData/image/Auc/" + imgId + ".jpg");
 		fos.write(bytes);
 		fos.flush();
 		fos.close();
 	}
-	// ===================== Get DB image (Save to local)
 
-	// ===================== Get local image Byte[] (toUpload oracle)
+	/** ========= Get local image Byte[] (toUpload oracle) ====================**/
 	public static byte[] getPictureByteArray(String path) throws IOException {
 		File file = new File(path);
 		FileInputStream fis = new FileInputStream(file);
@@ -392,14 +524,13 @@ public class ImmedJDBCDAO implements ImmedDAO_interface {
 
 		return baos.toByteArray();
 	}
-	// ===================== Get local image Byte[] (toUpload oracle)
 
-	// ===================== main方法 (insert update delete getOne getALL)
+	/** ============= main方法 (insert update delete getOne getALL) ===================**/
 	public static void main(String[] args) {
 		ImmedJDBCDAO dao = new ImmedJDBCDAO();
 		SimpleDateFormat tsFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // 去除print timestamp nano(毫秒)
 
-		// ===================== INSERT 新增一筆AUCT ===============================
+		/** ===================== INSERT 新增一筆IMMED =============================== **/
 //		ImmedVO immedVO1 = new ImmedVO();
 //
 //		immedVO1.setSale_id("M000003");
@@ -418,9 +549,8 @@ public class ImmedJDBCDAO implements ImmedDAO_interface {
 //		immedVO1.setImmed_desc("再買就要沒手啦");
 
 //		dao.insert(immedVO1);
-		// ===================== INSERT 新增一筆AUCT ===============================
 
-		// ===================== UPDATE 修改一筆AUCT ===============================
+		/** ===================== UPDATE 修改一筆 IMMED =============================== **/
 //		ImmedVO immedVO2 = new ImmedVO();
 //
 //		immedVO2.setBuy_id("M000007");
@@ -449,13 +579,55 @@ public class ImmedJDBCDAO implements ImmedDAO_interface {
 //		immedVO2.setImmed_id("IMMED000010");
 
 //		dao.update(immedVO2);
-		// ===================== UPDATE 修改一筆AUCT ===============================
+		
+		/** ===================== UPDATE_UP 修改一筆 IMMED 上架 =============================== **/
+//		ImmedVO immedVO2 = new ImmedVO();
+//
+//		immedVO2.setImmed_id("IMMED000002");
+//
+//		dao.update_up(immedVO2);
+		
+		/** ===================== UPDATE_DOWN 修改一筆 IMMED 下架 =============================== **/
+		ImmedVO immedVO2 = new ImmedVO();
 
-		// ===================== DELETE G0 刪除一筆AUCT ===============================
+		immedVO2.setImmed_id("IMMED000001");
+
+		dao.update_down(immedVO2);
+		
+		/** ===================== UPDATE_BUY 立即購買修改 IMMED =============================== **/
+//		ImmedVO immedVO2 = new ImmedVO();
+//
+//		immedVO2.setBuy_id("M000007");
+//		immedVO2.setPt_id("PT005");
+//		immedVO2.setImmed_name("隻狼 暗影雙死");
+//		immedVO2.setImmed_prc(1111);
+//
+//		byte[] picUpdate = null;
+//		try {
+//			picUpdate = getPictureByteArray("src/dbData/image/Auc/IMMED000001.jpg"); // insert a test Immed_pic
+//																						// 圖片在專案路徑下
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		immedVO2.setImmed_pic(picUpdate);
+
+//		immedVO2.setImmed_desc("修改商品為隻狼");
+//		immedVO2.setImmed_sold(1);
+//		immedVO2.setImmed_down(1);
+//		immedVO2.setOrd_time(Timestamp.valueOf("2020-07-22 10:21:56"));
+//		immedVO2.setOrdstat_id("014");
+//		immedVO2.setRcpt_name("草泥馬");
+//		immedVO2.setRcpt_cell("0988886811");
+//		immedVO2.setRcpt_add("天堂門爆肝路");
+//
+//		immedVO2.setImmed_id("IMMED000011");
+//
+//		dao.update_one_buy(immedVO2);
+
+		/** ===================== DELETE G0 刪除一筆IMMED =============================== **/
 //		dao.delete("IMMED000012");
-		// ===================== DELETE G0 刪除一筆AUCT ===============================
 
-		// ===================== GET_ONE 查詢一筆AUCT ===============================
+		/** ===================== GET_ONE 查詢一筆IMMED =============================== **/
 //		ImmedVO immedVO3 = dao.findByPrimaryKey("IMMED000010");
 
 //		System.out.print(immedVO3.getImmed_id() + ", ");
@@ -491,9 +663,7 @@ public class ImmedJDBCDAO implements ImmedDAO_interface {
 //		System.out.println();
 //		System.out.println("=======================================================");
 
-		// ===================== GET_ONE 查詢一筆AUCT ===============================
-
-		// ===================== GET_ALL 查詢全部AUCT ===============================
+		/** ===================== GET_ALL 查詢全部IMMED =============================== **/
 //		List<ImmedVO> list_all = dao.getAll();
 //		for (ImmedVO aImmed : list_all) {
 //
@@ -529,17 +699,18 @@ public class ImmedJDBCDAO implements ImmedDAO_interface {
 //			System.out.print(aImmed.getRcpt_add());
 //			System.out.println();
 //		}
-		// ===================== GET_ALL 查詢全部AUCT ===============================
-
-		List<ImmedVO> list_searchName = dao.findByImmedName("太空");
-		for (ImmedVO aImmed : list_searchName) {
-			System.out.print(aImmed.getImmed_id() + ", ");
-			System.out.print(aImmed.getSale_id() + ", ");
-			System.out.print(aImmed.getBuy_id() + ", ");
-			System.out.print(aImmed.getPt_id() + ", ");
-			System.out.print(aImmed.getImmed_name() + ", ");
-			System.out.print(tsFormat.format(aImmed.getImmed_start()) + ", ");
-			System.out.print(aImmed.getImmed_prc() + ", ");
+		// ===================== GET_ALL 查詢全部IMMED ===============================
+		
+		// ===================== findByImmedName 關鍵字搜尋全部IMMED ===============================
+//		List<ImmedVO> list_searchName = dao.findByImmedName("太空");
+//		for (ImmedVO aImmed : list_searchName) {
+//			System.out.print(aImmed.getImmed_id() + ", ");
+//			System.out.print(aImmed.getSale_id() + ", ");
+//			System.out.print(aImmed.getBuy_id() + ", ");
+//			System.out.print(aImmed.getPt_id() + ", ");
+//			System.out.print(aImmed.getImmed_name() + ", ");
+//			System.out.print(tsFormat.format(aImmed.getImmed_start()) + ", ");
+//			System.out.print(aImmed.getImmed_prc() + ", ");
 
 //			byte[] picAll = aImmed.getImmed_pic(); // IMMED圖片從DB DOWNLOAD 到Auc資料夾
 //			try {
@@ -548,23 +719,23 @@ public class ImmedJDBCDAO implements ImmedDAO_interface {
 //			} catch (IOException e) {
 //				e.printStackTrace();
 //			}
-			System.out.print(aImmed.getImmed_pic() + ", ");
-
-			System.out.print(aImmed.getImmed_desc() + ", ");
-			System.out.print(aImmed.getImmed_sold() + ", ");
-			System.out.print(aImmed.getImmed_down() + ", ");
-
-			if (aImmed.getOrd_time() != null)
-				System.out.print(tsFormat.format(aImmed.getOrd_time()) + ", ");
-			else
-				System.out.print("null, ");
-
-			System.out.print(aImmed.getOrdstat_id() + ", ");
-			System.out.print(aImmed.getRcpt_name() + ", ");
-			System.out.print(aImmed.getRcpt_cell() + ", ");
-			System.out.print(aImmed.getRcpt_add());
-			System.out.println();
-		}
+//			System.out.print(aImmed.getImmed_pic() + ", ");
+//
+//			System.out.print(aImmed.getImmed_desc() + ", ");
+//			System.out.print(aImmed.getImmed_sold() + ", ");
+//			System.out.print(aImmed.getImmed_down() + ", ");
+//
+//			if (aImmed.getOrd_time() != null)
+//				System.out.print(tsFormat.format(aImmed.getOrd_time()) + ", ");
+//			else
+//				System.out.print("null, ");
+//
+//			System.out.print(aImmed.getOrdstat_id() + ", ");
+//			System.out.print(aImmed.getRcpt_name() + ", ");
+//			System.out.print(aImmed.getRcpt_cell() + ", ");
+//			System.out.print(aImmed.getRcpt_add());
+//			System.out.println();
+//		}
 	}
-	// ===================== main方法 ( insert update delete getOne getALL)
+
 }

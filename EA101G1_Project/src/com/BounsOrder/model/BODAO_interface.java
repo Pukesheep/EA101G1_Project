@@ -5,6 +5,7 @@ import java.util.List;
 public interface BODAO_interface {
 	public void insert(BOVO boVO);
 	public void update(BOVO boVO);
+	public void cancel(String ord_id, String bs_id);
 	public void delete(String ord_id);
 	public BOVO findByPrimaryKey(String ord_id);
 	public List<BOVO> getAll();

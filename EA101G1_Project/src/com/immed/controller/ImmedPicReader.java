@@ -1,4 +1,4 @@
-package com.immed.model;
+package com.immed.controller;
 
 import java.io.*;
 import java.sql.*;
@@ -20,8 +20,8 @@ public class ImmedPicReader extends HttpServlet {
 
 		try {
 			Statement stmt = con.createStatement();
-			String ID = req.getParameter("ID");
-			ResultSet rs = stmt.executeQuery("SELECT IMMED_PIC FROM IMMED WHERE IMMED_ID ='" + ID + "'");
+			String immed_id = req.getParameter("immed_id");
+			ResultSet rs = stmt.executeQuery("SELECT IMMED_PIC FROM IMMED WHERE IMMED_ID ='" + immed_id + "'");
 
 			if (rs.next()) {
 				BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("IMMED_PIC"));

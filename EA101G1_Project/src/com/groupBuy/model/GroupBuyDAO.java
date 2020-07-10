@@ -11,7 +11,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import javax.swing.ListModel;
 
 public class GroupBuyDAO implements GroupBuyDAO_interface {
 	private static DataSource ds = null;
@@ -37,12 +36,12 @@ public class GroupBuyDAO implements GroupBuyDAO_interface {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
+//
 		try {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
-
+//
 			pstmt.setString(1, groupBuyVO.getP_Id());
 			pstmt.setString(2, groupBuyVO.getReb1_No());
 			pstmt.setString(3, groupBuyVO.getReb2_No());
@@ -344,7 +343,7 @@ public class GroupBuyDAO implements GroupBuyDAO_interface {
 	public static void main(String[] args) {
 
 		GroupBuyJDBCDAO dao = new GroupBuyJDBCDAO();
-//�閰Ｗ�		
+//		
 //	List<GroupBuyVO> list = dao.getAll();
 //for (GroupBuyVO grobuy : list) {
 //	System.out.print(grobuy.getGro_Id() + ",");
@@ -368,7 +367,7 @@ public class GroupBuyDAO implements GroupBuyDAO_interface {
 			System.out.println(groupBuyVO.getEnd_Date());
 		}
 	}
-	// ��
+	//
 	// dao.delete("G000000007");
 
 	// insert
@@ -384,7 +383,7 @@ public class GroupBuyDAO implements GroupBuyDAO_interface {
 //		g1.setPeople("7");
 //		g1.setMoney(0);
 //		dao.insert(g1);
-//		System.err.println("�憓���");
+//		System.err.println("");
 //	}
 
 	@Override
@@ -420,5 +419,23 @@ public class GroupBuyDAO implements GroupBuyDAO_interface {
 				}
 			}
 		}
+	}
+
+	@Override
+	public void gropeo(GroupBuyVO groupBuyVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void gromon(GroupBuyVO groupBuyVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<GroupBuyVO> getAllByGroId(String gro_Id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
