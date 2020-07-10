@@ -35,18 +35,6 @@ public class GroupBuyService {
 		return groupBuyVO;
 	}
 
-//	private String gro_Id;
-//	private String p_Id;
-//	private String reb1_No;
-//	private String reb2_No;
-//	private String reb3_No;
-//	private Timestamp start_Date;
-//	private Timestamp end_Date;
-//	private Integer grotime_Date;
-//	private Integer status;
-//	private String people;
-//	private Integer money;
-//	
 	public GroupBuyVO updateGroupBuy(String gro_Id, String p_Id, String reb1_No, String reb2_No, String reb3_No,
 			java.sql.Timestamp start_Date, java.sql.Timestamp end_Date, Integer grotime_Date, Integer status,
 			String people, Integer money) {
@@ -70,16 +58,28 @@ public class GroupBuyService {
 		return groupBuyVO;
 	}
 
-//		public GroupBuyVO openGroupBuy(String gro_Id,java.sql.Timestamp start_Date, java.sql.Timestamp end_Date) {
-//			
-//			GroupBuyVO groupBuyVO = new GroupBuyVO();
-//			
-//			groupBuyVO.setGro_Id(gro_Id);
-//			groupBuyVO.setStart_Date(start_Date);
-//			groupBuyVO.setEnd_Date(end_Date);
-//			
-//			dao.openGroupBuy(gro_Id);
-//	}
+	public GroupBuyVO gropeo(String gro_Id,String people) {
+
+		GroupBuyVO groupBuyVO = new GroupBuyVO();
+
+		groupBuyVO.setGro_Id(gro_Id);
+		groupBuyVO.setPeople(people);
+
+		dao.gropeo(groupBuyVO);
+
+		return groupBuyVO;
+	}
+	public GroupBuyVO gromon(String gro_Id,Integer money) {
+
+		GroupBuyVO groupBuyVO = new GroupBuyVO();
+
+		groupBuyVO.setGro_Id(gro_Id);
+		groupBuyVO.setMoney(money);
+
+		dao.gromon(groupBuyVO);
+
+		return groupBuyVO;
+	}
 
 	public List<GroupBuyVO> openGroupBuy() {
 		return dao.getAllByOpen();
@@ -99,6 +99,9 @@ public class GroupBuyService {
 
 	public void closeGroupBuy(String gro_id, Integer status) {
 		dao.closeGroupBuy(gro_id, status);
+	}
+	public List<GroupBuyVO> getAllByGroId(String gro_id) {
+		return dao.getAllByGroId(gro_id);
 	}
 
 }

@@ -16,4 +16,12 @@ public interface GroupBuyDAO_interface {
 	public void closeGroupBuy(String gro_id, Integer status);
 
 	public List<GroupBuyVO> getAllByOpen();
+
+	public void gropeo(GroupBuyVO groupBuyVO);
+
+	public void gromon(GroupBuyVO groupBuyVO);
+
+	public List<GroupBuyVO> getAllByGroId(String gro_Id);
+	
+	
 }

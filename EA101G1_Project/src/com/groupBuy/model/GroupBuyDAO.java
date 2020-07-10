@@ -344,7 +344,7 @@ public class GroupBuyDAO implements GroupBuyDAO_interface {
 	public static void main(String[] args) {
 
 		GroupBuyJDBCDAO dao = new GroupBuyJDBCDAO();
-//�閰Ｗ�		
+//		
 //	List<GroupBuyVO> list = dao.getAll();
 //for (GroupBuyVO grobuy : list) {
 //	System.out.print(grobuy.getGro_Id() + ",");
@@ -368,7 +368,7 @@ public class GroupBuyDAO implements GroupBuyDAO_interface {
 			System.out.println(groupBuyVO.getEnd_Date());
 		}
 	}
-	// ��
+	//
 	// dao.delete("G000000007");
 
 	// insert
@@ -384,7 +384,7 @@ public class GroupBuyDAO implements GroupBuyDAO_interface {
 //		g1.setPeople("7");
 //		g1.setMoney(0);
 //		dao.insert(g1);
-//		System.err.println("�憓���");
+//		System.err.println("");
 //	}
 
 	@Override
