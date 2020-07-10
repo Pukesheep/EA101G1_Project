@@ -113,10 +113,10 @@
         <section class="nav-auct container">
             <ul class="text-right">
                 <li class="auct-navbtn">
-                    <a href="Auct_index.jsp">競標專區</a>
+                    <a href="<%=request.getContextPath()%>/front-end/protected/auct/Auct_index.jsp">競標專區</a>
                 </li>
                 <li class="auct-navbtn">
-                    <a href="Results_all.jsp">結標專區</a>
+                    <a href="<%=request.getContextPath()%>/front-end/protected/auct/Results_all.jsp">結標專區</a>
                 </li>
                 <li class="auct-navbtn">
                     <a href="">出價記錄</a>
@@ -125,7 +125,7 @@
                     <a href="">戰利品</a>
                 </li>
                 <li class="auct-navbtn">
-                    <a href="listAllAuct.jsp">我的拍賣區</a>
+                    <a href="<%=request.getContextPath()%>/front-end/protected/auct/listAllAuct.jsp">我的拍賣區</a>
                 </li>
             </ul>
             <h6 class="h6"> <a class="a-index" href="All_index.jsp">首頁</a> > 競標區</h6>

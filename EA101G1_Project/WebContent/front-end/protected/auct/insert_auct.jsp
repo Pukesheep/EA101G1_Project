@@ -81,9 +81,13 @@
 	
  <!-- 賣家新增競標商品--頁面 -->
     <section class="section-2 container mb-5">
-        <form METHOD="post" ACTION="auct.do" name="form1" enctype = "multipart/form-data">
+        <form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/auct/auct.do" name="form1" enctype = "multipart/form-data">
             <div class="form-row">
                 <div class="form-group col-md-6">
+                
+                	<label for="inputEmail4">賣家ID: ${MemberSvc.getOneMember(sale_id).mem_id}</label>
+                	<input type="hidden" name="sale_id" value="${sale_id}">
+                    <br>
                     <label for="inputEmail4">賣家名稱: ${MemberSvc.getOneMember(sale_id).mem_name}</label>
                     <br><br>
          <jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
@@ -139,7 +143,7 @@
     </section>
     <!-- 賣家新增商品頁面 end-->
     
-    <a href="Auct_index.jsp">
+    <a href="<%=request.getContextPath()%>/front-end/protected/auct/Auct_index.jsp">
         <button id="goBackBtn" class="bg-primary">
             <h6 class="backbtn">BID</h6>
         </button>
