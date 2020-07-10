@@ -8,8 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.favourite_gro.model.Favourite_groVO;
 import com.gro_mem.model.*;
+import com.groupBuy.model.GroupBuyJDBCDAO;
+import com.groupBuy.model.GroupBuyVO;
+import com.rebate.model.RebateJDBCDAO;
 import com.rebate.model.RebateVO;
 
 public class Gro_memJDBCDAO implements Gro_memDAO_interface {
@@ -19,8 +23,9 @@ public class Gro_memJDBCDAO implements Gro_memDAO_interface {
 	String userid = "EA101G1";
 	String passwd = "123456";
 
-	private static final String INSERT_STMT = "INSERT INTO FAVOURITE_GRO(MEM_ID,GRO_ID) VALUES (?,?)";
-	private static final String GET_ALL_STMT = "SELECT GRO_ID,MEM_ID FROM FAVOURITE_GRO order by GRO_ID";
+	private static final String INSERT_STMT = "INSERT INTO GRO_MEM(MEM_ID,GRO_ID) VALUES (?,?)";
+	private static final String GET_ALL_STMT = "SELECT GRO_ID,MEM_ID FROM GRO_MEM order by GRO_ID";
+	private static final String GET_ALL_BY_GRO_ID = "SELECT GRO_ID,MEM_ID FROM GRO_MEM WHERE GRO_ID = ?";
 	private static final String GET_ONE_STMT = "SELECT GRO_ID,MEM_ID FROM GRO_MEM where GRO_ID = ?";
 	private static final String DELETE = "DELETE FROM GRO_MEM where GRO_ID = ?";
 	private static final String UPDATE = "UPDATE GRO_MEM set GRO_ID=?, MEM_ID=? where GRO_ID = ?";
@@ -264,8 +269,10 @@ public class Gro_memJDBCDAO implements Gro_memDAO_interface {
 	}
 
 	public static void main(String[] args) {
+		GroupBuyJDBCDAO groDao = new GroupBuyJDBCDAO();
 		Gro_memJDBCDAO dao = new Gro_memJDBCDAO();
-
+		RebateJDBCDAO rebDao = new RebateJDBCDAO();
+//
 //查詢全部			
 //		List<Gro_memVO> list = dao.getAll();
 //	for (Gro_memVO gro_mem : list) {
@@ -274,11 +281,51 @@ public class Gro_memJDBCDAO implements Gro_memDAO_interface {
 //		System.out.println();
 
 		// insert
-		Gro_memVO gmem = new Gro_memVO();
-		gmem.setMem_Id("M000004");
-		gmem.setGro_Id("G000000006");
-		dao.insert(gmem);
-		System.err.println("新增成功");
+//		Gro_memVO gmem = new Gro_memVO();
+//		gmem.setMem_Id("M000004");
+//		gmem.setGro_Id("G000000006");
+//		dao.insert(gmem);
+//		System.err.println("新增成功");
+//
+//		List<Gro_memVO> groMemList = dao.getAll();
+//		groMemList.size();
+//		
+		//修改團購案人數 (PK,people)
+		GroupBuyVO people = new GroupBuyVO();
+		people.setGro_Id("G000000005");
+		people.setPeople("555");
+	    System.out.println("???????1");
+//	
+//		GroupBuyVO groupBuyVO = groDao.findByPrimaryKey("G000000005");
+//		if (groupBuyVO.getReb1_No() != null) {
+//			Integer groBuyPeople = Integer.valueOf(groupBuyVO.getPeople());
+//			String reb1 = groupBuyVO.getReb1_No();
+//			RebateVO rebateVO = rebDao.findByPrimaryKey(reb1);
+//			Integer reb1People = Integer.valueOf(rebateVO.getPeople());
+//			Integer money = 0;
+//			if (groBuyPeople >= reb1People) {
+//				money = groupBuyVO.getMoney() * rebateVO.getDiscount();
+//			String reb2 = groupBuyVO.getReb2_No();
+//			RebateVO rebateVO2 = rebDao.findByPrimaryKey(reb2);
+//			Integer reb2People = Integer.valueOf(rebateVO.getPeople());
+//			if (groBuyPeople >= reb2People) {
+//				money = groupBuyVO.getMoney() * rebateVO.getDiscount();
+//			String reb3 = groupBuyVO.getReb3_No();
+//			RebateVO rebateVO3 = rebDao.findByPrimaryKey(reb3);
+//			Integer reb3People = Integer.valueOf(rebateVO.getPeople());
+//			if (groBuyPeople >= reb3People) {
+//				money = groupBuyVO.getMoney() * rebateVO.getDiscount();
+//			}
+//		}
+//			}
+//		}
+//		//修改團購案價錢(pK,money)
+//		GroupBuyVO reb = new GroupBuyVO();
+//		reb.setGro_Id("G000000005");
+//		reb.setMoney(555);
+//		System.out.println("????");
+		}
+	}
 
 		// update
 //	RebateVO reb1 = new RebateVO();
@@ -286,9 +333,8 @@ public class Gro_memJDBCDAO implements Gro_memDAO_interface {
 //  reb1.setDiscount(7); 
 //  reb1.setPeople("10");
 //	System.err.println("更新成功");
-	}
+	
 
 	// 刪除
 //	dao.delete("R000000009");
 //	System.err.println("刪除成功");
-}

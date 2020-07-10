@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gro_mem.model.Gro_memService;
 import com.gro_mem.model.Gro_memVO;
+import com.groupBuy.controller.GroupBuyServlet;
+import com.groupBuy.model.GroupBuyService;
+import com.groupBuy.model.GroupBuyVO;
+import com.rebate.model.RebateService;
+import com.rebate.model.RebateVO;
 
 public class Gro_memServlet extends HttpServlet {
 
@@ -172,9 +177,9 @@ public class Gro_memServlet extends HttpServlet {
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String gro_Id = req.getParameter("gro_Id").trim();
-			
+
 				String mem_Id = req.getParameter("mem_Id").trim();
-			
+
 				if (mem_Id == null || mem_Id.trim().length() == 0) {
 					errorMsgs.add("會員編號請勿空白");
 				} else if (!mem_Id.trim().matches(mem_Id)) {
@@ -192,10 +197,36 @@ public class Gro_memServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
-
+//
 				/*************************** 2.開始新增資料 ***************************************/
 				Gro_memService gromemSvc = new Gro_memService();
 				gromemVO = gromemSvc.addGro_mem(gro_Id, mem_Id);
+
+				GroupBuyService groupBuy = new GroupBuyService();
+				GroupBuyVO groupBuyVO = groupBuy.getOneGroupBuy(gro_Id); //這邊是團購會員要再修改 //用團購ID查有幾個會員加入
+				groupBuyVO = groupBuy.gropeo(gro_Id, groupBuyVO.getPeople() + 1); //修改人數 . 可以拿到幾個人的SIZE
+
+				RebateService rebate = new RebateService();
+				RebateVO rebate1VO = rebate.getOneRebate(groupBuyVO.getReb1_No());
+
+				Integer money = 0;
+				Integer groupbuypeople = Integer.valueOf(groupBuyVO.getPeople());
+				Integer rebatepeople = Integer.valueOf(rebate1VO.getPeople());
+				if (groupbuypeople >= rebatepeople) {
+					money = groupBuyVO.getMoney() * rebate1VO.getDiscount();
+					RebateVO rebate2VO = rebate.getOneRebate(groupBuyVO.getReb2_No());
+					rebatepeople = Integer.valueOf(rebate2VO.getPeople());
+					if (groupbuypeople >= rebatepeople) {
+						money = groupBuyVO.getMoney() * rebate2VO.getDiscount();
+						RebateVO rebate3VO = rebate.getOneRebate(groupBuyVO.getReb3_No());
+						rebatepeople = Integer.valueOf(rebate3VO.getPeople());
+						if (groupbuypeople >= rebatepeople) {
+							money = groupBuyVO.getMoney() * rebate3VO.getDiscount();
+						}
+					}
+				}
+				
+				groupBuyVO = groupBuy.gromon(gro_Id,money);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				req.setAttribute("gromemVO", gromemVO);
