@@ -43,7 +43,7 @@ public class GroupBuyJDBCDAO implements GroupBuyDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
-
+//
 			pstmt.setString(1, groupBuyVO.getP_Id());
 			pstmt.setString(2, groupBuyVO.getReb1_No());
 			pstmt.setString(3, groupBuyVO.getReb2_No());

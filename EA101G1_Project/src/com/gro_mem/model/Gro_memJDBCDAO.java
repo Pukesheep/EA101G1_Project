@@ -272,7 +272,7 @@ public class Gro_memJDBCDAO implements Gro_memDAO_interface {
 		GroupBuyJDBCDAO groDao = new GroupBuyJDBCDAO();
 		Gro_memJDBCDAO dao = new Gro_memJDBCDAO();
 		RebateJDBCDAO rebDao = new RebateJDBCDAO();
-
+//
 //查詢全部			
 //		List<Gro_memVO> list = dao.getAll();
 //	for (Gro_memVO gro_mem : list) {

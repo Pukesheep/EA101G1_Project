@@ -22,6 +22,6 @@ public interface GroupBuyDAO_interface {
 	public void gromon(GroupBuyVO groupBuyVO);
 
 	public List<GroupBuyVO> getAllByGroId(String gro_Id);
-	
+//	
 	
 }

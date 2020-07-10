@@ -17,7 +17,7 @@ public class GroupBuyService {
 	public GroupBuyVO addGroupBuy(String p_Id, String reb1_No, String reb2_No, String reb3_No,
 			java.sql.Timestamp start_Date, java.sql.Timestamp end_Date, Integer grotime_Date, Integer status,
 			String people, Integer money) {
-
+//
 		GroupBuyVO groupBuyVO = new GroupBuyVO();
 
 		groupBuyVO.setP_Id(p_Id);

@@ -197,7 +197,7 @@ public class Gro_memServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
-
+//
 				/*************************** 2.開始新增資料 ***************************************/
 				Gro_memService gromemSvc = new Gro_memService();
 				gromemVO = gromemSvc.addGro_mem(gro_Id, mem_Id);
