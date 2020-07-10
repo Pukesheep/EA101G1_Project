@@ -1,10 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="java.util.*"%>
-<%@ page import="com.adm.model.*"%>
-<%
-	AdmVO admVO = (AdmVO) request.getAttribute("admVO");
-%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,10 +39,10 @@
     
     <style>
     
-    	h1,h3{
+    	h1{
     		padding: 10px;
     		text-align: center;
-    		background-color:#22AA99;
+    		background-color:#BB6655;
     		
     	}
     	
@@ -59,7 +55,7 @@
     	}
     	
     	body{
-    		background-color:#446688;	
+    		background-color:#448888;	
     	}
     	
     	div#button{
@@ -67,10 +63,6 @@
     		text-align: center;
     	}
     	
-    	a.btn btn-primary{
-    		padding:50px;
-    		margin-left:90%;
-    	}
     </style>
     
     
@@ -88,35 +80,31 @@
 	<%@ include file="../css/aside.jsp" %>
 <!-- aside -->
 
- 		<main>
-			<h3>員工資料查詢</h3>
-	
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-8">
+ <main>
 
-<table class="table table-striped">
-	<tr>
-		<th>員工編號</th>
-		<th>員工帳號</th>
-		<th>員工密碼</th>
-		<th>員工姓名</th>
-		<th>員工狀態</th>
-	</tr>
-	<tr>
-		<td><%=admVO.getAdm_no()%></td>
-		<td><%=admVO.getAdm_acco()%></td>
-		<td><%=admVO.getAdm_pass()%></td>
-		<td><%=admVO.getAdm_name()%></td>
-		<td><%=admVO.getAdm_state()%></td>
-	</tr>
-</table>
-  </div>      
-   </div>       
-    </div>      
-  <a href="<%=request.getContextPath()%>/back-end/adm/select_page.jsp" class="btn btn-primary" style="margin-left:72%">回首頁</a>   
+   <FORM METHOD="post" ACTION="<%= request.getContextPath()%>/loginhandler">
+<h1>員工登入系統</h1>
+
+<div class="container">
+	<div class="row justify-content-center">
+			<div class="col-3">
+
+<div class="input">
+帳號: <input type="text"  name="adm_acco" value="" placeholder="請輸入帳號">
+</div>
+
+<div class="input">
+密碼: <input type="text"  name="adm_pass" value="" placeholder="請輸入密碼">
+</div>
+<div id="button">
+<input type="submit" class="btn btn-warning" value="登入">
+</div>
+</div>
+</div>
+</div>
         </main>
-    
+    </div>
+
 </body>
 
 </html>

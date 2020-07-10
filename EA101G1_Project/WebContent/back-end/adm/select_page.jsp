@@ -1,46 +1,100 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="BIG5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="BIG5">
-<title>Adm Homepage</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/bootstrap.min.css">
+    <!-- Include Favicon ico-->
+    <link rel="shortcut icon" href="./img/ICON.ico">
+    <!-- Font-awesome CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css">
+    <!--GoogleFont-->
+    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Include style.css-->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/style.css">
+    
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>   
+    
+    
 
-  table#a {
-	width: 100%;
-	background-color: #5588DD;
-	margin-top: 20px;
-	margin-bottom: 20px;
-    border: 5px solid Gray;
-    height: 50px;
-    text-align: center;
-  }
-  
-  h3{
-  	text-align:center;
-  }
-  
-  div{
-  width:400px;
-  margin:0 auto;
-  }
-  
-</style>
-
+    <title>S.F.G å¾Œå°ç®¡ç†</title>
+    
+    <style>
+    	img.magnifier {
+    		width: 30px;
+    		height: 30px;
+    	}
+    	
+    	h2{
+    		padding: 10px;
+    		text-align: center;
+    		background-color:#886655;
+    		
+    	}
+    	
+    	h3{
+    		padding: 30px;
+    		text-align: center;
+    	}
+    	
+    	table, th, td {
+    		padding: 10px;
+    		background-color:#5588DD;
+    	}
+    	
+    	div.container{
+    	margin-top:30px;
+    	}
+    	
+    	body{
+    		background-color:#448888;	
+    	}
+    	
+    </style>
+    
+    
 </head>
-<body bgcolor='white'>
 
+<body>
+<!-- header -->
+	
+	<%@ include file="../css/header.jsp" %>
+<!-- header -->
+
+    <div class="content d-md-flex">
+
+<!-- aside -->
+	<%@ include file="../css/aside.jsp" %>
+<!-- aside -->
+
+ <main>
+
+   <h2>å“¡å·¥å¸³è™Ÿç®¡ç†</h2>
 <table id="a">
-   <tr><td><h2>­û¤uºŞ²z</h2><h4>( MVC )</h4></td></tr>
 </table>
 
-<h3>­û¤u¬d¸ß:</h3>
 
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 	    <c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -48,43 +102,65 @@
 	</ul>
 </c:if>
 
-<div class="a">
-<ul>
+<div class="container">
+	<div class="row justify-content-center">
+			<div class="col-8">
 
- <li><a href='listAllAdm.jsp'>¬d¸ß¥ş³¡­û¤u</a>  <br><br></li>
- <li>
-    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adm/adm.do" >
-        <b>¿é¤J­û¤u½s¸¹: (ex:ad000001):</b>
-        <input type="text" name="adm_no">
-        <input type="hidden" name="action" value="select_One_Adm">
-        <input type="submit" value="°e¥X">
-    </FORM>
-  </li>
+
+ <input type="button" class="btn btn-primary" value="æŸ¥è©¢å…¨éƒ¨å“¡å·¥" onclick="location.href='listAllAdm.jsp'">
+	
 
  <jsp:useBean id="admSvc" scope="page" class="com.adm.model.AdmService"/>
  
-  <li>
-     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adm/adm.do" >
-       <b>¿ï¾Ü­û¤u½s¸¹:</b>
-       <select size="1" name="adm_no">
-         <c:forEach var="admVO" items="${admSvc.all}" > 
-          <option value="${admVO.adm_no}">${admVO.adm_no}
-         </c:forEach>  
-       </select>
-       <input type="hidden" name="action" value="select_One_Adm">
-       <input type="submit" value="¬d¸ß">
-    </FORM>
-  </li>
 
- 
+	
 
-</ul>	
 
-<ul>
-  <li><a href='<%=request.getContextPath()%>/back-end/adm/addAdm.jsp'>·s¼W­û¤u</a></li>
-</ul>
+  <input type="button" class="btn btn-primary" value="æ–°å¢å“¡å·¥è³‡æ–™" onclick="location.href='<%=request.getContextPath()%>/back-end/adm/addAdm.jsp'">
+
+	</div>
+</div>
 </div>
 
 
+<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-8">
+				<div class="media">
+				<div class="media-body">
+    	    		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adm/adm.do" >
+				<div class="input-group mb-3">
+					<input type="text" class="form-control" name="adm_no" id="inlineFormInputGroup" placeholder="è«‹è¼¸å…¥å“¡å·¥ç·¨è™Ÿ ex: ad000001">
+						<div class="input-group-append">
+						<input type="hidden" name="action" value="select_One_Adm">
+						<button class="btn btn-outline-warning" type="submit">æŸ¥è©¢</button>
+						</div>
+				</div>
+    				</FORM>
+  				</div>
+				</div>
+
+				<div class="media">
+				  <div class="media-body">
+				     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adm/adm.do" >
+				       <b>é¸æ“‡å“¡å·¥ç·¨è™Ÿ:</b>
+				       <select size="1" name="adm_no">
+				         <c:forEach var="admVO" items="${admSvc.all}" > 
+				          <option value="${admVO.adm_no}">${admVO.adm_no}
+				         </c:forEach>  
+				       </select>
+				       <input type="hidden" name="action" value="select_One_Adm">
+				       <input type="submit" class="btn btn-warning" value="æŸ¥è©¢">
+				    </FORM>
+				  </div>
+				</div>
+			</div>
+		</div>
+</div>
+
+        </main>
+    </div>
+
 </body>
+
 </html>

@@ -1,16 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="BIG5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.adm.model.*"%>
 <%
 AdmVO admVO = (AdmVO) request.getAttribute("admVO");
 %>
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>­û¤u·s¼W - addAdm.jsp</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/bootstrap.min.css">
+    <!-- Include Favicon ico-->
+    <link rel="shortcut icon" href="./img/ICON.ico">
+    <!-- Font-awesome CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css">
+    <!--GoogleFont-->
+    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Include style.css-->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/style.css">
+    
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>   
+    
+    
+
+    <title>å“¡å·¥æ–°å¢ - addAdm.jsp</title>
+    
+    <style>
   table#a {
 	width: 100%;
 	background-color: #5588DD;
@@ -29,9 +59,7 @@ AdmVO admVO = (AdmVO) request.getAttribute("admVO");
     color: blue;
     display: inline;
   }
-</style>
 
-<style>
   table {
 	width: 450px;
 	background-color: white;
@@ -44,23 +72,53 @@ AdmVO admVO = (AdmVO) request.getAttribute("admVO");
   th, td {
     padding: 1px;
   }
+  h3{
+  	 padding: 10px;
+  	 text-align: center;
+  	 background-color: #BB6655;
+  }
+  body{
+     background-color:#448888;	
+    	}
+  
+  p{
+  	padding: 10px;
+  	margin-left:80%;
+  }
+  
+  div#button{
+    		margin-top:1px;
+    		text-align: center;
+    	}
+  div.container{
+    		margin-top:20px;
+    	}
 </style>
-
+    
+    
+    
+    
 </head>
-<body bgcolor='white'>
 
-<table id="a">
-	<tr><td>
-		 <h3>­û¤u·s¼W - addAdm.jsp</h3></td><td>
-		 <h4><a href="<%=request.getContextPath()%>/back-end/adm/select_page.jsp">¦^­º­¶</a></h4>
-	</td></tr>
-</table>
+<body>
+<!-- header -->
+	
+	<%@ include file="../css/header.jsp" %>
+<!-- header -->
 
-<h3>¸ê®Æ·s¼W:</h3>
+    <div class="content d-md-flex">
 
-<%-- ¿ù»~ªí¦C --%>
+<!-- aside -->
+	<%@ include file="../css/aside.jsp" %>
+<!-- aside -->
+
+ <main>
+
+		 <h3>å“¡å·¥æ–°å¢ </h3></td><td>
+		 
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -69,32 +127,48 @@ AdmVO admVO = (AdmVO) request.getAttribute("admVO");
 </c:if>
 
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adm/adm.do" name="form1">
-<table>
+
+<div class="container">
+	<div class="row justify-content-center">
+			<div class="col-6">
+
+<table class="table table-striped">
 
 	<tr>
-		<td>­û¤u±b¸¹:</td>
+		<td>å“¡å·¥å¸³è™Ÿ:</td>
 		<td><input type="TEXT" name="adm_acco" size="45"
 			 value="<%= (admVO==null)? "anthoney" : admVO.getAdm_acco()%>" /></td>
 	</tr>
 	<tr>
-		<td>­û¤u±K½X:</td>
+		<td>å“¡å·¥å¯†ç¢¼:</td>
 		<td><input type="TEXT" name="adm_pass" size="45"
 			 value="<%= (admVO==null)? "123456" : admVO.getAdm_pass()%>" /></td>
 	</tr>
 	<tr>
-		<td>­û¤u©m¦W:</td>
+		<td>å“¡å·¥å§“å:</td>
 		<td><input type="TEXT" name="adm_name" size="45"
 			 value="<%= (admVO==null)? "anthoney" : admVO.getAdm_name()%>" /></td>
 	</tr>
 	<tr>
-		<td>­û¤uª¬ºA:</td>
+		<td>å“¡å·¥ç‹€æ…‹:</td>
 		<td><input type="TEXT" name="adm_state" size="45"
 			 value="<%= (admVO==null)? "" : admVO.getAdm_state()%>" /></td>
 	</tr>
 </table>
 <br>
 
+<div id="button">
 <input type="hidden" name="action" value="insert">
-<input type="submit" value="°e¥X·s¼W"></FORM>
+<input type="submit" class="btn btn-warning" value="æ–°å¢"></FORM>
+</div>
+
+<p><a href="<%=request.getContextPath()%>/back-end/adm/select_page.jsp" class="btn btn-primary">å›é¦–é </a></p>
+   
+        </main>
+    </div>
+</div>
+</div>
+</div>
 </body>
+
 </html>
