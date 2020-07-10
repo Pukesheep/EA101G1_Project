@@ -57,4 +57,16 @@ public class AdmService {
 		
 		return dao.findByPrimaryKey(adm_no);		
 	}
+	public AdmVO register(String adm_name, String adm_acco, String adm_pass, Integer adm_state) {
+		
+		AdmVO admVO = new AdmVO();
+		admVO.setAdm_name(adm_name);
+		admVO.setAdm_acco(adm_acco);
+		admVO.setAdm_pass(adm_pass);
+		admVO.setAdm_state(adm_state);
+		String generatedKey = dao.register(admVO);
+		admVO.setAdm_no(generatedKey);
+		
+		return admVO;
+	}
 }

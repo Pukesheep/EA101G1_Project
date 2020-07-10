@@ -3,7 +3,16 @@ package com.adm.controller;
 import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.psac.model.PsacVO;
 import com.adm.model.AdmService;
 import com.adm.model.AdmVO;
+import com.member.controller.MailService;
 import com.psac.model.*;
 
 
@@ -293,8 +303,142 @@ public class AdmServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+if ("register".equals(action)) {
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+	
+			
+			try {
+				/***************************1.接收請求參數***************************************/
+				String adm_name = req.getParameter("adm_name").trim();
+				String adm_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]{2,30}$";
+				if(adm_name == null || adm_name.trim().length() == 0) {
+					errorMsgs.add("");
+				}
+				else if(!adm_name.trim().matches(adm_nameReg)) {
+					errorMsgs.add("");
+				}
+				
+				String adm_acco = req.getParameter("adm_acco").trim();
+				String adm_accoReg = "[@.(a-zA-Z0-9)]{2,30}";
+				if(adm_acco == null || adm_acco.trim().length() == 0) {
+					errorMsgs.add("");
+				} 
+				else if(!adm_acco.trim().matches(adm_accoReg)) {
+					errorMsgs.add("");
+				}
+				
+				String adm_pass = genAuthCode();
+				Integer adm_state = new Integer(1);
+				
+				AdmVO admVO = new AdmVO();
+				admVO.setAdm_name(adm_name);
+				admVO.setAdm_acco(adm_acco);
+				admVO.setAdm_pass(adm_pass);
+				admVO.setAdm_state(adm_state);
+				
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/adm/addAdministrator.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				/************************************************/
+				AdmService admSvc = new AdmService();
+				admVO = admSvc.register(adm_name, adm_acco, adm_pass, adm_state);
+				
+				String url = "";
+				String to = adm_acco;
+				String subject = "密碼確認";
+				String messageText = adm_name + "您好，您已註冊為S.F.G員工" + adm_pass;
+				
+				
+				sendMail(to, subject, messageText);
+				RequestDispatcher successView = req
+						.getRequestDispatcher("/front-end/member/login.jsp");
+				successView.forward(req, res);
+				
+				/************************************************/
+				
+			} catch (Exception e) {
+				errorMsgs.add("新增資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/adm/addAdministrator.jsp");
+				failureView.forward(req, res);
+			}
 	}
 }
+	public static String genAuthCode() {
+		char[] codePool = new char[62];
+		char alpha = 48;
+		String authCode = "";
+		for (int i = 0; i <= 9; i++) {
+			codePool[i] = alpha;
+			alpha++;
+		}
+		alpha = 65;
+		for (int i = 10; i <= 35; i++) {
+			codePool[i] = alpha;
+			alpha++;
+		}
+		alpha = 97;
+		for (int i = 36; i < codePool.length; i++) {
+			codePool[i] = alpha;
+			alpha++;
+		}
+		for (int i = 1; i <= 8; i++) {
+			char co = codePool[(int)(Math.random() * 62)];
+			authCode += co;
+		}
+		return authCode;
+	}
+
+public static void sendMail(String to, String subject, String messageText) {
+		
+		try {
+			
+			Properties props = new Properties();
+			props.put("mail.smtp.host", "smtp.gmail.com");
+			props.put("mail.smtp.socketFactory.port", "465");
+			props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			props.put("mail.smtp.auth", "true");
+			props.put("mail.smtp.port", "465");
+			
+			final String myGmail = "ea101g1test@gmail.com";
+			final String myGmail_password = "ea101g1g1";
+			Session session = Session.getInstance(props, new Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(myGmail, myGmail_password);
+				}
+			});
+			
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(myGmail));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+			
+			
+			message.setSubject(subject);
+			
+			message.setText(messageText);
+			
+			Transport.send(message);
+			
+		} catch (MessagingException e) {
+			System.out.println("傳送失敗！");
+			e.printStackTrace();
+		}
+	}
+}
+
+
+	
+	
+
+
 	
 	
 

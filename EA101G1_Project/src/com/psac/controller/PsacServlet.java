@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.post.model.PostService;
+import com.post.model.PostVO;
 import com.psac.model.*;
 
 
@@ -369,41 +371,63 @@ public class PsacServlet extends HttpServlet {
 		}
 		
 		if ("psacConfirm".equals(action)) { 
-				
-				/***************************接收請求參數****************************************/
-				String psac_no = req.getParameter("psac_no");
-				String post_id = req.getParameter("post_id");
-				String mem_id = req.getParameter("mem_id");
-				String adm_no = req.getParameter("adm_no");
-				String psac_content = req.getParameter("psac_content");
-				Integer psac_state = new Integer(req.getParameter("psac_state"));
-				System.out.print("hihihihi");
-				/***************************修改檢舉案狀態****************************************/
-				PsacVO psacVO = new PsacVO();
-				psacVO.setPsac_no(psac_no);
-				psacVO.setMem_id(mem_id);
-				psacVO.setPost_id(post_id);
-				psacVO.setAdm_no(adm_no);
-				psacVO.setPsac_content(psac_content);
-				psacVO.setPsac_state(1); //檢舉案處理完成，修改狀態為1(已完成)
-				
-				PsacService psacSv = new PsacService();
-				psacVO = psacSv.updatePsac(psac_no,mem_id, post_id, adm_no, psac_content, 1);
-				/***************************修改文章狀態****************************************/
-				
-				
-				
-								
-				/***************************轉交文章頁面****************************************/
-				
-				req.getSession().setAttribute("post_id", post_id);         // 將post_id存入session
-				String url = "/back-end/psac/listAllPsac.jsp";
-				RequestDispatcher post = req.getRequestDispatcher(url);// 轉交文章頁面 
-				post.forward(req, res);
-		}
+			
+			/***************************接收請求參數****************************************/
+			String psac_no = req.getParameter("psac_no");
+			String post_id = req.getParameter("post_id");
+			String mem_id = req.getParameter("mem_id");
+			String adm_no = req.getParameter("adm_no");
+			String psac_content = req.getParameter("psac_content");
+			Integer psac_state = new Integer(req.getParameter("psac_state"));
+			/***************************修改檢舉案狀態****************************************/
+			PsacVO psacVO = new PsacVO();
+			psacVO.setPsac_no(psac_no);
+			psacVO.setMem_id(mem_id);
+			psacVO.setPost_id(post_id);
+			psacVO.setAdm_no(adm_no);
+			psacVO.setPsac_content(psac_content);
+			psacVO.setPsac_state(1); //檢舉案處理完成，修改狀態為1(已完成)
+			
+			PsacService psacSv = new PsacService();
+			psacVO = psacSv.updatePsac(psac_no,mem_id, post_id, adm_no, psac_content, 1);
+			/***************************修改文章狀態****************************************/
+			PostService postSvc = new PostService();
+			PostVO postVO = postSvc.getOnePost(post_id);
+			postSvc.updatePost(post_id, postVO.getMem_id(), postVO.getPtype_id(), 0, postVO.getP_title(), postVO.getText(), postVO.getImage(), postVO.getLast_edit(), postVO.getPost_time());
+							
+			/***************************轉交文章頁面****************************************/  
+			String url = "/back-end/psac/listAllPsac.jsp";
+			RequestDispatcher post = req.getRequestDispatcher(url);
+			post.forward(req, res);
+	}
+	
+	if ("psacDenied".equals(action)) { 
 		
+		/***************************接收請求參數****************************************/
+		String psac_no = req.getParameter("psac_no");
+		String post_id = req.getParameter("post_id");
+		String mem_id = req.getParameter("mem_id");
+		String adm_no = req.getParameter("adm_no");
+		String psac_content = req.getParameter("psac_content");
+		Integer psac_state = new Integer(req.getParameter("psac_state"));
+		/***************************修改檢舉案狀態****************************************/
+		PsacVO psacVO = new PsacVO();
+		psacVO.setPsac_no(psac_no);
+		psacVO.setMem_id(mem_id);
+		psacVO.setPost_id(post_id);
+		psacVO.setAdm_no(adm_no);
+		psacVO.setPsac_content(psac_content);
+		psacVO.setPsac_state(1); //檢舉案處理完成，修改狀態為1(已完成)
 		
+		PsacService psacSv = new PsacService();
+		psacVO = psacSv.updatePsac(psac_no,mem_id, post_id, adm_no, psac_content, 1);
+			
+		/***************************轉交listAllPsac.jsp頁面****************************************/  
+		String url = "/back-end/psac/listAllPsac.jsp";
+		RequestDispatcher post = req.getRequestDispatcher(url);
+		post.forward(req, res);
 	}
 }
-			
+}
+		
 

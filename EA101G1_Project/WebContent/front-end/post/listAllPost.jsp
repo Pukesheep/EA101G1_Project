@@ -215,7 +215,9 @@
 					      					</c:forEach>
 					      					<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/comm.png" id="${postVO.post_id}${memberVO.mem_id}" title="回覆文章">
 					      					<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/reportmember.png" id="${postVO.post_id}${memberVO.mem_id}" title="檢舉會員">
+					      					<a id="report" href="<%=request.getContextPath()%>/psac/psac.do?action=button&mem_id=${sessionScope.memberVO.mem_id}&post_id=${postVO.post_id}">
 					      					<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/reportpost.png" id="${postVO.post_id}${memberVO.mem_id}" title="檢舉文章">
+											</a>
 											<c:if test="${sessionScope.memberVO.mem_id == postVO.mem_id}">
 												<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/remove.png" id="${postVO.post_id}${memberVO.mem_id}" title="移除文章">
 												<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/update.png" id="${postVO.post_id}${memberVO.mem_id}" title="修改文章">
