@@ -6,7 +6,7 @@
 
 <%
 	ImmedService immedSvc = new ImmedService();
-	List<ImmedVO> list = immedSvc.getAll();
+	List<ImmedVO> list = immedSvc.getAllOnSale();
 	pageContext.setAttribute("list", list);
 %>
 
@@ -38,24 +38,26 @@
 
 <!-- 使用style.css -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/immed/immed_header_footer.css">
+	href="<%=request.getContextPath()%>/css/style.css">
 
 <style>
 body {
 	padding-top: 90px;
-	background-image:url('<%=request.getContextPath()%>/front-end/immed/images/14.jpg');
- 
+	background-image:
+		url('<%=request.getContextPath()%>/front-end/immed/images/14.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
 }
 
 .immed_nav {
-	background: linear-gradient(#4475b6, #00334e);
+	background: linear-gradient(#4475b6, #00334e) !important;
 }
 
 .immed_nav .navbar {
 	padding: 0rem 1rem;
+	background: none !important;
+	box-shadow: none !important;
 }
 
 .immed_nav .navbar-brand {
@@ -198,6 +200,24 @@ section.blank1 .card .card-price {
 	font-weight: 600;
 }
 
+ul.navbar-Nav .nav-link {
+	color: #606060;
+	/*     font-weight: bolder; */
+}
+
+aside .navbar-nav .nav-link:hover {
+	background-color: #A9A9A9;
+	cursor: pointer;
+}
+
+.dropdown-menu li:hover .sub-menu {
+	visibility: visible;
+}
+
+.dropdown:hover .dropdown-menu {
+	display: block;
+}
+
 @media ( max-width : 1023px) {
 	.immed_nav .form-inline .form-control {
 		width: 250px;
@@ -217,7 +237,7 @@ section.blank1 .card .card-price {
 
 <body>
 	<!-- navbar -->
-	<%@ include file="/files/immed/immed_header.jsp"%>
+	<%@ include file="/files/header.jsp"%>
 	<!-- navbar end -->
 
 	<div class="container immed_nav">
@@ -250,22 +270,35 @@ section.blank1 .card .card-price {
 			<!-- 		</BUTTON> -->
 			<!-- 		<div class="collapse navbar-collapse" id="navbarTogglerDemo03"> -->
 			<ul class="navbar-nav">
-				<li class="nav-item d-flex"><a class="nav-link text-white"
+				<li class="nav-item "><a class="nav-link text-white"
 					href="<%=request.getContextPath()%>/front-end/protected/immed/addImmed.jsp">
 						<div>
 							<i class="fas fa-gavel  pl-2 pb-1"></i>
 						</div>
 						<div>賣東西</div>
 				</a></li>
-				<li class="nav-item d-flex pl-md-2"><a
-					class="nav-link text-white" href="#">
+				<li class="nav-item  pl-md-2"><a class="nav-link text-white"
+					href="<%=request.getContextPath()%>/immed/immed.do?action=getAllBuyImmed">
 						<div>
 							<i class="fas fa-user pl-md-3 pl-2 pb-1"></i>
 						</div>
-						<div>我的拍賣</div>
+						<div>買家管理</div>
 				</a></li>
-				<li class="nav-item d-flex pl-md-2"><a
-					class="nav-link text-white" href="#">
+				<li class="nav-item  pl-md-2 dropdown"><a
+					class="nav-link text-white " dropdown-toggle" href=""
+					role="button" id="dropdownMenuLink" data-toggle="dropdown">
+						<div>
+							<i class="fas fa-user pl-md-3 pl-2 pb-1"></i>
+							<div>賣家管理</div>
+						</div>
+				</a>
+
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="#">商品修改</a> <a
+							class="dropdown-item" href="#">出貨管理</a>
+					</div></li>
+				<li class="nav-item pl-md-2"><a class="nav-link text-white"
+					href="#">
 						<div>
 							<i class="fas fa-heart pl-md-3 pl-2 pb-1"></i>
 						</div>
@@ -305,7 +338,7 @@ section.blank1 .card .card-price {
 				</c:if>
 			</div>
 
-<%-- 			<div>${memberVO.mem_name}${memberVO.mem_id}</div> --%>
+			<%-- 			<div>${memberVO.mem_name}${memberVO.mem_id}</div> --%>
 
 			<!-- 			<form method="post" -->
 			<%-- 				action="<%=request.getContextPath()%>/front-end/immed/findByImmedName.jsp"> --%>
@@ -316,115 +349,49 @@ section.blank1 .card .card-price {
 
 			<div class="row pb-4">
 				<div class="col-md-2 left_side pt-2">
-					  <aside class=" navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ">
-                <li class="nav-item">
-                    <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl01">
-                        <i class="fas fa-user-edit ml-3"></i> 會員管理</div>
-                    <ul class="collapse navbar-nav" id="sideNavColl01" data-parent="#navbarNav">
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">會員權限管理</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">會員資料管理</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl02">
-                        <i class="fas fa-home-alt ml-3 mr-2"></i>商城管理</div>
-                    <ul class="collapse navbar-nav" id="sideNavColl02" data-parent="#navbarNav">
-                        <li class="nav-item ">
-                            <a class="nav-link pl-4" href="#">商品上下架</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link pl-4" href="#">商成訂單管理</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link pl-4" href="#">限時專案管理</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item ">
-                    <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl03">
-                        <i class="fas fa-gift ml-3 mr-2"></i>紅利商城管理</div>
-                    <ul class="collapse navbar-nav" id="sideNavColl03" data-parent="#navbarNav">
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">紅利商品上下架</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">紅利商品訂單管理</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">紅利商品商品管理</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item ">
-                    <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl04">
-                        <i class="fas fa-users-class  ml-3 mr-1"></i>團購管理</div>
-                    <ul class="collapse navbar-nav pt-2" id="sideNavColl04" data-parent="#navbarNav">
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">團購訂單管理</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">團購商品管理</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">團購商品上下架</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item ">
-                    <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl05">
-                        <i class="fas fa-hand-pointer ml-3 mr-2"></i>交易區管理</div>
-                    <ul class="collapse navbar-nav" id="sideNavColl05" data-parent="#navbarNav">
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">交易管理</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item ">
-                    <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl06">
-                        <i class="fas fa-exclamation-triangle ml-3 mr-1"></i>檢舉管理</div>
-                    <ul class="collapse navbar-nav" id="sideNavColl06" data-parent="#navbarNav">
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">商品檢舉管理</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">會員檢舉管理</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">文章檢舉管理</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item ">
-                    <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl07">
-                        <i class="far fa-envelope-open-text ml-3 mr-2"></i>客服中心</div>
-                    <ul class="collapse navbar-nav" id="sideNavColl07" data-parent="#navbarNav">
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">客服訊息管理</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">Q&A管理</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item ">
-                    <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl08">
-                        <i class="fas fa-address-card ml-3 mr-2"></i>員工管理</div>
-                    <ul class="collapse navbar-nav" id="sideNavColl08" data-parent="#navbarNav">
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">員工帳號管理</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">員工權限管理</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </aside>
+					<aside class=" navbar-collapse" id="navbarNav">
+						<ul class="navbar-nav ">
+							<li class="nav-item">
+								<div class="nav-link" data-toggle="collapse"
+									data-target="#sideNavColl01">Switch</div>
+								<ul class="collapse navbar-nav" id="sideNavColl01"
+									data-parent="#navbarNav">
+									<li class="nav-item"><a class="nav-link pl-4" href="#">Switch
+											遊戲</a></li>
+									<li class="nav-item"><a class="nav-link pl-4" href="#">Switch
+											主機</a></li>
+									<li class="nav-item"><a class="nav-link pl-4" href="#">Switch
+											周邊</a></li>
+								</ul>
+							</li>
+							<li class="nav-item">
+								<div class="nav-link" data-toggle="collapse"
+									data-target="#sideNavColl02">PS4</div>
+								<ul class="collapse navbar-nav" id="sideNavColl02"
+									data-parent="#navbarNav">
+									<li class="nav-item"><a class="nav-link pl-4" href="#">PS4
+											遊戲</a></li>
+									<li class="nav-item"><a class="nav-link pl-4" href="#">PS4
+											主機</a></li>
+									<li class="nav-item"><a class="nav-link pl-4" href="#">PS4
+											周邊</a></li>
+								</ul>
+							</li>
+							<li class="nav-item ">
+								<div class="nav-link" data-toggle="collapse"
+									data-target="#sideNavColl03">XBOX</div>
+								<ul class="collapse navbar-nav" id="sideNavColl03"
+									data-parent="#navbarNav">
+									<li class="nav-item"><a class="nav-link pl-4" href="#">XBOX
+											遊戲</a></li>
+									<li class="nav-item"><a class="nav-link pl-4" href="#">XBOX
+											主機</a></li>
+									<li class="nav-item"><a class="nav-link pl-4" href="#">XBOX
+											周邊</a></li>
+								</ul>
+							</li>
+						</ul>
+					</aside>
 				</div>
 
 				<div class="col-md-10">
@@ -463,26 +430,27 @@ section.blank1 .card .card-price {
 		</div>
 
 
-</section>
-<!-- 內容 ---end  -->
+	</section>
+	<!-- 內容 ---end  -->
 
-<!-- footer -->
-<%@ include file="/files/footer.jsp"%>
-<!-- footer -->
+	<!-- footer -->
+	<%@ include file="/files/footer.jsp"%>
+	<!-- footer -->
 
-<!-- 連結Bootstrap所需要的js -->
-<!-- jquery.min.js -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-	crossorigin="anonymous"></script>
+	<!-- 連結Bootstrap所需要的js -->
+	<!-- jquery.min.js -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+		crossorigin="anonymous"></script>
+
 
 </body>
 </html>

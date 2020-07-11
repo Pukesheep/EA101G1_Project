@@ -151,5 +151,8 @@ public class ImmedVO implements java.io.Serializable {
 	public ImmedVO() {
 		super();
 	}
-
+	
+	public void printSummary() {
+		System.out.printf(immed_id);
+	}
 }

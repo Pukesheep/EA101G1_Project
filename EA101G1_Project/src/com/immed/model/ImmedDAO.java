@@ -28,10 +28,12 @@ public class ImmedDAO implements ImmedDAO_interface {
 	private static final String UPDATE = "UPDATE IMMED SET BUY_ID= ?, PT_ID= ?, IMMED_NAME= ?, IMMED_PRC= ?, IMMED_PIC= ?, IMMED_DESC= ?, IMMED_SOLD= ?, IMMED_DOWN= ?, ORD_TIME= ?, ORDSTAT_ID= ?, RCPT_NAME= ?, RCPT_CELL= ?, RCPT_ADD= ? WHERE IMMED_ID = ?";
 	private static final String UPDATE_UP = "UPDATE IMMED SET IMMED_DOWN= 0 WHERE IMMED_ID = ?";
 	private static final String UPDATE_DOWN = "UPDATE IMMED SET IMMED_DOWN= 1 WHERE IMMED_ID = ?";
-	private static final String UPDATE_ONE_BUY = "UPDATE IMMED SET BUY_ID= ?, IMMED_SOLD= 1, ORD_TIME= SYSTIMESTAMP, ORDSTAT_ID= '003', RCPT_NAME= ?, RCPT_CELL= ?, RCPT_ADD= ? WHERE IMMED_ID = ?";
-	private static final String GET_ALL_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED ORDER BY IMMED_ID";
+	private static final String UPDATE_ONE_BUY = "UPDATE IMMED SET BUY_ID= ?, IMMED_SOLD= 1, IMMED_down= 1, ORD_TIME= SYSTIMESTAMP, ORDSTAT_ID= '003', RCPT_NAME= ?, RCPT_CELL= ?, RCPT_ADD= ? WHERE IMMED_ID = ?";
+	private static final String GET_ALL_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED ORDER BY IMMED_ID DESC";
+	private static final String GET_ALLONSALE_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_SOLD = 0 AND IMMED_DOWN = 0 ORDER BY IMMED_ID DESC";
+	private static final String GET_ALLBUYERIMMED_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE BUY_ID = ?";
 	private static final String GET_ONE_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_ID = ?";
-	private static final String GET_FROM_NAME = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE UPPER(IMMED_NAME) LIKE UPPER(?) ORDER BY IMMED_PRC";
+	private static final String GET_FROM_NAME = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_SOLD = 0 AND IMMED_DOWN = 0 AND UPPER(IMMED_NAME) LIKE UPPER(?) ORDER BY IMMED_PRC";
 
 	@Override
 	public void insert(ImmedVO immedVO) {
@@ -424,6 +426,73 @@ public class ImmedDAO implements ImmedDAO_interface {
 	}
 
 	@Override
+	public List<ImmedVO> getAllOnSale() {
+		List<ImmedVO> list = new ArrayList<ImmedVO>();
+		ImmedVO immedVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALLONSALE_STMT);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				immedVO = new ImmedVO();
+
+				immedVO.setImmed_id(rs.getString("immed_id"));
+				immedVO.setSale_id(rs.getString("sale_id"));
+				immedVO.setBuy_id(rs.getString("buy_id"));
+				immedVO.setPt_id(rs.getString("pt_id"));
+				immedVO.setImmed_name(rs.getString("immed_name"));
+				immedVO.setImmed_start(rs.getTimestamp("immed_start"));
+				immedVO.setImmed_prc(rs.getInt("immed_prc"));
+				immedVO.setImmed_pic(rs.getBytes("immed_pic"));
+				immedVO.setImmed_desc(rs.getString("immed_desc"));
+				immedVO.setImmed_sold(rs.getInt("immed_sold"));
+				immedVO.setImmed_down(rs.getInt("immed_down"));
+				immedVO.setOrd_time(rs.getTimestamp("ord_time"));
+				immedVO.setOrdstat_id(rs.getString("ordstat_id"));
+				immedVO.setRcpt_name(rs.getString("rcpt_name"));
+				immedVO.setRcpt_cell(rs.getString("rcpt_cell"));
+				immedVO.setRcpt_add(rs.getString("rcpt_add"));
+
+				list.add(immedVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
 	public List<ImmedVO> findByImmedName(String search_str) {
 		List<ImmedVO> list = new ArrayList<ImmedVO>();
 		ImmedVO immedVO = null;
@@ -437,6 +506,79 @@ public class ImmedDAO implements ImmedDAO_interface {
 //			System.out.println(search_str);
 			pstmt = con.prepareStatement(GET_FROM_NAME);
 			pstmt.setString(1, "%" + search_str + "%");
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				immedVO = new ImmedVO();
+
+				immedVO.setImmed_id(rs.getString("immed_id"));
+				immedVO.setSale_id(rs.getString("sale_id"));
+				immedVO.setBuy_id(rs.getString("buy_id"));
+				immedVO.setPt_id(rs.getString("pt_id"));
+				immedVO.setImmed_name(rs.getString("immed_name"));
+				immedVO.setImmed_start(rs.getTimestamp("immed_start"));
+				immedVO.setImmed_prc(rs.getInt("immed_prc"));
+				immedVO.setImmed_pic(rs.getBytes("immed_pic"));
+				immedVO.setImmed_desc(rs.getString("immed_desc"));
+				immedVO.setImmed_sold(rs.getInt("immed_sold"));
+				immedVO.setImmed_down(rs.getInt("immed_down"));
+				immedVO.setOrd_time(rs.getTimestamp("ord_time"));
+				immedVO.setOrdstat_id(rs.getString("ordstat_id"));
+				immedVO.setRcpt_name(rs.getString("rcpt_name"));
+				immedVO.setRcpt_cell(rs.getString("rcpt_cell"));
+				immedVO.setRcpt_add(rs.getString("rcpt_add"));
+
+				list.add(immedVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("Couldn't load database driver. " + se.getMessage());
+			// Handle any SQL errors
+		} catch (Exception se) { // SQLException se
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<ImmedVO> getAllBuyerImmed(String buy_id) {
+		List<ImmedVO> list = new ArrayList<ImmedVO>();
+		ImmedVO immedVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+//			System.out.println(search_str);
+			pstmt = con.prepareStatement(GET_ALLBUYERIMMED_STMT);
+			pstmt.setString(1, buy_id);
 
 			rs = pstmt.executeQuery();
 
