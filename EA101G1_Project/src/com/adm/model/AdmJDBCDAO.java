@@ -26,6 +26,7 @@ public class AdmJDBCDAO implements AdmDAO_interface {
 	private static final String GET_ALL = 
 			"SELECT adm_no,adm_acco,adm_pass,adm_name,adm_state FROM administrator order by adm_no";
 	private static final String LOGIN = "SELECT adm_no FROM administrator WHERE adm_acco = ?";
+	private static final String REGISTER = "INSERT INTO administrator (adm_no, adm_acco, adm_pass, adm_name, adm_state) VALUES ('ad'||LPAD(to_char(administrator_seq.NEXTVAL), 6, '0'), ?, ?, ?, ?)";
 	
 	@Override
 	public void insert(AdmVO admVO) {
@@ -349,5 +350,51 @@ public class AdmJDBCDAO implements AdmDAO_interface {
 		
 		return adm_no;
 	}
+	@Override
+	public String register(AdmVO admVO) {
+		java.sql.Connection con = null;
+		java.sql.PreparedStatement pstmt = null;
+		java.sql.ResultSet rs = null;
+		String gk = null;
+		
+		try {
+			String[] cols = {"adm_no"};
+			con = DriverManager.getConnection(url, username, password);
+			pstmt = con.prepareStatement(REGISTER, cols);
+			pstmt.setString(1, admVO.getAdm_acco());
+			pstmt.setString(2, admVO.getAdm_pass());
+			pstmt.setString(3, admVO.getAdm_name());
+			pstmt.setInt(4, admVO.getAdm_state());
+			pstmt.executeUpdate();
+			rs = pstmt.getGeneratedKeys();
+			
+			while (rs.next()) {
+				gk = rs.getString(1);
+			}
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occurred. " + se.getMessage());
+		} finally {
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return gk;
+	}
+
 
 }
+

@@ -118,7 +118,7 @@
 		<th>修改</th>
 		<th>刪除</th>
 	</tr>
-	<%@ include file="/files/page1.file" %> 
+	<%@ include file="/files/page1B.file" %> 
 	<c:forEach var="admVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
@@ -143,7 +143,7 @@
 	</c:forEach>
 </table>
 
-<%@ include file="/files/page2.file" %>
+<%@ include file="/files/page2B.file" %>
 <a href="<%=request.getContextPath()%>/back-end/adm/select_page.jsp" class="btn btn-primary">回首頁</a>
         </main>
     </div>
