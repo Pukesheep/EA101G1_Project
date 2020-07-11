@@ -845,7 +845,7 @@
 
 
         <!-- footer -->
-        	<%@ include file="../../files/footer.jsp" %>
+        	<%@ include file="../../files/footer2.jsp" %>
         <!-- footer -->
 </body>
 
