@@ -47,6 +47,16 @@ public class BMService {
 		return bmVO;
 	}
 	
+	public BMVO updateExchange(String bon_id, int bon_exchange) {
+		BMVO bmVO = new BMVO();
+		
+		bmVO.setBon_id(bon_id);
+		bmVO.setBon_exchange(bon_exchange);
+		dao.update(bmVO);
+		
+		return bmVO;
+	}
+	
 	public void deleteByPK ( String bon_id ) {
 		dao.delete(bon_id);
 	}

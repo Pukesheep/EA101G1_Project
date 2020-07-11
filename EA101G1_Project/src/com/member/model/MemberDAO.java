@@ -28,7 +28,7 @@ public class MemberDAO implements MemberDAO_interface {
 	private static final String UPDATE = "UPDATE member SET mem_email = ?, mem_pass = ?, mem_name = ?, mem_icon = ?, mem_phone = ?, mem_addr = ?, bank_acc = ?, card_no = ?, card_yy = ?, card_mm = ?, card_sec = ?, mem_autho = ?, mem_bonus = ?, mem_warn = ? WHERE mem_id = ?";
 	private static final String LOGIN = "SELECT mem_id FROM member WHERE mem_email = ?";
 	private static final String SIGN_UP = "INSERT INTO member (mem_id, mem_name, mem_email, mem_pass, mem_autho, mem_joindat) VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'), ?, ?, ?, ?, SYSDATE)";
-
+//	private static final String UPDATE_BONUS = "UPDATE member";
 
 	@Override
 	public String insert(MemberVO memberVO) {

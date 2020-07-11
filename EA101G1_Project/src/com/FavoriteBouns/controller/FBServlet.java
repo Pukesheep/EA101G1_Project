@@ -182,7 +182,51 @@ public class FBServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-
 		
+		if ( "deleteFront".equals(action) ) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			String success = "/front-end/BounsMall/listFavoriteByMember.jsp";
+			String fail = "/front-end/BounsMall/listFavoriteByMember.jsp";
+
+			try {
+				String mem_id = req.getParameter("mem_id");
+				String bon_id = req.getParameter("bon_id");
+				
+				FBService fbSvc = new FBService();
+				fbSvc.deleteFB(mem_id, bon_id);
+				
+				RequestDispatcher successView = req.getRequestDispatcher(success);
+				successView.forward(req, res);
+			} catch ( Exception e ) {
+				errorMsgs.add( "資料刪除失敗" + e.getMessage() );
+				RequestDispatcher failureView = req.getRequestDispatcher(fail);
+				failureView.forward(req, res);
+			}
+		}
+		
+		if ( "getAllByMemberFront".equals(action) ) {
+			List<FBVO> list = new ArrayList<FBVO>();
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			String success = "/front-end/BounsMall/listFavoriteByMember.jsp";
+			String fail = "/front-end/BounsMall/listAllBouns.jsp";
+			
+			try {
+				String mem_id = req.getParameter("mem_id");
+				
+				FBService fbSvc = new FBService();
+				list = fbSvc.getMemFB(mem_id);
+				
+				req.setAttribute("list", list);
+				req.setAttribute("mem_id", mem_id);
+				RequestDispatcher successView = req.getRequestDispatcher(success);
+				successView.forward(req, res);
+				
+			} catch ( Exception e ) {
+				RequestDispatcher failureView = req.getRequestDispatcher(fail);
+				failureView.forward(req, res);
+			}
+		}
 	}
 }

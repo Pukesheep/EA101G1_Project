@@ -63,25 +63,40 @@
 	
 </head>
 <body>
+		
     <!-- navbar -->
 		<%@ include file="../../files/header.jsp" %>
     <!-- navbar end -->
     <section class="blank0"></section>
     <!-- 內容 -->
+    	<form action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" method="post">
+			<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
+			<input type="hidden" name="action" value="getAllByMemberFront">
+			<button type="submit" class="btn btn-danger float-left" >查詢紅利訂單</button>
+		</form>
+		<form action="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do" method="post">
+			<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
+			<input type="hidden" name="bon_id" value="${bmVO.bon_id}">
+			<input type="hidden" name="bon_exchange" value="${(bmVO.bon_exchange+1)}">
+			<input type="hidden" name="action" value="getAllByMemberFront">
+			<button type="submit" class="btn btn-danger float-left" >查詢紅利最愛</button>
+		</form>
 		<div class="container">
 			<div class="row">
 				<c:forEach var="bmVO" items="${list}">
-					<div class="col">
-						<div class="card" style="width: 18rem;">
-							<img src="<%=request.getContextPath()%>/BounsMall/ImageServlet.do?bon_id=${bmVO.bon_id}" class="card-img-top" alt="...">
-							<div class="card-body">
-								<p class="card-text">
-									${bmVO.bon_name}
-								</p>
-								<a href="<%=request.getContextPath()%>/BounsMall/BounsMall.do?action=getOne_For_Display&BON_ID=${bmVO.bon_id}" class="btn btn-primary">商品詳情</a>
+					<c:if test="${(bmVO.bon_status==0)}">
+						<div class="col">
+							<div class="card" style="width: 18rem;">
+								<img src="<%=request.getContextPath()%>/BounsMall/ImageServlet.do?bon_id=${bmVO.bon_id}" class="card-img-top" alt="...">
+								<div class="card-body">
+									<p class="card-text">
+										${bmVO.bon_name}
+									</p>
+									<a href="<%=request.getContextPath()%>/BounsMall/BounsMall.do?action=getOne_For_Display&BON_ID=${bmVO.bon_id}" class="btn btn-primary">商品詳情</a>
+								</div>
 							</div>
 						</div>
-					</div>
+					</c:if>
 				</c:forEach>	
 			</div>
 		</div>

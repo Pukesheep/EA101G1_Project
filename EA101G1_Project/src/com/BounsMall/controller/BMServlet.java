@@ -356,6 +356,52 @@ public class BMServlet extends HttpServlet {
 //			}
 		}
 		
+		if ("exchange".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			String success = "/front-end/BounsMall/listOneBouns.jsp" ;
+			String fail = "/front-end/BounsMall/listOneBouns.jsp" ;
+			
+//			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				String bon_id = new String(req.getParameter("bon_id").trim());
+				
+				Integer bon_exchange = null;
+				try {
+					bon_exchange = new Integer(req.getParameter("bon_exchange"));
+				} catch ( NumberFormatException e) {
+					bon_exchange = null;
+					errorMsgs.add("已兌換數量請填數字.");
+				}
+
+				BMVO bmVO = new BMVO();
+				bmVO.setBon_id(bon_id);
+				bmVO.setBon_exchange(bon_exchange);
+
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("bmVO", bmVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					RequestDispatcher failureView = req
+							.getRequestDispatcher(fail);
+					failureView.forward(req, res);
+					return; //程式中斷
+				}
+				
+				/***************************2.開始修改資料*****************************************/
+				BMService bmSvc = new BMService();
+				bmVO = bmSvc.updateExchange(bon_id, bon_exchange);
+				
+				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("bmVO", bmVO);
+				RequestDispatcher successView = req.getRequestDispatcher(success);
+				successView.forward(req, res);
+//			} catch ( Exception e ) {
+//				errorMsgs.add("修改資料失敗:"+e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher(fail);
+//				failureView.forward(req, res);
+//			}
+		}
+		
 		if ("delete".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
