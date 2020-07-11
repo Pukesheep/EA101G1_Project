@@ -46,7 +46,11 @@
 <style>
 body {
 	padding-top: 90px;
-	background-color: #F5F5F5;
+	background-image:
+		url('<%=request.getContextPath()%>/front-end/immed/images/14.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 
 .immed_nav {
@@ -167,7 +171,7 @@ td.previewTd {
 }
 
 div.content {
-	background-color: white;
+	background: hsla(0, 0%, 100%, .8);
 	min-height: 100vh;
 }
 
@@ -228,9 +232,9 @@ div.content {
 				<li class="nav-item d-flex pl-md-2"><a
 					class="nav-link text-white" href="#">
 						<div>
-							<i class="fas fa-shopping-cart pl-md-1 pl-1 pb-1"></i>
+							<i class="fas fa-heart pl-md-3 pl-2 pb-1"></i>
 						</div>
-						<div>購物車</div>
+						<div>追蹤商品</div>
 				</a></li>
 			</ul>
 		</nav>

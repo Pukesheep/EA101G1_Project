@@ -13,6 +13,7 @@
 --%>
 <%
 	ImmedVO immedVO = (ImmedVO) session.getAttribute("immedBuyVO"); //ImmedServlet.java (Concroller) 存入req的immedVO物件 (包括幫忙取出的immedVO
+	pageContext.setAttribute("immedVO", immedVO);
 %>
 
 <%--
@@ -68,7 +69,11 @@
 <style>
 body {
 	padding-top: 90px;
-	background-color: #F5F5F5;
+	background-image:
+		url('<%=request.getContextPath()%>/front-end/immed/images/14.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 
 .immed_nav {
@@ -276,15 +281,15 @@ div.immedDesc {
 
 /* content */
 div.content {
-	background-color: white;
+	background: hsla(0, 0%, 100%, .8);
 	min-height: 800px;
 }
 
-form.recipi {
+table.recipi {
 	width: 100%;
 }
 
-form.recipi thead th {
+table.recipi thead th {
 	font-size: 22px;
 }
 
@@ -292,18 +297,12 @@ table th {
 	padding: .5rem 1rem;
 }
 
-form.recipi tbody th {
+table.recipi tbody th {
 	width: 14%;
 }
 
-form.recipi tbody tr:nth-child(3) input {
-	width: 50%;
-}
-
-div.errMsg ul li {
-	float: left;
-	border: 0;
-	width: 25%;
+table.recipi tbody tr:nth-child(3) input {
+	width: 40%;
 }
 
 @media ( max-width : 1023px) {
@@ -364,31 +363,28 @@ div.errMsg ul li {
 				<li class="nav-item d-flex pl-md-2"><a
 					class="nav-link text-white" href="#">
 						<div>
-							<i class="fas fa-shopping-cart pl-md-1 pl-1 pb-1"></i>
+							<i class="fas fa-heart pl-md-3 pl-2 pb-1"></i>
 						</div>
-						<div>購物車</div>
+						<div>追蹤商品</div>
 				</a></li>
 			</ul>
 
 		</nav>
 	</div>
 
-
-
-
-
 	<div class="container content">
-
 		<div class="row pt-3">
-			<nav aria-label="breadcrumb">
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a
-						href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
-					<li class="breadcrumb-item"><a
-						href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">直購商品</a></li>
-					<!-- 						<li class="breadcrumb-item active" aria-current="page">Data</li> -->
-				</ol>
-			</nav>
+			<div class="col">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a
+							href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
+						<li class="breadcrumb-item"><a
+							href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">直購商品</a></li>
+						<!-- 						<li class="breadcrumb-item active" aria-current="page">Data</li> -->
+					</ol>
+				</nav>
+			</div>
 		</div>
 
 		<div class="row">
@@ -418,105 +414,116 @@ div.errMsg ul li {
 			</div>
 		</div>
 
-		<form class="creit_form" action="#">
-			<div class="container-fluid">
-				<div class="row pull-center">
-					<div class="col-md-4">
-						<div class="well">
-							<div class="row card"></div>
-							<br />
-							<div class="row">
-								<div class="col-md-8">
-									<div class="form-group">
-										<label>信用卡卡號 </label> <input type="text" name="number"
-											class="form-control" />
-									</div>
-								</div>
-								<div class="col-md-4">
-									<div class="form-group">
-										<label>有效期限</label> <input type="text" placeholder="MM/YY"
-											name="expiry" class="form-control" />
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-8">
-									<div class="form-group">
-										<label>持卡人姓名</label> <input type="text" name="name"
-											class="form-control" />
-									</div>
-								</div>
-								<div class="col-md-4">
-									<div class="form-group">
-										<label>認證碼 </label> <input type="text" name="cvv"
-											class="form-control" />
-									</div>
-								</div>
-							</div>
-							<div class="row ">
+		<div class="row">
+			<div class="col">
+				<form class="creit_form"
+					action="<%=request.getContextPath()%>/immed/immed.do">
+					<div class="container-fluid">
+						<div class="row pull-center">
 
-								<div class="col-md-12 text-right">
-									<button type="button" class="btn btn-success">Submit</button>
-									<button type="button" class="btn btn-info">Clear</button>
+							<div class="col-md-4">
+								<div class="well">
+									<div class="row card"></div>
+									<br />
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<div class="row">
+									<div class="col-md-8">
+										<div class="form-group">
+											<label>信用卡卡號 </label> <input type="text" name="number"
+												class="form-control" />
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label>有效期限</label> <input type="text" placeholder="MM/YY"
+												name="expiry" class="form-control" />
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-8">
+										<div class="form-group">
+											<label>持卡人姓名</label> <input type="text" name="name"
+												class="form-control" autocomplete="off" />
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label>認證碼 </label> <input type="text" name="cvv"
+												class="form-control" />
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
 
-				<div class="row">
-					<div class="col-4">
-						<div>
-							<%-- 錯誤表列 --%>
-							<c:if test="${not empty errorMsgs}">
-								<font style="color: red">請修正以下錯誤:</font>
-								<ul>
-									<c:forEach var="message" items="${errorMsgs}">
-										<li style="color: red; float: left; border: 0; width: 25%;">${message}</li>
-									</c:forEach>
-								</ul>
-							</c:if>
+						<div class="row">
+							<div class="col">
+								<div>
+									<%-- 錯誤表列 --%>
+									<c:if test="${not empty errorMsgs}">
+										<font style="color: red">請修正以下錯誤:</font>
+										<ul>
+											<c:forEach var="message" items="${errorMsgs}">
+												<li style="color: red;">${message}</li>
+											</c:forEach>
+										</ul>
+									</c:if>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col">
+								<table class="recipi">
+									<thead>
+										<tr>
+											<th scope="row">收件人資料</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row">收件人姓名:</th>
+											<td><input type="text" name="rcpt_name"></td>
+										</tr>
+										<tr>
+											<th scope="row">收件人電話:</th>
+											<td><input type="text" name="rcpt_cell"></td>
+										</tr>
+										<tr>
+											<th scope="row">收件地址:</th>
+											<td><input type="text" name="rcpt_add"></td>
+										</tr>
+										<tr>
+											<!-- 									<th><input type="hidden" name="action" -->
+											<!-- 										value="update_one_buy"> <input type="hidden" -->
+											<%-- 										name="immed_id" value="${immedVO.immed_id}">${immedVO.immed_id} --%>
+											<%-- 										<input type="hidden" name="buy_id" value="${memberVO.mem_id}">${memberVO.mem_id} --%>
+											<!-- 										<input type="submit" value="送出"></th> -->
+											<th></th>
+											<td>
+												<div class="">
+													<input type="hidden" name="action" value="update_one_buy">
+													<input type="hidden" name="immed_id"
+														value="${immedVO.immed_id}"> <input type="hidden"
+														name="buy_id" value="${memberVO.mem_id}">
+													<button type="submit" class="btn btn-dark">確認送出</button>
+													<!-- 											<button type="button" class="btn btn-info">Clear</button> -->
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
-				</div>
-
-				<div class="row">
-					<div class="col">
-						<!-- 						<form class="recipi" -->
-						<%-- 							action="<%=request.getContextPath()%>/immed/immed.do" method="post"> --%>
-						<table>
-							<thead>
-								<tr>
-									<th scope="row">收件人資料</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th scope="row">收件人姓名:</th>
-									<td><input type="text" name="rcpt_name"></td>
-								</tr>
-								<tr>
-									<th scope="row">收件人電話:</th>
-									<td><input type="text" name="rcpt_cell"></td>
-								</tr>
-								<tr>
-									<th scope="row">收件地址:</th>
-									<td><input type="text" name="rcpt_add"></td>
-								</tr>
-								<tr>
-									<th><input type="hidden" name="action"
-										value="update_one_buy"> <input type="hidden"
-										name="immed_id" value="${immedVO.immed_id}"> <input
-										type="hidden" name="buy_id" value="${memberVO.mem_id}">
-										<input type="submit" value="送出"></th>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
+				</form>
 			</div>
-		</form>
-
+		</div>
+		
 	</div>
 
 
