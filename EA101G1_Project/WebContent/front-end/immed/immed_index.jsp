@@ -14,7 +14,8 @@
 <head>
 <title>直購商品首頁</title>
 
-<link rel="icon shortcut" href="<%=request.getContextPath()%>/front-end/immed/images/ICON.ico">
+<link rel="icon shortcut"
+	href="<%=request.getContextPath()%>/front-end/immed/images/ICON.ico">
 <!-- Bootstrap官方網站 https://getbootstrap.com/ -->
 <!-- 連結Bootstrap.min.css -->
 <link rel="stylesheet"
@@ -42,7 +43,11 @@
 <style>
 body {
 	padding-top: 90px;
-	background-color: #F5F5F5;
+	background-image:url('<%=request.getContextPath()%>/front-end/immed/images/14.jpg');
+ 
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 
 .immed_nav {
@@ -142,12 +147,12 @@ section.blank1 li.breadcrumb-item+li.breadcrumb-item::before {
 }
 
 section.blank1 div.container {
-	background-color: white;
+	background: hsla(0, 0%, 100%, .8);
 }
 
 section.blank1 div.left_side {
 	min-height: calc(100vh - 116px);
-	/* 	background-color: #F5F5F5; */
+	background: hsla(0, 0%, 100%, 0.8);
 	border: 1px solid #ddd;
 }
 
@@ -268,20 +273,21 @@ section.blank1 .card .card-price {
 				</a></li>
 
 			</ul>
-		
+
 		</nav>
 	</div>
 
 
 	<!-- 內容 -->
 	<section class="blank1">
-		
+
 		<div class="container">
 			<div class="row py-3">
-				
+
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
+						<li class="breadcrumb-item"><a
+							href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
 						<li class="breadcrumb-item"><a
 							href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">直購商品</a></li>
 						<!-- 						<li class="breadcrumb-item active" aria-current="page">Data</li> -->
@@ -299,7 +305,7 @@ section.blank1 .card .card-price {
 				</c:if>
 			</div>
 
-			<div>${memberVO.mem_name}${memberVO.mem_id}</div>
+<%-- 			<div>${memberVO.mem_name}${memberVO.mem_id}</div> --%>
 
 			<!-- 			<form method="post" -->
 			<%-- 				action="<%=request.getContextPath()%>/front-end/immed/findByImmedName.jsp"> --%>
@@ -309,13 +315,123 @@ section.blank1 .card .card-price {
 			<!-- 			</form> -->
 
 			<div class="row pb-4">
-				<div class="col-md-3 left_side pt-2">123</div>
+				<div class="col-md-2 left_side pt-2">
+					  <aside class=" navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl01">
+                        <i class="fas fa-user-edit ml-3"></i> 會員管理</div>
+                    <ul class="collapse navbar-nav" id="sideNavColl01" data-parent="#navbarNav">
+                        <li class="nav-item">
+                            <a class="nav-link pl-4" href="#">會員權限管理</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-4" href="#">會員資料管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl02">
+                        <i class="fas fa-home-alt ml-3 mr-2"></i>商城管理</div>
+                    <ul class="collapse navbar-nav" id="sideNavColl02" data-parent="#navbarNav">
+                        <li class="nav-item ">
+                            <a class="nav-link pl-4" href="#">商品上下架</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link pl-4" href="#">商成訂單管理</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link pl-4" href="#">限時專案管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item ">
+                    <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl03">
+                        <i class="fas fa-gift ml-3 mr-2"></i>紅利商城管理</div>
+                    <ul class="collapse navbar-nav" id="sideNavColl03" data-parent="#navbarNav">
+                        <li class="nav-item">
+                            <a class="nav-link pl-4" href="#">紅利商品上下架</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-4" href="#">紅利商品訂單管理</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-4" href="#">紅利商品商品管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item ">
+                    <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl04">
+                        <i class="fas fa-users-class  ml-3 mr-1"></i>團購管理</div>
+                    <ul class="collapse navbar-nav pt-2" id="sideNavColl04" data-parent="#navbarNav">
+                        <li class="nav-item">
+                            <a class="nav-link pl-4" href="#">團購訂單管理</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-4" href="#">團購商品管理</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-4" href="#">團購商品上下架</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item ">
+                    <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl05">
+                        <i class="fas fa-hand-pointer ml-3 mr-2"></i>交易區管理</div>
+                    <ul class="collapse navbar-nav" id="sideNavColl05" data-parent="#navbarNav">
+                        <li class="nav-item">
+                            <a class="nav-link pl-4" href="#">交易管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item ">
+                    <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl06">
+                        <i class="fas fa-exclamation-triangle ml-3 mr-1"></i>檢舉管理</div>
+                    <ul class="collapse navbar-nav" id="sideNavColl06" data-parent="#navbarNav">
+                        <li class="nav-item">
+                            <a class="nav-link pl-4" href="#">商品檢舉管理</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-4" href="#">會員檢舉管理</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-4" href="#">文章檢舉管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item ">
+                    <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl07">
+                        <i class="far fa-envelope-open-text ml-3 mr-2"></i>客服中心</div>
+                    <ul class="collapse navbar-nav" id="sideNavColl07" data-parent="#navbarNav">
+                        <li class="nav-item">
+                            <a class="nav-link pl-4" href="#">客服訊息管理</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-4" href="#">Q&A管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item ">
+                    <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl08">
+                        <i class="fas fa-address-card ml-3 mr-2"></i>員工管理</div>
+                    <ul class="collapse navbar-nav" id="sideNavColl08" data-parent="#navbarNav">
+                        <li class="nav-item">
+                            <a class="nav-link pl-4" href="#">員工帳號管理</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-4" href="#">員工權限管理</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </aside>
+				</div>
 
-				<div class="col-md-9">
-					<div class="row mb-4 pl-3">
+				<div class="col-md-10">
+					<div class="row mb-4 pl-5">
 						<%@ include file="/files/immed/immedPage1.file"%>
 					</div>
-					<div class="row no-gutters">
+					<div class="row no-gutters px-4">
 						<c:forEach var="immedVO" items="${list}" begin="<%=pageIndex%>"
 							end="<%=pageIndex+rowsPerPage-1%>">
 							<div class="col-6 col-md-3">
@@ -339,14 +455,13 @@ section.blank1 .card .card-price {
 						</c:forEach>
 					</div>
 
-					<div class="row pl-3">
+					<div class="row pl-5">
 						<%@ include file="/files/immed/immedPage2.file"%>
 					</div>
 				</div>
 			</div>
 		</div>
-</body>
-</html>
+
 
 </section>
 <!-- 內容 ---end  -->
@@ -358,16 +473,16 @@ section.blank1 .card .card-price {
 <!-- 連結Bootstrap所需要的js -->
 <!-- jquery.min.js -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-		crossorigin="anonymous"></script>
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+	crossorigin="anonymous"></script>
 
 </body>
 </html>

@@ -57,9 +57,17 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css">
 
 <style>
+
+div.descWrapper {
+background: hsla(0, 0%, 100%, 0.8);
+}
 body {
 	padding-top: 90px;
-	background-color: #F5F5F5;
+	background-image:
+		url('<%=request.getContextPath()%>/front-end/immed/images/14.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 
 .immed_nav {
@@ -146,6 +154,7 @@ div.immedName h4 {
 
 div.intro_left {
 	border: 1px solid #D3D3D3;
+	background: hsla(0, 0%, 100%, 0.8);
 }
 
 div.intro_left .slick-slide {
@@ -262,14 +271,14 @@ div.intro_right div.saleInfo div {
 /* 	display: inline; */
 /* } */
 div.immedDesc {
-	margin-top: 40px;
-	padding: 0px 150px 0px 170px;
+	margin-top: 30px;
+	/* 	padding: 0px 150px 0px 170px; */
 }
 
 /* content */
 div.content {
-	background-color: white;
-	min-height: 100vh;
+	background: hsla(0, 0%, 100%, .8);
+	min-height: 800px;
 }
 
 @media ( max-width : 1023px) {
@@ -334,7 +343,7 @@ div.content {
 				<li class="nav-item d-flex pl-md-2"><a
 					class="nav-link text-white" href="#">
 						<div>
-							<i class="fas fa-user pl-md-3 pl-2 pb-1"></i>
+							<i class="fas fa-user pl-md-3 pl-2 pb-1 "></i>
 						</div>
 						<div>我的拍賣</div>
 				</a></li>
@@ -364,7 +373,8 @@ div.content {
 		<div class="row pt-3">
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
+					<li class="breadcrumb-item"><a
+						href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
 					<li class="breadcrumb-item"><a
 						href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">直購商品</a></li>
 					<li class="breadcrumb-item"><a href="#"><%=ptVO.getTypename()%></a></li>
@@ -386,21 +396,21 @@ div.content {
 								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
 								class="card-img-top" alt="...">
 						</div>
-						<div class="p-3">
-							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
-								class="card-img-top" alt="...">
-						</div>
-						<div class="p-3">
-							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
-								class="card-img-top" alt="...">
-						</div>
-						<div class="p-3">
-							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
-								class="card-img-top" alt="...">
-						</div>
+						<!-- 						<div class="p-3"> -->
+						<!-- 							<img -->
+						<%-- 								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}" --%>
+						<!-- 								class="card-img-top" alt="..."> -->
+						<!-- 						</div> -->
+						<!-- 						<div class="p-3"> -->
+						<!-- 							<img -->
+						<%-- 								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}" --%>
+						<!-- 								class="card-img-top" alt="..."> -->
+						<!-- 						</div> -->
+						<!-- 						<div class="p-3"> -->
+						<!-- 							<img -->
+						<%-- 								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}" --%>
+						<!-- 								class="card-img-top" alt="..."> -->
+						<!-- 						</div> -->
 					</div>
 					<div class="slider-nav px-4 py-2">
 						<div class="p-1 slider_nav_img">
@@ -408,29 +418,29 @@ div.content {
 								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
 								class="card-img-top" alt="...">
 						</div>
-						<div class="p-1 slider_nav_img">
-							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
-								class="card-img-top" alt="...">
-						</div>
-						<div class="p-1 slider_nav_img">
-							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
-								class="card-img-top" alt="...">
-						</div>
-						<div class="p-1 slider_nav_img">
-							<img
-								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
-								class="card-img-top" alt="...">
-						</div>
+						<!-- 						<div class="p-1 slider_nav_img"> -->
+						<!-- 							<img -->
+						<%-- 								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}" --%>
+						<!-- 								class="card-img-top" alt="..."> -->
+						<!-- 						</div> -->
+						<!-- 						<div class="p-1 slider_nav_img"> -->
+						<!-- 							<img -->
+						<%-- 								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}" --%>
+						<!-- 								class="card-img-top" alt="..."> -->
+						<!-- 						</div> -->
+						<!-- 						<div class="p-1 slider_nav_img"> -->
+						<!-- 							<img -->
+						<%-- 								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}" --%>
+						<!-- 								class="card-img-top" alt="..."> -->
+						<!-- 						</div> -->
 					</div>
 
-					<h6 class="immedId">商品標號: ${immedVO.immed_id}</h6>
+					<h6 class="immedId">商品編號: ${immedVO.immed_id}</h6>
 
 					<div class="immedRemark">
 						<h6>商品備註:</h6>
 						<ul>
-							<li>物品所在地:</li>
+							<!-- 							<li>物品所在地:</li> -->
 							<li>上架時間: <fmt:formatDate value="${immedVO.immed_start}"
 									pattern="yyyy-MM-dd HH:mm:ss" /></li>
 							<li>可能會提前結束販售</li>
@@ -440,7 +450,7 @@ div.content {
 				</div>
 			</div>
 
-			<div class="col-md-9">
+			<div class="col-md-9 descWrapper">
 				<div class="intro_right">
 					<div class="row mx-3 my-4">
 						<div class="immedBuy py-3 px-2 d-flex">
@@ -482,22 +492,22 @@ div.content {
 								<div style="border-bottom: 1px dashed #E6E9ED;">
 									賣家名稱:
 									<%=memberVO.getMem_name()%></div>
-								<div>全部商品:</div>
-								<div>評價分數:</div>
+								<!-- 								<div>全部商品:</div> -->
+								<!-- 								<div>評價分數:</div> -->
 							</div>
 						</div>
 					</div>
 				</div>
+
+				<div class="immedDesc px-3">
+					<h4 class="mb-4">商品描述</h4>
+					<div><%=immedVO.getImmed_desc()%></div>
+
+				</div>
+
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="immedDesc ">
-				<h4 class="mb-5">商品描述</h4>
-				<div><%=immedVO.getImmed_desc()%></div>
-			
-			</div>
-		</div>
 	</div>
 
 	<!-- footer -->

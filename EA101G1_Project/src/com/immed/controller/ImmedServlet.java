@@ -66,7 +66,7 @@ public class ImmedServlet extends HttpServlet {
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/immed/immed_index.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
@@ -115,7 +115,7 @@ public class ImmedServlet extends HttpServlet {
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/immed/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/immed/immed_index.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
