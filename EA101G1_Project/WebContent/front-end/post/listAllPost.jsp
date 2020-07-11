@@ -61,6 +61,7 @@
 	<!-- post.css -->
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/post.css">
 	
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/frontchat/css/chat.css">
 	
 </head>
 <body>
@@ -845,7 +846,7 @@
 
 
         <!-- footer -->
-        	<%@ include file="../../files/footer2.jsp" %>
+        	<%@ include file="../../files/footer.jsp" %>
         <!-- footer -->
 </body>
 

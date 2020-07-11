@@ -2,7 +2,7 @@
 border:1px solid black;
 width:500px;
 height:500px;
-position: absolute;
+position: fixed;
 right:0;
 bottom:10%;
 display:none;
@@ -70,13 +70,13 @@ display:none;
   margin:1px;
 }
 
-ul{
+#messagesArea ul{
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-ul li{
+#messagesArea ul li{
   display:inline-block;
   clear: both;
   padding: 20px;
@@ -85,27 +85,27 @@ ul li{
   font-family: Helvetica, Arial, sans-serif;
 }
 
-.friend{
+#messagesArea .friend{
   background: #eee;
   float: left;
 }
 
-.me{
+#messagesArea .me{
   float: right;
   background: #0084ff;
   color: #fff;
 }
 
-.friend + .me{
+#messagesArea .friend + .me{
   border-bottom-right-radius: 5px;
 }
 
-.me + .me{
+#messagesArea .me + .me{
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
 
-.me:last-of-type {
+#messagesArea .me:last-of-type {
   border-bottom-right-radius: 30px;
 }
 

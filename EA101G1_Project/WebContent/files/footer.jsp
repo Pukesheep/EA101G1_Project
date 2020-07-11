@@ -1,12 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-</head>
-<body>
+
 
         <!-- footer -->
         <footer id="footer" class="pt-5 ">
@@ -82,9 +75,8 @@
             </div>
         </footer>
 
-        <button id="chatBtn" class="bg-primary">
+        <div id="chatBtn" class="bg-primary" onclick="on()">
             <i class="fas fa-comments"></i>
-        </button>
+        </div>
+        <%@ include file="/front-end/frontchat/chat.jsp" %>
         
-</body>
-</html>
