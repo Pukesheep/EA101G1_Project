@@ -19,6 +19,10 @@
 	MemberVO memberVO = memberSvc.getOneMember(immedVO.getSale_id());
 %>
 
+<%
+	MemberVO memberVO2 = memberSvc.getOneMember(immedVO.getBuy_id());
+	pageContext.setAttribute("memberVO2", memberVO2);
+%>
 <html>
 <head>
 <title>${immedVO.immed_name}直購商品資料-listOneImmed.jsp</title>
@@ -49,7 +53,7 @@
 
 <!-- 使用style.css -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/immed/immed_header_footer.css">
+	href="<%=request.getContextPath()%>/css/style.css">
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css">
@@ -57,10 +61,10 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css">
 
 <style>
-
 div.descWrapper {
-background: hsla(0, 0%, 100%, 0.8);
+	background: hsla(0, 0%, 100%, 0.8);
 }
+
 body {
 	padding-top: 90px;
 	background-image:
@@ -76,6 +80,8 @@ body {
 
 .immed_nav .navbar {
 	padding: 0rem 1rem;
+	background: none !important;
+	box-shadow: none !important;
 }
 
 .immed_nav .navbar-brand {
@@ -300,7 +306,7 @@ div.content {
 
 <body>
 	<!-- navbar -->
-	<%@ include file="/files/immed/immed_header.jsp"%>
+	<%@ include file="/files/header.jsp"%>
 	<!-- navbar end -->
 
 	<div class="container immed_nav">
@@ -468,7 +474,12 @@ div.content {
 									name="immed_id" value="${immedVO.immed_id}">
 								<%-- 								<input type="hidden" name="buy_id" value="${memberVO.mem_id}"> --%>
 								<button type="submit" class="btn btn-danger immed_buy"
-									title="立即購買">立即購買</button>
+									${immedVO.immed_sold ==1 ? "disabled" : "" } title="立即購買">${immedVO.immed_sold ==1 ? "已售出" : "立即購買" }</button>
+					
+								<c:if test="${immedVO.immed_sold ==1}">
+							
+								<p class="pl-3">買家: ${immedVO.immed_sold ==1 ?  memberVO2.mem_name : "" }</p>
+								</c:if>
 							</form>
 
 						</div>
@@ -511,7 +522,7 @@ div.content {
 	</div>
 
 	<!-- footer -->
-	<%@ include file="../../files/footer.jsp"%>
+	<%@ include file="/files/footer.jsp"%>
 	<!-- footer -->
 
 	<!-- 連結Bootstrap所需要的js -->
@@ -532,25 +543,11 @@ div.content {
 		src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
 
 	<script type="text/javascript">
-		$('.slider-for').slick({
-			autoplay : false,
-			slidesToShow : 1,
-			slidesToScroll : 1,
-			arrows : false,
-			fade : true,
-			asNavFor : '.slider-nav'
-		});
-
-		$('.slider-nav').slick({
-			autoplay : false,
-			slidesToShow : 3,
-			slidesToScroll : 1,
-			asNavFor : '.slider-for',
-			dots : false,
-			focusOnSelect : true
-
-		});
-	</script>
-
+									$('.slider-for').slick({ autoplay : false, slidesToShow : 1,
+									slidesToScroll : 1, arrows : false, fade : true, asNavFor :
+									'.slider-nav' }); $('.slider-nav').slick({ autoplay : false,
+									slidesToShow : 3, slidesToScroll : 1, asNavFor : '.slider-for',
+									dots : false, focusOnSelect : true });
+									</script>
 </body>
 </html>
