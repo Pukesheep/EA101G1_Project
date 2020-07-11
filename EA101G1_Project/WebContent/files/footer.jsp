@@ -80,3 +80,4 @@
         </div>
         <%@ include file="/front-end/frontchat/chat.jsp" %>
         
+<link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/frontchat/css/chat.css">
