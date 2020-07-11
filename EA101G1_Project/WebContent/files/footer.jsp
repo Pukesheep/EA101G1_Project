@@ -22,7 +22,7 @@
                                 <a class="footer-link" href="<%=request.getContextPath()%>/front-end/member/addMember.jsp">註冊會員</a>
                             </li>
                             <li>
-                                <a class="footer-link" href="">商城</a>
+                                <a class="footer-link" href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">">商城</a>
                             </li>
                             <li>
                                 <a class="footer-link" href="">團購</a>

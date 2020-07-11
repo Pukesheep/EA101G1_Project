@@ -70,6 +70,9 @@ table, th, td {
 
 </head>
 <body bgcolor='white'>
+	<!-- navbar -->
+    <%@ include file="../../files/header.jsp" %>
+    <!-- navbar end -->
 
 	<table>
 
