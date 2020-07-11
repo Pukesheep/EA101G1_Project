@@ -16,7 +16,7 @@ pageContext.setAttribute("list",list);
 <html>
 <head>
 <title>未出貨訂單列表</title>
-
+<%@ include file="../css/BackHeaderCssLink" %>
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -57,14 +57,23 @@ pageContext.setAttribute("list",list);
 </head>
 <body bgcolor='white'>
 
-<h4>此頁練習採用 EL 的寫法取值:</h4>
-<table id="table-1">
-	<tr><td>
-		 <h3>所有商品資料 - listAllProduct.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+<!-- <h4>此頁練習採用 EL 的寫法取值:</h4> -->
+<!-- <table id="table-1"> -->
+<!-- 	<tr><td> -->
+<!-- 		 <h3>所有商品資料 - listAllProduct.jsp</h3> -->
+<!-- 		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4> -->
+<!-- 	</td></tr> -->
+<!-- </table> -->
+<!-- header -->
+	
+	<%@ include file="../css/header.jsp" %>
+<!-- header -->
 
+    <div class="content d-md-flex">
+
+<!-- aside -->
+	<%@ include file="../css/aside.jsp" %>
+<!-- aside -->
 
 <table>
 <%@ include file="../../files/page1.file" %> 
