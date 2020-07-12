@@ -27,10 +27,10 @@
                         <i class="fas fa-home-alt ml-3 mr-2"></i>商城管理</div>
                     <ul class="collapse navbar-nav" id="sideNavColl02" data-parent="#navbarNav">
                         <li class="nav-item ">
-                            <a class="nav-link pl-4" href="#">商品上下架</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/product/listAllProduct.jsp">商品上下架</a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link pl-4" href="#">商成訂單管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/productorder/listAllProductOrder.jsp">商成訂單管理</a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link pl-4" href="#">限時專案管理</a>
@@ -45,10 +45,10 @@
                             <a class="nav-link pl-4" href="#">紅利商品上下架</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">紅利商品訂單管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/BounsOrder/ListAll.jsp">紅利商品訂單管理</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">紅利商品商品管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/BounsMall/ListAll.jsp">紅利商品商品管理</a>
                         </li>
                     </ul>
                 </li>
@@ -87,7 +87,7 @@
                             <a class="nav-link pl-4" href="#">會員檢舉管理</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">文章檢舉管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/psac/select_page.jsp">文章檢舉管理</a>
                         </li>
                     </ul>
                 </li>
@@ -99,7 +99,7 @@
                             <a class="nav-link pl-4" href="#">客服訊息管理</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">Q&A管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/Question/listAll.jsp">Q&A管理</a>
                         </li>
                     </ul>
                 </li>
@@ -108,7 +108,7 @@
                         <i class="fas fa-address-card ml-3 mr-2"></i>員工管理</div>
                     <ul class="collapse navbar-nav" id="sideNavColl08" data-parent="#navbarNav">
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">員工帳號管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/adm/listAllAdm.jsp">員工帳號管理</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link pl-4" href="#">員工權限管理</a>

@@ -14,6 +14,8 @@
 	MemberVO memVO = (MemberVO) request.getAttribute("memVO");
 %>
 
+<jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -74,58 +76,90 @@
     <section class="blank0"></section>
     <!-- 內容 -->
 
-<div class="contianer">
-	<div class="row justify-content-center">
-		<div class="col-8">
-			<div class="card">
-				<div class="card-body">
-					<div class="media">
-						<img src="<%=request.getContextPath()%>/BounsMall/ImageServlet.do?bon_id=${bmVO.bon_id}" class="mr-3 bon_image" alt="...">
-						<div class="media-body">
-							<h5 class="mt-0">${bmVO.bon_name}</h5>
-							<h6> －  <i class="fas fa-clock"></i>${bmVO.bon_price}</h6>
-							${bmVO.bon_info}
+	<div class="contianer">
+		<div class="row justify-content-center">
+			<div class="col-8">
+				<div class="card">
+					<div class="card-body">
+						<div class="media">
+							<img src="<%=request.getContextPath()%>/BounsMall/ImageServlet.do?bon_id=${bmVO.bon_id}" class="mr-3 bon_image" alt="...">
+							<div class="media-body">
+								<h5 class="mt-0">${bmVO.bon_name}</h5>
+								<h6>
+									<div class="bon_pt_id">${ptSvc.getOneProductType(bmVO.pt_id).typename}</div>
+								</h6>
+								<h6>
+									<div class="row" style="height:10%">
+										<div class="col-4"><div class="bon_stock">庫存 － ${(bmVO.bon_stock-bmVO.bon_exchange)}</div></div>
+										<div class="col-4"><div class="bon_price">所需紅利 －  <i class="fas fa-clock"></i>${bmVO.bon_price}</div></div>
+									</div>
+								</h6>
+								<pre>${bmVO.bon_info}</pre>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row justify-content-center">
-					<div class="col-4">
-<!-- 						try -->
-						<a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=exchange&mem_id=M000007&bon_id=${bmVO.bon_id}"><button type="button" class="btn btn-danger float-left">我要購買</button></a>
-						<a href="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do?action=favorite&mem_id=M000007&bon_id=${bmVO.bon_id}"><button type="button" class="btn btn-secondary float-right">加入最愛</button></a>
-<!-- 						try end -->
-<%-- 						<a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=exchange&mem_id=${memVO.mem_id}&bon_id=${bmVO.bon_id}"><button type="button" class="btn btn-danger float-left">我要購買</button></a> --%>
-<%-- 						<a href="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do?action=favorite&mem_id=${memVO.mem_id}&bon_id=${bmVO.bon_id}"><button type="button" class="btn btn-secondary float-right">加入最愛</button></a> --%>
+					<div class="row justify-content-center">
+						<div class="col-4">
+	 						<!--try -->
+	  							<!--case 1 -->
+	<%-- 						<a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=exchange&mem_id=M000007&bon_id=${bmVO.bon_id}"><button type="button" class="btn btn-danger float-left">我要兌換</button></a> --%>
+	<%-- 						<a href="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do?action=favorite&mem_id=M000007&bon_id=${bmVO.bon_id}"><button type="button" class="btn btn-secondary float-right">加入最愛</button></a> --%>
+								<!--case 2-->
+	<%-- 						<button name="exchange" type="button" class="btn btn-danger float-left" id="${sessionScope.memberVO.mem_id}${bmVO.bon_id}">我要兌換</button> --%>
+	<%-- 						<button name="favorite" type="button" class="btn btn-secondary float-right" id="${sessionScope.memberVO.mem_id}${bmVO.bon_id}">加入最愛</button> --%>
+								<!--case 3-->
+							<form class="exchange" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" method="post">
+								<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
+								<input type="hidden" name="bon_id" value="${bmVO.bon_id}">
+								<input type="hidden" name="bon_exchange" value="${(bmVO.bon_exchange+1)}">
+								<input type="hidden" name="bon_price" value="${bmVO.bon_price}">
+								<input type="hidden" name="mem_bouns" value="${sessionScope.memberVO.mem_bonus}">
+								<input type="hidden" name="action" value="exchange">
+								<button type="submit" class="btn btn-danger float-left" >我要兌換</button>
+							</form>
+							<form class="favorite" action="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do" method="post">
+								<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
+								<input type="hidden" name="bon_id" value="${bmVO.bon_id}">
+								<input type="hidden" name="action" value="favorite">
+								<button type="submit" class="btn btn-secondary float-right" >加入最愛</button>
+							</form>
+	 						<!--try end -->
+	<!-- 						<button type="button" class="btn btn-danger float-left">我要購買</button> -->
+	<!-- 						<button type="button" class="btn btn-secondary float-right">加入最愛</button> -->
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-8">
-			<div class="row">
-				<c:forEach var="bmVO" items="${list}" varStatus="s">
-					<c:if test="${s.count <= 4}">
-						<div class="col-3">
-							<div class="card mt-5">
-								<figure class="figure">
-									<a href="<%=request.getContextPath()%>/BounsMall/BounsMall.do?action=getOne_For_Display&BON_ID=${bmVO.bon_id}">
-										<img src="<%=request.getContextPath()%>/BounsMall/ImageServlet.do?bon_id=${bmVO.bon_id}" class="figure-img img-fluid rounded" alt="...">
-										<figcaption class="figure-caption text-center">${bmVO.bon_name} －  <i class="fas fa-clock"></i>${bmVO.bon_price}</figcaption>
-									</a>
-								</figure>
+			<div class="col-8">
+				<div class="row">
+					<c:forEach var="bmVO" items="${list}" varStatus="s">
+						<c:if test="${s.count <= 4}">
+							<div class="col-3">
+								<div class="card mt-5">
+									<figure class="figure">
+										<a href="<%=request.getContextPath()%>/BounsMall/BounsMall.do?action=getOne_For_Display&BON_ID=${bmVO.bon_id}">
+											<img src="<%=request.getContextPath()%>/BounsMall/ImageServlet.do?bon_id=${bmVO.bon_id}" class="figure-img img-fluid rounded" alt="...">
+											<figcaption class="figure-caption text-center">${bmVO.bon_name} －  <i class="fas fa-clock"></i>${bmVO.bon_price}</figcaption>
+										</a>
+									</figure>
+								</div>
 							</div>
-						</div>
-					</c:if>
-				</c:forEach>
+						</c:if>
+					</c:forEach>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 	<!-- 內容 -->
-        <!-- footer -->
-			<%@ include file="../../files/footer.jsp" %>
-        <!-- footer -->
+	<!-- footer -->
+	<%@ include file="../../files/footer.jsp" %>
+	<!-- footer -->
+	
+	<script>
+// 		$('form.exchange').click(function(){
+			
+// 		});
+	</script>
+	
 </body>
-
-
-
 </html>

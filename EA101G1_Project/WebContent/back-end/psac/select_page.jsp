@@ -1,46 +1,100 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="BIG5"%>
+	<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="BIG5">
-<title>Psac Homepage</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/bootstrap.min.css">
+    <!-- Include Favicon ico-->
+    <link rel="shortcut icon" href="./img/ICON.ico">
+    <!-- Font-awesome CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css">
+    <!--GoogleFont-->
+    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Include style.css-->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/style.css">
+    
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>   
+    
+    
 
-  table#a {
-	width: 100%;
-	background-color: #5588DD;
-	margin-top: 20px;
-	margin-bottom: 20px;
-    border: 5px solid Gray;
-    height: 50px;
-    text-align: center;
-  }
-  
-  h3{
-  	text-align:center;
-  }
-  
-  div{
-  width:400px;
-  margin:0 auto;
-  }
-  
-</style>
-
+    <title>S.F.G å¾Œå°ç®¡ç†</title>
+    
+    <style>
+    	img.magnifier {
+    		width: 30px;
+    		height: 30px;
+    	}
+    	
+    	h2{
+    		padding: 10px;
+    		text-align: center;
+    		background-color:#886655;
+    		
+    	}
+    	
+    	h3{
+    		padding: 30px;
+    		text-align: center;
+    	}
+    	
+    	table, th, td {
+    		padding: 10px;
+    		background-color:#5588DD;
+    	}
+    	
+    	div.container{
+    	margin-top:30px;
+    	}
+    	
+    	body{
+    		background-color:#448888;	
+    	}
+    	
+    </style>
+    
+    
 </head>
-<body bgcolor='white'>
 
+<body>
+<!-- header -->
+	
+	<%@ include file="../css/header.jsp" %>
+<!-- header -->
+
+    <div class="content d-md-flex">
+
+<!-- aside -->
+	<%@ include file="../css/aside.jsp" %>
+<!-- aside -->
+
+ <main>
+
+   <h2>æ–‡ç« æª¢èˆ‰ç®¡ç†</h2>
 <table id="a">
-   <tr><td><h2>¤å³¹ÀËÁ|®× </h2><h4>( MVC )</h4></td></tr>
 </table>
 
-<h3>¤å³¹ÀËÁ|®×¬d¸ß:</h3>
 
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 	    <c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -48,40 +102,64 @@
 	</ul>
 </c:if>
 
-<div class="a">
-<ul>
+<div class="container">
+	<div class="row justify-content-center">
+			<div class="col-8">
 
- <li><a href='<%=request.getContextPath()%>/back-end/psac/listAllPsac.jsp'>¬d¸ß¥ş³¡ÀËÁ|®×</a>  <br><br></li>
- <li>
-    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/psac/psac.do" >
-        <b>¿é¤J¤å³¹ÀËÁ|®×½s¸¹: (ex:p000001):</b>
-        <input type="text" name="psac_no">
-        <input type="hidden" name="action" value="select_One_Psac">
-        <input type="submit" value="°e¥X">
-    </FORM>
-  </li>
 
- <jsp:useBean id="psacSvc" scope="page" class="com.psac.model.PsacService"/>
  
-  <li>
-     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/psac/psac.do" >
-       <b>¿ï¾Ü¤å³¹ÀËÁ|®×½s¸¹:</b>
-       <select size="1" name="psac_no">
-         <c:forEach var="psacVO" items="${psacSvc.all}" > 
-          <option value="${psacVO.psac_no}">${psacVO.psac_no}
-         </c:forEach>  
-       </select>
-       <input type="hidden" name="action" value="select_One_Psac">
-       <input type="submit" value="¬d¸ß">
-    </FORM>
-  </li>
 
-</ul>	
-
-<ul>
-  <li><a href='<%=request.getContextPath()%>/back-end/psac/addPsac.jsp'>·s¼W¤å³¹ÀËÁ|®×</a></li>
-</ul>
+ <input type="button" class="btn btn-primary" value="æŸ¥è©¢å…¨éƒ¨æª¢èˆ‰æ¡ˆ" onclick="location.href='listAllPsac.jsp'">
+ 
+ <input type="button" class="btn btn-primary" value="æ–°å¢æª¢èˆ‰æ¡ˆ" onclick="location.href='<%=request.getContextPath()%>/back-end/psac/addPsac.jsp'">
+ 
+ </div>
+</div>
 </div>
 
+
+<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-8">
+				<div class="media">
+				<div class="media-body">
+    	    		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/psac/psac.do" >
+				<div class="input-group mb-3">
+					<input type="text" class="form-control" name="psac_no" id="inlineFormInputGroup" placeholder="è«‹è¼¸å…¥æª¢èˆ‰æ¡ˆç·¨è™Ÿ ex: p000001">
+						<div class="input-group-append">
+						<input type="hidden" name="action" value="select_One_Psac">
+						<button class="btn btn-outline-warning" type="submit">æŸ¥è©¢</button>
+						</div>
+				</div>
+    				</FORM>
+  				</div>
+				</div> 
+
+ 			<jsp:useBean id="psacSvc" scope="page" class="com.psac.model.PsacService"/>
+ 
+  				<div class="media">
+				  <div class="media-body">
+				     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/psac/psac.do" >
+				       <b>é¸æ“‡æª¢èˆ‰æ¡ˆç·¨è™Ÿ:</b>
+				       	<select size="1" name="psac_no">
+				         <c:forEach var="psacVO" items="${psacSvc.all}" > 
+				          <option value="${psacVO.psac_no}">${psacVO.psac_no}
+				         </c:forEach>  
+				       </select>
+				       <input type="hidden" name="action" value="select_One_Psac">
+				       <input type="submit" class="btn btn-warning" value="æŸ¥è©¢">
+				    </FORM>
+				  </div>
+				</div>
+			</div>
+		</div>
+
+
+        </main>
+ 	</div>
+
 </body>
+
+
+
 </html>
