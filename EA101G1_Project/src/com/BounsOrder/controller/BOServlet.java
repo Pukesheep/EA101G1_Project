@@ -6,6 +6,7 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import com.BounsMall.model.*;
 import com.BounsOrder.model.*;
 
 public class BOServlet extends HttpServlet {
@@ -19,6 +20,8 @@ public class BOServlet extends HttpServlet {
 		throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		
+//		System.out.print("Jump to BOServlet: ");
 		
 		if ( "getOneForDisplay".equals(action) ) {
 			List<String> errorMsgs = new LinkedList<String>();
@@ -220,14 +223,23 @@ public class BOServlet extends HttpServlet {
 					errorMsgs.add( "會員ID請勿空白" );
 				}
 				String bon_id = req.getParameter("bon_id");
+				Integer bon_exchange = new Integer(req.getParameter("bon_exchange"));
+				
+//				System.out.print(mem_id);
+//				System.out.print(bon_id);
+//				System.out.print(bon_exchange);
 				
 				BOService boSvc = new BOService();
 				boSvc.addBO(mem_id, bon_id);
+				
+				BMService bmSvc = new BMService();
+				bmSvc.updateExchange(bon_id, bon_exchange);
 				
 				list = boSvc.getByMem(mem_id);
 				
 				req.setAttribute("list", list);
 				req.setAttribute("mem_id", mem_id);
+				req.setAttribute("bon_id", bon_id);
 				
 				RequestDispatcher successView = req.getRequestDispatcher(success);
 				successView.forward(req, res);
@@ -248,11 +260,16 @@ public class BOServlet extends HttpServlet {
 			try {
 				String ord_id = req.getParameter("ord_id");
 				String mem_id = req.getParameter("mem_id");
+				String bon_id = req.getParameter("bon_id");
+				Integer bon_exchange = new Integer(req.getParameter("bon_exchange"));
 				String bs_id = "BS002";
+				bon_exchange--;
 				
 				BOService boSvc = new BOService();
-				
 				boSvc.cancelBO(ord_id, bs_id);
+				
+				BMService bmSvc = new BMService();
+				bmSvc.updateExchange(bon_id, bon_exchange);
 				
 				list = boSvc.getByMem(mem_id);
 				
@@ -267,6 +284,28 @@ public class BOServlet extends HttpServlet {
 			}
 		}
 		
+		if ( "getAllByMemberFront".equals(action) ) {
+			List<BOVO> list = new ArrayList<BOVO>();
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			String success = "/front-end/BounsMall/listBounsOrderByMember.jsp";
+			String fail = "/front-end/BounsMall/listAllBouns.jsp";
+			
+			try {
+				String mem_id = req.getParameter("mem_id");
+				
+				BOService boSvc = new BOService();
+				list = boSvc.getByMem(mem_id);
+				
+				req.setAttribute("list", list);
+				req.setAttribute("mem_id", mem_id);
+				RequestDispatcher successView = req.getRequestDispatcher(success);
+				successView.forward(req, res);
+			} catch ( Exception e ) {
+				RequestDispatcher failureView = req.getRequestDispatcher(fail);
+				failureView.forward(req, res);
+			}
+		}
 		
 	}
 }

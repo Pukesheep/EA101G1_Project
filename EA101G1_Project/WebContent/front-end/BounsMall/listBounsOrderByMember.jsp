@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.BounsOrder.model.*" %>
+<%@ page import="com.BounsMall.model.*" %>
 
 <%
 	List<BOVO> list = (List<BOVO>) request.getAttribute("list");
@@ -55,7 +56,7 @@
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>會員紅利訂單查詢 - /back-end/ListAll.jsp</h3>
+				<h3>會員紅利訂單查詢 - /front-end/listBounsOrderByMember.jsp</h3>
 <!-- 				<h4> -->
 <%-- 					<a href="<%=request.getContextPath()%>/back-end/BounsOrder/select_page.jsp"> --%>
 <!-- 						<img src="images/back1.gif" width="100" height="32" border="0">回首頁</a> -->
@@ -76,8 +77,6 @@
 	
 	<table>
 		<tr>
-			<th>訂單編號</th>
-			<th>會員編號</th>
 			<th>紅利商品名稱</th>
 			<th>下訂日期</th>
 			<th>訂單狀態</th>
@@ -87,8 +86,6 @@
 		<%@ include file="../../files/page1.file" %>
 		<c:forEach var="boVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 			<tr>
-				<td>${boVO.ord_id}</td>
-				<td>${boVO.mem_id}</td>
 				<td>${bmSvc.getByPK(boVO.bon_id).bon_name}</td>
 				<td>${boVO.ord_Date}</td>
 				<td>${bsSvc.getOneBS(boVO.bs_id).bs_stat}</td>
@@ -96,6 +93,8 @@
 					<form method="post" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" style="margin-bottom: 0px;">
 						<input type="hidden" name="ord_id" value="${boVO.ord_id}">
 						<input type="hidden" name="mem_id" value="${boVO.mem_id}">
+						<input type="hidden" name="bon_id" value="${boVO.bon_id}">
+						<input type="hidden" name="bon_exchange" value="${bmSvc.getByPK(boVO.bon_id).bon_exchange}">
 						<input type="hidden" name="action" value="cancel">
 						<input type="submit" value="取消訂單" >
 					</form>

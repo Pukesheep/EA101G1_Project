@@ -101,7 +101,7 @@
 			<td>${bmVO.bon_exchange}</td>
 			<td>${bmVO.bon_stock}</td>
 			<td>${bmVO.bon_addDate}</td>
-			<td>${bmVO.bon_status}</td>
+			<td>${(bmVO.bon_status==0)? "¤W¬[":"¤U¬["}</td>
 			<td>
 				<form method="post" action="<%=request.getContextPath()%>/BounsMall/BounsMall.do" style="margin-bottom: 0px;">
 					<input type="hidden" name="bon_id" value="${bmVO.bon_id}">

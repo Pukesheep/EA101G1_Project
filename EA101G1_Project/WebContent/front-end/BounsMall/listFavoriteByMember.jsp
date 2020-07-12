@@ -53,7 +53,7 @@
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>穦程稲琩高 - /back-end/ListByMember.jsp</h3>
+				<h3>穦程稲琩高 - /front-end/listFavoriteByMember.jsp</h3>
 <!-- 				<h4> -->
 <%-- 					<a href="<%=request.getContextPath()%>/back-end/FavoriteBouns/select_page.jsp"> --%>
 <!-- 						<img src="images/back1.gif" width="100" height="32" border="0"></a> -->
@@ -74,15 +74,24 @@
 	
 	<table>
 		<tr>
-			<th>穦絪腹</th>
 			<th>坝珇</th>
+			<th>坝珇篈</th>
+			<th>程稲</th>
 		</tr>
 		
 		<%@ include file="../../files/page1.file" %>
 		<c:forEach var="fbVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 			<tr>
-				<td>${fbVO.mem_id}</td>
 				<td>${bmSvc.getByPK(fbVO.bon_id).bon_name}</td>
+				<td>${bmSvc.getByPK(fbVO.bon_id).bon_status==0? "琜":"琜"}</td>
+				<td>
+					<form method="post" action="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do" style="margin-bottom: 0px;">
+						<input type="hidden" name="mem_id" value="${boVO.mem_id}">
+						<input type="hidden" name="bon_id" value="${boVO.bon_id}">
+						<input type="hidden" name="action" value="deleteFront">
+						<input type="submit" value="" >
+					</form>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>

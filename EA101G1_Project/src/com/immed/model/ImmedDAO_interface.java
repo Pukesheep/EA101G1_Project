@@ -11,5 +11,9 @@ public interface ImmedDAO_interface {
 	public void delete(String immed_id);
 	public ImmedVO findByPrimaryKey(String immed_id);
 	public List<ImmedVO> getAll();
+	public List<ImmedVO> getAllOnSale();
+	public List<ImmedVO> getAllBuyerImmed(String buy_id);
+
 	public List<ImmedVO> findByImmedName(String search_str);
+//	public List<ImmedVO> findByImmedName(String search_str);
 }

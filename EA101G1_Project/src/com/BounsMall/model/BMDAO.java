@@ -33,6 +33,9 @@ public class BMDAO implements BMDAO_interface {
 	private static final String UPDATE =
 			"UPDATE BOUNS_MALL SET PT_ID=?, BON_NAME=?, BON_PRICE=?, BON_IMAGE=?, BON_INFO=?, BON_EXCHANGE=?, BON_STOCK=?, BON_STATUS=?"
 					+ " WHERE BON_ID = ?" ;
+	private static final String UPDATE_EXCHANGE =
+			"UPDATE BOUNS_MALL SET BON_EXCJAMGE=?"
+					+ " WHERE BON_ID = ?";
 	private static final String GET_BY_PT_ID =
 			"SELECT BON_ID, PT_ID, BON_NAME, BON_PRICE, BON_IMAGE, BON_INFO, BON_EXCHANGE, BON_STOCK, to_char(BON_ADDDATE,'yyyy-mm-dd') BON_ADDDATE, BON_STATUS "
 					+ " FROM BOUNS_MALL WHERE PT_ID = ? ORDER BY BON_ID";
@@ -420,5 +423,40 @@ public class BMDAO implements BMDAO_interface {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void updateExchange(String bon_id, Integer bon_exchange) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_EXCHANGE);
+
+			pstmt.setInt(1, bon_exchange);
+			pstmt.setString(2, bon_id);
+			
+			pstmt.executeUpdate();
+			
+		} catch ( SQLException se ) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if ( pstmt != null ) {
+				try {
+					pstmt.close();
+				} catch ( SQLException se ) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if ( con != null ) {
+				try {
+					pstmt.close();
+				} catch ( SQLException se ) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 }

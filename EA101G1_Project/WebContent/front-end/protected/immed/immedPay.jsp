@@ -12,19 +12,20 @@
 	pageContext.setAttribute("immedVO", immedVO);
 --%>
 <%
-	ImmedVO immedVO = (ImmedVO) session.getAttribute("immedBuyVO"); //ImmedServlet.java (Concroller) 存入req的immedVO物件 (包括幫忙取出的immedVO
+	ImmedVO immedVO = (ImmedVO) session.getAttribute("immedBuyVO");
 	pageContext.setAttribute("immedVO", immedVO);
 %>
 
-<%--
+<%
 	PtService ptSvc = new PtService();
 	PtVO ptVO = ptSvc.getOneProductType(immedVO.getPt_id());
---%>
+	pageContext.setAttribute("ptVO", ptVO);
+ %>
 
 <%
 	MemberService memberSvc = new MemberService();
-	MemberVO memberVO = memberSvc.getOneMember(immedVO.getSale_id());
-	pageContext.setAttribute("memberVO", memberVO);
+	MemberVO saleVO = memberSvc.getOneMember(immedVO.getSale_id());
+	pageContext.setAttribute("saleVO", saleVO);
 %>
 
 
@@ -59,7 +60,7 @@
 
 <!-- 使用style.css -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/immed/immed_header_footer.css">
+	href="<%=request.getContextPath()%>/css/style.css">
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css">
@@ -82,6 +83,8 @@ body {
 
 .immed_nav .navbar {
 	padding: 0rem 1rem;
+	background: none !important;
+	box-shadow: none !important;
 }
 
 .immed_nav .navbar-brand {
@@ -140,9 +143,9 @@ body {
 	margin-left: 5px;
 }
 
-div.content nav ol.breadcrumb {
-	background-color: white;
-	padding: 0rem 1rem;
+div.content ol.breadcrumb {
+	padding: 0rem 0.5rem;
+	background-color: White;
 }
 
 div.content nav ol.breadcrumb a {
@@ -297,12 +300,33 @@ table th {
 	padding: .5rem 1rem;
 }
 
-table.recipi tbody th {
-	width: 14%;
+table td {
+	padding: .5rem 1rem;
 }
 
+table.recipi  th {
+	width: 147px;
+}
+
+/* table.recipi tbody input { */
+/* 	width: 70%; */
+/* } */
+
 table.recipi tbody tr:nth-child(3) input {
-	width: 40%;
+	width: 100%;
+}
+
+table.immedInfo {
+	margin-bottom: 30px;
+	background: hsla(0, 0%, 100%, .8);
+}
+
+table.immedInfo th:nth-child(1) {
+	width: 30%;
+}
+
+table.immedInfo th:nth-child(2) {
+	width: 20%;
 }
 
 @media ( max-width : 1023px) {
@@ -325,7 +349,7 @@ table.recipi tbody tr:nth-child(3) input {
 
 <body>
 	<!-- navbar -->
-	<%@ include file="/files/immed/immed_header.jsp"%>
+	<%@ include file="/files/header.jsp"%>
 	<!-- navbar end -->
 
 	<div class="container immed_nav">
@@ -374,14 +398,15 @@ table.recipi tbody tr:nth-child(3) input {
 
 	<div class="container content">
 		<div class="row pt-3">
-			<div class="col">
+			<div class="col-auto">
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a
 							href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
 						<li class="breadcrumb-item"><a
 							href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">直購商品</a></li>
-						<!-- 						<li class="breadcrumb-item active" aria-current="page">Data</li> -->
+						<li class="breadcrumb-item"><a
+							href="<%=request.getContextPath()%>/immed/immed.do?action=getOne_For_Display&immed_id=${immedVO.immed_id}">${ptVO.typename}</a></li>
 					</ol>
 				</nav>
 			</div>
@@ -389,17 +414,33 @@ table.recipi tbody tr:nth-child(3) input {
 
 		<div class="row">
 			<div class="col">
-				<table class="immedInfo">
-					<thead>
+				<table class="immedInfo table-bordered">
+					<thead >
 						<tr>
-							<th><div>購買的商品明細</div></th>
-							<td><div>賣家: ${memberVO.mem_name}</div></td>
+							<th style="border:none;"><div>購買商品明細</div></th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody class="text-center">
 						<tr>
-							<th scope="row">商品名稱:</th>
-							<td>${immedVO.immed_name}</td>
+							<th scope="row">商品標題</th>
+							<th scope="row">商品圖片</th>
+							<th scope="row">賣家</th>
+							<th scope="row">價格</th>
+							<th scope="row">數量</th>
+							<th scope="row">結帳金額</th>
+						</tr>
+
+						<tr>
+
+							<td><a
+							href="<%=request.getContextPath()%>/immed/immed.do?action=getOne_For_Display&immed_id=${immedVO.immed_id}">${immedVO.immed_name}</a></td>
+							<td><img
+								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
+								class="card-img-top" style="height:250px;"></td>
+							<td>${saleVO.mem_name}</td>
+							<td>${immedVO.immed_prc}</td>
+							<td>1</td>
+							<td class="text-red text-danger" style="font-weight:700;">${immedVO.immed_prc * 1}</td>
 						</tr>
 						<!-- 					<tr> -->
 						<!-- 						<th scope="row">收件人電話:</th> -->
@@ -416,9 +457,10 @@ table.recipi tbody tr:nth-child(3) input {
 
 		<div class="row">
 			<div class="col">
-				<form class="creit_form"
+				<form class="creit_form" method="post"
 					action="<%=request.getContextPath()%>/immed/immed.do">
 					<div class="container-fluid">
+
 						<div class="row pull-center">
 
 							<div class="col-md-4">
@@ -428,31 +470,34 @@ table.recipi tbody tr:nth-child(3) input {
 								</div>
 							</div>
 
+						</div>
+						<div class="row pull-center">
 							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-8">
 										<div class="form-group">
-											<label>信用卡卡號 </label> <input type="text" name="number"
+											<label>信用卡卡號 </label> <input type="text" name="card_no"
+												maxlength=16 oninput="value=value.replace(/[^\d]/g,'')"
 												class="form-control" />
 										</div>
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
 											<label>有效期限</label> <input type="text" placeholder="MM/YY"
-												name="expiry" class="form-control" />
+												maxlength=7 name="card_ym" class="form-control" />
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-8">
 										<div class="form-group">
-											<label>持卡人姓名</label> <input type="text" name="name"
+											<label>持卡人姓名</label> <input type="text" name="card_name" max="10"
 												class="form-control" autocomplete="off" />
 										</div>
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
-											<label>認證碼 </label> <input type="text" name="cvv"
+											<label>認證碼 </label> <input type="text" name="card_sec" maxlength=3
 												class="form-control" />
 										</div>
 									</div>
@@ -461,23 +506,9 @@ table.recipi tbody tr:nth-child(3) input {
 						</div>
 
 						<div class="row">
-							<div class="col">
-								<div>
-									<%-- 錯誤表列 --%>
-									<c:if test="${not empty errorMsgs}">
-										<font style="color: red">請修正以下錯誤:</font>
-										<ul>
-											<c:forEach var="message" items="${errorMsgs}">
-												<li style="color: red;">${message}</li>
-											</c:forEach>
-										</ul>
-									</c:if>
-								</div>
-							</div>
-						</div>
 
-						<div class="row">
-							<div class="col">
+
+							<div class="col-md-6">
 								<table class="recipi">
 									<thead>
 										<tr>
@@ -487,15 +518,18 @@ table.recipi tbody tr:nth-child(3) input {
 									<tbody>
 										<tr>
 											<th scope="row">收件人姓名:</th>
-											<td><input type="text" name="rcpt_name"></td>
+											<td><input type="text" name="rcpt_name"
+												autocomplete="off" value="${rcpt_name} "></td>
 										</tr>
 										<tr>
 											<th scope="row">收件人電話:</th>
-											<td><input type="text" name="rcpt_cell"></td>
+											<td><input type="text" name="rcpt_cell" maxlength=10
+												autocomplete="off" value="${rcpt_cell}"></td>
 										</tr>
 										<tr>
 											<th scope="row">收件地址:</th>
-											<td><input type="text" name="rcpt_add"></td>
+											<td><input type="text" name="rcpt_add"
+												autocomplete="off" value="${rcpt_add}"></td>
 										</tr>
 										<tr>
 											<!-- 									<th><input type="hidden" name="action" -->
@@ -503,27 +537,38 @@ table.recipi tbody tr:nth-child(3) input {
 											<%-- 										name="immed_id" value="${immedVO.immed_id}">${immedVO.immed_id} --%>
 											<%-- 										<input type="hidden" name="buy_id" value="${memberVO.mem_id}">${memberVO.mem_id} --%>
 											<!-- 										<input type="submit" value="送出"></th> -->
-											<th></th>
-											<td>
-												<div class="">
+											<th><div class="">
 													<input type="hidden" name="action" value="update_one_buy">
 													<input type="hidden" name="immed_id"
 														value="${immedVO.immed_id}"> <input type="hidden"
 														name="buy_id" value="${memberVO.mem_id}">
 													<button type="submit" class="btn btn-dark">確認送出</button>
 													<!-- 											<button type="button" class="btn btn-info">Clear</button> -->
-												</div>
-											</td>
+												</div></th>
+											<td></td>
 										</tr>
 									</tbody>
 								</table>
+							</div>
+							<div class="col-md-4">
+								<div class="pt-5">
+									<%-- 錯誤表列 --%>
+									<c:if test="${not empty errorMsgs}">
+										<!-- 										<font style="color: red">請修正以下錯誤:</font> -->
+										<ul>
+											<c:forEach var="message" items="${errorMsgs}">
+												<li style="color: red;">${message}</li>
+											</c:forEach>
+										</ul>
+									</c:if>
+								</div>
 							</div>
 						</div>
 					</div>
 				</form>
 			</div>
 		</div>
-		
+
 	</div>
 
 
@@ -576,10 +621,10 @@ table.recipi tbody tr:nth-child(3) input {
 			form : '.creit_form',
 			container : '.card',
 			formSelectors : {
-				numberInput : 'input[name=number]',
-				expiryInput : 'input[name=expiry]',
-				cvcInput : 'input[name=cvv]',
-				nameInput : 'input[name=name]'
+				numberInput : 'input[name=card_no]',
+				expiryInput : 'input[name=card_ym]',
+				cvcInput : 'input[name=card_sec]',
+				nameInput : 'input[name=card_name]'
 			},
 
 			width : 350, // optional — default 350px
