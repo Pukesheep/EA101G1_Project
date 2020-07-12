@@ -188,6 +188,11 @@
 		front{
 		font-family:Microsoft JhengHei;
 		}
+		
+		section.blank1 div.container {
+   			 background: hsla(0, 0%, 100%, .5);
+			}	
+	</style>
 	</style>
 
 </head>
@@ -201,6 +206,15 @@
     <section class="blank1">
     
 <div class="container main">
+
+<div class="row">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
+    <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">商城</a></li>
+    <li class="breadcrumb-item active" aria-current="page">搜尋結果</li>
+  </ol>
+</div>
 
 <div class="row">
 

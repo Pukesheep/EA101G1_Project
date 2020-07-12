@@ -194,6 +194,10 @@
 			cursor:pointer;
 			color:red;
 		}
+		
+		section.blank1 div.container {
+   			 background: hsla(0, 0%, 100%, .5);
+			}	
 	</style>
 
 </head>
@@ -207,6 +211,15 @@
     <section class="blank1">
     
 <div class="container main">
+
+<div class="row">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp">­º­¶</a></li>
+    <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">°Ó«°</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><%=ptSvc.getOneProductType(pt_id).getTypename() %></li>
+  </ol>
+</div>
 
 <div class="row">
 
