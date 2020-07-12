@@ -70,6 +70,16 @@ public class MemberService {
 		return memberVO;
 	}
 	
+	public MemberVO updateBonus(String mem_id, Integer mem_bonus) {
+		MemberVO memberVO = new MemberVO();
+		
+		memberVO.setMem_id(mem_id);
+		memberVO.setMem_bonus(mem_bonus);
+		dao.updateBonus(mem_id, mem_bonus);
+		
+		return memberVO;
+	}
+	
 	public void deleteMember(String mem_id) {
 		dao.delete(mem_id);
 	}

@@ -592,5 +592,11 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		return baos.toByteArray();
 	}
 
+	@Override
+	public void updateBonus(String mem_id, Integer mem_bonus) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }
