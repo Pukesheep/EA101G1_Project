@@ -70,7 +70,9 @@
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
 </head>
-<body onload="connect();" onunload="disconnect();">
+
+<!-- 進入頁面onload 連線 connect()             -->
+<body onload="connect(); init();" onunload="disconnect();">
 
 	<!-- navbar -->
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top">
@@ -126,11 +128,21 @@
 
 	<header class="nav-auct container">
 		<ul class="text-right">
-			<a href="Auct_index.jsp"><li class="auct-navbtn">競標專區</li></a>
-			<a href="Results_all.jsp"><li class="auct-navbtn">結標專區</li></a>
-			<a><li class="auct-navbtn">出價記錄</li></a>
-			<a><li class="auct-navbtn">戰利品</li></a>
-			<a href="listAllAuct.jsp"><li class="auct-navbtn">我的拍賣區</li></a>
+			<li class="auct-navbtn">
+                <a href="<%=request.getContextPath()%>/front-end/protected/auct/Auct_index.jsp">競標專區</a>
+            </li>
+            <li class="auct-navbtn">
+                <a href="<%=request.getContextPath()%>/front-end/protected/auct/Results_all.jsp">結標專區</a>
+            </li>
+            <li class="auct-navbtn">
+                <a href="">出價記錄</a>
+            </li>
+            <li class="auct-navbtn">
+                <a href="<%=request.getContextPath()%>/front-end/protected/auct/buy_order.jsp">戰利品</a>
+            </li>
+            <li class="auct-navbtn">
+                <a href="<%=request.getContextPath()%>/front-end/protected/auct/listAllAuct.jsp">我的拍賣區</a>
+            </li>
 		</ul>
 		<h6 class="h6">
 			<a class="a-index" href="All_index.jsp">首頁</a> > <a class="a-index"
@@ -178,7 +190,7 @@
 					<div class="product-rel">
 						<div class="auct-title  py-2">
 							<h4 class="text-center" id="titlescore"></h4>
-							<h4 class="text-center">00:00:10</h4>
+							<div class="text-center" id="countdown"></div>
 						</div>
 						<div class="auct-list1 mx-5">
 							<div class=" py-2 bg-white">
@@ -194,8 +206,8 @@
 								<li>
 									<h6>目前贏家:</h6>
 								</li>
-								<input type="text" name="${memVO.mem_id}" id="${memVO.mem_id}"
-									value="${memVO.mem_name}">
+								<input type="hidden" name="${memVO.mem_id}" id="${memVO.mem_id}"
+									value="${memVO.mem_id}">
 								<li><button type="submit" class="bid-btn my-2" id="button"
 										onclick="sendMessage();">BID / 競標</button></li>
 							</ul>
@@ -205,19 +217,22 @@
 				<div class="product col-md-4 mb-3">
 					<div class="product-rel">
 						<div class="auct-title py-3">
-							<h6 class="text-center">下標記錄</h6>
+							<h6 class="text-center">排行榜</h6>
 						</div>
 						<div class="bid-table">
-							<div>
-								<table id="messagesArea" style="overflow-y:auto; height:300px">
+							<div style="height:300px; overflow-y:scroll;">
+								<table>
 									<tr>
-										<th>NTD</th>
+										<th class="mx-5">名次</th>
 										<th>下標者</th>
-										<th>出價時間</th>
+										<th>NTD</th>
 									</tr>
-
+								</table>
+								
+								<table id="messagesArea" >
 
 								</table>
+								
 							</div>
 						</div>
 					</div>
@@ -245,10 +260,10 @@
 
 
 	<script type="text/javascript">
-		var plus = ${auctVO.auct_inc}; //先寫死的加價
-		var pro = "${auctVO.auct_id}";
+		var plus = ${auctVO.auct_inc}; //加價
+		var pro = "${auctVO.auct_id}"; //商品ID
 		console.log(pro);
-		var MyPoint = "/TogetherWS/${memVO.mem_name}/${auctVO.auct_id}";
+		var MyPoint = "/TogetherWS/${memVO.mem_id}/${auctVO.auct_id}";
 		var host = window.location.host;
 		var path = window.location.pathname;
 		var webCtx = path.substring(0, path.indexOf('/', 1));
@@ -264,7 +279,7 @@
 			webSocket.onopen = function(event) {
 				// 			console.log(event);
 			}
-			webSocket.onmessage = function(event) {
+			webSocket.onmessage = function(event) { //從控制器C, 送來前端的資訊
 				var messagesArea = document.getElementById("messagesArea");
 				var jObj = JSON.parse(event.data);
 				// 			console.log(jsonObj.userName);
@@ -272,54 +287,93 @@
 				var arr = jObj.record;
 				console.log(arr);
 				for (var i = 0; i < arr.length; i++) {
-				// 			for(var i = 0;i<jsonObj.set.length;i++){
-				// 				var array = [];
-				// 				array[i] = jsonObj.set[i];
-				// 				console.log(array[i]);
-				// 			}
+
 					$('#titlescore').text(arr[i].score);
 					$('#score').text(arr[i].score);
-// 				messagesArea.innerHTML="";
 				
  
 //      alert(jsonObj.userName);
-    
-					messagesArea.innerHTML += '<tr><td>' + arr[i].userName
-					+ '</td><td>' + arr[i].score + '</td></tr>';
-							
-				// 			score.innerHTML=jsonObj.score;
-				// 			score.innerHTML=jsonObj.score;
-				
+					var rank=1;
+					var str =  '<tr><td>' + rank + '</td>'
+								 + '<td>' + arr[i].userName + '</td>'
+								 + '<td>' + arr[i].score + '</td></tr>';
+
+					$("#messagesArea").prepend(str); //jQuery 加在字串的前面
+    				
 				}
 				
-				messagesArea.scrollTop = messagesArea.scrollHeight;
 			};
 
-		}
+		} //onload --end
 
-		var inputUserName = document.getElementById("${memVO.mem_id}");
+		var inputUserID= document.getElementById("${memVO.mem_id}");
 
-		function sendMessage() {
+		function sendMessage() {  //送進C
 
-			var userName = inputUserName.value.trim();
+			var userID = inputUserID.value.trim();
 			var nowscore = parseInt($('#score').text());
 			score = parseInt(nowscore) + plus;
 			console.log(score);
 			$('#score').text(nowscore + plus);
 			var now = new Date();
 			var jsonObj = {
-				"userName" : userName,
+				"userID" : userID,
 				"score" : score,
 				"product" : pro,
 				"type" : plus
 			};
 
-			webSocket.send(JSON.stringify(jsonObj));//傳出出價人+刷新最高價
+			webSocket.send(JSON.stringify(jsonObj));//傳入 競標者ID+刷新最高價
 
 		}
-		function disconnect() {
+		
+		function disconnect() {  //disconnect()斷線
 			webSocket.close();
 		}
+		
+// 		websocket---end
+// ====================================================================================================================================	
+		//倒數計時器
+		
+		<%
+			Long auct_end = auctVO.getAuct_end().getTime();
+		%>
+		
+		function init(){
+			
+			var auct_end = <%=auct_end%>;
+			var timer = setInterval(function(){
+				var now = new Date().getTime();
+				    remain = Math.ceil((auct_end - now) / 1000);
+				var day = Math.floor(remain / 86400);
+				var hour = Math.floor(remain % 86400 / 3600);
+				var minute = Math.floor((remain % 86400 % 3600) / 60);
+				var second = (((remain % 86400) % 3600) % 60);
+				
+				$('#countdown').text(day+'天'+' ' + hour+'小時'+' ' + minute+'分'+' ' + second+'秒');
+				
+				if(remain <= 0){
+					sendAjax();
+				}
+			}, 1000);
+			
+			
+		}
+// 		window.onload = init; //當載入頁面, 呼叫init function, 啟動計時器 (已經寫在body開始處)
+		
+
+		function sendAjax(){  //送Ajax 回控制器
+			$.ajax({ // Ajax開始
+				url: '<%=request.getContextPath()%>/front-end/auct/auct.do',  
+				type: 'POST', 
+				data: {
+					auct_id: '<%=auctVO.getAuct_id()%>',
+					action: 'timeout'
+				}
+				
+			});  // Ajax結束
+		}
+		
 	</script>
 
 

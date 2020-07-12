@@ -49,12 +49,15 @@ public class AuctDAO implements AuctDAO_interface{
 	
 	private static final String UPDATE_Auct_sold = "UPDATE auct set auct_sold=? WHERE auct_id=?";
 	
-	private static final String UPDATE_WINNER = "UPDATE auct SET buy_id=?,maxPrice=?,ordstat_id=? WHERE auct_id=?";
+	private static final String UPDATE_WINNER = "UPDATE auct SET auct_sold=?,auct_down=?,buy_id=?,maxPrice=?,ord_time=?,ordstat_id=? WHERE auct_id=?";
 	private static final String UPDATE_ORDSTAT = "UPDATE auct SET ordstat_id=? WHERE auct_id=?";//沒有買家就沒有訂單
 	private static final String GET_ONE_ORDSTATID = "SELECT buy_id,maxPrice,ordstat_id FROM auct WHERE auct_id=?";
 	
 	private static final String UPDATE_ORD = "UPDATE auct SET ordstat_id=?,ord_time=?,rcpt_name=?,rcpt_cel=?,rcpt_add=? WHERE auct_id=?";
 	private static final String GET_ONE_ORD = "SELECT buy_id,maxPrice,ordstat_id,ord_time,rcpt_name,rcpt_cel,rcpt_add FROM auct WHERE auct_id=?";
+	
+	private static final String GET_ALL_ALL_STMT = "SELECT auct_id, sale_id,buy_id, pt_id, auct_name, auct_start," + 
+			"auct_end,marketPrice, initPrice, auct_inc,maxPrice, auct_desc, auct_pic, auct_sold, auct_down,ordstat_id,ord_time,pay_end,rcpt_name,rcpt_cel,rcpt_add FROM auct order by auct_id desc";
 	
 	//新增 (拍賣商品)
 	@Override
@@ -532,10 +535,13 @@ public class AuctDAO implements AuctDAO_interface{
 			con = DriverManager.getConnection(url,userid,passwd);
 			pstmt = con.prepareStatement(UPDATE_WINNER);
 			
-			pstmt.setString(1,auctVO.getBuy_id());
-			pstmt.setInt(2,auctVO.getMaxPrice());
-			pstmt.setString(3,auctVO.getOrdstat_id());
-			pstmt.setString(4,auctVO.getAuct_id());
+			pstmt.setInt(1,auctVO.getAuct_sold());
+			pstmt.setInt(2,auctVO.getAuct_down());
+			pstmt.setString(3,auctVO.getBuy_id());
+			pstmt.setInt(4,auctVO.getMaxPrice());
+			pstmt.setTimestamp(5,auctVO.getOrd_time());
+			pstmt.setString(6,auctVO.getOrdstat_id());
+			pstmt.setString(7,auctVO.getAuct_id());
 			
 			pstmt.executeUpdate();
 			
@@ -914,6 +920,86 @@ public class AuctDAO implements AuctDAO_interface{
 			
 			return list;
 		}
-	
+
+		@Override
+		public List<AuctVO> getAll_all() {
+			List<AuctVO> list = new ArrayList<AuctVO>();
+			AuctVO auctVO =null;
+			
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+		
+		try {	
+			Class.forName(driver);
+			con = DriverManager.getConnection(url,userid,passwd);
+			pstmt = con.prepareStatement(GET_ALL_ALL_STMT);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				auctVO = new AuctVO();
+			if(rs.getString("buy_id")!=null ){ //如果有買家
+				auctVO.setAuct_id(rs.getString("auct_id"));
+				auctVO.setSale_id(rs.getString("sale_id"));
+				auctVO.setBuy_id(rs.getString("buy_id"));
+				auctVO.setPt_id(rs.getString("pt_id"));
+				auctVO.setAuct_name(rs.getString("auct_name"));
+				
+				auctVO.setAuct_start(rs.getTimestamp("auct_start"));
+				auctVO.setAuct_end(rs.getTimestamp("auct_end"));
+				
+				auctVO.setMarketPrice(rs.getInt("marketPrice"));
+				auctVO.setInitPrice(rs.getInt("initPrice"));
+				auctVO.setAuct_inc(rs.getInt("auct_inc"));
+				auctVO.setMaxPrice(rs.getInt("maxPrice"));
+				auctVO.setAuct_desc(rs.getString("auct_desc"));
+				auctVO.setAuct_pic(rs.getBytes("auct_pic"));			
+				auctVO.setAuct_sold(rs.getInt("auct_sold"));
+				auctVO.setAuct_down(rs.getInt("auct_down"));
+				auctVO.setOrdstat_id(rs.getString("ordstat_id"));
+				auctVO.setOrd_time(rs.getTimestamp("ord_time"));
+				
+				auctVO.setPay_end(rs.getTimestamp("pay_end"));
+				
+				auctVO.setRcpt_name(rs.getString("rcpt_name"));
+				auctVO.setRcpt_cel(rs.getString("rcpt_cel"));
+				auctVO.setRcpt_add(rs.getString("rcpt_add"));
+				
+				list.add(auctVO);
+				
+				}// if--end
+			}//while迴圈
+			
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			return list;
+		}
+		
 	
 }

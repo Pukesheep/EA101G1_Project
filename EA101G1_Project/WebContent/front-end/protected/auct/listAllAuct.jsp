@@ -12,7 +12,7 @@
 	MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
 	String sale_id = memVO.getMem_id();
 
-    List<AuctVO> list = auctSvc.getAllByMem(sale_id);
+    List<AuctVO> list = auctSvc.getSaleList(sale_id);
     pageContext.setAttribute("list",list);
 %>
 <jsp:useBean id="PtSvc" scope="page" class="com.productType.model.PtService" />
@@ -82,7 +82,7 @@
                 <h2>我的拍賣區 --- 競標商品管理</h2>              
             </div>
     <!-- 競標訂單 -->
-            <a href=" ">
+            <a href="<%=request.getContextPath()%>/front-end/protected/auct/sale_order.jsp">
                 <button class="add-btn btn btn-outline-warning mx-3" class="bg-primary">
                     <h6 class="backbtn">商品訂單</h6>
                 </button>

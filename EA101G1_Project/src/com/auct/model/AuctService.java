@@ -1,8 +1,10 @@
 package com.auct.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.bid.model.BidVO;
 
@@ -74,9 +76,13 @@ public AuctVO update_auct(String pt_id,String auct_name,Timestamp auct_start,Tim
 		return dao.listOneAuct(auct_id);
 	}
 
-	//查詢（全部）商品
+	//查詢（全部）商品(前半部)
 	public List<AuctVO> getAll(){
 		return dao.getAll();
+	}
+	//查詢（全部）商品(整個表格)
+	public List<AuctVO> getAll_all(){
+		return dao.getAll_all();
 	}
 	
 	//賣家查詢自己上架的商品
@@ -113,10 +119,14 @@ public AuctVO update_auct(String pt_id,String auct_name,Timestamp auct_start,Tim
 	
 	
 	//更新得標者
-		public AuctVO update_winner(String buy_id,Integer maxPrice,String ordstat_id,String auct_id) {
+		public AuctVO update_winner(Integer auct_sold,Integer auct_down,String buy_id,Integer maxPrice,Timestamp ord_time,String ordstat_id,String auct_id) {
 			AuctVO auctVO = new AuctVO();
+			
+			auctVO.setAuct_sold(auct_sold);  //已售出
+			auctVO.setAuct_down(auct_down);  //已下架
 			auctVO.setBuy_id(buy_id);
 			auctVO.setMaxPrice(maxPrice);
+			auctVO.setOrd_time(ord_time);
 			auctVO.setOrdstat_id(ordstat_id);
 			auctVO.setAuct_id(auct_id);
 			
@@ -178,4 +188,42 @@ public AuctVO update_auct(String pt_id,String auct_name,Timestamp auct_start,Tim
 		public List<AuctVO> getAllResult(){
 			return dao.getAllResult();
 		}
+		
+//============================================================================================================		
+//	JAVA8	
+		
+	// 商品管理(賣家列出自己賣的, 且 還未售出)	
+	    public List<AuctVO> getSaleList(String sale_id){
+	    	List<AuctVO> list = dao.getAll().stream()
+	    			.filter(auct ->auct.getSale_id().equals(sale_id))
+	    			.filter(auct1 ->(auct1.getAuct_sold()==0))
+	    			.collect(Collectors.toList());
+	    	return list;
+	    }
+		
+	// 訂單管理(賣家列出自己賣的, 且 已售出)	
+	    public List<AuctVO> getSaleOrderList(String sale_id){
+	    	List<AuctVO> list = dao.getAll_all().stream()
+	    			.filter(auct ->auct.getSale_id().equals(sale_id))
+	    			.filter(auct1 ->(auct1.getAuct_sold()==1))
+	    			.collect(Collectors.toList());
+	    	
+	    			
+	    	return list;
+	    }
+		
+	
+	// 戰利品(買家列出自己 標到 的商品)
+	    public List<AuctVO> getBuyOrderList(String sale_id){
+	    	List<AuctVO> list = dao.getAll_all().stream() 
+	    			.filter(auct ->auct.getBuy_id().equals(sale_id)) 
+	    			.collect(Collectors.toList());
+	    	System.out.println(list);	
+	    	return list;
+	    }
+		
+		
+		
+		
+		
 }

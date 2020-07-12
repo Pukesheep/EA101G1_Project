@@ -10,7 +10,7 @@ public interface AuctDAO_interface {
 	public void insert_auct(AuctVO auctVO);
 	public void update_auct(AuctVO auctVO);
 	public AuctVO listOneAuct(String auct_id);
-	public List<AuctVO> getAll();
+	public List<AuctVO> getAll(); //只有取出表格前半部
 	
 	//賣家查詢自己上架的商品
 	public List<AuctVO> getAllByMem(String sale_id);
@@ -41,5 +41,6 @@ public interface AuctDAO_interface {
 	public List<AuctVO> getAllFront();
 	//前台結標（陳列）
 	public List<AuctVO> getAllResult();
-	
+	//列出所有訂單getAll()整個表格
+	public List<AuctVO> getAll_all();
 }

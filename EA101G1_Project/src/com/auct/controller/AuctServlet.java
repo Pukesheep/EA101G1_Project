@@ -7,8 +7,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,6 +25,8 @@ import javax.servlet.http.Part;
 
 import com.auct.model.AuctService;
 import com.auct.model.AuctVO;
+
+import redis.clients.jedis.Jedis;
 
 
 
@@ -377,7 +382,62 @@ String auct_id = req.getParameter("auct_id");
 		}
 
 //===========================================================================================================================
-
+		if("timeout".equals(action)) {  // 拍賣結束
+			
+			/*************************** 1.接收請求參數 ****************************************/
+			Integer auct_down = 1; // 下架
+			String  auct_id = req.getParameter("auct_id"); //接收 商品ID
+System.out.println("拍賣結束------------------"+auct_id);
+			
+			AuctVO auctVO = new AuctVO();
+			
+			/***************************2.開始修改狀態***************************************/
+			AuctService auctSvc = new AuctService();
+			
+			
+			/*********************  檢查redis是否有key  ******************/
+			Jedis jedis = new Jedis("localhost", 6379);
+			jedis.auth("123456");
+//			String auct_id = req.getParameter(auct_id);
+			
+			if (jedis.exists(auct_id)) { // 如果key存在
+				
+				Map<String, Double> scores1 = new HashMap<>();
+				
+				Set<String> mem_id = jedis.zrange(auct_id ,-1, -1); //最大key [M000002]
+				System.out.println(mem_id);  
+				
+				int dollars;
+				
+				for (String memID : mem_id) {	 // 全部mem_id
+					Double highest = jedis.zscore(auct_id , memID);// 取最大key的分數
+					
+					dollars = (int)(Math.ceil(highest)); //轉型(去除小數點)
+					
+					int auct_sold = 1; //售出
+					String buy_id = memID;
+					int maxPrice = dollars;
+					
+					GregorianCalendar time1 = new GregorianCalendar();
+					Timestamp ord_time = new Timestamp(time1.getTimeInMillis()); //產生訂單時間
+					String ordstat_id = "002"; //未付款
+					
+			auctVO = auctSvc.update_winner(auct_sold,auct_down, buy_id, maxPrice,ord_time, ordstat_id, auct_id);
+					
+				}
+					
+			} //如果redis有key --end
+			else {
+				auctVO = auctSvc.update_auct_down(auct_down, auct_id); //更改成 下架狀態
+			}
+			
+			/***************************3.修改完成,準備轉交(Send the Success view)***********/	
+			req.setAttribute("auctVO", auctVO); //修改完成, 剩下工作交給Ajax
+			
+//			String url = "/front-end/protected/auct/Auct_index.jsp";
+//			res.sendRedirect(req.getContextPath()+url); // 請求成功後, 重導回 拍賣首頁
+			
+		}
 		
 		
 		

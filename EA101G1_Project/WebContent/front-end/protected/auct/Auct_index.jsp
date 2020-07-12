@@ -122,7 +122,7 @@
                     <a href="">出價記錄</a>
                 </li>
                 <li class="auct-navbtn">
-                    <a href="">戰利品</a>
+                    <a href="<%=request.getContextPath()%>/front-end/protected/auct/buy_order.jsp">戰利品</a>
                 </li>
                 <li class="auct-navbtn">
                     <a href="<%=request.getContextPath()%>/front-end/protected/auct/listAllAuct.jsp">我的拍賣區</a>
