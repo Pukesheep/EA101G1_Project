@@ -3,6 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.immed.model.*"%>
+<%@ page import="com.productType.model.*"%>
+
 
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -11,8 +13,13 @@
 	// 	List<ImmedVO> list = immedSvc.findByImmedName(immed_name);
 	// 	pageContext.setAttribute("list", list);
 	// 	pageContext.setAttribute("immed_search", immed_name);
-	List<ImmedVO> list = (List<ImmedVO>) session.getAttribute("immedNameSearch_list");
+	List<ImmedVO> list = (List<ImmedVO>) session.getAttribute("immedTypeSearch_list");
+	String immedTypeSearchPt_id	= (String)session.getAttribute("immedTypeSearchPt_id");
 	pageContext.setAttribute("list", list);
+	
+	PtService ptSvc = new PtService();
+	PtVO ptVO = ptSvc.getOneProductType(immedTypeSearchPt_id);
+	pageContext.setAttribute("ptVO", ptVO);
 %>
 
 <html>
@@ -211,6 +218,11 @@ ul.navbar-Nav .nav-link {
 	/*     font-weight: bolder; */
 }
 
+aside .navbar-nav .nav-link:hover {
+	background-color: #A9A9A9;
+	cursor: pointer;
+}
+
 @media ( max-width : 1023px) {
 	.immed_nav .form-inline .form-control {
 		width: 250px;
@@ -300,7 +312,6 @@ ul.navbar-Nav .nav-link {
 				</a></li>
 
 			</ul>
-
 		</nav>
 	</div>
 
@@ -317,7 +328,8 @@ ul.navbar-Nav .nav-link {
 							href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
 						<li class="breadcrumb-item"><a
 							href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">直購商品</a></li>
-						<!-- 						<li class="breadcrumb-item active" aria-current="page">Data</li> -->
+											<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=<%=ptVO.getPt_id()%>"><%=ptVO.getTypename()%></a></li>
+
 					</ol>
 				</nav>
 
@@ -387,7 +399,7 @@ ul.navbar-Nav .nav-link {
 						</ul>
 					</aside>
 				</div>
-
+				
 				<div class="col-md-10">
 					<div class="row mb-4 pl-5">
 						<%@ include file="/files/immed/immedPage1.file"%>

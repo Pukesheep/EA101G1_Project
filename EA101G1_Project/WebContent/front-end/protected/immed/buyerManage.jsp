@@ -2,15 +2,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.immed.model.*"%>
+<%@ page import="com.member.model.*"%>
 <%@ page import="java.util.*"%>
 
-<%
+<%--
 	ImmedVO immedVO = (ImmedVO) request.getAttribute("immedVO");
+--%>
+
+<%
+	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 %>
 
 <%
-	List<ImmedVO> list = (List<ImmedVO>) session.getAttribute("allBuyerImmed_list");
+	ImmedService immedSvc = new ImmedService();
+	List<ImmedVO> list = immedSvc.getAllBuyerImmed(memberVO.getMem_id());
 	pageContext.setAttribute("list", list);
+
+		MemberService memberSvc = new MemberService();
+		pageContext.setAttribute("memberSvc", memberSvc);
+// 	MemberVO salerVO = new MemberVO();
+// 	pageContext.setAttribute("salerVO", salerVO);
 %>
 
 <html>
@@ -178,8 +189,12 @@ table, th, td {
 th, td {
 	padding: 1px;
 }
-
-
+td:nth-of-type(1) {
+	width: 150px;
+}
+td:nth-of-type(2) {
+	width: 170px;
+}
 td:nth-of-type(3) p {
 	width: 150px;
 }
@@ -234,27 +249,43 @@ div.content {
 			</form>
 
 			<ul class="navbar-nav">
-				<li class="nav-item d-flex"><a class="nav-link text-white"
+				<li class="nav-item "><a class="nav-link text-white"
 					href="<%=request.getContextPath()%>/front-end/protected/immed/addImmed.jsp">
 						<div>
 							<i class="fas fa-gavel  pl-2 pb-1"></i>
 						</div>
 						<div>賣東西</div>
 				</a></li>
-				<li class="nav-item d-flex pl-md-2"><a
-					class="nav-link text-white" href="#">
+				<li class="nav-item  pl-md-2"><a class="nav-link text-white"
+					href="<%=request.getContextPath()%>/front-end/protected/immed/buyerManage.jsp">
+						<div>
+							<i class="fas fa-shopping-basket pl-md-4 pl-2 pb-1"></i>
+						</div>
+						<div>已購買商品</div>
+				</a></li>
+				<li class="nav-item  pl-md-2 dropdown"><a
+					class="nav-link text-white " dropdown-toggle" href="" role="button"
+					id="dropdownMenuLink" data-toggle="dropdown">
 						<div>
 							<i class="fas fa-user pl-md-3 pl-2 pb-1"></i>
+							<div>賣家管理</div>
 						</div>
-						<div>我的拍賣</div>
-				</a></li>
-				<li class="nav-item d-flex pl-md-2"><a
-					class="nav-link text-white" href="#">
+				</a>
+
+					<div class="dropdown-menu">
+						<a class="dropdown-item"
+							href="<%=request.getContextPath()%>/front-end/protected/immed/salerManage.jsp">出貨管理</a>
+						<a class="dropdown-item"
+							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品修改</a>
+					</div></li>
+				<li class="nav-item pl-md-2"><a class="nav-link text-white"
+					href="">
 						<div>
 							<i class="fas fa-heart pl-md-3 pl-2 pb-1"></i>
 						</div>
 						<div>追蹤商品</div>
 				</a></li>
+
 			</ul>
 		</nav>
 	</div>
@@ -269,6 +300,8 @@ div.content {
 							href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
 						<li class="breadcrumb-item"><a
 							href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">直購商品</a></li>
+						<li class="breadcrumb-item"><a
+							href="<%=request.getContextPath()%>/front-end/protected/immed/buyerManage.jsp">購買商品管理</a></li>
 						<!-- 						<li class="breadcrumb-item active" aria-current="page">Data</li> -->
 					</ol>
 				</nav>
@@ -277,7 +310,7 @@ div.content {
 
 		<div class="row flex-column">
 			<div class="col-12">
-				<h3 class="pb-2">已購買的商品</h3>
+				<h3 class="pb-2">已購買商品</h3>
 
 				<%-- 錯誤表列 --%>
 				<c:if test="${not empty errorMsgs}">
@@ -292,8 +325,8 @@ div.content {
 				<div class="table-responsive">
 					<table id="table-2" class="table">
 						<tr>
-							<th>商品編號</th>
-							<th>賣家編號</th>
+							<!-- 							<th>商品編號</th> -->
+							<th>賣家名稱</th>
 							<!-- 							<th>買家編號</th> -->
 							<!-- 							<th>商品種類編號</th> -->
 							<th>商品名稱</th>
@@ -315,9 +348,16 @@ div.content {
 						<%@ include file="/files/immed/immedPage1.file"%>
 						<c:forEach var="immedVO" items="${list}" begin="<%=pageIndex%>"
 							end="<%=pageIndex+rowsPerPage-1%>">
+							<jsp:useBean id="immedVO" class="com.immed.model.ImmedVO" />
 							<tr>
-								<td>${immedVO.immed_id}</td>
-								<td>${immedVO.sale_id}</td>
+								<%-- 								<td>${immedVO.immed_id}</td> --%>
+								<td>
+									<%
+										String sale_id = immedVO.getSale_id();
+										MemberVO salerVO = memberSvc.getOneMember(sale_id);
+									%>
+									<%=salerVO.getMem_name()%>
+								</td>
 								<%-- 								<td>${immedVO.buy_id}</td> --%>
 								<%-- 								<td>${immedVO.pt_id}</td> --%>
 								<td><p class="immed_name">${immedVO.immed_name}</p></td>

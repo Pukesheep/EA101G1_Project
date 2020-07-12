@@ -3,6 +3,8 @@
 <%@ page import="com.productType.model.*"%>
 <%@ page import="com.member.model.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
@@ -16,12 +18,12 @@
 
 <%
 	MemberService memberSvc = new MemberService();
-	MemberVO memberVO = memberSvc.getOneMember(immedVO.getSale_id());
+	MemberVO saleVO = memberSvc.getOneMember(immedVO.getSale_id());
 %>
 
 <%
-	MemberVO memberVO2 = memberSvc.getOneMember(immedVO.getBuy_id());
-	pageContext.setAttribute("memberVO2", memberVO2);
+	MemberVO buyVO = memberSvc.getOneMember(immedVO.getBuy_id());
+	pageContext.setAttribute("buyVO", buyVO);
 %>
 <html>
 <head>
@@ -339,36 +341,43 @@ div.content {
 			<!-- 		</BUTTON> -->
 			<!-- 		<div class="collapse navbar-collapse" id="navbarTogglerDemo03"> -->
 			<ul class="navbar-nav">
-				<li class="nav-item d-flex"><a class="nav-link text-white"
+				<li class="nav-item "><a class="nav-link text-white"
 					href="<%=request.getContextPath()%>/front-end/protected/immed/addImmed.jsp">
 						<div>
 							<i class="fas fa-gavel  pl-2 pb-1"></i>
 						</div>
 						<div>賣東西</div>
 				</a></li>
-				<li class="nav-item d-flex pl-md-2"><a
-					class="nav-link text-white" href="#">
+				<li class="nav-item  pl-md-2"><a class="nav-link text-white"
+					href="<%=request.getContextPath()%>/front-end/protected/immed/buyerManage.jsp">
 						<div>
-							<i class="fas fa-user pl-md-3 pl-2 pb-1 "></i>
+							<i class="fas fa-shopping-basket pl-md-4 pl-2 pb-1"></i>
 						</div>
-						<div>我的拍賣</div>
+						<div>已購買商品</div>
 				</a></li>
-				<li class="nav-item d-flex pl-md-2"><a
-					class="nav-link text-white" href="#">
+				<li class="nav-item  pl-md-2 dropdown"><a
+					class="nav-link text-white " dropdown-toggle" href="" role="button"
+					id="dropdownMenuLink" data-toggle="dropdown">
+						<div>
+							<i class="fas fa-user pl-md-3 pl-2 pb-1"></i>
+							<div>賣家管理</div>
+						</div>
+				</a>
+
+					<div class="dropdown-menu">
+						<a class="dropdown-item"
+							href="<%=request.getContextPath()%>/front-end/protected/immed/salerManage.jsp">出貨管理</a>
+						<a class="dropdown-item"
+							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品修改</a>
+					</div></li>
+				<li class="nav-item pl-md-2"><a class="nav-link text-white"
+					href="">
 						<div>
 							<i class="fas fa-heart pl-md-3 pl-2 pb-1"></i>
 						</div>
 						<div>追蹤商品</div>
 				</a></li>
-				<!-- 				<li class="nav-item d-flex pl-md-2"><a -->
-				<!-- 					class="nav-link text-white" href="#"> -->
-				<!-- 						<div class="d-flex justify-content-center avator"> -->
-				<!-- 							<img -->
-				<%-- 								src="<%=request.getContextPath()%>/member/ShowMemberPic.do?mem_id=${memberVO.mem_id}" --%>
-				<!-- 								class="" alt="..." width="30px"> -->
-				<!-- 						</div> -->
-				<%-- 						<div>${memberVO.mem_name}您好</div> --%>
-				<!-- 				</a></li> -->
+
 			</ul>
 			<!-- 		</div> -->
 		</nav>
@@ -383,7 +392,7 @@ div.content {
 						href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
 					<li class="breadcrumb-item"><a
 						href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">直購商品</a></li>
-					<li class="breadcrumb-item"><a href="#"><%=ptVO.getTypename()%></a></li>
+					<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=<%=ptVO.getPt_id()%>"><%=ptVO.getTypename()%></a></li>
 				</ol>
 			</nav>
 		</div>
@@ -478,7 +487,7 @@ div.content {
 					
 								<c:if test="${immedVO.immed_sold ==1}">
 							
-								<p class="pl-3">買家: ${immedVO.immed_sold ==1 ?  memberVO2.mem_name : "" }</p>
+								<p class="pl-3">買家: ${immedVO.immed_sold ==1 ?  buyVO.mem_name : "" }</p>
 								</c:if>
 							</form>
 
@@ -502,7 +511,7 @@ div.content {
 								<h6>賣家資訊</h6>
 								<div style="border-bottom: 1px dashed #E6E9ED;">
 									賣家名稱:
-									<%=memberVO.getMem_name()%></div>
+									<%=saleVO.getMem_name()%></div>
 								<!-- 								<div>全部商品:</div> -->
 								<!-- 								<div>評價分數:</div> -->
 							</div>

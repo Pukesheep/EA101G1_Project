@@ -1,9 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.immed.model.*"%>
+<%@ page import="com.member.model.*"%>
+<%@ page import="java.util.*"%>
+
+<%--
+	ImmedVO immedVO = (ImmedVO) request.getAttribute("immedVO");
+--%>
 
 <%
-	ImmedVO immedVO = (ImmedVO) request.getAttribute("immedVO");
+	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+%>
+
+<%
+	ImmedService immedSvc = new ImmedService();
+	List<ImmedVO> list = immedSvc.getAllSalerImmed(memberVO.getMem_id());
+	pageContext.setAttribute("list", list);
 %>
 
 <html>
@@ -159,12 +172,22 @@ table {
 	margin-bottom: 1px;
 }
 
+table img {
+	width: 90px;
+	height: 120px;
+}
+
 table, th, td {
 	border: 0px solid #CCCCFF;
 }
 
 th, td {
 	padding: 1px;
+}
+
+
+td:nth-of-type(3) p {
+	width: 150px;
 }
 
 td.previewTd {
@@ -268,6 +291,8 @@ div.content {
 							href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
 						<li class="breadcrumb-item"><a
 							href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">直購商品</a></li>
+							<li class="breadcrumb-item"><a
+							href="<%=request.getContextPath()%>/front-end/protected/immed/salerManage.jsp">出貨管理</a></li>
 						<!-- 						<li class="breadcrumb-item active" aria-current="page">Data</li> -->
 					</ol>
 				</nav>
@@ -276,7 +301,7 @@ div.content {
 
 		<div class="row flex-column">
 			<div class="col-12">
-				<h3 class="pb-2">刊登直購商品:</h3>
+				<h3 class="pb-2">售出商品</h3>
 
 				<%-- 錯誤表列 --%>
 				<c:if test="${not empty errorMsgs}">
@@ -288,59 +313,78 @@ div.content {
 					</ul>
 				</c:if>
 
-				<form METHOD="post"
-					ACTION="<%=request.getContextPath()%>/immed/immed.do" name="form1"
-					enctype="multipart/form-data">
-					<table>
+				<div class="table-responsive">
+					<table id="table-2" class="table">
 						<tr>
-							<td><label>賣家編號: </label></td>
-							<td><input type="hidden" name="sale_id"
-								value="${memberVO.mem_id}" />${memberVO.mem_id}</td>
-							<%-- 					value="<%=(immedVO == null) ? "M000001" : immedVO.getSale_id()%>" /></td> --%>
+							<th>商品編號</th>
+							<th>賣家編號</th>
+							<!-- 							<th>買家編號</th> -->
+							<!-- 							<th>商品種類編號</th> -->
+							<th>商品名稱</th>
+							<!-- 							<th>商品上架時間</th> -->
+							<th>商品價格</th>
+							<th>商品圖片</th>
+							<!-- 							<th>商品描述</th> -->
+							<!-- 							<th>商品售出狀態</th> -->
+							<!-- 							<th>商品下架狀態</th> -->
+							<!-- 							<th>訂單時間</th> -->
+							<th>訂單狀態</th>
+							<th>收件人姓名</th>
+							<th>收件人電話</th>
+							<th>收件人地址</th>
+							<th>修改</th>
+							<!-- 							<th>刪除</th> -->
 						</tr>
 
-						<jsp:useBean id="ptSvc" scope="page"
-							class="com.productType.model.PtService" />
-						<tr>
-							<td><label for="fpt_id">商品種類: </label></td>
-							<td><select name="pt_id" id="fpt_id">
-									<c:forEach var="ptVO" items="${ptSvc.all}">
-										<option value="${ptVO.pt_id}">${ptVO.typename}</option>
-									</c:forEach>
-							</select></td>
-						</tr>
-
-						<tr>
-							<td><label for="fimmed_name">直購商品名稱: </label></td>
-							<td><input type="text" name="immed_name" id="fimmed_name"
-								value="${immedVO.immed_name}"></td>
-						</tr>
-
-						<tr>
-							<td><label for="fimmed_prc">商品直購價: </label></td>
-							<td><input type="text" name="immed_prc"
-								value="<%=(immedVO == null) ? "10000" : immedVO.getImmed_prc()%>" /></td>
-						</tr>
-
-						<tr>
-							<td>商品圖片:</td>
-							<td class="previewTd"><input type="file"
-								onchange="readURL(this)" name="immed_pic" targetID="preview_img"
-								accept="image/gif, image/jpeg, image/png"> <img
-								style="display: none;" id="preview_img">
-							<td>
-						</tr>
-
-						<tr>
-							<td><label for="fimmed_desc">商品描述: </label></td>
-							<td><textarea style="width: 350px; height: 250px;"
-									name="immed_desc" id="fimmed_desc"
-									value="<%=(immedVO == null) ? "10000" : immedVO.getImmed_desc()%>"> </textarea></td>
-						</tr>
+						<%@ include file="/files/immed/immedPage1.file"%>
+						<c:forEach var="immedVO" items="${list}" begin="<%=pageIndex%>"
+							end="<%=pageIndex+rowsPerPage-1%>">
+							<tr>
+								<td>${immedVO.immed_id}</td>
+								<td>${immedVO.sale_id}</td>
+								<%-- 								<td>${immedVO.buy_id}</td> --%>
+								<%-- 								<td>${immedVO.pt_id}</td> --%>
+								<td><p class="immed_name">${immedVO.immed_name}</p></td>
+								<%-- 								<td><fmt:formatDate value="${immedVO.immed_start}" --%>
+								<%-- 										pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
+								<td>$${immedVO.immed_prc}</td>
+								<td><img class="immed_pic"
+									src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"></td>
+								<%-- 								<td><p class="immed_desc">${immedVO.immed_desc}</p></td> --%>
+								<%-- 								<td>${(immedVO.immed_sold eq 1) ? '已售出' : '未售出'}</td> --%>
+								<%-- 								<td>${(immedVO.immed_down eq 1) ? "已下架" : "未下架"}</td> --%>
+								<%-- 								<td><fmt:formatDate value="${immedVO.ord_time}" --%>
+								<%-- 										pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
+								<td>${immedVO.ordstat_id}</td>
+								<td>${immedVO.rcpt_name}</td>
+								<td>${immedVO.rcpt_cell}</td>
+								<td><p class="rcpt_add">${immedVO.rcpt_add}</p></td>
+								<td>
+									<FORM METHOD="post"
+										ACTION="<%=request.getContextPath()%>/immed/immed.do"
+										style="margin-bottom: 0px;">
+										<input type="hidden" name="from" value="back-end"> <input
+											type="submit" value="修改"> <input type="hidden"
+											name="immed_id" value="${immedVO.immed_id}"> <input
+											type="hidden" name="action" value="getOne_For_Update">
+									</FORM>
+								</td>
+								<!-- 								<td> -->
+								<!-- 									<FORM METHOD="post" -->
+								<%-- 										ACTION="<%=request.getContextPath()%>/immed/immed.do" --%>
+								<!-- 										style="margin-bottom: 0px;"> -->
+								<!-- 										<input type="hidden" name="from" value="back-end"> <input -->
+								<!-- 											type="submit" value="刪除"> <input type="hidden" -->
+								<%-- 											name="immed_id" value="${immedVO.immed_id}"> <input --%>
+								<!-- 											type="hidden" name="action" value="delete"> -->
+								<!-- 									</FORM> -->
+								<!-- 								</td> -->
+							</tr>
+						</c:forEach>
 					</table>
-					<br> <input type="hidden" name="action" value="insert">
-					<input type="submit" value="送出新增">
-				</form>
+				</div>
+
+				<%@ include file="/files/page2.file"%>
 			</div>
 
 

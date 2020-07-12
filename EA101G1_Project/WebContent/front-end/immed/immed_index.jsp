@@ -278,15 +278,15 @@ aside .navbar-nav .nav-link:hover {
 						<div>賣東西</div>
 				</a></li>
 				<li class="nav-item  pl-md-2"><a class="nav-link text-white"
-					href="<%=request.getContextPath()%>/immed/immed.do?action=getAllBuyImmed">
+					href="<%=request.getContextPath()%>/front-end/protected/immed/buyerManage.jsp">
 						<div>
-							<i class="fas fa-user pl-md-3 pl-2 pb-1"></i>
+							<i class="fas fa-shopping-basket pl-md-4 pl-2 pb-1"></i>
 						</div>
-						<div>買家管理</div>
+						<div>已購買商品</div>
 				</a></li>
 				<li class="nav-item  pl-md-2 dropdown"><a
-					class="nav-link text-white " dropdown-toggle" href=""
-					role="button" id="dropdownMenuLink" data-toggle="dropdown">
+					class="nav-link text-white " dropdown-toggle" href="" role="button"
+					id="dropdownMenuLink" data-toggle="dropdown">
 						<div>
 							<i class="fas fa-user pl-md-3 pl-2 pb-1"></i>
 							<div>賣家管理</div>
@@ -294,11 +294,13 @@ aside .navbar-nav .nav-link:hover {
 				</a>
 
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">商品修改</a> <a
-							class="dropdown-item" href="#">出貨管理</a>
+						<a class="dropdown-item"
+							href="<%=request.getContextPath()%>/front-end/protected/immed/salerManage.jsp">出貨管理</a>
+						<a class="dropdown-item"
+							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品修改</a>
 					</div></li>
 				<li class="nav-item pl-md-2"><a class="nav-link text-white"
-					href="#">
+					href="">
 						<div>
 							<i class="fas fa-heart pl-md-3 pl-2 pb-1"></i>
 						</div>
@@ -350,43 +352,52 @@ aside .navbar-nav .nav-link:hover {
 			<div class="row pb-4">
 				<div class="col-md-2 left_side pt-2">
 					<aside class=" navbar-collapse" id="navbarNav">
-						<ul class="navbar-nav ">
+						<ul class="navbar-nav pl-2">
 							<li class="nav-item">
-								<div class="nav-link" data-toggle="collapse"
+								<div class="nav-link pl-4" data-toggle="collapse"
 									data-target="#sideNavColl01">Switch</div>
 								<ul class="collapse navbar-nav" id="sideNavColl01"
 									data-parent="#navbarNav">
-									<li class="nav-item"><a class="nav-link pl-4" href="#">Switch
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT002">Switch
 											遊戲</a></li>
-									<li class="nav-item"><a class="nav-link pl-4" href="#">Switch
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT001">Switch
 											主機</a></li>
-									<li class="nav-item"><a class="nav-link pl-4" href="#">Switch
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT003">Switch
 											周邊</a></li>
 								</ul>
 							</li>
 							<li class="nav-item">
-								<div class="nav-link" data-toggle="collapse"
+								<div class="nav-link pl-4" data-toggle="collapse"
 									data-target="#sideNavColl02">PS4</div>
 								<ul class="collapse navbar-nav" id="sideNavColl02"
 									data-parent="#navbarNav">
-									<li class="nav-item"><a class="nav-link pl-4" href="#">PS4
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT005">PS4
 											遊戲</a></li>
-									<li class="nav-item"><a class="nav-link pl-4" href="#">PS4
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT004">PS4
 											主機</a></li>
-									<li class="nav-item"><a class="nav-link pl-4" href="#">PS4
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT006">PS4
 											周邊</a></li>
 								</ul>
 							</li>
 							<li class="nav-item ">
-								<div class="nav-link" data-toggle="collapse"
+								<div class="nav-link pl-4" data-toggle="collapse"
 									data-target="#sideNavColl03">XBOX</div>
 								<ul class="collapse navbar-nav" id="sideNavColl03"
 									data-parent="#navbarNav">
-									<li class="nav-item"><a class="nav-link pl-4" href="#">XBOX
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT008">XBOX
 											遊戲</a></li>
-									<li class="nav-item"><a class="nav-link pl-4" href="#">XBOX
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT007">XBOX
 											主機</a></li>
-									<li class="nav-item"><a class="nav-link pl-4" href="#">XBOX
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT009">XBOX
 											周邊</a></li>
 								</ul>
 							</li>

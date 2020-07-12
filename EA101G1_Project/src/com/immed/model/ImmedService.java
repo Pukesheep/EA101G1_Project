@@ -98,7 +98,15 @@ public class ImmedService {
 		return dao.getAllBuyerImmed(buy_id);
 	}
 	
+	public List<ImmedVO> getAllSalerImmed(String sale_id){
+		return dao.getAllSalerImmed(sale_id);
+	}
+	
 	public List<ImmedVO> findByImmedName(String search_str){
 		return dao.findByImmedName(search_str);
+	}
+	
+	public List<ImmedVO> findByImmedType(String pt_id){
+		return dao.findByImmedType(pt_id);
 	}
 }

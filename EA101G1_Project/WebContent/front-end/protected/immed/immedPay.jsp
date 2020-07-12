@@ -66,6 +66,8 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css">
+<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/card/1.3.1/js/card.min.js"></script>
 
 <style>
 body {
@@ -370,27 +372,43 @@ table.immedInfo th:nth-child(2) {
 			</form>
 
 			<ul class="navbar-nav">
-				<li class="nav-item d-flex"><a class="nav-link text-white"
+				<li class="nav-item "><a class="nav-link text-white"
 					href="<%=request.getContextPath()%>/front-end/protected/immed/addImmed.jsp">
 						<div>
 							<i class="fas fa-gavel  pl-2 pb-1"></i>
 						</div>
 						<div>賣東西</div>
 				</a></li>
-				<li class="nav-item d-flex pl-md-2"><a
-					class="nav-link text-white" href="#">
+				<li class="nav-item  pl-md-2"><a class="nav-link text-white"
+					href="<%=request.getContextPath()%>/front-end/protected/immed/buyerManage.jsp">
+						<div>
+							<i class="fas fa-shopping-basket pl-md-4 pl-2 pb-1"></i>
+						</div>
+						<div>已購買商品</div>
+				</a></li>
+				<li class="nav-item  pl-md-2 dropdown"><a
+					class="nav-link text-white " dropdown-toggle" href="" role="button"
+					id="dropdownMenuLink" data-toggle="dropdown">
 						<div>
 							<i class="fas fa-user pl-md-3 pl-2 pb-1"></i>
+							<div>賣家管理</div>
 						</div>
-						<div>我的拍賣</div>
-				</a></li>
-				<li class="nav-item d-flex pl-md-2"><a
-					class="nav-link text-white" href="#">
+				</a>
+
+					<div class="dropdown-menu">
+						<a class="dropdown-item"
+							href="<%=request.getContextPath()%>/front-end/protected/immed/salerManage.jsp">出貨管理</a>
+						<a class="dropdown-item"
+							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品修改</a>
+					</div></li>
+				<li class="nav-item pl-md-2"><a class="nav-link text-white"
+					href="">
 						<div>
 							<i class="fas fa-heart pl-md-3 pl-2 pb-1"></i>
 						</div>
 						<div>追蹤商品</div>
 				</a></li>
+
 			</ul>
 
 		</nav>
@@ -422,7 +440,7 @@ table.immedInfo th:nth-child(2) {
 					</thead>
 					<tbody class="text-center">
 						<tr>
-							<th scope="row">商品標題</th>
+							<th scope="row">商品名稱</th>
 							<th scope="row">商品圖片</th>
 							<th scope="row">賣家</th>
 							<th scope="row">價格</th>
@@ -436,7 +454,7 @@ table.immedInfo th:nth-child(2) {
 							href="<%=request.getContextPath()%>/immed/immed.do?action=getOne_For_Display&immed_id=${immedVO.immed_id}">${immedVO.immed_name}</a></td>
 							<td><img
 								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
-								class="card-img-top" style="height:250px;"></td>
+								class="card-img-top" style="height:200px;"></td>
 							<td>${saleVO.mem_name}</td>
 							<td>${immedVO.immed_prc}</td>
 							<td>1</td>

@@ -27,41 +27,41 @@ public class ImmedServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
-		if ("getAllBuyImmed".equals(action)) { // 買家商品管理 action
-
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			try {
-				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				HttpSession session = req.getSession();
-				MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-				/*************************** 2.開始查詢資料 *****************************************/
-				ImmedService immedSvc = new ImmedService();
-				List<ImmedVO> list = immedSvc.getAllBuyerImmed(memberVO.getMem_id());
-				if (list == null) {
-					errorMsgs.add("查無資料");
-				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/protected/immed/immed_index.jsp");
-					failureView.forward(req, res);
-					return;// 程式中斷
-				}
-				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				session.setAttribute("allBuyerImmed_list", list); // 資料庫取出的immedVO物件,存入req
-				String url = "/front-end/protected/immed/buyerManage.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 findByImmedName.jsp
-				successView.forward(req, res);
-
-				/*************************** 其他可能的錯誤處理 *************************************/
-			} catch (Exception e) {
-				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/immed/immed_index.jsp");
-				failureView.forward(req, res);
-			}
+//		if ("getAllBuyImmed".equals(action)) { // 買家商品管理 action
+//
+//			List<String> errorMsgs = new LinkedList<String>();
+//			// Store this set in the request scope, in case we need to
+//			// send the ErrorPage view.
+//			req.setAttribute("errorMsgs", errorMsgs);
+//
+//			try {
+//				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+//				HttpSession session = req.getSession();
+//				MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+//				/*************************** 2.開始查詢資料 *****************************************/
+//				ImmedService immedSvc = new ImmedService();
+//				List<ImmedVO> list = immedSvc.getAllBuyerImmed(memberVO.getMem_id());
+//				if (list == null) {
+//					errorMsgs.add("查無資料");
+//				}
+//				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/protected/immed/immed_index.jsp");
+//					failureView.forward(req, res);
+//					return;// 程式中斷
+//				}
+//				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+//				session.setAttribute("allBuyerImmed_list", list); // 資料庫取出的immedVO物件,存入req
+//				String url = "/front-end/protected/immed/buyerManage.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 findByImmedName.jsp
+//				successView.forward(req, res);
+//
+//				/*************************** 其他可能的錯誤處理 *************************************/
+//			} catch (Exception e) {
+//				errorMsgs.add("無法取得資料:" + e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/immed/immed_index.jsp");
+//				failureView.forward(req, res);
+//			}
 
 //				List<ImmedVO> BuyerImmedList = new ArrayList<ImmedVO>();
 //				for (ImmedVO aImmed : list) {
@@ -90,14 +90,14 @@ public class ImmedServlet extends HttpServlet {
 //					return;// 程式中斷
 //				}
 
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+//			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 //				HttpSession session = req.getSession();
 //				session.setAttribute("immed_list", list); // 資料庫取出的immedVO物件,存入req
 //				String url = "/front-end/immed/findByImmedName.jsp";
 //				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 findByImmedName.jsp
 //				successView.forward(req, res);
 
-		}
+//		}
 
 		if ("find_By_Immed_Name".equals(action)) { // 搜尋商品action
 
@@ -161,6 +161,69 @@ public class ImmedServlet extends HttpServlet {
 			}
 		}
 
+		if ("find_By_Immed_Type".equals(action)) { // 商品分類搜尋 link action
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				String str = req.getParameter("immed_type_search");
+//				System.out.println(str);
+//				if (str == null || (str.trim()).length() == 0) {
+//					errorMsgs.add("請輸入直購商品關鍵字");
+//				}
+//				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req.getRequestDispatcher("select_page.jsp");
+//					failureView.forward(req, res);
+//					return;// 程式中斷
+//				}
+
+//				String immed_name = null;
+//				try {
+//					immed_name = new String(str);
+//				} catch (Exception e) {
+//					errorMsgs.add("直購商品編號格式不正確");
+//				}
+				// Send the use back to the form, if there were errors
+//				if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req.getRequestDispatcher("select_page.jsp");
+//					failureView.forward(req, res);
+//					return;// 程式中斷
+//				}
+
+				/*************************** 2.開始查詢資料 *****************************************/
+				ImmedService immedSvc = new ImmedService();
+				List<ImmedVO> list = immedSvc.findByImmedType(str);
+				if (list == null) {
+					errorMsgs.add("查無資料");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/immed/immed_index.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				HttpSession session = req.getSession();
+				session.setAttribute("immedTypeSearch_list", list); // 資料庫取出的immedVO物件,存入req
+				session.setAttribute("immedTypeSearchPt_id", str);
+				String url = "/front-end/immed/findByImmedType.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 findByImmedName.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/immed/immed_index.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
 		if ("getOne_For_Display".equals(action)) { // 商品圖片 文字 a action
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -301,12 +364,13 @@ public class ImmedServlet extends HttpServlet {
 					errorMsgs.add("收件人電話只能是數字");
 				}
 
-				String rcptAddReg = "^[(\u4e00-\u9fa5)(0-9-)]{3,50}$";
+//				String rcptAddReg = "^[(\u4e00-\u9fa5)(0-9-)]{3,50}$";
 				if (rcpt_add == null || rcpt_add.trim().length() == 0) {
 					errorMsgs.add("收件人地址請勿空白");
-				} else if (!rcpt_add.trim().matches(rcptAddReg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("收件人地址只能是中文、數字和- ");
-				}
+				} 
+//				else if (!rcpt_add.trim().matches(rcptAddReg)) { // 以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("收件人地址只能是中文、數字和- ");
+//				}
 
 				String cardNoReg = "^[((0-9)]{16}$";
 				if (card_no == null || card_no.trim().length() == 0) {
