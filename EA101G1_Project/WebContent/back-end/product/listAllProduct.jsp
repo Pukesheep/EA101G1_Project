@@ -14,6 +14,7 @@
 
 <html>
 <head>
+<%@ include file="../css/BackHeaderCssLink" %>
 <title>所有商品資料 - listAllPro.jsp</title>
 
 <style>
@@ -54,14 +55,24 @@
 
 </head>
 <body bgcolor='white'>
+<!-- header -->
+	
+	<%@ include file="../css/header.jsp" %>
+<!-- header -->
 
-<h4>此頁練習採用 EL 的寫法取值:</h4>
-<table id="table-1">
-	<tr><td>
-		 <h3>所有商品資料 - listAllProduct.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+    <div class="content d-md-flex">
+
+<!-- aside -->
+	<%@ include file="../css/aside.jsp" %>
+<!-- aside -->
+<div class="col">
+<!-- <h4>此頁練習採用 EL 的寫法取值:</h4> -->
+<!-- <table id="table-1"> -->
+<!-- 	<tr><td> -->
+<!-- 		 <h3>所有商品資料 - listAllProduct.jsp</h3> -->
+<!-- 		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4> -->
+<!-- 	</td></tr> -->
+<!-- </table> -->
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
