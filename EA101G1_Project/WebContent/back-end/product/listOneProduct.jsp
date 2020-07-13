@@ -65,10 +65,51 @@ td>img {
 <body style="background-color:#17a2b8">
 	<!-- header -->
 
+<<<<<<< HEAD
 	<%@ include file="/back-end/css/header.jsp"%>
 	<!-- header -->
+=======
+<h4>此頁暫練習採用 Script 的寫法取值:</h4>
+<table id="table-1">
+	<tr><td>
+		 <h3>商品資料 - ListOneProduct.jsp</h3>
+		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+	</td></tr>
+</table>
+>>>>>>> branch 'master' of https://github.com/Pukesheep/EA101G1_Project.git
 
+<<<<<<< HEAD
 	<div class="content d-md-flex">
+=======
+<table>
+	<tr>
+		<th>商品編號</th>
+		<th>分類</th>
+		<th>商品名稱</th>
+		<th>商品價格</th>
+		<th>商品圖片</th>
+		<th>商品描述</th>
+		<th>銷售量</th>
+		<th>庫存量</th>
+		<th>上架日期</th>
+		<th>商品狀態</th>
+	</tr>
+	<tr>
+		<td><%=proVO.getP_id()%></td>
+		<td><%=ptVO.getTypename()%></td>
+		<td><%=proVO.getP_name()%></td>
+		<td><%=proVO.getP_price()%></td>
+		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/proPic.do">
+			<td><img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${proVO.p_id}"></td>
+			</FORM>
+		<td><%=proVO.getP_info()%></td>
+		<td><%=proVO.getP_sales()%></td>
+		<td><%=proVO.getP_stock()%></td>
+		<td><%=proVO.getP_add_date()%></td>
+		<td>${(proVO.p_stat==0)? "下架中":"上架中"}</td>
+	</tr>
+</table>
+>>>>>>> branch 'master' of https://github.com/Pukesheep/EA101G1_Project.git
 
 		<!-- aside -->
 		<%@ include file="/back-end/css/aside.jsp"%>

@@ -57,11 +57,28 @@ div #preview {
 <body bgcolor='white'>
 <!-- header -->
 
+<<<<<<< HEAD
 	<%@ include file="/back-end/css/header.jsp"%>
 	<!-- header -->
+=======
+	<table id="table-1">
+		<tr>
+			<td>
+				<h3>商品資料新增</h3>
+			</td>
+			<td>
+				<h4>
+					<a href="select_page.jsp"><img src="images/tomcat.png"
+						width="100" height="100" border="0">回首頁</a>
+				</h4>
+			</td>
+		</tr>
+	</table>
+>>>>>>> branch 'master' of https://github.com/Pukesheep/EA101G1_Project.git
 
 	<div class="content d-md-flex">
 
+<<<<<<< HEAD
 		<!-- aside -->
 		<%@ include file="/back-end/css/aside.jsp"%>
 		<!-- aside -->
@@ -80,7 +97,19 @@ div #preview {
 <!-- 				</td> -->
 <!-- 			</tr> -->
 <!-- 		</table> -->
+=======
+	<%-- 錯誤表列 --%>
+<%-- 	<c:if test="${not empty errorMsgs}"> --%>
+<!-- 		<font style="color: red">請修正以下錯誤:</font> -->
+<!-- 		<ul> -->
+<%-- 			<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 				<li style="color: red">${message}</li> --%>
+<%-- 			</c:forEach> --%>
+<!-- 		</ul> -->
+<%-- 	</c:if> --%>
+>>>>>>> branch 'master' of https://github.com/Pukesheep/EA101G1_Project.git
 
+<<<<<<< HEAD
 		<h3>資料新增:</h3>
 
 		<%-- 錯誤表列 --%>
@@ -116,8 +145,29 @@ div #preview {
 						<input type="file" name="p_image" id="myFile"
 						<c:if test="${not empty proVO.getP_image()}">value="<%=proVO.getP_image()%>"</c:if>
 						accept="image/gif, image/jpeg, image/png" /><br>
+=======
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/pro.do" enctype="multipart/form-data">
+		<table>
+			<tr>
+				<td>商品名稱:</td>
+				<td><input type="TEXT" name="p_name" size="45" <c:if test="${not empty proVO.getP_name()}">value="<%=proVO.getP_name()%>"</c:if>
+					placeholder="請輸入商品名稱" /><front style="color:red">${errorMsgs.p_name}</front></td>
+			</tr>
+			<tr>
+				<td>商品價格:</td>
+				<td><input type="TEXT" name="p_price" size="45" <c:if test="${not empty proVO.getP_price()}">value="<%=proVO.getP_price()%>"</c:if>
+					placeholder="請輸入商品價格" /><front style="color:red">${errorMsgs.p_price}</front></td>
+			</tr>
+			<tr>
+				<td>商品圖片:</td>
+				<td>
+					<img alt="" src="<%=request.getContextPath()%>/product/proPic.do?p_image=${proVO.p_image}">
+					<input type="file" name="p_image" id="myFile" <c:if test="${not empty proVO.getP_image()}">value="<%=proVO.getP_image()%>"</c:if>
+					accept="image/gif, image/jpeg, image/png"/><br>
+>>>>>>> branch 'master' of https://github.com/Pukesheep/EA101G1_Project.git
 						<div class="row">
 							<div id="preview"></div>
+<<<<<<< HEAD
 						</div></td>
 				</tr>
 				<tr>
@@ -138,6 +188,29 @@ div #preview {
 							<option value=1 selected>上架
 					</select></td>
 				</tr>
+=======
+						</div>
+						<front style="color:red">${errorMsgs.p_image}</front>
+				</td>
+			</tr>
+			<tr>
+				<td>商品描述:</td>
+				<td><pre><textarea name="p_info" rows="6" cols="40">
+				<c:if test="${not empty proVO.getP_info()}"><%=proVO.getP_info()%></c:if></textarea></pre><front style="color:red">${errorMsgs.p_info}</front></td>
+			</tr>
+			<tr>
+				<td>庫存量:</td>
+				<td><input type="TEXT" name="p_stock" size="45" <c:if test="${not empty proVO.getP_stock()}">value="<%=proVO.getP_stock()%>"</c:if>
+					placeholder="請輸入商品庫存量" /><front style="color:red">${errorMsgs.p_stock}</front></td>
+			</tr>
+			<tr>
+				<td>商品狀態:</td>
+				<td><select size="1" name="p_stat">
+						<option value=0>下架
+						<option value=1 selected>上架
+				</select></td>
+			</tr>
+>>>>>>> branch 'master' of https://github.com/Pukesheep/EA101G1_Project.git
 
 				<jsp:useBean id="ptSvc" scope="page"
 					class="com.productType.model.PtService" />
