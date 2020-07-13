@@ -14,7 +14,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <%@ include file="../css/BackHeaderCssLink" %>   
+    <%@ include file="/back-end/css/BackHeaderCssLink" %>   
     
     
 
@@ -58,13 +58,13 @@
 <body>
 <!-- header -->
 	
-	<%@ include file="../css/header.jsp" %>
+	<%@ include file="/back-end/css/header.jsp" %>
 <!-- header -->
 
     <div class="content d-md-flex">
 
 <!-- aside -->
-	<%@ include file="../css/aside.jsp" %>
+	<%@ include file="/back-end/css/aside.jsp" %>
 <!-- aside -->
 
  <main>

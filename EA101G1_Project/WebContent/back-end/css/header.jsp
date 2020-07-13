@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-
+<div>
     <header class="navbar navbar-expand-md navbar-dark fixed-top">
         <a class="navbar-brand" href="#">
             <span class="logo"><i class="fas fa-bomb"></i></span>
@@ -18,3 +18,4 @@
             <span class="navbar-toggler-icon"></span>
         </button>
     </header>
+</div>
