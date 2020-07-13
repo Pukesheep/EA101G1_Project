@@ -20,12 +20,17 @@ public class ImmedJDBCDAO implements ImmedDAO_interface {
 	private static final String UPDATE_UP = "UPDATE IMMED SET IMMED_DOWN= 0 WHERE IMMED_ID = ?";
 	private static final String UPDATE_DOWN = "UPDATE IMMED SET IMMED_DOWN= 1 WHERE IMMED_ID = ?";
 	private static final String UPDATE_ONE_BUY = "UPDATE IMMED SET BUY_ID= ?, IMMED_SOLD= 1, IMMED_down= 1, ORD_TIME= SYSTIMESTAMP, ORDSTAT_ID= '003', RCPT_NAME= ?, RCPT_CELL= ?, RCPT_ADD= ? WHERE IMMED_ID = ?";
+	private static final String UPDATE_SHIPPING = "UPDATE IMMED SET ORDSTAT_ID='005' WHERE IMMED_ID = ?";
 	
 	private static final String GET_ALL_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED ORDER BY IMMED_ID";
 	private static final String GET_ALLONSALE_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_SOLD = 0 AND IMMED_DOWN = 0 ORDER BY IMMED_ID DESC";
+	
 	private static final String GET_ALLBUYERIMMED_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE BUY_ID = ? ORDER BY IMMED_ID";
 	private static final String GET_ALLSALERIMMED_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE SALE_ID = ? ORDER BY IMMED_ID";
+	private static final String GET_ALLSALED_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_SOLD = 1 AND IMMED_DOWN = 1 AND SALE_ID = ? ORDER BY IMMED_ID DESC";
+	private static final String GET_ALLSALEING_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_SOLD = 0 AND IMMED_DOWN = 0 SALE_ID = ? ORDER BY IMMED_ID DESC";
 
+	
 	private static final String GET_ONE_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_ID = ?";
 	
 	private static final String GET_FROM_NAME = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_SOLD = 0 AND IMMED_DOWN = 0 AND UPPER(IMMED_NAME) LIKE UPPER(?) ORDER BY IMMED_PRC";
@@ -206,6 +211,44 @@ public class ImmedJDBCDAO implements ImmedDAO_interface {
 		}
 	}
 	
+	@Override
+	public void update_shipping(ImmedVO immedVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_SHIPPING);
+
+			pstmt.setString(1, immedVO.getImmed_id());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 	@Override
 	public void update_one_buy(ImmedVO immedVO) {
 		Connection con = null;
@@ -508,6 +551,154 @@ public class ImmedJDBCDAO implements ImmedDAO_interface {
 	}
 	
 	@Override
+	public List<ImmedVO> getAllSaled(String sale_id) {
+		List<ImmedVO> list = new ArrayList<ImmedVO>();
+		ImmedVO immedVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			
+			pstmt = con.prepareStatement(GET_ALLSALED_STMT);
+			pstmt.setString(1, sale_id);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				immedVO = new ImmedVO();
+
+				immedVO.setImmed_id(rs.getString("immed_id"));
+				immedVO.setSale_id(rs.getString("sale_id"));
+				immedVO.setBuy_id(rs.getString("buy_id"));
+				immedVO.setPt_id(rs.getString("pt_id"));
+				immedVO.setImmed_name(rs.getString("immed_name"));
+				immedVO.setImmed_start(rs.getTimestamp("immed_start"));
+				immedVO.setImmed_prc(rs.getInt("immed_prc"));
+				immedVO.setImmed_pic(rs.getBytes("immed_pic"));
+				immedVO.setImmed_desc(rs.getString("immed_desc"));
+				immedVO.setImmed_sold(rs.getInt("immed_sold"));
+				immedVO.setImmed_down(rs.getInt("immed_down"));
+				immedVO.setOrd_time(rs.getTimestamp("ord_time"));
+				immedVO.setOrdstat_id(rs.getString("ordstat_id"));
+				immedVO.setRcpt_name(rs.getString("rcpt_name"));
+				immedVO.setRcpt_cell(rs.getString("rcpt_cell"));
+				immedVO.setRcpt_add(rs.getString("rcpt_add"));
+
+				list.add(immedVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) { //SQLException se
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<ImmedVO> getAllSaleIng(String sale_id) {
+		List<ImmedVO> list = new ArrayList<ImmedVO>();
+		ImmedVO immedVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			
+			pstmt = con.prepareStatement(GET_ALLSALEING_STMT);
+			pstmt.setString(1, sale_id);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				immedVO = new ImmedVO();
+
+				immedVO.setImmed_id(rs.getString("immed_id"));
+				immedVO.setSale_id(rs.getString("sale_id"));
+				immedVO.setBuy_id(rs.getString("buy_id"));
+				immedVO.setPt_id(rs.getString("pt_id"));
+				immedVO.setImmed_name(rs.getString("immed_name"));
+				immedVO.setImmed_start(rs.getTimestamp("immed_start"));
+				immedVO.setImmed_prc(rs.getInt("immed_prc"));
+				immedVO.setImmed_pic(rs.getBytes("immed_pic"));
+				immedVO.setImmed_desc(rs.getString("immed_desc"));
+				immedVO.setImmed_sold(rs.getInt("immed_sold"));
+				immedVO.setImmed_down(rs.getInt("immed_down"));
+				immedVO.setOrd_time(rs.getTimestamp("ord_time"));
+				immedVO.setOrdstat_id(rs.getString("ordstat_id"));
+				immedVO.setRcpt_name(rs.getString("rcpt_name"));
+				immedVO.setRcpt_cell(rs.getString("rcpt_cell"));
+				immedVO.setRcpt_add(rs.getString("rcpt_add"));
+
+				list.add(immedVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) { //SQLException se
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
 	public List<ImmedVO> findByImmedName(String search_str) {
 		List<ImmedVO> list = new ArrayList<ImmedVO>();
 		ImmedVO immedVO = null;
@@ -748,6 +939,13 @@ public class ImmedJDBCDAO implements ImmedDAO_interface {
 //
 //		dao.update_down(immedVO2);
 		
+		/** ===================== UPDATE_SHIPPING 修改一筆 IMMED 已出貨 =============================== **/
+		ImmedVO immedVO2 = new ImmedVO();
+
+		immedVO2.setImmed_id("IMMED000032");
+
+		dao.update_shipping(immedVO2);
+		
 		/** ===================== UPDATE_BUY 立即購買修改 IMMED =============================== **/
 //		ImmedVO immedVO2 = new ImmedVO();
 //
@@ -961,15 +1159,15 @@ public class ImmedJDBCDAO implements ImmedDAO_interface {
 //		}
 		
 		// ===================== getAllSalerImmed 搜尋全部Sale_IMMED ===============================
-		List<ImmedVO> list_buyImmed = dao.getAllSalerImmed("M000012");
-		for (ImmedVO aImmed : list_buyImmed) {
-			System.out.print(aImmed.getImmed_id() + ", ");
-			System.out.print(aImmed.getSale_id() + ", ");
-			System.out.print(aImmed.getBuy_id() + ", ");
-			System.out.print(aImmed.getPt_id() + ", ");
-			System.out.print(aImmed.getImmed_name() + ", ");
-			System.out.print(tsFormat.format(aImmed.getImmed_start()) + ", ");
-			System.out.print(aImmed.getImmed_prc() + ", ");
+//		List<ImmedVO> list_buyImmed = dao.getAllSalerImmed("M000012");
+//		for (ImmedVO aImmed : list_buyImmed) {
+//			System.out.print(aImmed.getImmed_id() + ", ");
+//			System.out.print(aImmed.getSale_id() + ", ");
+//			System.out.print(aImmed.getBuy_id() + ", ");
+//			System.out.print(aImmed.getPt_id() + ", ");
+//			System.out.print(aImmed.getImmed_name() + ", ");
+//			System.out.print(tsFormat.format(aImmed.getImmed_start()) + ", ");
+//			System.out.print(aImmed.getImmed_prc() + ", ");
 
 //			byte[] picAll = aImmed.getImmed_pic(); // IMMED圖片從DB DOWNLOAD 到Auc資料夾
 //			try {
@@ -978,23 +1176,95 @@ public class ImmedJDBCDAO implements ImmedDAO_interface {
 //			} catch (IOException e) {
 //				e.printStackTrace();
 //			}
-			System.out.print(aImmed.getImmed_pic() + ", ");
+//			System.out.print(aImmed.getImmed_pic() + ", ");
+//
+//			System.out.print(aImmed.getImmed_desc() + ", ");
+//			System.out.print(aImmed.getImmed_sold() + ", ");
+//			System.out.print(aImmed.getImmed_down() + ", ");
+//
+//			if (aImmed.getOrd_time() != null)
+//				System.out.print(tsFormat.format(aImmed.getOrd_time()) + ", ");
+//			else
+//				System.out.print("null, ");
+//
+//			System.out.print(aImmed.getOrdstat_id() + ", ");
+//			System.out.print(aImmed.getRcpt_name() + ", ");
+//			System.out.print(aImmed.getRcpt_cell() + ", ");
+//			System.out.print(aImmed.getRcpt_add());
+//			System.out.println();
+//		}
+		
+		// ===================== getAllSaled 搜尋全部Sale_IMMED ===============================
+//		List<ImmedVO> list_buyImmed = dao.getAllSaled("M000012");
+//		for (ImmedVO aImmed : list_buyImmed) {
+//			System.out.print(aImmed.getImmed_id() + ", ");
+//			System.out.print(aImmed.getSale_id() + ", ");
+//			System.out.print(aImmed.getBuy_id() + ", ");
+//			System.out.print(aImmed.getPt_id() + ", ");
+//			System.out.print(aImmed.getImmed_name() + ", ");
+//			System.out.print(tsFormat.format(aImmed.getImmed_start()) + ", ");
+//			System.out.print(aImmed.getImmed_prc() + ", ");
 
-			System.out.print(aImmed.getImmed_desc() + ", ");
-			System.out.print(aImmed.getImmed_sold() + ", ");
-			System.out.print(aImmed.getImmed_down() + ", ");
+//			byte[] picAll = aImmed.getImmed_pic(); // IMMED圖片從DB DOWNLOAD 到Auc資料夾
+//			try {
+//				if (picAll != null)
+//					readPicture(picAll, aImmed.getImmed_id());
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//			System.out.print(aImmed.getImmed_pic() + ", ");
+//
+//			System.out.print(aImmed.getImmed_desc() + ", ");
+//			System.out.print(aImmed.getImmed_sold() + ", ");
+//			System.out.print(aImmed.getImmed_down() + ", ");
 
-			if (aImmed.getOrd_time() != null)
-				System.out.print(tsFormat.format(aImmed.getOrd_time()) + ", ");
-			else
-				System.out.print("null, ");
+//			if (aImmed.getOrd_time() != null)
+//				System.out.print(tsFormat.format(aImmed.getOrd_time()) + ", ");
+//			else
+//				System.out.print("null, ");
+//
+//			System.out.print(aImmed.getOrdstat_id() + ", ");
+//			System.out.print(aImmed.getRcpt_name() + ", ");
+//			System.out.print(aImmed.getRcpt_cell() + ", ");
+//			System.out.print(aImmed.getRcpt_add());
+//			System.out.println();
+//		}
+		
+		// ===================== getAllSaleIng 搜尋全部Sale_IMMED ===============================
+//				List<ImmedVO> list_buyImmed = dao.getAllSaleIng("M000012");
+//				for (ImmedVO aImmed : list_buyImmed) {
+//					System.out.print(aImmed.getImmed_id() + ", ");
+//					System.out.print(aImmed.getSale_id() + ", ");
+//					System.out.print(aImmed.getBuy_id() + ", ");
+//					System.out.print(aImmed.getPt_id() + ", ");
+//					System.out.print(aImmed.getImmed_name() + ", ");
+//					System.out.print(tsFormat.format(aImmed.getImmed_start()) + ", ");
+//					System.out.print(aImmed.getImmed_prc() + ", ");
 
-			System.out.print(aImmed.getOrdstat_id() + ", ");
-			System.out.print(aImmed.getRcpt_name() + ", ");
-			System.out.print(aImmed.getRcpt_cell() + ", ");
-			System.out.print(aImmed.getRcpt_add());
-			System.out.println();
-		}
+//					byte[] picAll = aImmed.getImmed_pic(); // IMMED圖片從DB DOWNLOAD 到Auc資料夾
+//					try {
+//						if (picAll != null)
+//							readPicture(picAll, aImmed.getImmed_id());
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
+//					System.out.print(aImmed.getImmed_pic() + ", ");
+		//
+//					System.out.print(aImmed.getImmed_desc() + ", ");
+//					System.out.print(aImmed.getImmed_sold() + ", ");
+//					System.out.print(aImmed.getImmed_down() + ", ");
+
+//					if (aImmed.getOrd_time() != null)
+//						System.out.print(tsFormat.format(aImmed.getOrd_time()) + ", ");
+//					else
+//						System.out.print("null, ");
+//
+//					System.out.print(aImmed.getOrdstat_id() + ", ");
+//					System.out.print(aImmed.getRcpt_name() + ", ");
+//					System.out.print(aImmed.getRcpt_cell() + ", ");
+//					System.out.print(aImmed.getRcpt_add());
+//					System.out.println();
+//				}
 	}
 
 	@Override

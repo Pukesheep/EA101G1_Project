@@ -8,12 +8,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 public class PolDAO implements com.productOrderList.model.PolDAO_interface{
 	
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "EA101G1";
-	String passwd = "123456";
+private static javax.sql.DataSource ds = null;
+	
+	static {
+		try {
+			javax.naming.Context ctx = new javax.naming.InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT="INSERT INTO PRODUCT_ORDER_LIST(PO_ID,P_ID,ORDER_QUA,P_PRICE) VALUES(?,?,?,?)";
 	private static final String DELETE="DELETE FROM PRODUCT_ORDER_LIST WHERE PO_ID=? AND P_ID=?";
@@ -25,8 +34,7 @@ public class PolDAO implements com.productOrderList.model.PolDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url,userid,passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT);
 			
 			pstmt.setString(1,polVO.getPo_id());
@@ -36,9 +44,6 @@ public class PolDAO implements com.productOrderList.model.PolDAO_interface{
 			
 			pstmt.executeUpdate();
 			
-		}catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -109,17 +114,13 @@ public class PolDAO implements com.productOrderList.model.PolDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url,userid,passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			
 			pstmt.setString(1,po_id);
 			pstmt.setString(2,p_id);
 			
 			pstmt.executeUpdate();
-		}catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -150,8 +151,7 @@ public class PolDAO implements com.productOrderList.model.PolDAO_interface{
 		 ResultSet rs = null;
 		 
 		 try {
-			 Class.forName(driver);
-			 con = DriverManager.getConnection(url,userid,passwd);
+			 con = ds.getConnection();
 			 pstmt = con.prepareStatement(GET_ONE_STMT);
 			 
 			 pstmt.setString(1,po_id);
@@ -170,10 +170,7 @@ public class PolDAO implements com.productOrderList.model.PolDAO_interface{
 			 }
 			 
 			 
-		 }catch (ClassNotFoundException e) {
-				throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-				// Handle any SQL errors
-			} catch (SQLException se) {
+		 } catch (SQLException se) {
 				throw new RuntimeException("A database error occured. " + se.getMessage());
 				// Clean up JDBC resources
 			} finally {
@@ -210,8 +207,7 @@ public class PolDAO implements com.productOrderList.model.PolDAO_interface{
 		 ResultSet rs = null;
 		 
 		 try {
-			 Class.forName(driver);
-			 con = DriverManager.getConnection(url,userid,passwd);
+			 con = ds.getConnection();
 			 pstmt = con.prepareStatement(GET_ALL_STMT);
 			 rs = pstmt.executeQuery();
 			 
@@ -226,10 +222,7 @@ public class PolDAO implements com.productOrderList.model.PolDAO_interface{
 				 list.add(polVO);
 			 }
 			 
-		 }catch (ClassNotFoundException e) {
-				throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-				// Handle any SQL errors
-			} catch (SQLException se) {
+		 } catch (SQLException se) {
 				throw new RuntimeException("A database error occured. " + se.getMessage());
 				// Clean up JDBC resources
 			} finally {

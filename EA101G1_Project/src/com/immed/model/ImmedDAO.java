@@ -36,7 +36,11 @@ public class ImmedDAO implements ImmedDAO_interface {
 	
 	private static final String GET_ALLBUYERIMMED_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE BUY_ID = ? ORDER BY IMMED_ID";
 	private static final String GET_ALLSALERIMMED_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE SALE_ID = ? ORDER BY IMMED_ID";
+	private static final String GET_ALLSALED_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_SOLD = 1 AND IMMED_DOWN = 1 AND SALE_ID = ? ORDER BY IMMED_ID DESC";
+	private static final String GET_ALLSALEING_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_SOLD = 0 AND IMMED_DOWN = 0 AND SALE_ID = ? ORDER BY IMMED_ID DESC";
 
+	
+	
 	private static final String GET_ONE_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_ID = ?";
 	
 	private static final String GET_FROM_NAME = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_SOLD = 0 AND IMMED_DOWN = 0 AND UPPER(IMMED_NAME) LIKE UPPER(?) ORDER BY IMMED_PRC";
@@ -789,6 +793,158 @@ public class ImmedDAO implements ImmedDAO_interface {
 			}
 		}
 		return list;
+	}
+	
+	@Override
+	public List<ImmedVO> getAllSaled(String buy_id) {
+		List<ImmedVO> list = new ArrayList<ImmedVO>();
+		ImmedVO immedVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+//			System.out.println(search_str);
+			pstmt = con.prepareStatement(GET_ALLSALED_STMT);
+			pstmt.setString(1, buy_id);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				immedVO = new ImmedVO();
+
+				immedVO.setImmed_id(rs.getString("immed_id"));
+				immedVO.setSale_id(rs.getString("sale_id"));
+				immedVO.setBuy_id(rs.getString("buy_id"));
+				immedVO.setPt_id(rs.getString("pt_id"));
+				immedVO.setImmed_name(rs.getString("immed_name"));
+				immedVO.setImmed_start(rs.getTimestamp("immed_start"));
+				immedVO.setImmed_prc(rs.getInt("immed_prc"));
+				immedVO.setImmed_pic(rs.getBytes("immed_pic"));
+				immedVO.setImmed_desc(rs.getString("immed_desc"));
+				immedVO.setImmed_sold(rs.getInt("immed_sold"));
+				immedVO.setImmed_down(rs.getInt("immed_down"));
+				immedVO.setOrd_time(rs.getTimestamp("ord_time"));
+				immedVO.setOrdstat_id(rs.getString("ordstat_id"));
+				immedVO.setRcpt_name(rs.getString("rcpt_name"));
+				immedVO.setRcpt_cell(rs.getString("rcpt_cell"));
+				immedVO.setRcpt_add(rs.getString("rcpt_add"));
+
+				list.add(immedVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("Couldn't load database driver. " + se.getMessage());
+			// Handle any SQL errors
+		} catch (Exception se) { // SQLException se
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<ImmedVO> getAllSaleIng(String buy_id) {
+		List<ImmedVO> list = new ArrayList<ImmedVO>();
+		ImmedVO immedVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+//			System.out.println(search_str);
+			pstmt = con.prepareStatement(GET_ALLSALEING_STMT);
+			pstmt.setString(1, buy_id);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				immedVO = new ImmedVO();
+
+				immedVO.setImmed_id(rs.getString("immed_id"));
+				immedVO.setSale_id(rs.getString("sale_id"));
+				immedVO.setBuy_id(rs.getString("buy_id"));
+				immedVO.setPt_id(rs.getString("pt_id"));
+				immedVO.setImmed_name(rs.getString("immed_name"));
+				immedVO.setImmed_start(rs.getTimestamp("immed_start"));
+				immedVO.setImmed_prc(rs.getInt("immed_prc"));
+				immedVO.setImmed_pic(rs.getBytes("immed_pic"));
+				immedVO.setImmed_desc(rs.getString("immed_desc"));
+				immedVO.setImmed_sold(rs.getInt("immed_sold"));
+				immedVO.setImmed_down(rs.getInt("immed_down"));
+				immedVO.setOrd_time(rs.getTimestamp("ord_time"));
+				immedVO.setOrdstat_id(rs.getString("ordstat_id"));
+				immedVO.setRcpt_name(rs.getString("rcpt_name"));
+				immedVO.setRcpt_cell(rs.getString("rcpt_cell"));
+				immedVO.setRcpt_add(rs.getString("rcpt_add"));
+
+				list.add(immedVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("Couldn't load database driver. " + se.getMessage());
+			// Handle any SQL errors
+		} catch (Exception se) { // SQLException se
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public void update_shipping(ImmedVO immedVO) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

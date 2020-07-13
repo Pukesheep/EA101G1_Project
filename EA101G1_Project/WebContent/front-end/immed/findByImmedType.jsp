@@ -162,7 +162,7 @@ section.blank1 li.breadcrumb-item+li.breadcrumb-item::before {
 }
 
 section.blank1 div.container {
-	background: hsla(0, 0%, 100%, .8);
+	background: hsla(0, 0%, 100%, .7);
 }
 
 section.blank1 div.left_side {
@@ -301,7 +301,7 @@ aside .navbar-nav .nav-link:hover {
 						<a class="dropdown-item"
 							href="<%=request.getContextPath()%>/front-end/protected/immed/salerManage.jsp">出貨管理</a>
 						<a class="dropdown-item"
-							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品修改</a>
+							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品管理</a>
 					</div></li>
 				<li class="nav-item pl-md-2"><a class="nav-link text-white"
 					href="">

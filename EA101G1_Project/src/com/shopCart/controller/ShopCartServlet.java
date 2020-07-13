@@ -70,7 +70,7 @@ public class ShopCartServlet extends HttpServlet {
 
 		// 結帳，計算購物車書籍價錢總數
 		else if (action.equals("CHECKOUT")) {
-			double total = buylist.stream()
+			Double total = buylist.stream()
 					.mapToDouble(p ->p.getPrice() * p.getQuantity())
 					.sum();
 			
@@ -81,7 +81,7 @@ public class ShopCartServlet extends HttpServlet {
 //				total += (price * quantity);
 //			}
 
-			String amount = String.valueOf(total);
+			Double amount = new Double(total);
 			session.setAttribute("amount", amount);
 			String url = "/front-end/protected/shopCart/Checkout.jsp";
 			RequestDispatcher rd = req.getRequestDispatcher(url);
