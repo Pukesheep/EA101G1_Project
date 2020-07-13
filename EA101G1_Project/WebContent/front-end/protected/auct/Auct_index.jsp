@@ -37,53 +37,11 @@
 </head>
 
 <body>
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
-        <a class="navbar-brand" href="All_index.jsp">
-            <span class="logo"><i class="fas fa-bomb"></i></span>
-            <span class="logo2">S.F.G</span>
-            <span class="logo3">{{{</span>
-            </a>
-            <!-- 手機選單按鈕 -->
-            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
-                aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- 內容 -->
-            <div class="navbar2 navbar-dark">
-                <div class="row">
-                    <div class="item col-md-2"><a href="#">商城 </a></div>
-                    <div class="item col-md-2"><a href="#">團購 </a></div> 
-                    <div class="item col-md-2"><a href="/auct/Auct_index.html">競標區 </a></div> 
-                    <div class="item col-md-2"><a href="#">直購區 </a></div> 
-                    <div class="item col-md-2"><a href="#">討論區 </a></div> 
-                    <div class="item col-md-2"><a href="#">紅利 </a></div> 
-                </div>
-            </div>
-    
-            <div class="collapse navbar-collapse" id="collapsibleNavId">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<%=request.getContextPath()%>/member/login.do?action=logout">登出</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">註冊</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">會員中心</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">我的最愛</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">購物車</a>
-                    </li>
-    
-                </ul>
-            </div>
-        </nav>
-        <!-- navbar end -->
-        <section class="blank0"></section>
+     <!-- navbar -->
+    	<%@ include file="/files/header.jsp" %>
+    <!-- navbar end -->
+    <section class="blank0"></section>
+    <!-- 內容 -->
 
         <section class="nav-auct container">
             <ul class="text-right">
