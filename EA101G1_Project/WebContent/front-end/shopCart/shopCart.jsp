@@ -119,7 +119,7 @@
    		</div>
    		<%}else{%>
 		
-   			<div class="row justify-content mt-5"><div class="col-12 align-self-center"><img src="<%=request.getContextPath()%>/images/cart.png"></div></div>
+   			<div class="row justify-content mt-5"><div class="col-12 align-self-center"><img src="<%=request.getContextPath()%>/front-end/shopCart/images/cart.png"></div></div>
    			<div class="row justify-content"><div  class="col-12 align-self-center" style="opacity: 0.5; font-size:20px">購物車裡還沒有商品喔</div></div>
    			<div class="row justify-content"><div class="col-12 align-self-center"><a class="btn btn-primary" href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp" role="button">前往購物</a></div></div>
 		<%}%>

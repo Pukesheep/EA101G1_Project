@@ -41,6 +41,8 @@
         
     <!-- SweetAlert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	
+	
  <style>
  		font{
  		font-family:Microsoft JhengHei;
@@ -66,7 +68,7 @@
  </style>
 </head>
 <!-- navbar -->
-<%--     <%@ include file="/../../files/header.jsp" %> --%>
+    <%@ include file="/../../files/header.jsp" %>
     <!-- navbar end -->
     <section class="blank0"></section>
     
@@ -111,8 +113,8 @@
    		<%
 		}
 	session.setAttribute("list",list);
-	%>
-		<div class="row justify-content-end rounded" style="background-color:#c6d4df;height:60px;margin-bottom:2px">
+	%>	
+		<div class="row justify-content-end rounded" style="background-color:white;height:60px;margin-bottom:2px">
 			<div class="col-2 align-self-center">總金額:$<%=amount%></div>
 		</div>
 		
@@ -120,10 +122,14 @@
 		Double ratio = 0.1;
 		Double mem_bonus = amount*ratio;
 		%>
-		<div class="row justify-content-end rounded" style="background-color:#c6d4df;height:60px;margin-bottom:2px">
+		<div class="row justify-content-end rounded" style="background-color:white;height:60px;margin-bottom:2px">
 			<div class="col-2 align-self-center">可獲得紅利:<%=mem_bonus%>點</div>
 		</div>
 		
+				<div class="row justify-content-end rounded" style="background-color:white;height:60px;margin-bottom:2px">
+					<input class="btn btn-primary" id="test" type="submit" value="確認結帳">
+				</div>
+				
    		<div class="row justify-content-end rounded" style="background-color:#c6d4df">
    			<div class="row p-3">
 		   		<div class="col-6 align-self-center mt-3">
@@ -150,8 +156,34 @@
 <!-- 				</div>			 -->
 <!--    			</div> -->
    		</div>
+   		
+   		<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+				
+			
+			<div class="modal-body">
+<!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
+               <jsp:include page=""/>
+<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
+			</div>
+			
+		
+		</div>
+	</div>
+</div>
 
 	</div>
+	<script>
+
+// 			$('#test').click(function(){
+				
+<%-- 	        	 document.open("<%=request.getContextPath()%>/front-end/protected/shopCart/Checkout2.jsp","","height=550,width=1000,left=65,top=157,resizable=yes,scrollbars=yes")          --%>
+//        	 });
+		$('#test').click(function(){
+			$('#basicModal').modal({show: true});
+		});
+        </script>
 	</section>
 </body>
 </html>

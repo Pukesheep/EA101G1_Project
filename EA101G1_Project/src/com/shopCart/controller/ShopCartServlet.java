@@ -11,8 +11,7 @@ import com.shopCart.model.PRODUCT;
 @MultipartConfig
 public class ShopCartServlet extends HttpServlet {
 
-	public void doPost(HttpServletRequest req, HttpServletResponse res)
-			throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
 		// res.setContentType("text/html; charset=UTF-8");
@@ -28,14 +27,14 @@ public class ShopCartServlet extends HttpServlet {
 			if (action.equals("DELETE")) {
 				String del = req.getParameter("del");
 				int d = Integer.parseInt(del);
-				buylist.removeElementAt(d);//buylist.remove(d);新版寫法
+				buylist.removeElementAt(d);// buylist.remove(d);新版寫法
 			}
 			// 新增書籍至購物車中
 			else if (action.equals("ADD")) {
 				boolean match = false;
 				// 取得後來新增的書籍
 				PRODUCT aproduct = getProduct(req);
-				Double sub = aproduct.getQuantity()*aproduct.getPrice();
+				Double sub = aproduct.getQuantity() * aproduct.getPrice();
 				aproduct.setSub(sub);
 				// 新增第一本書籍至購物車時
 				if (buylist == null) {
@@ -44,21 +43,20 @@ public class ShopCartServlet extends HttpServlet {
 				} else {
 					for (int i = 0; i < buylist.size(); i++) {
 						PRODUCT product = buylist.get(i);
-						
+
 						// 假若新增的書籍和購物車的書籍一樣時
 						if (aproduct.getName().equals(product.getName())) {
-							product.setQuantity(product.getQuantity()
-									+ aproduct.getQuantity());
-							sub=product.getQuantity()*product.getPrice();
+							product.setQuantity(product.getQuantity() + aproduct.getQuantity());
+							sub = product.getQuantity() * product.getPrice();
 							product.setSub(sub);
-							buylist.setElementAt(product, i);//buylist.set(i, book);新版寫法 將book放到原來的位置
+							buylist.setElementAt(product, i);// buylist.set(i, book);新版寫法 將book放到原來的位置
 							match = true;
-							
+
 						} // end of if name matches
 					} // end of for
 
 					// 假若新增的書籍和購物車的書籍不一樣時
-					if (!match) 
+					if (!match)
 						buylist.add(aproduct);
 				}
 			}
@@ -70,10 +68,8 @@ public class ShopCartServlet extends HttpServlet {
 
 		// 結帳，計算購物車書籍價錢總數
 		else if (action.equals("CHECKOUT")) {
-			Double total = buylist.stream()
-					.mapToDouble(p ->p.getPrice() * p.getQuantity())
-					.sum();
-			
+			Double total = buylist.stream().mapToDouble(p -> p.getPrice() * p.getQuantity()).sum();
+
 //			for (int i = 0; i < buylist.size(); i++) {
 //				PRODUCT order = buylist.get(i);
 //				Double price = new Double(order.getPrice());
@@ -87,6 +83,8 @@ public class ShopCartServlet extends HttpServlet {
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
 		}
+
+
 	}
 
 	private PRODUCT getProduct(HttpServletRequest req) throws IOException, ServletException {

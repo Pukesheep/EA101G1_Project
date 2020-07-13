@@ -52,14 +52,13 @@
 </c:if>
 
 <ul>
-  <li><a href='<%=request.getContextPath()%>/back-end/product/listAllProduct.jsp'>List</a> all Pros.  <br><br></li>
+  <li><a href='listAllProduct.jsp'>List</a> all Pros.  <br><br></li>
   
   
   <li>
     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/pro.do" >
         <b>輸入商品編號 (如P001):</b>
         <input type="text" name="p_id">
-        <input type="hidden" name="from" value="back-end">
         <input type="hidden" name="action" value="getOne_For_Display">
         <input type="submit" value="送出">
     </FORM>
@@ -73,7 +72,6 @@
           <option value="${proVO.p_id}">${proVO.p_id}
          </c:forEach>   
        </select>
-       <input type="hidden" name="from" value="back-end">
        <input type="hidden" name="action" value="getOne_For_Display">
        <input type="submit" value="送出">
     </FORM>
@@ -87,7 +85,6 @@
           <option value="${proVO.p_id}">${proVO.p_name}
          </c:forEach>   
        </select>
-       <input type="hidden" name="from" value="back-end">
        <input type="hidden" name="action" value="getOne_For_Display">
        <input type="submit" value="送出">
      </FORM>
@@ -101,7 +98,6 @@
           <option value="${ptVO.pt_id}">${ptVO.typename}
          </c:forEach>   
        </select>
-       <input type="hidden" name="from" value="back-end">
        <input type="hidden" name="action" value="getAll_ByPtId">
        <input type="submit" value="送出">
      </FORM>
