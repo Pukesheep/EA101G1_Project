@@ -1,13 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>aside.jsp</title>
-</head>
-<body>
+<div>
         <aside class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ">
                 <li class="nav-item">
@@ -110,6 +102,9 @@
                         <li class="nav-item">
                             <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/adm/listAllAdm.jsp">員工帳號管理</a>
                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/adm/addAdm.jsp">新增員工</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link pl-4" href="#">員工權限管理</a>
                         </li>
@@ -117,5 +112,4 @@
                 </li>
             </ul>
         </aside>
-</body>
-</html>
+</div>

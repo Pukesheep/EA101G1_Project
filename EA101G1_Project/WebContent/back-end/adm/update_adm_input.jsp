@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>員工修改 - update_adm_input.jsp</title>
-
+<%@ include file="/back-end/css/BackHeaderCssLink" %>
 <style>
   table#a {
 	width: 100%;
@@ -49,7 +49,17 @@
 
 </head>
 <body bgcolor='white'>
+<!-- header -->
+	
+	<%@ include file="/back-end/css/header.jsp" %>
+<!-- header -->
 
+    <div class="content d-md-flex">
+
+<!-- aside -->
+	<%@ include file="/back-end/css/aside.jsp" %>
+<!-- aside -->
+<div>
 <table id="a">
 	<tr><td>
 		 <h3>員工修改 - update_adm_input.jsp</h3>
@@ -97,5 +107,6 @@
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="adm_no" value="<%=admVO.getAdm_no()%>">
 <input type="submit" value="送出修改"></FORM>
+</div>
 </body>
 </html>
