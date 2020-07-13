@@ -244,7 +244,7 @@ div.content {
 						<a class="dropdown-item"
 							href="<%=request.getContextPath()%>/front-end/protected/immed/salerManage.jsp">出貨管理</a>
 						<a class="dropdown-item"
-							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品修改</a>
+							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品管理</a>
 					</div></li>
 				<li class="nav-item pl-md-2"><a class="nav-link text-white"
 					href="">

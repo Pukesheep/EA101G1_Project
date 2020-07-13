@@ -368,7 +368,7 @@ div.content {
 						<a class="dropdown-item"
 							href="<%=request.getContextPath()%>/front-end/protected/immed/salerManage.jsp">出貨管理</a>
 						<a class="dropdown-item"
-							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品修改</a>
+							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品管理</a>
 					</div></li>
 				<li class="nav-item pl-md-2"><a class="nav-link text-white"
 					href="">
@@ -496,14 +496,14 @@ div.content {
 
 					<div style="border-top: 1px solid #D3D3D3;" class="row mx-2 mt-4">
 						<div class="col-md-8 mt-3">
-							<div class="immedPay d-flex">
-								<span>運送方式: </span>
-								<ul>
-									<li>7-11取貨付款 60 元</li>
-									<li>全家、OK、萊爾富取貨付款 60 元</li>
-									<li>宅配/快遞 90 元</li>
-								</ul>
-							</div>
+<!-- 							<div class="immedPay d-flex"> -->
+<!-- 								<span>運送方式: </span> -->
+<!-- 								<ul> -->
+<!-- 									<li>7-11取貨付款 60 元</li> -->
+<!-- 									<li>全家、OK、萊爾富取貨付款 60 元</li> -->
+<!-- 									<li>宅配/快遞 90 元</li> -->
+<!-- 								</ul> -->
+<!-- 							</div> -->
 
 						</div>
 						<div class="col-md-4">

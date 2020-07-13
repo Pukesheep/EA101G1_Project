@@ -18,11 +18,13 @@
 	List<ImmedVO> list = immedSvc.getAllBuyerImmed(memberVO.getMem_id());
 	pageContext.setAttribute("list", list);
 
-		MemberService memberSvc = new MemberService();
-		pageContext.setAttribute("memberSvc", memberSvc);
-// 	MemberVO salerVO = new MemberVO();
-// 	pageContext.setAttribute("salerVO", salerVO);
+	MemberService memberSvc = new MemberService();
+	pageContext.setAttribute("memberSvc", memberSvc);
+	// 	MemberVO salerVO = new MemberVO();
+	// 	pageContext.setAttribute("salerVO", salerVO);
 %>
+<jsp:useBean id="ordSvc" class="com.ordstat.model.OrdstatService" />
+<jsp:useBean id="ordstatVO" class="com.ordstat.model.OrdstatVO" />
 
 <html>
 <head>
@@ -189,16 +191,19 @@ table, th, td {
 th, td {
 	padding: 1px;
 }
+
 td:nth-of-type(1) {
 	width: 150px;
 }
+
 td:nth-of-type(2) {
-	width: 170px;
-}
-td:nth-of-type(3) p {
-	width: 150px;
+	max-width: 200px;
+	word-wrap: break-word;
 }
 
+/* td:nth-of-type(3) p { */
+/* 	width: 150px; */
+/* } */
 td.previewTd {
 	display: flex;
 	flex-direction: column-reverse;
@@ -276,7 +281,7 @@ div.content {
 						<a class="dropdown-item"
 							href="<%=request.getContextPath()%>/front-end/protected/immed/salerManage.jsp">出貨管理</a>
 						<a class="dropdown-item"
-							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品修改</a>
+							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品管理</a>
 					</div></li>
 				<li class="nav-item pl-md-2"><a class="nav-link text-white"
 					href="">
@@ -341,26 +346,26 @@ div.content {
 							<th>收件人姓名</th>
 							<th>收件人電話</th>
 							<th>收件人地址</th>
-							<th>修改</th>
+							<th>取消交易</th>
 							<!-- 							<th>刪除</th> -->
 						</tr>
 
-						<%@ include file="/files/immed/immedPage1.file"%>
+						<%@ include file="/files/immed/immedPage5.file"%>
 						<c:forEach var="immedVO" items="${list}" begin="<%=pageIndex%>"
 							end="<%=pageIndex+rowsPerPage-1%>">
 							<jsp:useBean id="immedVO" class="com.immed.model.ImmedVO" />
 							<tr>
 								<%-- 								<td>${immedVO.immed_id}</td> --%>
-								<td>
-									<%
-										String sale_id = immedVO.getSale_id();
-										MemberVO salerVO = memberSvc.getOneMember(sale_id);
-									%>
-									<%=salerVO.getMem_name()%>
+								<td>${memberSvc.getOneMember(immedVO.sale_id).mem_name}<%-- 									<% 
+ 										String sale_id = immedVO.getSale_id();
+											MemberVO salerVO = memberSvc.getOneMember(sale_id);
+								%> <%=salerVO.getMem_name()%> --%>
 								</td>
 								<%-- 								<td>${immedVO.buy_id}</td> --%>
 								<%-- 								<td>${immedVO.pt_id}</td> --%>
-								<td><p class="immed_name">${immedVO.immed_name}</p></td>
+								<td><a
+									href="<%=request.getContextPath()%>/immed/immed.do?action=getOne_For_Display&immed_id=${immedVO.immed_id}">
+										${immedVO.immed_name}</a></td>
 								<%-- 								<td><fmt:formatDate value="${immedVO.immed_start}" --%>
 								<%-- 										pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
 								<td>$${immedVO.immed_prc}</td>
@@ -371,7 +376,11 @@ div.content {
 								<%-- 								<td>${(immedVO.immed_down eq 1) ? "已下架" : "未下架"}</td> --%>
 								<%-- 								<td><fmt:formatDate value="${immedVO.ord_time}" --%>
 								<%-- 										pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
-								<td>${immedVO.ordstat_id}</td>
+								<td>
+									<%
+										ordstatVO = ordSvc.listOneOrdstat(immedVO.getOrdstat_id());
+									%> <%=ordstatVO.getOrdstat()%>
+								</td>
 								<td>${immedVO.rcpt_name}</td>
 								<td>${immedVO.rcpt_cell}</td>
 								<td><p class="rcpt_add">${immedVO.rcpt_add}</p></td>
@@ -380,7 +389,7 @@ div.content {
 										ACTION="<%=request.getContextPath()%>/immed/immed.do"
 										style="margin-bottom: 0px;">
 										<input type="hidden" name="from" value="back-end"> <input
-											type="submit" value="修改"> <input type="hidden"
+											type="submit" value="取消"> <input type="hidden"
 											name="immed_id" value="${immedVO.immed_id}"> <input
 											type="hidden" name="action" value="getOne_For_Update">
 									</FORM>
@@ -399,8 +408,7 @@ div.content {
 						</c:forEach>
 					</table>
 				</div>
-
-				<%@ include file="/files/page2.file"%>
+				<%@ include file="/files/immed/immedPage6.file"%>
 			</div>
 
 
