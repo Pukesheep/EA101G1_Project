@@ -14,7 +14,7 @@
 
 <html>
 <head>
-<%@ include file="../css/BackHeaderCssLink" %>
+<%@ include file="/back-end/css/BackHeaderCssLink" %>
 <title>所有商品資料 - listAllPro.jsp</title>
 
 <style>
@@ -54,19 +54,19 @@
 </style>
 
 </head>
-<body bgcolor='white'>
+<body style="background-color:#17a2b8">
 
 <!-- header -->
 	
-	<%@ include file="../css/header.jsp" %>
+	<%@ include file="/back-end/css/header.jsp" %>
 <!-- header -->
 
     <div class="content d-md-flex">
 
 <!-- aside -->
-	<%@ include file="../css/aside.jsp" %>
+	<%@ include file="/back-end/css/aside.jsp" %>
 <!-- aside -->
-<div class="col">
+<div class="col" >
 <!-- <h4>此頁練習採用 EL 的寫法取值:</h4> -->
 <!-- <table id="table-1"> -->
 <!-- 	<tr><td> -->
@@ -85,7 +85,7 @@
 	</ul>
 </c:if>
 
-<table>
+<table >
 	<tr>
 		<th><pre>商品編號</pre></th>
 		<th>分類</th>
