@@ -54,7 +54,7 @@ div #preview {
 </style>
 
 </head>
-<body bgcolor='white'>
+<body style="background-color:#17a2b8">
 	<!-- header -->
 
 	<%@ include file="/back-end/css/header.jsp"%>
@@ -65,14 +65,14 @@ div #preview {
 		<!-- aside -->
 		<%@ include file="/back-end/css/aside.jsp"%>
 		<!-- aside -->
-		<div>
+		<div class="container">
 			<table id="table-1">
 				<tr>
 					<td>
 						<h3>商品資料修改 - update_Pro_input.jsp</h3>
 						<h4>
 							<a
-								href="<%=request.getContextPath()%>/back-end/product/select_page.jsp"><img
+								href="<%=request.getContextPath()%>/back-end/product/listAllProduct.jsp"><img
 								src="images/back1.gif" width="100" height="32" border="0">回首頁</a>
 						</h4>
 					</td>

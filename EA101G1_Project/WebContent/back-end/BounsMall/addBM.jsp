@@ -52,7 +52,7 @@ th, td {
 </style>
 
 </head>
-<body bgcolor='white'>
+<body style="background-color:#17a2b8">
 	<!-- header -->
 
 	<%@ include file="/back-end/css/header.jsp"%>

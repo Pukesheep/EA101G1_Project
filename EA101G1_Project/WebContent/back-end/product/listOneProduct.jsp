@@ -62,7 +62,7 @@ td>img {
 </style>
 
 </head>
-<body bgcolor='white'>
+<body style="background-color:#17a2b8">
 	<!-- header -->
 
 	<%@ include file="/back-end/css/header.jsp"%>
@@ -73,7 +73,7 @@ td>img {
 		<!-- aside -->
 		<%@ include file="/back-end/css/aside.jsp"%>
 		<!-- aside -->
-		<div>
+		<div class="container">
 			<h4>此頁暫練習採用 Script 的寫法取值:</h4>
 			<table id="table-1">
 				<tr>
@@ -81,7 +81,7 @@ td>img {
 						<h3>商品資料 - ListOneProduct.jsp</h3>
 						<h4>
 							<a
-								href="<%=request.getContextPath()%>/back-end/product/select_page.jsp"><img
+								href="<%=request.getContextPath()%>/back-end/product/listAllProduct.jsp"><img
 								src="images/back1.gif" width="100" height="32" border="0">回首頁</a>
 						</h4>
 					</td>
