@@ -7,7 +7,7 @@
                         <i class="fas fa-user-edit ml-3"></i> 會員管理</div>
                     <ul class="collapse navbar-nav" id="sideNavColl01" data-parent="#navbarNav">
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">會員權限管理</a>
+                            <a class="nav-link pl-4" href="#">會員權限管理</a> 
                         </li>
                         <li class="nav-item">
                             <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/member/select_page.jsp">會員資料管理</a>
