@@ -455,8 +455,8 @@ public class MemberDAO implements MemberDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_BONUS);
 			
-			pstmt.setString(1, mem_id);
-			pstmt.setInt(2, mem_bonus);
+			pstmt.setInt(1, mem_bonus);
+			pstmt.setString(2, mem_id);
 			
 			pstmt.executeUpdate();
 			

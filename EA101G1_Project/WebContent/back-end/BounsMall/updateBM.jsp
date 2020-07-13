@@ -131,7 +131,10 @@
 		<tr>
 			<td>紅利商品上架狀態：</td>
 <%-- 			<td><input type="text" name="bon_status" size="45" value=<%=bmVO.getBon_status()%>/></td> --%>
-			<td><input type="text" name="bon_status" size="45" value="${bmVO.bon_status}"/></td>
+			<td><select size="1" name="bon_stat">
+				<option value=0 ${(bon_stat==0)? 'selected':''}>上架
+				<option value=1 ${(bon_stat==1)? 'selected':''}>下架
+			</select></td>
 		</tr>
 	</table>
 

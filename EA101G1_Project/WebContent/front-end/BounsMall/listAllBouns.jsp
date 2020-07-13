@@ -49,8 +49,6 @@
 		</form>
 		<form action="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do" method="post">
 			<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
-			<input type="hidden" name="bon_id" value="${bmVO.bon_id}">
-			<input type="hidden" name="bon_exchange" value="${(bmVO.bon_exchange+1)}">
 			<input type="hidden" name="action" value="getAllByMemberFront">
 			<button type="submit" class="btn btn-danger float-left" >查詢紅利最愛</button>
 		</form>
