@@ -15,7 +15,7 @@
 
 <%
 	ImmedService immedSvc = new ImmedService();
-	List<ImmedVO> list = immedSvc.getAllSalerImmed(memberVO.getMem_id());
+	List<ImmedVO> list = immedSvc.getAllSaleIng(memberVO.getMem_id());
 	pageContext.setAttribute("list", list);
 %>
 
@@ -185,9 +185,18 @@ th, td {
 	padding: 1px;
 }
 
+td:nth-of-type(2) {
+	max-width: 170px;
+	word-wrap: break-word;
+}
 
-td:nth-of-type(3) p {
-	width: 150px;
+td:nth-of-type(3) {
+	max-width: 100px;
+}
+
+td:nth-of-type(5) {
+	max-width: 200px;
+	word-wrap: break-word;
 }
 
 td.previewTd {
@@ -239,7 +248,7 @@ div.content {
 				</button>
 			</form>
 
-		<ul class="navbar-nav">
+			<ul class="navbar-nav">
 				<li class="nav-item "><a class="nav-link text-white"
 					href="<%=request.getContextPath()%>/front-end/protected/immed/addImmed.jsp">
 						<div>
@@ -267,7 +276,7 @@ div.content {
 						<a class="dropdown-item"
 							href="<%=request.getContextPath()%>/front-end/protected/immed/salerManage.jsp">出貨管理</a>
 						<a class="dropdown-item"
-							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品修改</a>
+							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品管理</a>
 					</div></li>
 				<li class="nav-item pl-md-2"><a class="nav-link text-white"
 					href="">
@@ -291,8 +300,8 @@ div.content {
 							href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
 						<li class="breadcrumb-item"><a
 							href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">直購商品</a></li>
-							<li class="breadcrumb-item"><a
-							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品修改</a></li>
+						<li class="breadcrumb-item"><a
+							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品管理</a></li>
 						<!-- 						<li class="breadcrumb-item active" aria-current="page">Data</li> -->
 					</ol>
 				</nav>
@@ -317,56 +326,66 @@ div.content {
 					<table id="table-2" class="table">
 						<tr>
 							<th>商品編號</th>
-							<th>賣家編號</th>
+							<!-- 							<th>賣家編號</th> -->
 							<!-- 							<th>買家編號</th> -->
 							<!-- 							<th>商品種類編號</th> -->
 							<th>商品名稱</th>
-							<!-- 							<th>商品上架時間</th> -->
+							<th>商品上架時間</th>
 							<th>商品價格</th>
 							<th>商品圖片</th>
-							<!-- 							<th>商品描述</th> -->
+							<th>商品描述</th>
 							<!-- 							<th>商品售出狀態</th> -->
-							<!-- 							<th>商品下架狀態</th> -->
+							<!-- 							<th>商品在架狀態</th> -->
 							<!-- 							<th>訂單時間</th> -->
-							<th>訂單狀態</th>
-							<th>收件人姓名</th>
-							<th>收件人電話</th>
-							<th>收件人地址</th>
-							<th>修改</th>
+							<!-- 							<th>訂單狀態</th> -->
+							<!-- 							<th>收件人姓名</th> -->
+							<!-- 							<th>收件人電話</th> -->
+							<!-- 							<th>收件人地址</th> -->
+							<th>商品下架</th>
 							<!-- 							<th>刪除</th> -->
 						</tr>
 
-						<%@ include file="/files/immed/immedPage1.file"%>
+						<%@ include file="/files/immed/immedPage5.file"%>
 						<c:forEach var="immedVO" items="${list}" begin="<%=pageIndex%>"
 							end="<%=pageIndex+rowsPerPage-1%>">
 							<tr>
 								<td>${immedVO.immed_id}</td>
-								<td>${immedVO.sale_id}</td>
+								<%-- 								<td>${immedVO.sale_id}</td> --%>
 								<%-- 								<td>${immedVO.buy_id}</td> --%>
 								<%-- 								<td>${immedVO.pt_id}</td> --%>
-								<td><p class="immed_name">${immedVO.immed_name}</p></td>
-								<%-- 								<td><fmt:formatDate value="${immedVO.immed_start}" --%>
-								<%-- 										pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
+								<td><a
+									href="<%=request.getContextPath()%>/immed/immed.do?action=getOne_For_Display&immed_id=${immedVO.immed_id}">
+										${immedVO.immed_name}</a></td>
+								<td><fmt:formatDate value="${immedVO.immed_start}"
+										pattern="yyyy-MM-dd HH:mm" /></td>
 								<td>$${immedVO.immed_prc}</td>
 								<td><img class="immed_pic"
 									src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"></td>
-								<%-- 								<td><p class="immed_desc">${immedVO.immed_desc}</p></td> --%>
+								<td><pre class="immed_desc">${immedVO.immed_desc}</pre></td>
 								<%-- 								<td>${(immedVO.immed_sold eq 1) ? '已售出' : '未售出'}</td> --%>
 								<%-- 								<td>${(immedVO.immed_down eq 1) ? "已下架" : "未下架"}</td> --%>
 								<%-- 								<td><fmt:formatDate value="${immedVO.ord_time}" --%>
 								<%-- 										pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
-								<td>${immedVO.ordstat_id}</td>
-								<td>${immedVO.rcpt_name}</td>
-								<td>${immedVO.rcpt_cell}</td>
-								<td><p class="rcpt_add">${immedVO.rcpt_add}</p></td>
+								<%-- 								<td>${immedVO.ordstat_id}</td> --%>
+								<%-- 								<td>${immedVO.rcpt_name}</td> --%>
+								<%-- 								<td>${immedVO.rcpt_cell}</td> --%>
+								<%-- 								<td><p class="rcpt_add">${immedVO.rcpt_add}</p></td> --%>
 								<td>
 									<FORM METHOD="post"
 										ACTION="<%=request.getContextPath()%>/immed/immed.do"
 										style="margin-bottom: 0px;">
-										<input type="hidden" name="from" value="back-end"> <input
-											type="submit" value="修改"> <input type="hidden"
-											name="immed_id" value="${immedVO.immed_id}"> <input
-											type="hidden" name="action" value="getOne_For_Update">
+										<c:if test="${immedVO.immed_down==0}">
+											<input type="submit" value="下架">
+											<input type="hidden" name="immed_id"
+												value="${immedVO.immed_id}">
+											<input type="hidden" name="action" value="update_down">
+										</c:if>
+										<c:if test="${immedVO.immed_down==1}">
+											<input type="submit" value="上架">
+											<input type="hidden" name="immed_id"
+												value="${immedVO.immed_id}">
+											<input type="hidden" name="action" value="update_up">
+										</c:if>
 									</FORM>
 								</td>
 								<!-- 								<td> -->
@@ -383,8 +402,7 @@ div.content {
 						</c:forEach>
 					</table>
 				</div>
-
-				<%@ include file="/files/page2.file"%>
+				<%@ include file="/files/immed/immedPage6.file"%>
 			</div>
 
 
