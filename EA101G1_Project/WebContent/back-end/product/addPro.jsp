@@ -62,7 +62,7 @@ div #preview {
 			</td>
 			<td>
 				<h4>
-					<a href="<%=request.getContextPath()%>/back-end/product/select_page.jsp"><img src="images/tomcat.png"
+					<a href="select_page.jsp"><img src="images/tomcat.png"
 						width="100" height="100" border="0">回首頁</a>
 				</h4>
 			</td>
@@ -72,26 +72,26 @@ div #preview {
 	<h3>資料新增:</h3>
 
 	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+<%-- 	<c:if test="${not empty errorMsgs}"> --%>
+<!-- 		<font style="color: red">請修正以下錯誤:</font> -->
+<!-- 		<ul> -->
+<%-- 			<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 				<li style="color: red">${message}</li> --%>
+<%-- 			</c:forEach> --%>
+<!-- 		</ul> -->
+<%-- 	</c:if> --%>
 
 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/pro.do" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td>商品名稱:</td>
 				<td><input type="TEXT" name="p_name" size="45" <c:if test="${not empty proVO.getP_name()}">value="<%=proVO.getP_name()%>"</c:if>
-					placeholder="請輸入商品名稱" /></td>
+					placeholder="請輸入商品名稱" /><front style="color:red">${errorMsgs.p_name}</front></td>
 			</tr>
 			<tr>
 				<td>商品價格:</td>
 				<td><input type="TEXT" name="p_price" size="45" <c:if test="${not empty proVO.getP_price()}">value="<%=proVO.getP_price()%>"</c:if>
-					placeholder="請輸入商品價格" /></td>
+					placeholder="請輸入商品價格" /><front style="color:red">${errorMsgs.p_price}</front></td>
 			</tr>
 			<tr>
 				<td>商品圖片:</td>
@@ -102,16 +102,18 @@ div #preview {
 						<div class="row">
 							<div id="preview"></div>
 						</div>
+						<front style="color:red">${errorMsgs.p_image}</front>
 				</td>
 			</tr>
 			<tr>
 				<td>商品描述:</td>
-				<td><textarea name="p_info" rows="6" cols="40"><c:if test="${not empty proVO.getP_info()}"><%=proVO.getP_info()%></c:if></textarea></td>
+				<td><pre><textarea name="p_info" rows="6" cols="40">
+				<c:if test="${not empty proVO.getP_info()}"><%=proVO.getP_info()%></c:if></textarea></pre><front style="color:red">${errorMsgs.p_info}</front></td>
 			</tr>
 			<tr>
 				<td>庫存量:</td>
 				<td><input type="TEXT" name="p_stock" size="45" <c:if test="${not empty proVO.getP_stock()}">value="<%=proVO.getP_stock()%>"</c:if>
-					placeholder="請輸入商品庫存量" /></td>
+					placeholder="請輸入商品庫存量" /><front style="color:red">${errorMsgs.p_stock}</front></td>
 			</tr>
 			<tr>
 				<td>商品狀態:</td>

@@ -61,7 +61,7 @@ div #preview {
 			<td>
 				<h3>商品資料修改 - update_Pro_input.jsp</h3>
 				<h4>
-					<a href="<%=request.getContextPath()%>/back-end/product/select_page.jsp"><img src="images/back1.gif"
+					<a href="select_page.jsp"><img src="images/back1.gif"
 						width="100" height="32" border="0">回首頁</a>
 				</h4>
 			</td>
@@ -71,14 +71,14 @@ div #preview {
 	<h3>資料修改:</h3>
 
 	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+<%-- 	<c:if test="${not empty errorMsgs}"> --%>
+<!-- 		<font style="color: red">請修正以下錯誤:</font> -->
+<!-- 		<ul> -->
+<%-- 			<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 				<li style="color: red">${message}</li> --%>
+<%-- 			</c:forEach> --%>
+<!-- 		</ul> -->
+<%-- 	</c:if> --%>
 
 	<FORM METHOD="post"
 		ACTION="<%=request.getContextPath()%>/product/pro.do"
@@ -103,12 +103,12 @@ div #preview {
 			<tr>
 				<td>商品名稱:</td>
 				<td><input type="TEXT" name="p_name" size="45"
-					value="<%=proVO.getP_name()%>" /></td>
+					value="<%=proVO.getP_name()%>" /><c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_name}</front></c:if></td>
 			</tr>
 			<tr>
 				<td>商品價格:</td>
 				<td><input type="TEXT" name="p_price" size="45"
-					value="<%=proVO.getP_price()%>" /></td>
+					value="<%=proVO.getP_price()%>" /><c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_price}</front></c:if></td>
 			</tr>
 			<tr>
 				<td>商品圖片:</td>
@@ -117,19 +117,24 @@ div #preview {
 					value="<%=proVO.getP_image()%>" /><br>
 					<div class="row">
 						<div id="preview">
-							<img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${proVO.p_id}">
+							<FORM METHOD="post"
+								ACTION="<%=request.getContextPath()%>/product/proPic.do">
+								<img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${proVO.p_id}">
+							</FORM>
 						</div>
-					</div></td>
+					</div>
+					<c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_image}</front></c:if>
+					</td>
 			</tr>
 			<tr>
 				<td>商品描述:</td>
 				<td><textarea name="p_info" rows="6" cols="40"
-						value="<%=proVO.getP_info()%>"><%=proVO.getP_info()%></textarea></td>
+						value="<%=proVO.getP_info()%>"><%=proVO.getP_info()%></textarea><c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_info}</front></c:if></td>
 			</tr>
 			<tr>
 				<td>庫存量:</td>
 				<td><input type="TEXT" name="p_stock" size="45"
-					value="<%=proVO.getP_stock()%>" /></td>
+					value="<%=proVO.getP_stock()%>" /><c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_stock}</front></c:if></td>
 			</tr>
 			<tr>
 				<td>商品狀態:</td>

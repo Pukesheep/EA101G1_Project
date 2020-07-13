@@ -26,29 +26,17 @@ public class ProServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			
-			String select_page = 	"/product/select_page.jsp";
-			String listOneProduct = "/product/listOneProduct.jsp";
-			
-			String from = req.getParameter("from");
-			if ("back-end".equals(from)) {
-				select_page = 		"/back-end" + select_page;
-				listOneProduct = 	"/back-end" + listOneProduct;
-			} else if ("front-end".equals(from)) {
-				select_page = 		"/front-end" + select_page;
-				listOneProduct = 	"/front-end" + listOneProduct;
-			}
-			
-
+			String str = req.getParameter("p_id");
+			System.out.println(str);
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				String str = req.getParameter("p_id");
+//				String str = req.getParameter("p_id");
 				if (str == null || (str.trim()).length() == 0) {
 					errorMsgs.add("請輸入商品編號");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher(select_page);
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/select_page.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
@@ -61,7 +49,7 @@ public class ProServlet extends HttpServlet {
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher(select_page);
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/select_page.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
@@ -69,26 +57,27 @@ public class ProServlet extends HttpServlet {
 				/*************************** 2.開始查詢資料 *****************************************/
 				ProService ProSvc = new ProService();
 				ProVO proVO = ProSvc.getOnePro(p_id);
+				
 				if (proVO == null) {
 					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher(select_page);
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/select_page.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("proVO", proVO); // 資料庫取出的proVO物件,存入req
-				String url = "listOneProduct.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(listOneProduct); // 成功轉交 listOnePro.jsp
+				String url = "/back-end/product/listOneProduct.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOnePro.jsp
 				successView.forward(req, res);
-
+				
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher(select_page);
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/select_page.jsp");
 				failureView.forward(req, res);
 			}
 
@@ -100,9 +89,6 @@ public class ProServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			
-			String listAllProduct = "/back-end/product/listAllProduct.jsp";
-			String update_Pro_input = "/back-end/product/update_Pro_input.jsp";
 
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
@@ -114,27 +100,24 @@ public class ProServlet extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("proVO", proVO); // 資料庫取出的proVO物件,存入req
-				String url = "update_Pro_input.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(update_Pro_input);// 成功轉交 update_Pro_input.jsp
+				String url = "/back-end/product/update_Pro_input.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_Pro_input.jsp
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher(listAllProduct);
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/listAllProduct.jsp");
 				failureView.forward(req, res);
 			}
 		}
 
 		if ("update".equals(action)) { // 來自update_pro_input.jsp的請求
-
-			List<String> errorMsgs = new LinkedList<String>();
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+//			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			
-			String listOneProduct = 	"/back-end/product/listOneProduct.jsp";
-			String update_Pro_input = 	"/back-end/product/update_Pro_input.jsp";
 
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
@@ -142,39 +125,39 @@ public class ProServlet extends HttpServlet {
 
 				String p_name = req.getParameter("p_name");
 				if (p_name == null || p_name.trim().length() == 0) {
-					errorMsgs.add("商品名稱請勿空白");
+					errorMsgs.put("p_name","商品名稱請勿空白");
 				}
 
 				Double p_price = null;
 				String p_pricestr = req.getParameter("p_price");
 				if (p_pricestr == null || (p_pricestr.trim()).length() == 0) {
 					p_price = 0.0;
-					errorMsgs.add("商品價格請勿空白");
+					errorMsgs.put("p_price","商品價格請勿空白");
 				} else {
 					try {
 						p_price = new Double(req.getParameter("p_price").trim());
 					} catch (NumberFormatException e) {
 						p_price = 0.0;
-						errorMsgs.add("商品價格請填數字.");
+						errorMsgs.put("p_price","商品價格請填數字.");
 					}
 				}
 
 				String p_info = req.getParameter("p_info").trim();
 				if (p_info == null || p_info.trim().length() == 0) {
-					errorMsgs.add("商品描述請勿空白");
+					errorMsgs.put("p_info","商品描述請勿空白");
 				}
 
 				Integer p_stock = null;
 				String p_stockstr = req.getParameter("p_stock");
 				if (p_stockstr == null || p_stockstr.trim().length() == 0) {
 					p_stock = 0;
-					errorMsgs.add("商品庫存請勿空白");
+					errorMsgs.put("p_stock","商品庫存請勿空白");
 				} else {
 					try {
 						p_stock = new Integer(req.getParameter("p_stock").trim());
 					} catch (NumberFormatException e) {
 						p_stock = 0;
-						errorMsgs.add("商品庫存請填數字.");
+						errorMsgs.put("p_stock","商品庫存請填數字.");
 					}
 				}
 
@@ -215,7 +198,7 @@ public class ProServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("proVO", proVO); // 含有輸入格式錯誤的proVO物件,也存入req
-					RequestDispatcher failureView = req.getRequestDispatcher(update_Pro_input);
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/update_Pro_input.jsp");
 					failureView.forward(req, res);
 					return; // 程式中斷
 				}
@@ -227,27 +210,24 @@ public class ProServlet extends HttpServlet {
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("proVO", proVO); // 資料庫update成功後,正確的的proVO物件,存入req
-				String url = "listOneProduct.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(listOneProduct); // 修改成功後,轉交listOnePro.jsp
+				String url = "/back-end/product/listOneProduct.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOnePro.jsp
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
-				errorMsgs.add("修改資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher(update_Pro_input);
+				errorMsgs.put("Exception","修改資料失敗:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/update_Pro_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
 
 		if ("insert".equals(action)) { // 來自addPro.jsp的請求
 
-			List<String> errorMsgs = new LinkedList<String>();
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			
-			String addPro = 		"/back-end/product/addPro.jsp";
-			String listAllProduct = "/back-end/product/listAllProduct.jsp";
 
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
@@ -256,42 +236,42 @@ public class ProServlet extends HttpServlet {
 				
 				String p_name = req.getParameter("p_name");
 				if (p_name == null || p_name.trim().length() == 0) {
-					errorMsgs.add("商品名稱請勿空白");
+					errorMsgs.put("p_name","商品名稱請勿空白");
 				}
 
 				Double p_price = null;
 				String p_pricestr = req.getParameter("p_price");
 				if (p_pricestr == null || (p_pricestr.trim()).length() == 0) {
-					errorMsgs.add("商品價格請勿空白");
+					errorMsgs.put("p_price","商品價格請勿空白");
 				} else {
 					try {
 						p_price = new Double(req.getParameter("p_price").trim());
 					} catch (NumberFormatException e) {
-						errorMsgs.add("商品價格請填數字.");
+						errorMsgs.put("p_price","商品價格請填數字.");
 					}
 				}
 
 				String p_info = req.getParameter("p_info").trim();
 				if (p_info == null || p_info.trim().length() == 0) {
-					errorMsgs.add("商品描述請勿空白");
+					errorMsgs.put("p_info","商品描述請勿空白");
 				}
 
 				Integer p_stock = null;
 				String p_stockstr = req.getParameter("p_stock");
 				if (p_stockstr == null || p_stockstr.trim().length() == 0) {
 					p_stock = 0;
-					errorMsgs.add("商品庫存請勿空白");
+					errorMsgs.put("p_stock","商品庫存請勿空白");
 				} else {
 					try {
 						p_stock = new Integer(req.getParameter("p_stock").trim());
 					} catch (NumberFormatException e) {
 						p_stock = 0;
-						errorMsgs.add("商品庫存請填數字.");
+						errorMsgs.put("p_stock","商品庫存請填數字.");
 					}
 				}
-
+				
+				
 				Integer p_stat = new Integer(req.getParameter("p_stat").trim());
-
 				byte[] p_image = null;
 				Part part = req.getPart("p_image");//資料
 				InputStream in = part.getInputStream();//資料
@@ -300,7 +280,7 @@ public class ProServlet extends HttpServlet {
 					in.read(p_image);//把資料存進去
 					in.close();
 				} else {
-					errorMsgs.add("請選擇圖片");
+					errorMsgs.put("p_image","請選擇圖片");
 				}
 				
 //				Part filePart = req.getPart("file");
@@ -322,7 +302,7 @@ public class ProServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("proVO", proVO); // 含有輸入格式錯誤的proVO物件,也存入req
-					RequestDispatcher failureView = req.getRequestDispatcher(addPro);
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/addPro.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -332,14 +312,14 @@ public class ProServlet extends HttpServlet {
 				proVO = proSvc.addPro(pt_id, p_name, p_price, p_image, p_info, p_stock, p_stat);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "listAllProduct.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(listAllProduct); // 新增成功後轉交listAllPro.jsp
+				String url = "/back-end/product/listAllProduct.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllPro.jsp
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
-				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher(addPro);
+				errorMsgs.put("Exception",e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/addPro.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -347,21 +327,6 @@ public class ProServlet extends HttpServlet {
 		if("getAll_ByPtId".equals(action)) {
 			
 			List<ProVO> list = new ArrayList<ProVO>();
-			
-			String select_page = 			"/product/select_page.jsp";
-			String listAllProductByPtId =	"/product/listAllProductByPtId.jsp";
-			String back = 	"/back-end";
-			String front = 	"/front-end";
-			
-			
-			String from = req.getParameter("from");
-			if ("back-end".equals(from)) {
-				select_page = 			back + select_page;
-				listAllProductByPtId = 	back + listAllProductByPtId;
-			} else if ("front-end".equals(from)) {
-				select_page = 			front + select_page;
-				listAllProductByPtId = 	front + listAllProductByPtId;
-			}
 			
 			try {
 				String pt_id = req.getParameter("pt_id");
@@ -371,37 +336,11 @@ public class ProServlet extends HttpServlet {
 				
 				req.setAttribute("list",list);
 				req.setAttribute("pt_id",pt_id);
-				RequestDispatcher failureView = req.getRequestDispatcher(listAllProductByPtId);
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/listAllProductByPtId.jsp");
 				failureView.forward(req, res);
 			}catch (Exception e) {
-				RequestDispatcher failureView = req.getRequestDispatcher(select_page);
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/select_page.jsp");
 				failureView.forward(req,res);
-			}
-		}
-		
-		if("searchByKeyWord".equals(action)) {
-			String url = "/front-end/product/listProductByKeyWord.jsp";
-			List<ProVO> list = new ArrayList<ProVO>();
-			try {
-				String keyword = req.getParameter("keyword").trim();
-				if (keyword == null || keyword.trim().length() == 0) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/product/listAllProduct.jsp");
-					failureView.forward(req, res);
-					return;
-				}
-				HttpSession session = req.getSession();
-				List<ProVO> list2 = (List<ProVO>) session.getAttribute("keyWordlist");
-				ProService proSvc = new ProService();
-				list = proSvc.getByKeyWord(keyword, list2);
-				
-				req.setAttribute("list",list);
-				RequestDispatcher failureView = req.getRequestDispatcher(url);
-				failureView.forward(req, res);
-			}catch (Exception e) {
-//				String url = "/front-end/product/listAllProduct.jsp";
-//				RequestDispatcher failureView = req.getRequestDispatcher(url);
-//				failureView.forward(req,res);
-				e.printStackTrace();
 			}
 		}
 
@@ -421,14 +360,14 @@ public class ProServlet extends HttpServlet {
 				proSvc.deletePro(p_id);
 
 				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-				String url = "listAllProduct.jsp";
+				String url = "/back-end/product/listAllProduct.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("listAllProduct.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/listAllProduct.jsp");
 				failureView.forward(req, res);
 			}
 		}

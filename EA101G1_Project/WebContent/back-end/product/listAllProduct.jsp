@@ -14,7 +14,6 @@
 
 <html>
 <head>
-<%@ include file="../css/BackHeaderCssLink" %>
 <title>所有商品資料 - listAllPro.jsp</title>
 
 <style>
@@ -56,24 +55,13 @@
 </head>
 <body bgcolor='white'>
 
-<!-- header -->
-	
-	<%@ include file="../css/header.jsp" %>
-<!-- header -->
-
-    <div class="content d-md-flex">
-
-<!-- aside -->
-	<%@ include file="../css/aside.jsp" %>
-<!-- aside -->
-<div class="col">
-<!-- <h4>此頁練習採用 EL 的寫法取值:</h4> -->
-<!-- <table id="table-1"> -->
-<!-- 	<tr><td> -->
-<!-- 		 <h3>所有商品資料 - listAllProduct.jsp</h3> -->
-<%-- 		 <h4><a href="<%=request.getContextPath()%>/back-end/product/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4> --%>
-<!-- 	</td></tr> -->
-<!-- </table> -->
+<h4>此頁練習採用 EL 的寫法取值:</h4>
+<table id="table-1">
+	<tr><td>
+		 <h3>所有商品資料 - listAllProduct.jsp</h3>
+		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+	</td></tr>
+</table>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -87,10 +75,10 @@
 
 <table>
 	<tr>
-		<th><pre>商品編號</pre></th>
+		<th>商品編號</th>
 		<th>分類</th>
 		<th>商品名稱</th>
-		<th><pre>商品價格</pre></th>
+		<th>商品價格</th>
 		<th>商品圖片</th>
 		<th>商品描述</th>
 		<th>銷售量</th>
@@ -99,19 +87,21 @@
 		<th>商品狀態</th>
 		<th>修改</th>
 	</tr>
-	<%@ include file="../../files/page1.file" %> 
+	<%@ include file="/files/page1.file" %> 
 	<c:forEach var="proVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
 			<td>${proVO.p_id}</td>
-			<td><pre>${ ptSvc.getOneProductType(proVO.pt_id).typename }</pre></td>
-			<td><pre>${proVO.p_name}</pre></td>
+			<td>${ ptSvc.getOneProductType(proVO.pt_id).typename }</td>
+			<td>${proVO.p_name}</td>
 			<td>${proVO.p_price}</td>
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/proPic.do">
 			<td><img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${proVO.p_id}"></td>
-			<td><pre>${proVO.p_info}</pre></td>
+			</FORM>
+			<td>${proVO.p_info}</td>
 			<td>${proVO.p_sales}</td>
 			<td>${proVO.p_stock}</td>
-			<td><pre><fmt:formatDate value="${proVO.p_add_date}" pattern="yyyy-MM-dd"/></pre></td>
+			<td><fmt:formatDate value="${proVO.p_add_date}" pattern="yyyy-MM-dd"/></td>
 			<td>${(proVO.p_stat==0)? "下架中":"上架中"}</td>
 			
 			<td>
@@ -123,7 +113,7 @@
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="../../files/page2.file" %>
-</div>
+<%@ include file="/files/page2.file" %>
+
 </body>
 </html>

@@ -63,7 +63,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>商品資料 - ListOneProduct.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/back-end/product/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -85,7 +85,9 @@
 		<td><%=ptVO.getTypename()%></td>
 		<td><%=proVO.getP_name()%></td>
 		<td><%=proVO.getP_price()%></td>
-		<td><img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${proVO.p_id}"></td>
+		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/proPic.do">
+			<td><img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${proVO.p_id}"></td>
+			</FORM>
 		<td><%=proVO.getP_info()%></td>
 		<td><%=proVO.getP_sales()%></td>
 		<td><%=proVO.getP_stock()%></td>
