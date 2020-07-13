@@ -15,8 +15,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <%@ include file="/back-end/css/BackHeaderCssLink" %>   
-    
-    
 
     <title>S.F.G 後台管理</title>
     
@@ -51,8 +49,7 @@
     		margin-top:90%;
     	}
     </style>
-    
-    
+   
 </head>
 
 <body>

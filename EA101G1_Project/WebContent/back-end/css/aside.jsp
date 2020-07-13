@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-
+<div>
         <aside class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ">
                 <li class="nav-item">
@@ -112,3 +112,4 @@
                 </li>
             </ul>
         </aside>
+</div>
