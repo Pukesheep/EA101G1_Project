@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.member.model.MemberService;
 import com.product.model.ProDAO;
 import com.product.model.ProService;
 import com.product.model.ProVO;
@@ -40,11 +41,13 @@ public class PoServlet extends HttpServlet {
 			try {
 				String mem_id = req.getParameter("mem_id");
 				Double amount = new Double(req.getParameter("amount"));
+				System.out.println(req.getParameter("mem_bonus"));
+				Integer mem_bonus = new Double(req.getParameter("mem_bonus")).intValue();
 				List<PolVO> list = (ArrayList<PolVO>) session.getAttribute("list");
 				PoService poSvc = new PoService();
 				poSvc.AddOrder(mem_id, amount, list);
-
-				System.out.println("訂單已成立");
+				MemberService memSvc = new MemberService();
+				memSvc.addBouns(mem_id, mem_bonus);
 
 				String url = "/front-end/protected/shopCart/End.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);

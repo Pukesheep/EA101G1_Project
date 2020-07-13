@@ -439,4 +439,10 @@ public class MemberJNDIDAO implements MemberDAO_interface {
 		}
 		return generatedKey;
 	}
+
+	@Override
+	public void updateBonus(String mem_id, Integer mem_bonus) {
+		// TODO Auto-generated method stub
+		
+	}
 }

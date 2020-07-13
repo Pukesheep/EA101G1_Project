@@ -28,7 +28,7 @@ public class MemberDAO implements MemberDAO_interface {
 	private static final String UPDATE = "UPDATE member SET mem_email = ?, mem_pass = ?, mem_name = ?, mem_icon = ?, mem_phone = ?, mem_addr = ?, bank_acc = ?, card_no = ?, card_yy = ?, card_mm = ?, card_sec = ?, mem_autho = ?, mem_bonus = ?, mem_warn = ? WHERE mem_id = ?";
 	private static final String LOGIN = "SELECT mem_id FROM member WHERE mem_email = ?";
 	private static final String SIGN_UP = "INSERT INTO member (mem_id, mem_name, mem_email, mem_pass, mem_autho, mem_joindat) VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'), ?, ?, ?, ?, SYSDATE)";
-//	private static final String UPDATE_BONUS = "UPDATE member";
+	private static final String UPDATE_BONUS = "UPDATE member SET mem_bonus = ? WHERE mem_id = ?";
 
 	@Override
 	public String insert(MemberVO memberVO) {
@@ -443,6 +443,43 @@ public class MemberDAO implements MemberDAO_interface {
 			}
 		}
 		return generatedKey;
+	}
+
+	@Override
+	public void updateBonus(String mem_id, Integer mem_bonus) {
+		
+		java.sql.Connection con = null;
+		java.sql.PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_BONUS);
+			
+			pstmt.setInt(1, mem_bonus);
+			pstmt.setString(2, mem_id);
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occurred. " + se.getMessage());
+		} finally {
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 
 

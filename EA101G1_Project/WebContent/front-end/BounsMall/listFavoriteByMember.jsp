@@ -86,9 +86,9 @@
 				<td>${bmSvc.getByPK(fbVO.bon_id).bon_status==0? "上架":"下架"}</td>
 				<td>
 					<form method="post" action="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do" style="margin-bottom: 0px;">
-						<input type="hidden" name="mem_id" value="${boVO.mem_id}">
-						<input type="hidden" name="bon_id" value="${boVO.bon_id}">
-						<input type="hidden" name="action" value="deleteFront">
+						<input type="hidden" name="mem_id" value="${fbVO.mem_id}">
+						<input type="hidden" name="bon_id" value="${fbVO.bon_id}">
+						<input type="hidden" name="action" value="cancel">
 						<input type="submit" value="取消" >
 					</form>
 				</td>

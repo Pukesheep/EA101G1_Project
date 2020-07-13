@@ -1,13 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>aside.jsp</title>
-</head>
-<body>
+<div>
         <aside class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ">
                 <li class="nav-item">
@@ -15,7 +7,7 @@
                         <i class="fas fa-user-edit ml-3"></i> 會員管理</div>
                     <ul class="collapse navbar-nav" id="sideNavColl01" data-parent="#navbarNav">
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">會員權限管理</a>
+                            <a class="nav-link pl-4" href="#">會員權限管理</a> 
                         </li>
                         <li class="nav-item">
                             <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/member/select_page.jsp">會員資料管理</a>
@@ -42,7 +34,7 @@
                         <i class="fas fa-gift ml-3 mr-2"></i>紅利商城管理</div>
                     <ul class="collapse navbar-nav" id="sideNavColl03" data-parent="#navbarNav">
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">紅利商品上下架</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath() %>/back-end/BounsMall/addBM.jsp">新增紅利商品</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/BounsOrder/ListAll.jsp">紅利商品訂單管理</a>
@@ -99,7 +91,7 @@
                             <a class="nav-link pl-4" href="#">客服訊息管理</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/Question/listAll.jsp">Q&A管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/Question/ListAll.jsp">Q&A管理</a>
                         </li>
                     </ul>
                 </li>
@@ -110,6 +102,9 @@
                         <li class="nav-item">
                             <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/adm/listAllAdm.jsp">員工帳號管理</a>
                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/adm/addAdm.jsp">新增員工</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link pl-4" href="#">員工權限管理</a>
                         </li>
@@ -117,5 +112,4 @@
                 </li>
             </ul>
         </aside>
-</body>
-</html>
+</div>

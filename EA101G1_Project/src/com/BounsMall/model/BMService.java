@@ -52,7 +52,7 @@ public class BMService {
 		
 		bmVO.setBon_id(bon_id);
 		bmVO.setBon_exchange(bon_exchange);
-		dao.update(bmVO);
+		dao.updateExchange(bon_id, bon_exchange);
 		
 		return bmVO;
 	}

@@ -579,7 +579,68 @@ public class ImmedServlet extends HttpServlet {
 			}
 		}
 
-		if ("update_up".equals(action)) { // 來自update_emp_input.jsp的請求
+		if ("update_up".equals(action)) { // 前台商品上架
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				String immed_id = req.getParameter("immed_id");
+
+				ImmedVO immedVO = new ImmedVO();
+				immedVO.setImmed_id(immed_id);
+
+				/*************************** 2.開始修改資料 *****************************************/
+				ImmedService immedSvc = new ImmedService();
+				immedVO = immedSvc.updateImmedUp(immed_id);
+				/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
+				String url = "/front-end/protected/immed/salerAlter.jsp"; // listOneImmed.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneImmed.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("修改資料失敗:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/immed/immed_index.jsp"); // update_immed_input.jsp
+				failureView.forward(req, res);
+			}
+		}
+		
+		if ("backend_update_up".equals(action)) { // 後台商品上架
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				String immed_id = req.getParameter("immed_id");
+
+				ImmedVO immedVO = new ImmedVO();
+				immedVO.setImmed_id(immed_id);
+
+				/*************************** 2.開始修改資料 *****************************************/
+				ImmedService immedSvc = new ImmedService();
+				immedVO = immedSvc.updateImmedUp(immed_id);
+
+				/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
+				String url = "/back-end/immed/listAllImmed.jsp"; // listOneImmed.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneImmed.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("修改資料失敗:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/immed/listAllImmed.jsp"); // update_immed_input.jsp
+				failureView.forward(req, res);
+			}
+		}
+
+		if ("update_down".equals(action)) { // 前台商品下架 action
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -603,22 +664,22 @@ public class ImmedServlet extends HttpServlet {
 
 				/*************************** 2.開始修改資料 *****************************************/
 				ImmedService immedSvc = new ImmedService();
-				immedVO = immedSvc.updateImmedUp(immed_id);
+				immedVO = immedSvc.updateImmedDown(immed_id);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
-				String url = "/back-end/immed/listAllImmed.jsp"; // listOneImmed.jsp
+				String url = "/front-end/protected/immed/salerAlter.jsp"; // listOneImmed.jsp
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneImmed.jsp
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/immed/listAllImmed.jsp"); // update_immed_input.jsp
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/immed/immed_index.jsp"); // update_immed_input.jsp
 				failureView.forward(req, res);
 			}
 		}
-
-		if ("update_down".equals(action)) { // 來自update_emp_input.jsp的請求
+		
+		if ("backend_update_down".equals(action)) { // 後台商品下架 action
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -656,6 +717,7 @@ public class ImmedServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+
 
 		if ("insert".equals(action)) { // 來自addImmed.jsp的請求
 

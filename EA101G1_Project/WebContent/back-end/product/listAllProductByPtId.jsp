@@ -55,12 +55,12 @@
 
 </head>
 <body bgcolor='white'>
-
+<
 <h4>此頁練習採用 EL 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
 		 <h3><%=ptSvc.getOneProductType(pt_id).getTypename()%></h3>
-		 <h4><a href="<%=request.getContextPath()%>/back-end/product/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -88,7 +88,7 @@
 		<th>商品狀態</th>
 		<th>修改</th>
 	</tr>
-	<%@ include file="../../files/page1.file" %> 
+	<%@ include file="/files/page1.file" %> 
 	<c:forEach var="proVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
@@ -96,7 +96,9 @@
 			<td>${ ptSvc.getOneProductType(proVO.pt_id).typename }</td>
 			<td>${proVO.p_name}</td>
 			<td>${proVO.p_price}</td>
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/proPic.do">
 			<td><img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${proVO.p_id}"></td>
+			</FORM>
 			<td>${proVO.p_info}</td>
 			<td>${proVO.p_sales}</td>
 			<td>${proVO.p_stock}</td>
@@ -112,7 +114,7 @@
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="../../files/page2.file" %>
+<%@ include file="/files/page2.file" %>
 
 </body>
 </html>

@@ -34,7 +34,7 @@ public class BMDAO implements BMDAO_interface {
 			"UPDATE BOUNS_MALL SET PT_ID=?, BON_NAME=?, BON_PRICE=?, BON_IMAGE=?, BON_INFO=?, BON_EXCHANGE=?, BON_STOCK=?, BON_STATUS=?"
 					+ " WHERE BON_ID = ?" ;
 	private static final String UPDATE_EXCHANGE =
-			"UPDATE BOUNS_MALL SET BON_EXCJAMGE=?"
+			"UPDATE BOUNS_MALL SET BON_EXCHANGE=?"
 					+ " WHERE BON_ID = ?";
 	private static final String GET_BY_PT_ID =
 			"SELECT BON_ID, PT_ID, BON_NAME, BON_PRICE, BON_IMAGE, BON_INFO, BON_EXCHANGE, BON_STOCK, to_char(BON_ADDDATE,'yyyy-mm-dd') BON_ADDDATE, BON_STATUS "

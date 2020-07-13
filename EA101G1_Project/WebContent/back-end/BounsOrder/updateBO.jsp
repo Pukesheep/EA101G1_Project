@@ -57,9 +57,9 @@
 			<td>
 				<h3>修改紅利訂單 - /back-end/updateBO.jsp</h3>
 				<h4>
-					<a href="<%=request.getContextPath()%>/back-end/BounsOrder/ListAll.jsp">
-<%-- 					<a href="return"> --%>
-						<img src="images/back1.gif" width="100" height="32" border="0">回上一頁</a>
+					<a href="javascript:history.back(-1)"
+						><img src="<%=request.getContextPath()%>/images/back1.gif"
+							width="100" height="32" border="0">回上一頁</a>
 				</h4>
 			</td>
 	</table>
