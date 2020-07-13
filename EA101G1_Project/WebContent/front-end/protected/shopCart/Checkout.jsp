@@ -6,28 +6,82 @@
 
 <html>
 <head>
- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <title>商城結帳- Checkout.jsp</title>
-  <style>
-		b>img{
-			width: 100px;
-			hieight:100px;
+ <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>確認結帳</title>
+ <!-- TODO: 換title 的icon -->
+    <link rel="icon shortcut" href="./img/ICON.ico">
+    <!-- Bootstrap官方網站 https://getbootstrap.com/ -->
+    <!-- 連結Bootstrap.min.css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	
+    <!-- 使用font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <!-- 使用google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
+
+    <!-- 使用style.css -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
+
+    <!-- 連結Bootstrap所需要的js -->
+    <!-- jquery.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- popper.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <!-- bootstrap.min.js -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        
+    <!-- SweetAlert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+ <style>
+ 		font{
+ 		font-family:Microsoft JhengHei;
+ 		}
+ 		
+ 		div{
+ 		text-align:center;
+ 		}
+ 		
+ 		#head font{
+ 		color:white;
+ 		}
+ 		
+		div.col-2>img{
+			width: 100%;
 		}
+		
+		div.col-12>img{
+			width: 20%;
+		}
+
+		
  </style>
 </head>
-<body bgcolor="#FFFFFF">
-<img src="images/tomcat.gif"> <font size="+3">商城 - 結帳 </font>
-<hr><p><center>
-
-<table border="1" width="720">
-	<tr bgcolor="#999999">
-		<th width="500" colspan="2">商品明細</th><th width="100">價格</th><th width="100">數量</th>
-		<th width="120">小計</th>
-	</tr>
-	
-	<%
+<!-- navbar -->
+<%--     <%@ include file="/../../files/header.jsp" %> --%>
+    <!-- navbar end -->
+    <section class="blank0"></section>
+    
+    <!-- 內容 -->
+    <section class="blank1">
+<div class="container">
+   		<div class="row justify-content bg-primary mb-3 rounded" id="head" style="height:40px">
+   			<div class="col-5 align-self-center"><font>商品明細</font></div>
+   			<div class="col-1 align-self-center"><font>價格</font></div>
+   			<div class="col-2 align-self-center"><font>數量</font></div>
+   			<div class="col-2 align-self-center"><font>小計</font></div>
+   		</div>
+   		<%
 		Vector<PRODUCT> buylist = (Vector<PRODUCT>) session.getAttribute("shoppingcart");
-		String amount =  (String) session.getAttribute("amount");
+		Double amount =  (Double) session.getAttribute("amount");
 		
 		List<PolVO> list = new ArrayList<PolVO>();
 	%>	
@@ -47,31 +101,57 @@
 			
 			list.add(polvo);
 	%>
-	<tr>
-		<td width="300"><div align="center"><b><img src="<%=request.getContextPath()%>/shopCart/ShopCartPic.do?p_id=<%=order.getId()%>"></b></div></td>
-		<td width="200"><div align="center"><b><%=name%></b></div></td>
-		<td width="100"><div align="center"><b><%=price%></b></div></td>
-		<td width="100"><div align="center"><b><%=quantity%></b></div></td>
-		<td width="120"><div align="center"><b><%=sub%></b></div></td>
-	</tr>
-	<%
+   		<div class="row justify-content mb-2 bg-white rounded">
+   			<div class="col-2 align-self-center"><img src="<%=request.getContextPath()%>/shopCart/ShopCartPic.do?p_id=<%=order.getId()%>"></div>
+   			<div class="col-3 align-self-center"><a href="<%=request.getContextPath()%>/front-end/product/listOneProduct.jsp?p_id=<%=p_id%>"><font><%=name%></font></a></div>
+   			<div class="col-1 align-self-center"><font>$<%=price%></font></div>
+   			<div class="col-2 align-self-center"><font><%=quantity%></font></div>
+   			<div class="col-2 align-self-center"><font>$<%=sub%></font></div>
+   		</div>
+   		<%
 		}
 	session.setAttribute("list",list);
 	%>
-	<tr>
-		<td></td>
-		<td></td>
-		<td colspan="3"><div align="center"><font color="red"><b>總金額：</b></font><font color="red"><b>$<%=amount%></b></font></div></td>
-	</tr>
-</table>
-<p>
-          <form name="checkoutForm" action="<%=request.getContextPath()%>/productOrder/Po.do" method="POST">
-              <input type="hidden" name="action" value="insert"> 
-              <input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
-              <input type="hidden" name="amount" value=<%= amount%>>
-              <input type="submit" value="確認結帳">
-          </form>
-<p><a href="<%=request.getContextPath() %>/front-end/product/listAllProduct.jsp">是否繼續購物</a>
-</center>
+		<div class="row justify-content-end rounded" style="background-color:#c6d4df;height:60px;margin-bottom:2px">
+			<div class="col-2 align-self-center">總金額:$<%=amount%></div>
+		</div>
+		
+		<%
+		Double ratio = 0.1;
+		Double mem_bonus = amount*ratio;
+		%>
+		<div class="row justify-content-end rounded" style="background-color:#c6d4df;height:60px;margin-bottom:2px">
+			<div class="col-2 align-self-center">可獲得紅利:<%=mem_bonus%>點</div>
+		</div>
+		
+   		<div class="row justify-content-end rounded" style="background-color:#c6d4df">
+   			<div class="row p-3">
+		   		<div class="col-6 align-self-center mt-3">
+		   		 	<form name="checkoutForm" action="<%=request.getContextPath()%>/productOrder/Po.do" method="POST">
+              			<input type="hidden" name="action" value="insert"> 
+              			<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
+              			<input type="hidden" name="amount" value=<%= amount%>>
+              			<input type="hidden" name="mem_bonus" value=<%=mem_bonus %>>
+              			<input class="btn btn-primary" type="submit" value="確認結帳">
+         			 </form>
+		   		</div>
+		   		<div class="col-6 align-self-start mt-3"><a class="btn btn-primary" href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">繼續購物</a><s/div>
+		   		</div>
+   			</div>
+<!--    			<div class="row p-3"> -->
+<!-- 				<div class="col-12 align-self-center"> -->
+<!-- 					 <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
+<!--       					<div class="input-group mb-2"> -->
+<!--         					<div class="input-group-prepend"> -->
+<!--           						<div class="input-group-text">@</div> -->
+<!--         					</div> -->
+<!--        				 		<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username"> -->
+<!--       					</div> -->
+<!-- 				</div>			 -->
+<!--    			</div> -->
+   		</div>
+
+	</div>
+	</section>
 </body>
 </html>
