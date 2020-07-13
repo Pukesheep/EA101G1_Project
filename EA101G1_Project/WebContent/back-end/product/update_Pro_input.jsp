@@ -54,33 +54,21 @@ div #preview {
 </style>
 
 </head>
-<body style="background-color:#17a2b8">
+<body style="background-color: #17a2b8">
 	<!-- header -->
 
-<<<<<<< HEAD
 	<%@ include file="/back-end/css/header.jsp"%>
 	<!-- header -->
-=======
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>商品資料修改 - update_Pro_input.jsp</h3>
-				<h4>
-					<a href="select_page.jsp"><img src="images/back1.gif"
-						width="100" height="32" border="0">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
->>>>>>> branch 'master' of https://github.com/Pukesheep/EA101G1_Project.git
+
+
 
 	<div class="content d-md-flex">
 
-<<<<<<< HEAD
+
 		<!-- aside -->
 		<%@ include file="/back-end/css/aside.jsp"%>
 		<!-- aside -->
-		<div class="container">
+		
 			<table id="table-1">
 				<tr>
 					<td>
@@ -93,30 +81,19 @@ div #preview {
 					</td>
 				</tr>
 			</table>
-=======
-	<%-- 錯誤表列 --%>
-<%-- 	<c:if test="${not empty errorMsgs}"> --%>
-<!-- 		<font style="color: red">請修正以下錯誤:</font> -->
-<!-- 		<ul> -->
-<%-- 			<c:forEach var="message" items="${errorMsgs}"> --%>
-<%-- 				<li style="color: red">${message}</li> --%>
-<%-- 			</c:forEach> --%>
-<!-- 		</ul> -->
-<%-- 	</c:if> --%>
->>>>>>> branch 'master' of https://github.com/Pukesheep/EA101G1_Project.git
 
 			<h3>資料修改:</h3>
 
-<<<<<<< HEAD
+
 			<%-- 錯誤表列 --%>
-			<c:if test="${not empty errorMsgs}">
-				<font style="color: red">請修正以下錯誤:</font>
-				<ul>
-					<c:forEach var="message" items="${errorMsgs}">
-						<li style="color: red">${message}</li>
-					</c:forEach>
-				</ul>
-			</c:if>
+<%-- 			<c:if test="${not empty errorMsgs}"> --%>
+<!-- 				<font style="color: red">請修正以下錯誤:</font> -->
+<!-- 				<ul> -->
+<%-- 					<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 						<li style="color: red">${message}</li> --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</ul> -->
+<%-- 			</c:if> --%>
 
 			<FORM METHOD="post"
 				ACTION="<%=request.getContextPath()%>/product/pro.do" name="form1"
@@ -141,12 +118,18 @@ div #preview {
 					<tr>
 						<td>商品名稱:</td>
 						<td><input type="TEXT" name="p_name" size="45"
-							value="<%=proVO.getP_name()%>" /></td>
+							value="<%=proVO.getP_name()%>" />
+						<c:if test="${not empty errorMsgs}">
+								<front style="color:red">${errorMsgs.p_name}</front>
+							</c:if></td>
 					</tr>
 					<tr>
 						<td>商品價格:</td>
 						<td><input type="TEXT" name="p_price" size="45"
-							value="<%=proVO.getP_price()%>" /></td>
+							value="<%=proVO.getP_price()%>" />
+						<c:if test="${not empty errorMsgs}">
+								<front style="color:red">${errorMsgs.p_price}</front>
+							</c:if></td>
 					</tr>
 					<tr>
 						<td>商品圖片:</td>
@@ -155,20 +138,31 @@ div #preview {
 							value="<%=proVO.getP_image()%>" /><br>
 							<div class="row">
 								<div id="preview">
-									<img
-										src="<%=request.getContextPath()%>/product/proPic.do?p_id=${proVO.p_id}">
+									<FORM METHOD="post"
+										ACTION="<%=request.getContextPath()%>/product/proPic.do">
+										<img
+											src="<%=request.getContextPath()%>/product/proPic.do?p_id=${proVO.p_id}">
+									</FORM>
 								</div>
-							</div></td>
+							</div> <c:if test="${not empty errorMsgs}">
+								<front style="color:red">${errorMsgs.p_image}</front>
+							</c:if></td>
 					</tr>
 					<tr>
 						<td>商品描述:</td>
 						<td><textarea name="p_info" rows="6" cols="40"
-								value="<%=proVO.getP_info()%>"><%=proVO.getP_info()%></textarea></td>
+								value="<%=proVO.getP_info()%>"><%=proVO.getP_info()%></textarea>
+							<c:if test="${not empty errorMsgs}">
+								<front style="color:red">${errorMsgs.p_info}</front>
+							</c:if></td>
 					</tr>
 					<tr>
 						<td>庫存量:</td>
 						<td><input type="TEXT" name="p_stock" size="45"
-							value="<%=proVO.getP_stock()%>" /></td>
+							value="<%=proVO.getP_stock()%>" />
+						<c:if test="${not empty errorMsgs}">
+								<front style="color:red">${errorMsgs.p_stock}</front>
+							</c:if></td>
 					</tr>
 					<tr>
 						<td>商品狀態:</td>
@@ -179,62 +173,6 @@ div #preview {
 								
 						</select></td>
 					</tr>
-=======
-			<jsp:useBean id="ptSvc" scope="page"
-				class="com.productType.model.PtService" />
-			<tr>
-				<td>商品分類:<font color=red><b>*</b></font></td>
-				<td><select size="1" name="pt_id">
-						<c:forEach var="ptVO" items="${ptSvc.all}">
-							<option value="${ptVO.pt_id}"
-								${(proVO.pt_id==ptVO.pt_id)? 'selected':'' }>${ptVO.typename}
-						</c:forEach>
-				</select></td>
-			</tr>
-			<tr>
-				<td>商品名稱:</td>
-				<td><input type="TEXT" name="p_name" size="45"
-					value="<%=proVO.getP_name()%>" /><c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_name}</front></c:if></td>
-			</tr>
-			<tr>
-				<td>商品價格:</td>
-				<td><input type="TEXT" name="p_price" size="45"
-					value="<%=proVO.getP_price()%>" /><c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_price}</front></c:if></td>
-			</tr>
-			<tr>
-				<td>商品圖片:</td>
-				<td><input type="file" name="p_image" id="myFile"
-					accept="image/gif, image/jpeg, image/png"
-					value="<%=proVO.getP_image()%>" /><br>
-					<div class="row">
-						<div id="preview">
-							<FORM METHOD="post"
-								ACTION="<%=request.getContextPath()%>/product/proPic.do">
-								<img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${proVO.p_id}">
-							</FORM>
-						</div>
-					</div>
-					<c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_image}</front></c:if>
-					</td>
-			</tr>
-			<tr>
-				<td>商品描述:</td>
-				<td><textarea name="p_info" rows="6" cols="40"
-						value="<%=proVO.getP_info()%>"><%=proVO.getP_info()%></textarea><c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_info}</front></c:if></td>
-			</tr>
-			<tr>
-				<td>庫存量:</td>
-				<td><input type="TEXT" name="p_stock" size="45"
-					value="<%=proVO.getP_stock()%>" /><c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_stock}</front></c:if></td>
-			</tr>
-			<tr>
-				<td>商品狀態:</td>
-				<td><select size="1" name="p_stat">
-						<option value=0 ${(proVO.p_stat==0)? 'selected':'' }>下架
-						<option value=1 ${(proVO.p_stat==1)? 'selected':'' }>上架
-				</select></td>
-			</tr>
->>>>>>> branch 'master' of https://github.com/Pukesheep/EA101G1_Project.git
 
 
 
@@ -247,7 +185,7 @@ div #preview {
 					value="<%=proVO.getP_add_date()%>"> <input type="submit"
 					value="送出修改">
 			</FORM>
-		</div>
+		
 		<script>
 			function init() {
 
