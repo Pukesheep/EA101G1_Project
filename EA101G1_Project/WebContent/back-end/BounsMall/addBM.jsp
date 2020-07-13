@@ -52,7 +52,7 @@
 <table id="table-1">
 	<tr><td>
 		<h3>新增紅利商品資料</h3>
-		<h4><a href="<%=request.getContextPath()%>/back-end/BounsMall/select_page.jsp"><img src="images/tomcat.png">回首頁</a></h4>
+		<h4><a href="<%=request.getContextPath()%>/back-end/BounsMall/ListAll.jsp"><img src="images/tomcat.png">回首頁</a></h4>
 	</td></tr>
 </table>
 

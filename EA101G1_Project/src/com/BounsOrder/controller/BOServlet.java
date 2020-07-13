@@ -28,7 +28,7 @@ public class BOServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			String success = "/back-end/BounsOrder/ListOne.jsp";
-			String fail = "/back-end/BounsOrder/select_page.jsp";
+			String fail = "/back-end/BounsOrder/ListAll.jsp";
 			
 			try {
 				String ord_id = req.getParameter("ord_id");
@@ -54,7 +54,7 @@ public class BOServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			String success = "/back-end/BounsOrder/ListByName.jsp";
-			String fail = "/back-end/BounsOrder/select_page.jsp";
+			String fail = "/back-end/BounsOrder/ListAll.jsp";
 			
 			try {
 				String bon_id = req.getParameter("bon_id");
@@ -77,7 +77,7 @@ public class BOServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			String success = "/back-end/BounsOrder/ListByMember.jsp";
-			String fail = "/back-end/BounsOrder/select_page.jsp";
+			String fail = "/back-end/BounsOrder/ListAll.jsp";
 			
 			try {
 				String mem_id = req.getParameter("mem_id");
@@ -87,6 +87,29 @@ public class BOServlet extends HttpServlet {
 				
 				req.setAttribute("list", list);
 				req.setAttribute("mem_id", mem_id);
+				RequestDispatcher successView = req.getRequestDispatcher(success);
+				successView.forward(req, res);
+			} catch ( Exception e ) {
+				RequestDispatcher failureView = req.getRequestDispatcher(fail);
+				failureView.forward(req, res);
+			}
+		}
+		
+		if ( "getAllByBS".equals(action) ) {
+			List<BOVO> list = new ArrayList<BOVO>();
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			String success = "/back-end/BounsOrder/ListByBS.jsp";
+			String fail = "/back-end/BounsOrder/ListAll.jsp";
+			
+			try {
+				String bs_id = req.getParameter("bs_id");
+				
+				BOService boSvc = new BOService();
+				list = boSvc.getByBs(bs_id);
+				
+				req.setAttribute("list", list);
+				req.setAttribute("bs_id", bs_id);
 				RequestDispatcher successView = req.getRequestDispatcher(success);
 				successView.forward(req, res);
 			} catch ( Exception e ) {

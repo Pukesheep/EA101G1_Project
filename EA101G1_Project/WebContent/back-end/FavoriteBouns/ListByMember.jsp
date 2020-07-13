@@ -55,8 +55,9 @@
 			<td>
 				<h3>會員紅利最愛查詢 - /back-end/ListByMember.jsp</h3>
 				<h4>
-					<a href="<%=request.getContextPath()%>/back-end/FavoriteBouns/select_page.jsp">
-						<img src="images/back1.gif" width="100" height="32" border="0">回首頁</a>
+					<a href="<%=request.getContextPath()%>/back-end/FavoriteBouns/ListAll.jsp"
+						><img src="<%=request.getContextPath()%>/images/back1.gif"
+							width="100" height="32" border="0">回首頁</a>
 				</h4>
 			</td>
 		</tr>
