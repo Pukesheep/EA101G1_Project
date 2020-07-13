@@ -371,6 +371,51 @@ public class ProServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("verification".equals(action)) {
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				String name = req.getParameter("name");
+				if (name == null || name.trim().length() == 0) {
+					errorMsgs.put("errorMsgs.name", "信用卡持卡人請勿空白");
+				}
+
+				String cardnumber = req.getParameter("cardnumber");
+				String cardNoReg = "^[((0-9)]{16}$";
+				if (cardNoReg == null || cardNoReg.trim().length() == 0) {
+					errorMsgs.put("errorMsgs.cardnumber", "信用卡卡號請勿空白");
+				} else if (!cardNoReg.trim().matches(cardNoReg)) { // 以下練習正則(規)表示式(regular-expression)
+					errorMsgs.put("errorMsgs.cardnumber", "信用卡卡號請輸入16位數字");
+				}
+				;
+
+				String expirationdate = req.getParameter("expirationdate");
+				String cardYmReg = "^[(0-9/)]{5}$";
+				if (expirationdate == null || expirationdate.trim().length() == 0) {
+					errorMsgs.put("errorMsgs.espirationdate", "信用卡到期日期請勿空白");
+				}
+
+				String securitycode = req.getParameter("securitycode");
+				String cardSecReg = "^[(0-9)]{3}$";
+				if (securitycode == null || securitycode.trim().length() == 0) {
+					errorMsgs.put("errorMsgs.securitycode", "信用卡認證碼請勿空白");
+				} else if (!securitycode.trim().matches(cardSecReg)) { // 以下練習正則(規)表示式(regular-expression)
+					errorMsgs.put("errorMsgs.securitycode", "信用卡認證碼請輸入三位數字");
+				}
+
+				if (!errorMsgs.isEmpty()) {
+					String url = req.getParameter("url");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/protected/shopCart/Checkout2.jsp");
+					System.out.println(failureView);
+					failureView.forward(req, res);
+					return; // 程式中斷
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
