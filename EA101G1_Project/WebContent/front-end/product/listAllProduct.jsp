@@ -11,7 +11,7 @@
     ProService proSvc = new ProService();
     List<ProVO> list = proSvc.getAllFront();
     session.setAttribute("keyWordlist",list);
-    pageContext.setAttribute("list",list);
+    pageContext.setAttribute("list",list); 
 %>
 
 <jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
