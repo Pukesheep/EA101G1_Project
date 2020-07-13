@@ -27,7 +27,7 @@
 	
 	<%
 		Vector<PRODUCT> buylist = (Vector<PRODUCT>) session.getAttribute("shoppingcart");
-		String amount =  (String) session.getAttribute("amount");
+		Double amount =  (Double) session.getAttribute("amount");
 		
 		List<PolVO> list = new ArrayList<PolVO>();
 	%>	

@@ -115,4 +115,14 @@ public class MemberService {
 		return memberVO;
 	}
 	
+	public void addBouns(String mem_id, Integer mem_bonus) {
+		MemberVO memberVO = dao.findByPrimaryKey(mem_id);
+		Integer oldBonus = memberVO.getMem_bonus();
+		Integer newBonus = mem_bonus;
+		Integer bonus = oldBonus+newBonus;
+		memberVO.setMem_bonus(bonus);
+		dao.update(memberVO);
+		
+	}
+	
 }

@@ -1,6 +1,10 @@
 package com.product.model;
 
 import java.util.*;
+
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,10 +14,16 @@ import java.sql.*;
 
 public class ProDAO implements ProDAO_interface {
 
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "EA101G1";
-	String passwd = "123456";
+private static javax.sql.DataSource ds = null;
+	
+	static {
+		try {
+			javax.naming.Context ctx = new javax.naming.InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String INSERT_STMT = "INSERT INTO PRODUCT(P_ID,PT_ID, P_NAME, P_PRICE, P_IMAGE,P_INFO, P_SALES, P_STOCK, P_STAT) VALUES ('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'), ?, ?, ?, ?, ?, 0, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT P_ID,PT_ID,P_NAME,P_PRICE,P_IMAGE,P_INFO,P_SALES,P_STOCK,to_char(P_ADD_DATE,'yyyy-mm-dd') P_ADD_DATE,P_STAT FROM PRODUCT ORDER BY P_ID";
@@ -31,8 +41,7 @@ public class ProDAO implements ProDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			pstmt.setString(1, proVO.getPt_id());
 			pstmt.setString(2, proVO.getP_name());
@@ -43,10 +52,7 @@ public class ProDAO implements ProDAO_interface {
 			pstmt.setInt(7, proVO.getP_stat());
 
 			pstmt.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
+		}  catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
@@ -75,8 +81,7 @@ public class ProDAO implements ProDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, proVO.getPt_id());
@@ -92,9 +97,6 @@ public class ProDAO implements ProDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -125,8 +127,7 @@ public class ProDAO implements ProDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, p_id);
@@ -134,9 +135,6 @@ public class ProDAO implements ProDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -167,8 +165,7 @@ public class ProDAO implements ProDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, p_id);
@@ -191,9 +188,6 @@ public class ProDAO implements ProDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -234,8 +228,7 @@ public class ProDAO implements ProDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_BYPTID);
 
 			pstmt.setString(1, pt_id);
@@ -260,9 +253,6 @@ public class ProDAO implements ProDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -304,8 +294,7 @@ public class ProDAO implements ProDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -325,9 +314,6 @@ public class ProDAO implements ProDAO_interface {
 				list.add(proVO);
 			}
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
