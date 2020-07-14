@@ -423,7 +423,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
-		<url-pattern>/back-end/protected/*</url-pattern>
+		<url-pattern>/back-end/adm/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

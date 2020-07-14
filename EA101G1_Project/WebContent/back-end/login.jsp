@@ -1,46 +1,84 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="BIG5">
-<title>Insert title here</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<style>
-.a{
-	width:200px;
-	margin:20px auto;
-	font-size:30px;
-}
-
-#b{
-   	margin-top:10px;
-}
-h1{
-	width:200px;
-	margin:0 auto;
-}
-body{
-background-color: #5588DD;
-}
-</style>
+    <%@ include file="/back-end/css/BackHeaderCssLink" %>
+    <title>S.F.G ÂæåÂè∞ÁÆ°ÁêÜ</title>
+    
+    <style>
+    
+    	h1{
+    		padding: 10px;
+    		text-align: center;
+    		background-color:#BB6655;
+    		
+    	}
+    	
+    	div.container{
+    		margin-top:20px;
+    	}
+    	
+    	div.input{
+    		padding:5px;
+    	}
+    	
+    	body{
+    		background-color:#448888;	
+    	}
+    	
+    	div#button{
+    		margin-top:10px;
+    		text-align: center;
+    	}
+    	
+    </style>
+    
+    
 </head>
-<body>
-<FORM METHOD="post" ACTION="<%= request.getContextPath()%>/loginhandler" >
-<h1>≠˚§uµn§J®t≤Œ</h1>
-<div class="a">
-<div>
-±b∏π: <input type="text" name="adm_acco" value="" placeholder="Ω–øÈ§J±b∏π">
-</div> 
-<div>
-±KΩX: <input type="password" name="adm_pass" value="" placeholder="Ω–øÈ§J±KΩX">
-</div>
-<div id="b">
-<input type="submit" value="µn§J">
-</div>
-</div>
-</FORM>
 
+<body>
+<!-- header -->
+	
+	<%@ include file="/back-end/css/header.jsp" %>
+<!-- header -->
+
+    <div class="content d-md-flex">
+
+<!-- aside -->
+	<%@ include file="/back-end/css/aside.jsp" %>
+<!-- aside -->
+
+ <main>
+
+   <FORM METHOD="post" ACTION="<%= request.getContextPath()%>/loginhandler">
+<h1>Âì°Â∑•ÁôªÂÖ•Á≥ªÁµ±</h1>
+
+<div class="container">
+	<div class="row justify-content-center">
+			<div class="col-3">
+
+<div class="input">
+Â∏≥Ëôü: <input type="text"  name="adm_acco" value="" placeholder="Ë´ãËº∏ÂÖ•Â∏≥Ëôü">
+</div>
+
+<div class="input">
+ÂØÜÁ¢º: <input type="text"  name="adm_pass" value="" placeholder="Ë´ãËº∏ÂÖ•ÂØÜÁ¢º">
+</div>
+<div id="button">
+<input type="submit" class="btn btn-warning" value="ÁôªÂÖ•">
+</div>
+</div>
+</div>
+</div>
+        </main>
+    </div>
 
 </body>
+
 </html>

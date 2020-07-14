@@ -306,14 +306,19 @@ public class PsacServlet extends HttpServlet {
 			}
 		}
 			
-		if ("report".equals(action)) { // 來自psac.jsp的請求
+		if ("report".equals(action)) {// 來自psac.jsp的請求
+			
+			List<String> successMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("successMsgs", successMsgs);
+			
 			String[] sa = req.getParameterValues("reason");
-			String psac_content="";
-			for (String reason : sa) {
-				//System.out.println(reason);
-				psac_content += reason;
+			String psac_content = sa[0];
+			for (int i=1;i< sa.length;i++) {
+				psac_content += "\t" + ";" + "\t" + sa[i];
 			}
-		
+
 		
 		String mem_id = req.getParameter("mem_id");
 		String post_id = req.getParameter("post_id");
@@ -349,7 +354,8 @@ public class PsacServlet extends HttpServlet {
 //String adm_no =(String)request.getAttribute("adm_no");
 //Integer psac_state =(Integer)request.getAttribute("psac_state");
 		/***************************轉交(Send the Success view)***********/								
-		String url = "/front-end/psac/psac.jsp";
+		String url = "/front-end/post/listAllPost.jsp";
+		successMsgs.add("新增成功");
 		RequestDispatcher successView = req.getRequestDispatcher(url);// 成功後,轉交回送出的來源網頁
 		successView.forward(req, res);
 	}
