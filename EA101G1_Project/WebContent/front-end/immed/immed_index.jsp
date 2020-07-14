@@ -354,8 +354,8 @@ aside .navbar-nav .nav-link:hover {
 					<aside class=" navbar-collapse" id="navbarNav">
 						<ul class="navbar-nav pl-2">
 							<li class="nav-item">
-								<div class="nav-link pl-4" data-toggle="collapse"
-									data-target="#sideNavColl01">Switch</div>
+								<div class="nav-link pl-1" data-toggle="collapse"
+									data-target="#sideNavColl01">[ Switch ]</div>
 								<ul class="collapse navbar-nav" id="sideNavColl01"
 									data-parent="#navbarNav">
 									<li class="nav-item"><a class="nav-link pl-4"
@@ -370,8 +370,8 @@ aside .navbar-nav .nav-link:hover {
 								</ul>
 							</li>
 							<li class="nav-item">
-								<div class="nav-link pl-4" data-toggle="collapse"
-									data-target="#sideNavColl02">PS4</div>
+								<div class="nav-link pl-1" data-toggle="collapse"
+									data-target="#sideNavColl02">[ PS4 ]</div>
 								<ul class="collapse navbar-nav" id="sideNavColl02"
 									data-parent="#navbarNav">
 									<li class="nav-item"><a class="nav-link pl-4"
@@ -386,8 +386,8 @@ aside .navbar-nav .nav-link:hover {
 								</ul>
 							</li>
 							<li class="nav-item ">
-								<div class="nav-link pl-4" data-toggle="collapse"
-									data-target="#sideNavColl03">XBOX</div>
+								<div class="nav-link pl-1" data-toggle="collapse"
+									data-target="#sideNavColl03">[ XBOX ]</div>
 								<ul class="collapse navbar-nav" id="sideNavColl03"
 									data-parent="#navbarNav">
 									<li class="nav-item"><a class="nav-link pl-4"

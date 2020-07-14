@@ -65,6 +65,24 @@ public class ImmedService {
 		return immedVO;
 	}
 	
+	public ImmedVO update_shipping(String immed_id) {
+		ImmedVO immedVO = new ImmedVO();
+		
+		immedVO.setImmed_id(immed_id);
+		dao.update_shipping(immedVO);
+		
+		return immedVO;
+	}
+	
+	public ImmedVO update_disable(String immed_id) {
+		ImmedVO immedVO = new ImmedVO();
+		
+		immedVO.setImmed_id(immed_id);
+		dao.update_disable(immedVO);
+		
+		return immedVO;
+	}
+	
 	public ImmedVO updateBuyImmed(String buy_id, String rcpt_name, String rcpt_cell, String rcpt_add, String immed_id) {
 		ImmedVO immedVO = new ImmedVO();
 		

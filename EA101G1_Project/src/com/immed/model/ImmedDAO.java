@@ -30,6 +30,9 @@ public class ImmedDAO implements ImmedDAO_interface {
 	private static final String UPDATE_UP = "UPDATE IMMED SET IMMED_DOWN= 0 WHERE IMMED_ID = ?";
 	private static final String UPDATE_DOWN = "UPDATE IMMED SET IMMED_DOWN= 1 WHERE IMMED_ID = ?";
 	private static final String UPDATE_ONE_BUY = "UPDATE IMMED SET BUY_ID= ?, IMMED_SOLD= 1, IMMED_down= 1, ORD_TIME= SYSTIMESTAMP, ORDSTAT_ID= '003', RCPT_NAME= ?, RCPT_CELL= ?, RCPT_ADD= ? WHERE IMMED_ID = ?";
+	private static final String UPDATE_SHIPPING = "UPDATE IMMED SET ORDSTAT_ID='005' WHERE IMMED_ID = ?";
+	private static final String UPDATE_DISABLE = "UPDATE IMMED SET BUY_ID= NULL, IMMED_SOLD= 0, IMMED_down= 0, ORD_TIME= NULL, ORDSTAT_ID= NULL, RCPT_NAME= NULL, RCPT_CELL= NULL, RCPT_ADD= NULL WHERE IMMED_ID = ?";
+
 	
 	private static final String GET_ALL_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED ORDER BY IMMED_ID DESC";
 	private static final String GET_ALLONSALE_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_SOLD = 0 AND IMMED_DOWN = 0 ORDER BY IMMED_ID DESC";
@@ -39,8 +42,6 @@ public class ImmedDAO implements ImmedDAO_interface {
 	private static final String GET_ALLSALED_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_SOLD = 1 AND IMMED_DOWN = 1 AND SALE_ID = ? ORDER BY IMMED_ID DESC";
 	private static final String GET_ALLSALEING_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_SOLD = 0 AND IMMED_DOWN = 0 AND SALE_ID = ? ORDER BY IMMED_ID DESC";
 
-	
-	
 	private static final String GET_ONE_STMT = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_ID = ?";
 	
 	private static final String GET_FROM_NAME = "SELECT IMMED_ID, SALE_ID, BUY_ID, PT_ID, IMMED_NAME, IMMED_START, IMMED_PRC, IMMED_PIC, IMMED_DESC, IMMED_SOLD, IMMED_DOWN, ORD_TIME, ORDSTAT_ID, RCPT_NAME, RCPT_CELL, RCPT_ADD FROM IMMED WHERE IMMED_SOLD = 0 AND IMMED_DOWN = 0 AND UPPER(IMMED_NAME) LIKE UPPER(?) ORDER BY IMMED_PRC";
@@ -227,6 +228,41 @@ public class ImmedDAO implements ImmedDAO_interface {
 			pstmt.setString(3, immedVO.getRcpt_cell());
 			pstmt.setString(4, immedVO.getRcpt_add());
 			pstmt.setString(5, immedVO.getImmed_id());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void update_disable(ImmedVO immedVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_DISABLE);
+
+			pstmt.setString(1, immedVO.getImmed_id());
 
 			pstmt.executeUpdate();
 
@@ -941,10 +977,39 @@ public class ImmedDAO implements ImmedDAO_interface {
 		return list;
 	}
 
-	@Override
 	public void update_shipping(ImmedVO immedVO) {
-		// TODO Auto-generated method stub
-		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_SHIPPING);
+
+			pstmt.setString(1, immedVO.getImmed_id());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
+
 
 }

@@ -343,44 +343,53 @@ ul.navbar-Nav .nav-link {
 
 			<div class="row pb-4">
 				<div class="col-md-2 left_side pt-2">
-					<aside class=" navbar-collapse" id="navbarNav">
+						<aside class=" navbar-collapse" id="navbarNav">
 						<ul class="navbar-nav pl-2">
 							<li class="nav-item">
-								<div class="nav-link pl-4" data-toggle="collapse"
-									data-target="#sideNavColl01">Switch</div>
+								<div class="nav-link pl-1" data-toggle="collapse"
+									data-target="#sideNavColl01">[ Switch ]</div>
 								<ul class="collapse navbar-nav" id="sideNavColl01"
 									data-parent="#navbarNav">
-									<li class="nav-item"><a class="nav-link pl-4" href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT002">Switch
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT002">Switch
 											遊戲</a></li>
-									<li class="nav-item"><a class="nav-link pl-4" href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT001">Switch
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT001">Switch
 											主機</a></li>
-									<li class="nav-item"><a class="nav-link pl-4" href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT003">Switch
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT003">Switch
 											周邊</a></li>
 								</ul>
 							</li>
 							<li class="nav-item">
-								<div class="nav-link pl-4" data-toggle="collapse"
-									data-target="#sideNavColl02">PS4</div>
+								<div class="nav-link pl-1" data-toggle="collapse"
+									data-target="#sideNavColl02">[ PS4 ]</div>
 								<ul class="collapse navbar-nav" id="sideNavColl02"
 									data-parent="#navbarNav">
-									<li class="nav-item"><a class="nav-link pl-4" href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT005">PS4
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT005">PS4
 											遊戲</a></li>
-									<li class="nav-item"><a class="nav-link pl-4" href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT004">PS4
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT004">PS4
 											主機</a></li>
-									<li class="nav-item"><a class="nav-link pl-4" href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT006">PS4
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT006">PS4
 											周邊</a></li>
 								</ul>
 							</li>
 							<li class="nav-item ">
-								<div class="nav-link pl-4" data-toggle="collapse"
-									data-target="#sideNavColl03">XBOX</div>
+								<div class="nav-link pl-1" data-toggle="collapse"
+									data-target="#sideNavColl03">[ XBOX ]</div>
 								<ul class="collapse navbar-nav" id="sideNavColl03"
 									data-parent="#navbarNav">
-									<li class="nav-item"><a class="nav-link pl-4" href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT008">XBOX
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT008">XBOX
 											遊戲</a></li>
-									<li class="nav-item"><a class="nav-link pl-4" href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT007">XBOX
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT007">XBOX
 											主機</a></li>
-									<li class="nav-item"><a class="nav-link pl-4" href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT009">XBOX
+									<li class="nav-item"><a class="nav-link pl-4"
+										href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=PT009">XBOX
 											周邊</a></li>
 								</ul>
 							</li>
