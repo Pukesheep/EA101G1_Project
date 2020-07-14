@@ -185,7 +185,10 @@
 		.img-icon:hover {
 			cursor:pointer;
 		}
-		
+		.p_price{
+			color: #ff5353;
+    		font-size: 1.5em;
+		}
 		front.p_name:hover {
 			cursor:pointer;
 			color:red;
@@ -218,6 +221,7 @@
     <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp">­º­¶</a></li>
     <li class="breadcrumb-item active" aria-current="page">°Ó«°</li>
   </ol>
+ </nav> 
 </div>
 
 <div class="row">

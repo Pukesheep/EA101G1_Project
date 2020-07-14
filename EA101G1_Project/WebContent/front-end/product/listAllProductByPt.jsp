@@ -185,7 +185,10 @@
 		.img-icon:hover {
 			cursor:pointer;
 		}
-		
+		.p_price{
+			color: #ff5353;
+    		font-size: 1.5em;
+		}
 		front{
 		font-family:Microsoft JhengHei;
 		}
