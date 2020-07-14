@@ -439,6 +439,156 @@ System.out.println("拍賣結束------------------"+auct_id);
 			
 		}
 		
+//===========================================================================================================
+		if ("payOne_update".equals(action)) { // 來自buy_order.jsp的 "轉交付款" 請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+	
+			try {
+				/***************************1.接收請求參數***************************************/
+				String  auct_id = req.getParameter("auct_id");
+System.out.println("轉交付款---------------" + auct_id );				
+				
+				AuctVO auctVO = new AuctVO();
+				
+				/***************************2.開始修改狀態***************************************/
+				AuctService auctSvc = new AuctService();
+				auctVO = auctSvc.listOneOrd(auct_id);
+							
+				/***************************3.修改完成,準備轉交(Send the Success view)***********/	
+				req.setAttribute("auctVO", auctVO);
+				
+				String url = "/front-end/protected/auct/payMoney.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 修改成功後,轉交給payMoney.jsp網頁
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add("轉交失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/protected/auct/sale_order.jsp");
+				failureView.forward(req, res);
+			}
+			
+		}  // buy_order.jsp的 "轉交付款" 請求---end
+		
+		if ("update_rcpt".equals(action)) { // 來自payMoney.jsp的 "更新收件資訊" 請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+	
+			try {
+				/***************************1.接收請求參數***************************************/
+				String  auct_id = req.getParameter("auct_id");
+System.out.println("付款---------------" + auct_id );		
+				String ordstat_id = "003"; //已付款,待出貨
+				String rcpt_name = req.getParameter("rcpt_name");
+				String rcpt_cel = req.getParameter("rcpt_cel");
+				String rcpt_add = req.getParameter("rcpt_add");
+				
+				AuctVO auctVO = new AuctVO();
+				
+				/***************************2.開始修改狀態***************************************/
+				AuctService auctSvc = new AuctService();
+				auctVO = auctSvc.update_ord(ordstat_id,rcpt_name,rcpt_cel,rcpt_add,auct_id);
+							
+				/***************************3.修改完成,準備轉交(Send the Success view)***********/	
+				req.setAttribute("auctVO", auctVO);
+				
+				String url = "/front-end/protected/auct/pay.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 修改成功後,轉交給pay.jsp網頁
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add("付款失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/protected/auct/buy_order.jsp");
+				failureView.forward(req, res);
+			}
+			
+		}  // buy_order.jsp的 "付款" 請求---end
+		
+		
+//============================================================================================================		
+		if ("update_ordstat".equals(action)) { // 來自sale_order.jsp的 "出貨" 請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+	
+			try {
+				/***************************1.接收請求參數***************************************/
+				String  ordstat_id = "005"; //已送達,待收貨
+				String  auct_id = req.getParameter("auct_id");
+				
+				
+				AuctVO auctVO = new AuctVO();
+				
+				/***************************2.開始修改狀態***************************************/
+				AuctService auctSvc = new AuctService();
+				auctVO = auctSvc.update_ordstat_id(ordstat_id, auct_id);
+							
+				/***************************3.修改完成,準備轉交(Send the Success view)***********/	
+				req.setAttribute("auctVO", auctVO);
+				
+				String url = "/front-end/protected/auct/sale_order.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 修改成功後,轉交回 : 來源網頁
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add("修改狀態失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/protected/auct/sale_order.jsp");
+				failureView.forward(req, res);
+			}
+			
+		}  // sale_order.jsp的 "出貨" 請求---end
+		
+//============================================================================================================		
+		if ("update_OK_ordstat".equals(action)) { // 來自buy_order.jsp的 "完成" 請求
+
+					List<String> errorMsgs = new LinkedList<String>();
+					// Store this set in the request scope, in case we need to
+					// send the ErrorPage view.
+					req.setAttribute("errorMsgs", errorMsgs);
+			
+					try {
+						/***************************1.接收請求參數***************************************/
+						String  ordstat_id = "014";
+						String  auct_id = req.getParameter("auct_id");
+						
+						
+						AuctVO auctVO = new AuctVO();
+						
+						/***************************2.開始修改狀態***************************************/
+						AuctService auctSvc = new AuctService();
+						auctVO = auctSvc.update_ordstat_id(ordstat_id, auct_id);
+									
+						/***************************3.修改完成,準備轉交(Send the Success view)***********/	
+						req.setAttribute("auctVO", auctVO);
+						
+						String url = "/front-end/protected/auct/buy_order.jsp";
+						RequestDispatcher successView = req.getRequestDispatcher(url);// 修改成功後,轉交回 : 來源網頁
+						successView.forward(req, res);
+						
+						/***************************其他可能的錯誤處理**********************************/
+					} catch (Exception e) {
+						errorMsgs.add("修改狀態失敗:"+e.getMessage());
+						RequestDispatcher failureView = req
+								.getRequestDispatcher("/front-end/protected/auct/buy_order.jsp");
+						failureView.forward(req, res);
+					}
+					
+		}  // buy_order.jsp的 "完成" 請求---end
+		
 		
 		
 

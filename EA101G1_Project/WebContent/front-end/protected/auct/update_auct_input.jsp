@@ -166,6 +166,18 @@
 		  timepicker:true,
 		  step: 1
 		 });
+		//為某一天之前的日期無法選擇
+		 var somedate1 = new Date();
+	             $('#start_dateTime').datetimepicker({
+	                 beforeShowDay: function(date) {
+	               	  if (  date.getYear() <  somedate1.getYear() || 
+	        		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
+	        		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
+	                     ) {
+	                          return [false, ""]
+	                     }
+	                     return [true, ""];
+	             }});
 		 
 		 $('#end_dateTime').datetimepicker({
 			  format:'Y-m-d H:i:s',

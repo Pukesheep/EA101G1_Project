@@ -8,14 +8,7 @@
 
 
 <%    
-    MemberVO memVO=null;
-	if(session.getAttribute("memberVO")!=null){
-		memVO = (MemberVO) session.getAttribute("memberVO");
-	}else{
-		memVO = new MemberVO();
-		memVO.setMem_id("guest");
-	}
-    
+      
     AuctService auctSvc = new AuctService();
     List<AuctVO> list = auctSvc.getAllResult();
     pageContext.setAttribute("list",list);
@@ -150,20 +143,18 @@
         <section class="nav-auct container">
             <ul class="text-right">
                 <li class="auct-navbtn">
-                    <a href="Auct_index.jsp">競標專區</a>
-                </li>
-                <li class="auct-navbtn">
-                    <a href="Results_all.jsp">結標專區</a>
-                </li>
-                <li class="auct-navbtn">
-                    <a href="">出價記錄</a>
-                </li>
-                <li class="auct-navbtn">
-                    <a href="">戰利品</a>
-                </li>
-                <li class="auct-navbtn">
-                    <a href="listAllAuct.jsp">我的拍賣區</a>
-                </li>
+	                <a href="<%=request.getContextPath()%>/front-end/protected/auct/Auct_index.jsp">競標專區</a>
+	            </li>
+	            <li class="auct-navbtn">
+	                <a href="<%=request.getContextPath()%>/front-end/protected/auct/Results_all.jsp">結標專區</a>
+	            </li>
+	            
+	            <li class="auct-navbtn">
+	                <a href="<%=request.getContextPath()%>/front-end/protected/auct/buy_order.jsp">戰利品</a>
+	            </li>
+	            <li class="auct-navbtn">
+	                <a href="<%=request.getContextPath()%>/front-end/protected/auct/listAllAuct.jsp">我的拍賣區</a>
+	            </li>
             </ul>
             <h6 class="h6"> <a class="a-index" href="All_index.jsp">首頁</a> > 結標專區</h6>
 
@@ -213,15 +204,11 @@
 											%>
 										</li>
                                         
-                                        <li>NTD  元</li>
-                                        <li>贏家 : 誰</li>
+                                        <li>NTD <span style="font-size:20px;font-weight:bolder; color: blue;">${auctVO.maxPrice}</span>  元</li>
+                                        <li>贏家 :  <span style="font-weight:bolder; color: blue;">${MemberSvc.getOneMember(auctVO.buy_id).mem_name}</span></li>
                                         
                                         <li>
-											<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/auct/auct.do">
-												<input type="hidden" name="auct_id" value="${auctVO.auct_id}">
-												<input type="hidden" name="action" value="result_one_info">
-												<button type="submit" class="bid-btn">競標結束</button>
-											</form>
+												<button type="submit" class="bid-btn" disable>競標結束</button>
 										</li>
 										
                                     </ul>

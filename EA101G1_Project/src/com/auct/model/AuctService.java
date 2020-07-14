@@ -156,12 +156,10 @@ public AuctVO update_auct(String pt_id,String auct_name,Timestamp auct_start,Tim
 		
 		
 	//更新訂單資訊
-		public AuctVO update_ord(String ordstat_id,Timestamp ord_time,String rcpt_name,
-								 String rcpt_cel,String rcpt_add,String auct_id) {
+		public AuctVO update_ord(String ordstat_id,String rcpt_name, String rcpt_cel,String rcpt_add,String auct_id) {
 			AuctVO auctVO = new AuctVO();
 
 			auctVO.setOrdstat_id(ordstat_id);
-			auctVO.setOrd_time(ord_time);
 			auctVO.setRcpt_name(rcpt_name);
 			auctVO.setRcpt_cel(rcpt_cel);
 			auctVO.setRcpt_add(rcpt_add);
@@ -211,19 +209,18 @@ public AuctVO update_auct(String pt_id,String auct_name,Timestamp auct_start,Tim
 	    			
 	    	return list;
 	    }
+	    
 		
 	
 	// 戰利品(買家列出自己 標到 的商品)
-	    public List<AuctVO> getBuyOrderList(String sale_id){
+	    public List<AuctVO> getBuyOrderList(String buy_id){
 	    	List<AuctVO> list = dao.getAll_all().stream() 
-	    			.filter(auct ->auct.getBuy_id().equals(sale_id)) 
+	    			.filter(auct ->auct.getBuy_id().equals(buy_id)) 
 	    			.collect(Collectors.toList());
 	    	System.out.println(list);	
 	    	return list;
 	    }
-		
-		
-		
-		
+	
+
 		
 }
