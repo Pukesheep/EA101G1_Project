@@ -10,6 +10,7 @@ public interface ImmedDAO_interface {
 	public void update_down(ImmedVO immedVO);
 	public void update_one_buy(ImmedVO immedVO);
 	public void update_shipping(ImmedVO immedVO);
+	public void update_disable(ImmedVO immedVO);
 	
 	public void delete(String immed_id);
 	

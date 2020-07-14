@@ -64,7 +64,10 @@
                         <i class="fas fa-hand-pointer ml-3 mr-2"></i>交易區管理</div>
                     <ul class="collapse navbar-nav" id="sideNavColl05" data-parent="#navbarNav">
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">交易管理</a>
+                            <a class="nav-link pl-4" href="#">競標商品管理</a>
+                        </li>
+                          <li class="nav-item">
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/immed/listAllImmed.jsp">直購商品管理</a>
                         </li>
                     </ul>
                 </li>

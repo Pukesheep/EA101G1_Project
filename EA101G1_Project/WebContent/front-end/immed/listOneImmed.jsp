@@ -392,7 +392,8 @@ div.content {
 						href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
 					<li class="breadcrumb-item"><a
 						href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">直購商品</a></li>
-					<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=<%=ptVO.getPt_id()%>"><%=ptVO.getTypename()%></a></li>
+					<li class="breadcrumb-item"><a
+						href="<%=request.getContextPath()%>/immed/immed.do?action=find_By_Immed_Type&immed_type_search=<%=ptVO.getPt_id()%>"><%=ptVO.getTypename()%></a></li>
 				</ol>
 			</nav>
 		</div>
@@ -483,11 +484,12 @@ div.content {
 									name="immed_id" value="${immedVO.immed_id}">
 								<%-- 								<input type="hidden" name="buy_id" value="${memberVO.mem_id}"> --%>
 								<button type="submit" class="btn btn-danger immed_buy"
-									${immedVO.immed_sold ==1 ? "disabled" : "" } title="立即購買">${immedVO.immed_sold ==1 ? "已售出" : "立即購買" }</button>
-					
+									${ (immedVO.immed_sold == 1 || immedVO.sale_id == memberVO.mem_id )? "disabled" : "" }
+									title="立即購買">${immedVO.immed_sold ==1 ? "已售出" : "立即購買" }</button>
+
 								<c:if test="${immedVO.immed_sold ==1}">
-							
-								<p class="pl-3">買家: ${immedVO.immed_sold ==1 ?  buyVO.mem_name : "" }</p>
+
+									<p class="pl-3">買家: ${immedVO.immed_sold ==1 ?  buyVO.mem_name : "" }</p>
 								</c:if>
 							</form>
 
@@ -496,14 +498,14 @@ div.content {
 
 					<div style="border-top: 1px solid #D3D3D3;" class="row mx-2 mt-4">
 						<div class="col-md-8 mt-3">
-<!-- 							<div class="immedPay d-flex"> -->
-<!-- 								<span>運送方式: </span> -->
-<!-- 								<ul> -->
-<!-- 									<li>7-11取貨付款 60 元</li> -->
-<!-- 									<li>全家、OK、萊爾富取貨付款 60 元</li> -->
-<!-- 									<li>宅配/快遞 90 元</li> -->
-<!-- 								</ul> -->
-<!-- 							</div> -->
+							<!-- 							<div class="immedPay d-flex"> -->
+							<!-- 								<span>運送方式: </span> -->
+							<!-- 								<ul> -->
+							<!-- 									<li>7-11取貨付款 60 元</li> -->
+							<!-- 									<li>全家、OK、萊爾富取貨付款 60 元</li> -->
+							<!-- 									<li>宅配/快遞 90 元</li> -->
+							<!-- 								</ul> -->
+							<!-- 							</div> -->
 
 						</div>
 						<div class="col-md-4">
@@ -552,11 +554,22 @@ div.content {
 		src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
 
 	<script type="text/javascript">
-									$('.slider-for').slick({ autoplay : false, slidesToShow : 1,
-									slidesToScroll : 1, arrows : false, fade : true, asNavFor :
-									'.slider-nav' }); $('.slider-nav').slick({ autoplay : false,
-									slidesToShow : 3, slidesToScroll : 1, asNavFor : '.slider-for',
-									dots : false, focusOnSelect : true });
-									</script>
+		$('.slider-for').slick({
+			autoplay : false,
+			slidesToShow : 1,
+			slidesToScroll : 1,
+			arrows : false,
+			fade : true,
+			asNavFor : '.slider-nav'
+		});
+		$('.slider-nav').slick({
+			autoplay : false,
+			slidesToShow : 3,
+			slidesToScroll : 1,
+			asNavFor : '.slider-for',
+			dots : false,
+			focusOnSelect : true
+		});
+	</script>
 </body>
 </html>

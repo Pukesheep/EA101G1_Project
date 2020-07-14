@@ -376,11 +376,9 @@ div.content {
 								<%-- 								<td>${(immedVO.immed_down eq 1) ? "已下架" : "未下架"}</td> --%>
 								<%-- 								<td><fmt:formatDate value="${immedVO.ord_time}" --%>
 								<%-- 										pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
-								<td>
-									<%
-										ordstatVO = ordSvc.listOneOrdstat(immedVO.getOrdstat_id());
-									%> <%=ordstatVO.getOrdstat()%>
-								</td>
+								<td><%
+									ordstatVO = ordSvc.listOneOrdstat(immedVO.getOrdstat_id());
+								%> <%=ordstatVO.getOrdstat()%></td>
 								<td>${immedVO.rcpt_name}</td>
 								<td>${immedVO.rcpt_cell}</td>
 								<td><p class="rcpt_add">${immedVO.rcpt_add}</p></td>
@@ -388,10 +386,11 @@ div.content {
 									<FORM METHOD="post"
 										ACTION="<%=request.getContextPath()%>/immed/immed.do"
 										style="margin-bottom: 0px;">
-										<input type="hidden" name="from" value="back-end"> <input
-											type="submit" value="取消"> <input type="hidden"
-											name="immed_id" value="${immedVO.immed_id}"> <input
-											type="hidden" name="action" value="getOne_For_Update">
+										 <input
+											type="submit" value="取消"
+											${immedVO.ordstat_id eq '005' ? "disabled":""}> <input
+											type="hidden" name="immed_id" value="${immedVO.immed_id}">
+										<input type="hidden" name="action" value="update_disable">
 									</FORM>
 								</td>
 								<!-- 								<td> -->

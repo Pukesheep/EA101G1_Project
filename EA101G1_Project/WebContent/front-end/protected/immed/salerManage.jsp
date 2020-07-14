@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.immed.model.*"%>
 <%@ page import="com.member.model.*"%>
+
 <%@ page import="java.util.*"%>
 
 <%--
@@ -367,16 +368,18 @@ div.content {
 								<td>${immedVO.rcpt_name}</td>
 								<td>${immedVO.rcpt_cell}</td>
 								<td><p class="rcpt_add">${immedVO.rcpt_add}</p></td>
-								<td>
-									<FORM METHOD="post"
-										ACTION="<%=request.getContextPath()%>/immed/immed.do"
-										style="margin-bottom: 0px;">
-										<input type="hidden" name="from" value="back-end"> <input
-											type="submit" value="出貨"> <input type="hidden"
-											name="immed_id" value="${immedVO.immed_id}"> <input
-											type="hidden" name="action" value="update_shipping">
-									</FORM>
-								</td>
+								<td><c:if test="${immedVO.ordstat_id eq '003'}">
+										<FORM METHOD="post"
+											ACTION="<%=request.getContextPath()%>/immed/immed.do"
+											style="margin-bottom: 0px;">
+											<input type="hidden" name="from" value="back-end"> <input
+												type="submit" value="出貨"> <input type="hidden"
+												name="immed_id" value="${immedVO.immed_id}"> <input
+												type="hidden" name="action" value="update_shipping">
+										</FORM>
+									</c:if> <c:if test="${immedVO.ordstat_id eq '005'}">
+										<input disabled type="submit" value="已出貨">
+									</c:if></td>
 								<!-- 								<td> -->
 								<!-- 									<FORM METHOD="post" -->
 								<%-- 										ACTION="<%=request.getContextPath()%>/immed/immed.do" --%>
