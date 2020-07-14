@@ -25,7 +25,7 @@ div.status_row {
 }
 
 div.chart_row {
-	margin-top: 60px;
+	margin-top: 30px;
 }
 </style>
 
@@ -46,7 +46,7 @@ div.chart_row {
 		<main>
 			<div class="container-fluid ">
 
-				<div class="card mt-3">
+				<div class="card mt-4">
 					<div class="card-header">平台狀態</div>
 					<div class="card-body">
 						<div class="row">
@@ -112,7 +112,7 @@ div.chart_row {
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-6">
+					<div class="col-lg-6 mt-3 mt-lg-0">
 						<div class="card">
 							<div class="card-header">日營收</div>
 							<div class="card-body">
