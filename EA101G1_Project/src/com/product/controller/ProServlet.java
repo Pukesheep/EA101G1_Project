@@ -372,6 +372,32 @@ public class ProServlet extends HttpServlet {
 			}
 		}
 		
+		if("searchByKeyWord".equals(action)) {
+			String url = "/front-end/product/listProductByKeyWord.jsp";
+			List<ProVO> list = new ArrayList<ProVO>();
+			try {
+				String keyword = req.getParameter("keyword").trim();
+				if (keyword == null || keyword.trim().length() == 0) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/product/listAllProduct.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				HttpSession session = req.getSession();
+				List<ProVO> list2 = (List<ProVO>) session.getAttribute("keyWordlist");
+				ProService proSvc = new ProService();
+				list = proSvc.getByKeyWord(keyword, list2);
+				
+				req.setAttribute("list",list);
+				RequestDispatcher failureView = req.getRequestDispatcher(url);
+				failureView.forward(req, res);
+			}catch (Exception e) {
+//				String url = "/front-end/product/listAllProduct.jsp";
+//				RequestDispatcher failureView = req.getRequestDispatcher(url);
+//				failureView.forward(req,res);
+				e.printStackTrace();
+			}
+		}
+		
 		if ("verification".equals(action)) {
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
