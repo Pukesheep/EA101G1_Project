@@ -178,7 +178,7 @@ img#display {
 					<th>紅利商品上架狀態</th>
 					<th colspan="2">欲執行之動作</th>
 				</tr>
-				<%@ include file="../../files/page1.file"%>
+				<%@ include file="../../files/page2.file"%>
 				<c:forEach var="bmVO" items="${list}" begin="<%=pageIndex%>"
 					end="<%=pageIndex+rowsPerPage-1%>">
 					<tr>

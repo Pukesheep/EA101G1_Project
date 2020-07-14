@@ -237,7 +237,9 @@ public class BOServlet extends HttpServlet {
 		if ( "exchange".equals(action) ) {
 			List<BOVO> list = new ArrayList<BOVO>();
 			List<String> errorMsgs = new LinkedList<String>();
+			List<String> successMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("successMsgs", successMsgs);
 //			String success = "/front-end/BounsMall/listBounsOrderByMember.jsp";
 //			String fail = "/front-end/BounsMall/listOneBouns.jsp";
 			
@@ -266,6 +268,8 @@ public class BOServlet extends HttpServlet {
 				Integer bon_price = bmVO.getBon_price();
 				mem_bonus -= bon_price;
 				memSvc.updateBonus(mem_id, mem_bonus);
+				
+				successMsgs.add( "兌換成功" );
 				
 				list = boSvc.getByMem(mem_id);
 				

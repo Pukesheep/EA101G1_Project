@@ -149,7 +149,9 @@ public class FBServlet extends HttpServlet {
 		if ( "favorite".equals(action) ) {
 			List<FBVO> list = new ArrayList<FBVO>();
 			List<String> errorMsgs = new LinkedList<String>();
+			List<String> successMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("successMsgs", successMsgs);
 			String success = "/front-end/BounsMall/listOneBouns.jsp";
 			String fail = "/front-end/BounsMall/listOneBouns.jsp";
 			
@@ -173,6 +175,8 @@ public class FBServlet extends HttpServlet {
 				
 				BMService bmSvc = new BMService();
 				BMVO bmVO = bmSvc.getByPK(bon_id);
+				
+				successMsgs.add( "成功新增" );
 				
 				list = fbSvc.getMemFB(mem_id);
 				
