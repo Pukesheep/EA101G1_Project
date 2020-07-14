@@ -366,6 +366,8 @@
 </div>
 </div>
 </div>
+</section>
+<%@ include file="../../files/footer.jsp" %>
 <br>
 
 <script>

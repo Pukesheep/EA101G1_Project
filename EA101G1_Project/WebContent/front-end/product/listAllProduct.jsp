@@ -394,6 +394,8 @@
 </div>
 </div>
 </div>
+</section>
+<%@ include file="../../files/footer.jsp" %>
 <br>
 
 <script>
@@ -489,7 +491,6 @@ $('input.img-icon').click(function(){
 // $(".p_nameform").eq(index).submit()
 // 	});
 </script>
-
 
 
 
