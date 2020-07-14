@@ -111,9 +111,6 @@
 							<form class="exchange" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" method="post">
 								<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
 								<input type="hidden" name="bon_id" value="${bmVO.bon_id}">
-								<input type="hidden" name="bon_exchange" value="${(bmVO.bon_exchange+1)}">
-								<input type="hidden" name="bon_price" value="${bmVO.bon_price}">
-								<input type="hidden" name="mem_bouns" value="${sessionScope.memberVO.mem_bonus}">
 								<input type="hidden" name="action" value="exchange">
 								<button type="submit" class="btn btn-danger float-left" >我要兌換</button>
 							</form>

@@ -55,8 +55,17 @@ th, td {
 <body style="background-color:#17a2b8">
 	<!-- header -->
 
+<<<<<<< HEAD
+<table id="table-1">
+	<tr><td>
+		<h3>新增紅利商品資料</h3>
+		<h4><a href="<%=request.getContextPath()%>/back-end/BounsMall/ListAll.jsp"><img src="images/tomcat.png">回首頁</a></h4>
+	</td></tr>
+</table>
+=======
 	<%@ include file="/back-end/css/header.jsp"%>
 	<!-- header -->
+>>>>>>> branch 'master' of https://github.com/Pukesheep/EA101G1_Project.git
 
 	<div class="content d-md-flex ">
 

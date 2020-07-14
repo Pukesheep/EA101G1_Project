@@ -53,6 +53,15 @@
 	</style>
 </head>
 <body bgcolor='white'>
+<<<<<<< HEAD
+	<table id="table-1">
+		<tr>
+			<td>
+				<h3>全部最愛紅利查詢 - /back-end/ListAll.jsp</h3>
+			</td>
+		</tr>
+	</table>
+=======
 <!-- header -->
 	
 	<%@ include file="/back-end/css/header.jsp" %>
@@ -75,6 +84,7 @@
 <!-- 			</td> -->
 <!-- 		</tr> -->
 <!-- 	</table> -->
+>>>>>>> branch 'master' of https://github.com/Pukesheep/EA101G1_Project.git
 	
 <!-- 	錯誤列表 -->
 	<c:if test="">
@@ -96,7 +106,10 @@
 		<%@ include file="../../files/page1.file" %>
 		<c:forEach var="fbVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 			<tr>
-				<td>${fbVO.mem_id}</td>
+				<td>
+					<a href="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do?action=getAllByMember&mem_id=${fbVO.mem_id}"
+						>${fbVO.mem_id}</a>
+				</td>
 				<td>${bmSvc.getByPK(fbVO.bon_id).bon_name}</td>
 				<td>
 					<form method="post" action="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do" style="margin-bottom: 0px;">

@@ -94,7 +94,6 @@
 						<input type="hidden" name="ord_id" value="${boVO.ord_id}">
 						<input type="hidden" name="mem_id" value="${boVO.mem_id}">
 						<input type="hidden" name="bon_id" value="${boVO.bon_id}">
-						<input type="hidden" name="bon_exchange" value="${bmSvc.getByPK(boVO.bon_id).bon_exchange}">
 						<input type="hidden" name="action" value="cancel">
 						<input type="submit" value="¨ú®ø­q³æ" >
 					</form>

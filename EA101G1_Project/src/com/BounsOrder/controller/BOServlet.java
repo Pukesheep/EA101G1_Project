@@ -8,6 +8,7 @@ import javax.servlet.http.*;
 
 import com.BounsMall.model.*;
 import com.BounsOrder.model.*;
+import com.member.model.*;
 
 public class BOServlet extends HttpServlet {
 
@@ -27,7 +28,7 @@ public class BOServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			String success = "/back-end/BounsOrder/ListOne.jsp";
-			String fail = "/back-end/BounsOrder/select_page.jsp";
+			String fail = "/back-end/BounsOrder/ListAll.jsp";
 			
 			try {
 				String ord_id = req.getParameter("ord_id");
@@ -53,7 +54,7 @@ public class BOServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			String success = "/back-end/BounsOrder/ListByName.jsp";
-			String fail = "/back-end/BounsOrder/select_page.jsp";
+			String fail = "/back-end/BounsOrder/ListAll.jsp";
 			
 			try {
 				String bon_id = req.getParameter("bon_id");
@@ -76,7 +77,7 @@ public class BOServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			String success = "/back-end/BounsOrder/ListByMember.jsp";
-			String fail = "/back-end/BounsOrder/select_page.jsp";
+			String fail = "/back-end/BounsOrder/ListAll.jsp";
 			
 			try {
 				String mem_id = req.getParameter("mem_id");
@@ -86,6 +87,29 @@ public class BOServlet extends HttpServlet {
 				
 				req.setAttribute("list", list);
 				req.setAttribute("mem_id", mem_id);
+				RequestDispatcher successView = req.getRequestDispatcher(success);
+				successView.forward(req, res);
+			} catch ( Exception e ) {
+				RequestDispatcher failureView = req.getRequestDispatcher(fail);
+				failureView.forward(req, res);
+			}
+		}
+		
+		if ( "getAllByBS".equals(action) ) {
+			List<BOVO> list = new ArrayList<BOVO>();
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			String success = "/back-end/BounsOrder/ListByBS.jsp";
+			String fail = "/back-end/BounsOrder/ListAll.jsp";
+			
+			try {
+				String bs_id = req.getParameter("bs_id");
+				
+				BOService boSvc = new BOService();
+				list = boSvc.getByBs(bs_id);
+				
+				req.setAttribute("list", list);
+				req.setAttribute("bs_id", bs_id);
 				RequestDispatcher successView = req.getRequestDispatcher(success);
 				successView.forward(req, res);
 			} catch ( Exception e ) {
@@ -214,7 +238,10 @@ public class BOServlet extends HttpServlet {
 			List<BOVO> list = new ArrayList<BOVO>();
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/front-end/BounsMall/listBounsOrderByMember.jsp";
+//			String success = "/front-end/BounsMall/listBounsOrderByMember.jsp";
+//			String fail = "/front-end/BounsMall/listOneBouns.jsp";
+			
+			String success = "/front-end/BounsMall/listOneBouns.jsp";
 			String fail = "/front-end/BounsMall/listOneBouns.jsp";
 			
 			try {
@@ -223,28 +250,46 @@ public class BOServlet extends HttpServlet {
 					errorMsgs.add( "會員ID請勿空白" );
 				}
 				String bon_id = req.getParameter("bon_id");
-				Integer bon_exchange = new Integer(req.getParameter("bon_exchange"));
-				
-//				System.out.print(mem_id);
-//				System.out.print(bon_id);
-//				System.out.print(bon_exchange);
 				
 				BOService boSvc = new BOService();
 				boSvc.addBO(mem_id, bon_id);
 				
 				BMService bmSvc = new BMService();
+				BMVO bmVO = bmSvc.getByPK(bon_id);
+				Integer bon_exchange = bmVO.getBon_exchange();
+				bon_exchange++;
 				bmSvc.updateExchange(bon_id, bon_exchange);
+				
+				MemberService memSvc = new MemberService();
+				MemberVO memVO = memSvc.getOneMember(mem_id);
+				Integer mem_bonus = memVO.getMem_bonus();
+				Integer bon_price = bmVO.getBon_price();
+				mem_bonus -= bon_price;
+				memSvc.updateBonus(mem_id, mem_bonus);
 				
 				list = boSvc.getByMem(mem_id);
 				
 				req.setAttribute("list", list);
 				req.setAttribute("mem_id", mem_id);
 				req.setAttribute("bon_id", bon_id);
+				req.setAttribute("bmVO", bmVO);
 				
 				RequestDispatcher successView = req.getRequestDispatcher(success);
 				successView.forward(req, res);
 			} catch ( Exception e ) {
 				errorMsgs.add( "新增資料失敗" + e.getMessage() );
+				
+				String mem_id = req.getParameter("mem_id");
+				String bon_id = req.getParameter("bon_id");
+				
+				BMService bmSvc = new BMService();
+				BMVO bmVO = bmSvc.getByPK(bon_id);
+				
+				req.setAttribute("list", list);
+				req.setAttribute("mem_id", mem_id);
+				req.setAttribute("bon_id", bon_id);
+				req.setAttribute("bmVO", bmVO);
+				
 				RequestDispatcher failureView = req.getRequestDispatcher(fail);
 				failureView.forward(req, res);
 			}
@@ -261,17 +306,25 @@ public class BOServlet extends HttpServlet {
 				String ord_id = req.getParameter("ord_id");
 				String mem_id = req.getParameter("mem_id");
 				String bon_id = req.getParameter("bon_id");
-				Integer bon_exchange = new Integer(req.getParameter("bon_exchange"));
 				String bs_id = "BS002";
-				bon_exchange--;
 				
 				BOService boSvc = new BOService();
 				boSvc.cancelBO(ord_id, bs_id);
 				
+				list = boSvc.getByMem(mem_id);
+
 				BMService bmSvc = new BMService();
+				BMVO bmVO = bmSvc.getByPK(bon_id);
+				Integer bon_exchange = bmVO.getBon_exchange();
+				bon_exchange--;
 				bmSvc.updateExchange(bon_id, bon_exchange);
 				
-				list = boSvc.getByMem(mem_id);
+				MemberService memSvc = new MemberService();
+				MemberVO memVO = memSvc.getOneMember(mem_id);
+				Integer mem_bonus = memVO.getMem_bonus();
+				Integer bon_price = bmVO.getBon_price();
+				mem_bonus += bon_price;
+				memSvc.updateBonus(mem_id, mem_bonus);
 				
 				req.setAttribute("list", list);
 				req.setAttribute("mem_id", mem_id);
@@ -279,6 +332,18 @@ public class BOServlet extends HttpServlet {
 				successView.forward(req, res);
 			} catch ( Exception e ) {
 				errorMsgs.add( "無法取得要修改的資料" + e.getMessage() );
+
+				String mem_id = req.getParameter("mem_id");
+				String bon_id = req.getParameter("bon_id");
+				
+				BMService bmSvc = new BMService();
+				BMVO bmVO = bmSvc.getByPK(bon_id);
+				
+				req.setAttribute("list", list);
+				req.setAttribute("mem_id", mem_id);
+				req.setAttribute("bon_id", bon_id);
+				req.setAttribute("bmVO", bmVO);
+				
 				RequestDispatcher failureView = req.getRequestDispatcher(fail);
 				failureView.forward(req, res);
 			}

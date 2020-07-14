@@ -194,6 +194,10 @@
 		a {
     	text-decoration:none;
 			}
+			
+		section.blank1 div.container {
+   			 background: hsla(0, 0%, 100%, .5);
+			}	
 	</style>
 
 </head>
@@ -207,6 +211,43 @@
     <section class="blank1">
     
 <div class="container main">
+
+<div class="row">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp">­º­¶</a></li>
+    <li class="breadcrumb-item active" aria-current="page">°Ó«°</li>
+  </ol>
+</div>
+
+<div class="row">
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="<%=request.getContextPath() %>/front-end/product/images/front1.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="<%=request.getContextPath() %>/front-end/product/images/front2.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="<%=request.getContextPath() %>/front-end/product/images/front3.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</div>
 
 <div class="row">
 
@@ -301,7 +342,7 @@
                 </div>
               </form>    
             </div>
-	<%@ include file="../../files/page1.file" %> 
+	<%@ include file="pages/page1.file" %> 
 	<c:forEach var="proVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<div class="display" >
 		<div class="img"><img src="" alt=""></div>
@@ -345,7 +386,7 @@
 	</div>
 		
 	</c:forEach>
-	<%@ include file="../../files/page2.file" %>
+	<%@ include file="pages/page2B.file" %>
 </div>
 </div>
 </div>
