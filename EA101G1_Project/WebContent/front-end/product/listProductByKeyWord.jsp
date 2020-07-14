@@ -179,7 +179,10 @@
 		.img-icon:hover {
 			cursor:pointer;
 		}
-		
+		.p_price{
+			color: #ff5353;
+    		font-size: 1.5em;
+		}
 		front.p_name:hover {
 			cursor:pointer;
 			color:red;
