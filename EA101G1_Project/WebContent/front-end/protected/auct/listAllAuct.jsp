@@ -104,14 +104,13 @@
                     <th scope="col">拍賣編號</th>
                     <th scope="col">商品名稱</th>
                     <th scope="col">商品類別</th>
-                    <th scope="col">賣家ID</th>
+<!--                     <th scope="col">賣家ID</th> -->
                     <th scope="col">競標開始時間</th>
                     <th scope="col">競標結束時間</th>
                     <th scope="col">市價</th>
                     <th scope="col">起拍價</th>
                     <th scope="col">出價增額</th>
                     <th scope="col">商品圖片</th>
-                    <th scope="col">商品描述</th>
                     <th scope="col">售出狀態</th>
                     <th scope="col">上下架狀態</th> 
                     <th scope="col">修改</th> 
@@ -128,7 +127,7 @@
                 <th>${auctVO.auct_id}</th>
                 <td>${auctVO.auct_name}</td>
                 <td>${PtSvc.getOneProductType(auctVO.pt_id).typename}</td>
-                <td>${auctVO.sale_id}</td>
+<%--                 <td>${auctVO.sale_id}</td> --%>
                 <td> <fmt:formatDate value="${auctVO.auct_start}" pattern="yyyy-MM-dd HH:mm:ss" /> </td>
                 <td> <fmt:formatDate value="${auctVO.auct_end}" pattern="yyyy-MM-dd HH:mm:ss" /> </td>
                 <td>${auctVO.marketPrice}</td>
@@ -138,8 +137,6 @@
 				<td>
 					<img src="<%=request.getContextPath()%>/front-end/auct/pic.do?auct_id=${auctVO.auct_id}" width="100px">
 				</td>
-				
-				<td>${auctVO.auct_desc}</td>
 				
 				<td>
 					<c:if test="${auctVO.auct_sold == 0}">

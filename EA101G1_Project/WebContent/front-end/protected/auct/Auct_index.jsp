@@ -28,7 +28,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BID競標專區</title>
-    <%@ include file="/files/HeaderCssLink" %>
+    
+<%@ include file="/files/HeaderCssLink" %>
+
     <!-- 使用style.css -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/Auct_index.css">
@@ -40,9 +42,10 @@
      <!-- navbar -->
     	<%@ include file="/files/header.jsp" %>
     <!-- navbar end -->
+    
     <section class="blank0"></section>
+    
     <!-- 內容 -->
-
         <section class="nav-auct container">
             <ul class="text-right">
                 <li class="auct-navbtn">
@@ -84,15 +87,16 @@
 <%@ include file="page3.file" %>                
 <!-- JSTL for-each -->
 <c:forEach var="auctVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-    <%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color:red">拍賣未開始:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color:red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+
+	    <%-- 錯誤表列 --%>
+		<c:if test="${not empty errorMsgs}">
+			<font style="color:red">拍賣未開始:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color:red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
 	
      <div class="product col-md-4 mb-5">
                         <div class="product-rel">
@@ -156,38 +160,6 @@
 <!-- JSTL for-each   end-->
 
 <%@ include file="page4.file" %>
-
-<script type="text/javascript">
-// 	function bidstate(){
-		
-// 		var now = new Date(); //現在時間
-// /* 		var now_ms = now.getTime(); //轉成long */
-		
-// 		var	timer = setInterval(function(){
-// 			$('li.bid_start').each(function(){
-// 				if(now<this){
-// 					var bid_state = "拍賣未開始";
-// 				(bid_state).innerText = document.getElementById('bid_state');
-// 				}
-// 			}); 
-// 		}, 3000);//每3秒 ,執行1次
-	
-// 			if (tick > think.length - 1) {
-// 				tick = 0;
-// 			}		
-// 	}
-	
-// 	$('.bid-btn').click(function(){
-// 		if (${sessionScope.memberVO != null}){
-// 			console.log('123');
-// 		} else {
-<%-- 			<% --%>
-// 				session.setAttribute("location", request.getRequestURI());
-<%-- 			%> --%>
-<%-- 			document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp'; --%>
-// 		}
-// 	})
-</script>
 
 
                 </div>

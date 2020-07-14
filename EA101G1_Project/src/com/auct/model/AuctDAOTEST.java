@@ -163,21 +163,21 @@ public class AuctDAOTEST {
 //		System.out.println("查詢結束");
 	
 	//更新得標者
-	AuctVO auctVO = new AuctVO();
-	
-	auctVO.setAuct_sold(1);
-	auctVO.setAuct_down(1);
-	auctVO.setBuy_id("M000006");
-	auctVO.setMaxPrice(5000);
-	
-	GregorianCalendar time1 = new GregorianCalendar();
-	auctVO.setOrd_time(new Timestamp(time1.getTimeInMillis())); //拍賣上架時間（開始時間）
-	
-	auctVO.setOrdstat_id("003");
-	auctVO.setAuct_id("AUCT000049");
-	
-	dao.update_winner(auctVO);
-	System.out.println("更新成功");
+//	AuctVO auctVO = new AuctVO();
+//	
+//	auctVO.setAuct_sold(1);
+//	auctVO.setAuct_down(1);
+//	auctVO.setBuy_id("M000006");
+//	auctVO.setMaxPrice(5000);
+//	
+//	GregorianCalendar time1 = new GregorianCalendar();
+//	auctVO.setOrd_time(new Timestamp(time1.getTimeInMillis())); //拍賣上架時間（開始時間）
+//	
+//	auctVO.setOrdstat_id("003");
+//	auctVO.setAuct_id("AUCT000049");
+//	
+//	dao.update_winner(auctVO);
+//	System.out.println("更新成功");
 	
 	//更新訂單狀態
 //	AuctVO auctVO = new AuctVO();
@@ -217,18 +217,18 @@ public class AuctDAOTEST {
 		
 		
 	//查詢訂單資訊
-//	AuctVO auctVO3 = dao.listOneOrd("AUCT000001");
-//		
-//	System.out.println(auctVO3.getBuy_id());
-//	System.out.println(auctVO3.getMaxPrice());
-//	System.out.println(auctVO3.getOrdstat_id());
-//	
-//	System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(auctVO3.getOrd_time()) + ",");
-////	System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(one_auctVO.getOrd_time()) + ",");
-//	System.out.println(auctVO3.getRcpt_name());
-//	System.out.println(auctVO3.getRcpt_cel());
-//	System.out.println(auctVO3.getRcpt_add());
-//	System.out.println("查詢結束");
+	AuctVO auctVO3 = dao.listOneOrd("AUCT000001");
+		
+	System.out.println(auctVO3.getBuy_id());
+	System.out.println(auctVO3.getMaxPrice());
+	System.out.println(auctVO3.getOrdstat_id());
+	System.out.println(auctVO3.getAuct_id());
+	System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(auctVO3.getOrd_time()) + ",");
+//	System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(one_auctVO.getOrd_time()) + ",");
+	System.out.println(auctVO3.getRcpt_name());
+	System.out.println(auctVO3.getRcpt_cel());
+	System.out.println(auctVO3.getRcpt_add());
+	System.out.println("查詢結束");
 
 		
 	}
