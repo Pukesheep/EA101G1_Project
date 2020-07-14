@@ -395,7 +395,7 @@ div.content {
 					</table>
 				</div>
 
-				<%@ include file="/files/immed/immedPage6.file"%>
+				<%@ include file="/files/immed/page2B.file"%>
 			</div>
 
 
