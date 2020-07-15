@@ -90,94 +90,80 @@
 </nav>
 
 
-            <div class="container-fluid">
-                <div class="row justify-content-center mt-1">
-                	<div class="col-10">
-                		<div class="card bg-info">
-							<img alt="" src="<%=request.getContextPath()%>/images/groupbuy/watermelon.jpg" id="front-end-Header">	
-								<div class="card-body">
-									<h1 class="card-text">團購訂單</h1>
-									<%@ include file="../../../files/page1B.file" %>
-									<div class="row">
-										<div class="col">
-											<div class="media m-3">
-												<div class="media-body">
-													<c:forEach var="gro_orderVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-														<c:forEach var="groupbuyVO" items="${groupbuySvc.all}">
-															<c:if test="${groupbuyVO.gro_id eq gro_orderVO.gro_id}">
-																<div class="media mt-3 alert alert-danger">
-																	<img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${groupbuyVO.p_id}" class="align-self-center mr-3 img-listAll" alt="">
-																	<div class="media-body bg-secondary p-4">
-																		<div class="row">
-																			<div class="col-8">
-																				<h3 class="mt-0 text-white mb-3">${productSvc.getOnePro(groupbuyVO.p_id).p_name}</h3>
-																				<h4 class="mt-3 mb-1">訂單編號： ${gro_orderVO.ord_id}</h4>
-																				<c:choose>
-																					<c:when test="${groupbuyVO.status eq 0}">
-																						<h4>團購案狀態： 下架</h4>
-																					</c:when>
-																					
-																					<c:when test="${groupbuyVO.status eq 1}">
-																						<h4>團購案狀態： 上架</h4>
-																					</c:when>
-																					
-																					<c:when test="${groupbuyVO.status eq 2}">
-																						<h4>團購案狀態： 已達標</h4>
-																					</c:when>
-																					
-																					<c:when test="${groupbuyVO.status eq 3}">
-																						<h4>團購案狀態： 未達標</h4>
-																					</c:when>
-																				</c:choose>
-																				<h4>
-																				<c:forEach var="ordstatVO" items="${ordstatSvc.all}">
-																					<c:if test="${ordstatVO.ordstat_id eq gro_orderVO.ordstat_id}">
-																						訂單狀態： ${ordstatVO.ordstat}
-																					</c:if>
-																				</c:forEach>
-																				</h4>
-																				<h4>原價： $<fmt:formatNumber pattern="#" value="${productSvc.getOnePro(groupbuyVO.p_id).p_price}" /></h4>
-																				<h4>折扣價： $<fmt:formatNumber pattern="#" value="${groupbuyVO.money}" /> 元</h4>
-																				<h5>訂單成立時間： <fmt:formatDate value="${gro_orderVO.ord_date}" pattern="yyyy-MM-dd hh:mm:ss" /></h5>
-																			</div>
-																			<div class="col-4">
-																				<div class="row">
-																					<div class="col-6">
-																						<c:if test="${gro_orderVO.ordstat_id eq '002'}">
-																							<form action="<%=request.getContextPath()%>/gro_order/gro_order.do" method="post">
-																								<input type="hidden" name="ord_id" value="${gro_orderVO.ord_id}">
-																								<input type="hidden" name="from" value="front-end">
-																								<input type="hidden" name="action" value="getOne_For_Payment">
-																								<button type="submit" class="btn btn-success btn-lg btn-block mt-3" style="height: 250px">付款</button>
-																							</form>
-																						</c:if>
-																					</div>
-																					<div class="col-6">
-																						<form action="<%=request.getContextPath()%>/gro_order/gro_order.do" method="post">
-																							<input type="hidden" name="ord_id" value="${gro_orderVO.ord_id}">
-																							<input type="hidden" name="from" value="front-end">
-																							<input type="hidden" name="action" value="getOne_For_Display">
-																							<button type="submit" class="btn btn-success btn-lg btn-block mt-3" style="height: 250px">查看訂單詳情</button>
-																						</form>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
+<div class="container-fluid">
+	<div class="row justify-content-center">
+		<div class="col">
+			<div class="card bg-info">
+				<div class="card-header bg-dark">
+					<ul class="nav float-right mr-1 mt-1 text-dark">
+						<li class="nav-item">
+							<a class="nav-link active h5" href="<%=request.getContextPath()%>/front-end/groupbuy/listAllGroupbuy.jsp">團購列表</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active h5" href="<%=request.getContextPath()%>/front-end/protected/groupbuy/listAllGromem.jsp">我的團購</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active h5" href="<%=request.getContextPath()%>/front-end/protected/groupbuy/listAllGro_order.jsp">團購訂單</a>
+						</li>
+					</ul>
+					<h1 class="text-white">團購訂單</h1>
+					</div>
+					<%@ include file="../../../files/page1B.file" %>
+					<div class="row m-3">
+						<c:forEach var="gro_orderVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+							<c:forEach var="groupbuyVO" items="${groupbuySvc.all}">
+								<c:if test="${groupbuyVO.gro_id eq gro_orderVO.gro_id}">
+									<div class="col-6 mt-2">
+										<div class="card bg-success">
+											<div class="card-header">
+												<h3 class="text-white">${productSvc.getOnePro(groupbuyVO.p_id).p_name}</h3>
+												</div>
+											<div class="card-body">
+												<div class="media bg-secondary p-2">
+													<img alt="" src="<%=request.getContextPath()%>/product/proPic.do?p_id=${groupbuyVO.p_id}" class="align-self-end mr-3 img-listAll">
+													<div class="media-body">
+														<h4 class="mt-3">訂單編號： ${gro_orderVO.ord_id}</h4>
+														<c:forEach var="ordstatVO" items="${ordstatSvc.all}">
+															<c:if test="${ordstatVO.ordstat_id eq gro_orderVO.ord_id}">
+																<h4>訂單狀態： ${ordstatVO.ordstat}</h4>
 															</c:if>
 														</c:forEach>
-													</c:forEach>
+														<h4>原價： $<fmt:formatNumber pattern="#" value="${productSvc.getOnePro(groupbuyVO.p_id).p_price}" /></h4>
+														<h4>折扣價： $<fmt:formatNumber pattern="#" value="${groupbuyVO.money}" /></h4>
+														<h5 class="mt-5">訂單成立時間： <fmt:formatDate value="${gro_orderVO.ord_date}" pattern="yyyy-MM-dd hh:mm:ss" /></h5>
+													</div>
+												</div>
+												<div class="row mt-2">
+													<div class="col-6">
+														<c:if test="${gro_orderVO.ordstat_id eq '002'}">
+															<form action="<%=request.getContextPath()%>/gro_order/gro_order.do" method="post">
+																<input type="hidden" name="ord_id" value="${gro_orderVO.ord_id}">
+																<input type="hidden" name="from" value="front-end">
+																<input type="hidden" name="action" value="getOne_For_Payment">
+																<button type="submit" class="btn btn-danger btn-block">付款</button>
+															</form>
+														</c:if>
+													</div>
+													<div class="col-6">
+														<form action="<%=request.getContextPath()%>/gro_order/gro_order.do" method="post">
+															<input type="hidden" name="ord_id" value="${gro_orderVO.ord_id}">
+															<input type="hidden" name="from" value="front-end">
+															<input type="hidden" name="action" value="getOne_For_Display">
+															<button type="submit" class="btn btn-warning btn-block">查看訂單詳情</button>
+														</form>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							</div>
-                		</div>
-                	</div>
-                </div>
-
+								</c:if>
+							</c:forEach>
+						</c:forEach>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 

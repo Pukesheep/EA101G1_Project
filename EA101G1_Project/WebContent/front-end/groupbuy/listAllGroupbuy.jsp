@@ -69,37 +69,46 @@
 
 
 <div class="container-fluid">
-	<div class="row justify-content-center mt-5">
-		<div class="col-10">
+	<div class="row justify-content-center">
+		<div class="col">
 			<div class="card bg-info">
-				<img alt="" src="<%=request.getContextPath()%>/images/groupbuy/watermelon.jpg" id="front-end-Header">	
-					<div class="card-body">
-						<h1 class="card-text">團購列表</h1>
-						<div class="row">
-							<c:forEach var="groupbuyVO" items="${list}">
-								<c:if test="${groupbuyVO.status eq 1}">
-									<div class="col-6">
-										<div class="card border border-warning mt-2">
-											<img class="card-display" alt="" src="<%=request.getContextPath()%>/product/proPic.do?p_id=${groupbuyVO.p_id}" onclick="location.href='<%=request.getContextPath()%>/groupbuy/groupbuy.do?action=getOne_For_Display&from=front-end&gro_id=${groupbuyVO.gro_id}';">
-											<div class="card-body text-white bg-secondary">
-												<c:forEach var="productVO" items="${productSvc.all}">
-													<c:if test="${productVO.p_id == groupbuyVO.p_id}">
-														<a href="<%=request.getContextPath()%>/groupbuy/groupbuy.do?action=getOne_For_Display&from=front-end&gro_id=${groupbuyVO.gro_id}" class="groupbuydetail">
-															<h2>${productVO.p_name}</h2>
-														</a>
-														<h4>原價 $<fmt:formatNumber pattern="#" value="${productVO.p_price}" /></h4>
-														<h6>截止時間： <fmt:formatDate value="${groupbuyVO.end_date}" pattern="yyyy-MM-dd HH:mm:ss" /></h6>
-													</c:if>
-												</c:forEach>
-												<a href="<%=request.getContextPath()%>/groupbuy/groupbuy.do?action=getOne_For_Display&from=front-end&gro_id=${groupbuyVO.gro_id}">
-													<button type="button" class="btn btn-success btn-lg btn-block mt-3">查看團購詳情</button>
-												</a>
+				<div class="card-header bg-dark">
+					<ul class="nav float-right mr-1 mt-1 text-dark">
+						<li class="nav-item">
+							<a class="nav-link active h5" href="<%=request.getContextPath()%>/front-end/groupbuy/listAllGroupbuy.jsp">團購列表</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active h5" href="<%=request.getContextPath()%>/front-end/protected/groupbuy/listAllGromem.jsp">我的團購</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active h5" href="<%=request.getContextPath()%>/front-end/protected/groupbuy/listAllGro_order.jsp">團購訂單</a>
+						</li>
+					</ul>
+					<h1 class="text-white">團購列表</h1>
+				</div>
+				<div class="row m-3">
+					<c:forEach var="groupbuyVO" items="${list}">
+						<c:if test="${groupbuyVO.status eq 1}">
+							<div class="col-4">
+								<div class="card-group">
+									<c:forEach var="productVO" items="${productSvc.all}">
+										<c:if test="${productVO.p_id eq groupbuyVO.p_id}">
+											<div class="card bg-success ml-2 mr-2">
+												<img class="card-display" alt="" src="<%=request.getContextPath()%>/product/proPic.do?p_id=${groupbuyVO.p_id}" onclick="location.href='<%=request.getContextPath()%>/groupbuy/groupbuy.do?action=getOne_For_Display&from=front-end&gro_id=${groupbuyVO.gro_id}';">
+												<div class="card-header text-dark">
+													<a href="<%=request.getContextPath()%>/groupbuy/groupbuy.do?action=getOne_For_Display&from=front-end&gro_id=${groupbuyVO.gro_id}" class="groupbuydetail"><h2>${productVO.p_name}</h2></a>
+												</div>
+												<div class="card-body">
+													<h4>原價： $<fmt:formatNumber pattern="#" value="${productVO.p_price}" /></h4>
+													<h6>截止時間： <fmt:formatDate value="${groupbuyVO.end_date}" pattern="yyyy-MM-dd HH:mm:ss" /></h6>
+												</div>
 											</div>
-										</div>
-									</div>
-								</c:if>
-							</c:forEach>
-						</div>
+										</c:if>	
+									</c:forEach>
+								</div>
+							</div>
+						</c:if>
+					</c:forEach>
 				</div>
 			</div>
 		</div>

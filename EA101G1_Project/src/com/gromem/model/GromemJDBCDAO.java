@@ -431,7 +431,8 @@ public class GromemJDBCDAO implements GromemDAO_interface {
 //		}
 		
 		// 以團購查詢會員
-		List<GromemVO> list2 = dao.findByGro_id("G000004");
+		List<GromemVO> list2 = dao.findByGro_id("G000001");
+		System.out.println(list2.size());
 		for (GromemVO aGromem2 : list2) {
 			System.out.println("MEM_ID = " + aGromem2.getMem_id());
 			System.out.println("GRO_ID = " + aGromem2.getGro_id());
@@ -447,10 +448,10 @@ public class GromemJDBCDAO implements GromemDAO_interface {
 //		}
 		
 		// 加入團購
-		GromemVO gromemVO2 = new GromemVO();
-		gromemVO2.setMem_id("M000009");
-		gromemVO2.setGro_id("G000004");
-		dao.join(gromemVO2, 8);
+//		GromemVO gromemVO2 = new GromemVO();
+//		gromemVO2.setMem_id("M000009");
+//		gromemVO2.setGro_id("G000004");
+//		dao.join(gromemVO2, 8);
 		
 		
 	}

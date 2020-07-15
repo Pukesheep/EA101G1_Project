@@ -33,7 +33,7 @@
 %>
 
 <%if ( pageNumber > 1) {%>
-	<div class="row justify-content-between">	
+	<div class="row justify-content-between mt-3">	
 		<div class="col">
 			<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 				<div class="btn-group mr-2" role="group" aria-label="First group">

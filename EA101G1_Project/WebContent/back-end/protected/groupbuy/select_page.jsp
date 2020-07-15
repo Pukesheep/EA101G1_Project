@@ -5,6 +5,7 @@
 
 <jsp:useBean id="groupbuySvc" scope="page" class="com.groupbuy.model.GroupbuyService" />
 <jsp:useBean id="productSvc" scope="page" class="com.product.model.ProService" />
+<jsp:useBean id="gro_orderSvc" scope="page" class="com.gro_order.model.Gro_orderService" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -194,47 +195,52 @@
 										<div class="media mt-3">
 											<div class="media-body">
 												<h5 class="mt-0">請輸入查詢條件</h5>
-												<form action="">
+												<form action="<%=request.getContextPath()%>/gro_order/gro_order.do" method="post">
 													<div class="input-group mb-3">
 														<div class="input-group-prepend">
 															<span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
 														</div>
-														<input type="text" class="form-control" name="gro_id" placeholder="請輸入訂單編號 ex: GO000001" autocomplete="off">
+														<input type="text" class="form-control" name="ord_id" placeholder="請輸入訂單編號 ex: GO000001" autocomplete="off">
 														<div class="input-group-append">
-															<input type="hidden" name="" value="">
-															<input type="hidden" name="" value="">
+															<input type="hidden" name="from" value="back-end">
+															<input type="hidden" name="action" value="getOne_For_Display">
 															<button class="btn btn-danger" type="submit">查詢</button>
 														</div>
 													</div>
 												</form>
 												
-												<form action="">
+												<form action="<%=request.getContextPath()%>/gro_order/gro_order.do" method="post">
 													<div class="input-group mb-3">
 														<div class="input-group-prepend">
 															<span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
 														</div>
-														<select class="custom-select" name="gro_id">
-															
+														<select class="custom-select" name="ord_id">
+															<c:forEach var="gro_orderVO" items="${gro_orderSvc.all}">
+																<option value="${gro_orderVO.ord_id}">${gro_orderVO.ord_id}</option>
+															</c:forEach>
 														</select>
 														<div class="input-group-append">
-															<input type="hidden" name="" value="">
-															<input type="hidden" name="" value="">
+															<input type="hidden" name="from" value="back-end">
+															<input type="hidden" name="action" value="getOne_For_Display">
 															<button class="btn btn-danger" type="submit">查詢</button>
 														</div>
 													</div>
 												</form>
 												
-												<form action="">
+												<form action="<%=request.getContextPath()%>/gro_order/gro_order.do" method="post">
+													<label for="gro_id">以達標的團購查詢訂單</label>
 													<div class="input-group mb-3">
 														<div class="input-group-prepend">
 															<span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
 														</div>
-														<select class="custom-select" name="gro_id">
-															
+														<select class="custom-select" name="gro_id" id="gro_id">
+															<c:forEach var="gro_id" items="${gro_orderSvc.group}">
+																<option value="${gro_id}">${gro_id}</option>
+															</c:forEach>
 														</select>
 														<div class="input-group-append">
-															<input type="hidden" name="" value="">
-															<input type="hidden" name="" value="">
+															<input type="hidden" name="from" value="back-end">
+															<input type="hidden" name="action" value="getByGroup">
 															<button class="btn btn-danger" type="submit">查詢</button>
 														</div>
 													</div>
