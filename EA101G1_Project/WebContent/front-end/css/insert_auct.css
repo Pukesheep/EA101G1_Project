@@ -1,5 +1,5 @@
 body{    
-    background-image: url(../auct/images/666.jpg);
+    background-image: url(../protected/auct/images/666.jpg);
     background-size: cover; 
     background-attachment: fixed;
 
@@ -14,7 +14,7 @@ body:after{
     /* background: rgb(0, 119, 255); */
     opacity: 0.5;
     position: absolute;
-    left:0px; /*定位到左上角*/
+    left:0px; 
     top:0px;
     z-index: 1;
 }

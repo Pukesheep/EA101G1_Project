@@ -39,9 +39,10 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/Auct_index.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/insert_auct.css">
 
-    <link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />    
-    <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+	<!-- ¨Ï¥Îdatetimepicker -->
+    <link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/files/datetimepicker/jquery.datetimepicker.css" />    
+    <script src="<%=request.getContextPath()%>/files/datetimepicker/jquery.js"></script>
+	<script src="<%=request.getContextPath()%>/files/datetimepicker/jquery.datetimepicker.full.js"></script>
     
 </head>
 

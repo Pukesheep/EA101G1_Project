@@ -69,7 +69,7 @@
         <header class="container">
             <!-- 圖片 -->
             <div>
-                <a href="   "><img src="images/ps5-0001.jpg" alt=""></a>
+                <a href="   "><img src="./images/ps5-0001.jpg" alt=""></a>
             </div>
             <!-- 圖片 end -->
         </header>
