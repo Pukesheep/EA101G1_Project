@@ -25,7 +25,7 @@
                             <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/productorder/listAllProductOrder.jsp">商成訂單管理</a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link pl-4" href="#">限時專案管理</a>
+                            <a class="nav-link pl-4" href="#">限時專案管理NONE</a>
                         </li>
                     </ul>
                 </li>

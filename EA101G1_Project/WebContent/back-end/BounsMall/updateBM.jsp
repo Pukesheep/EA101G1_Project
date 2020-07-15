@@ -14,44 +14,6 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>修改紅利商品訊息</title>
-<<<<<<< HEAD
-	
-	<style>
-		table#table-1 {
-			background-color: #CCCCFF;
-			border:2px solid black;
-			text-align: center;
-		}
-		table#table-1 h4 {
-			color: red;
-			display: block;
-			margin-bottom: 1px;
-		}
-		h4 {
-			color: blue;
-			display: inline;
-		}
-	</style>
-	
-	<style>
-		table {
-			width: 800px;
-			background-color: white;
-			margin-top: 5px;
-			margin-bottom: 5px;
-		}
-		table, th, td{
-			border: 1px solid #CCCCFF;
-		}
-		th, td {
-			padding: 5px;
-			text-align: center;
-		}
-		img#display {
-			width: 200px;
-		}
-	</style>
-=======
 <%@ include file="/back-end/css/BackHeaderCssLink"%>
 <style>
 table#table-1 {
@@ -93,7 +55,7 @@ img#display {
 	width: 200px;
 }
 </style>
->>>>>>> branch 'master' of https://github.com/Pukesheep/EA101G1_Project.git
+
 
 </head>
 <body bgcolor='white'>
