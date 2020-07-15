@@ -199,6 +199,7 @@
 		});
 </script>    
 
+
 <script>
 		//¹Ï¤ù¹wÄý
 		$("#auct_pic").change(function() {
