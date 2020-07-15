@@ -3,35 +3,12 @@
 <%
 	request.setAttribute("userName", "Customer");
 %>
-<!DOCTYPE html>
-<html>
-<head>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/back-end/backchat/css/chat.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-	integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-	crossorigin="anonymous"></script>
-<link rel="stylesheet" href="css/chat.css">
-<style type="text/css">
-</style>
-<title>最大私人聊天室</title>
-</head>
-<body onload="connect();" onunload="disconnect();">
-	<div id="button" onclick="on()" ></div>
-	<div id="body">
+<div style="border:1px solid blue; width:40px; height:40px; background-color:blue;position: absolute;right:0;bottom:0;" onclick="on()"></div>
+
+	
+	<div id="body" style="border:1px solid black">
 		<div id="close" onclick="dbclick()">close</div>
 		<h3 id="statusOutput" class="statusOutput alert alert-primary"></h3>
 		<div id="row"></div>
@@ -44,7 +21,7 @@
 				onclick="sendMessage();" />
 		</div>
 	</div>
-</body>
+
 <script>
 	var MyPoint = "/FriendWS/${userName}";
 	var host = window.location.host;
@@ -201,9 +178,10 @@
 	}
 	function on(){
 		document.getElementById("body").style.display = "block";
+		connect();
 	}
 	function dbclick(){
 		document.getElementById("body").style.display = "none";
+		disconnect();
 	}
 </script>
-</html>
