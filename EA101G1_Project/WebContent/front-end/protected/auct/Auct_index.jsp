@@ -54,9 +54,7 @@
                 <li class="auct-navbtn">
                     <a href="<%=request.getContextPath()%>/front-end/protected/auct/Results_all.jsp">結標專區</a>
                 </li>
-                <li class="auct-navbtn">
-                    <a href="">出價記錄</a>
-                </li>
+               
                 <li class="auct-navbtn">
                     <a href="<%=request.getContextPath()%>/front-end/protected/auct/buy_order.jsp">戰利品</a>
                 </li>
@@ -138,8 +136,7 @@
 											<fmt:formatDate value="${auctVO.auct_end}" pattern="yyyy-MM-dd HH:mm:ss" />
 										</li>
                                         
-                                        <li>NTD  元</li>
-                                        <li>目前:誰</li>
+                                       
                                         
                                         <li>
 												<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/auct/auct.do">
