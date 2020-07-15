@@ -1,18 +1,17 @@
-<%@page import="com.member.model.MemberService"%>
+<%@page import="com.member.model.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%	
-// MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-// String userName=memberVO.getMem_name();
-// request.setAttribute("userName", userName);
-	request.setAttribute("userName", "十八禁銅人");
+
+
+	request.setAttribute("userName", memberVO.getMem_name());
 %>
 
 	
 	<div id="body">
 		<div id="close" onclick="dbclick()">close</div>
 		<h3 id="statusOutput" class="statusOutput alert alert-primary"></h3>
-		<div id="row"></div>
+		<div id="row" style="overflow-x: hidden;"></div>
 		<div id="messagesArea" class="panel message-area"></div>
 		<div class="panel input-area">
 			<input id="message" class="text-field" type="text"

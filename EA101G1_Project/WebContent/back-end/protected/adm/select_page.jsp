@@ -32,7 +32,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>   
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     
 
     <title>S.F.G 後台管理</title>
@@ -76,13 +76,13 @@
 <body>
 <!-- header -->
 	
-	<%@ include file="../css/header.jsp" %>
+	<%@ include file="../../css/header.jsp" %>
 <!-- header -->
 
     <div class="content d-md-flex">
 
 <!-- aside -->
-	<%@ include file="../css/aside.jsp" %>
+	<%@ include file="../../css/aside.jsp" %>
 <!-- aside -->
 
  <main>
@@ -116,7 +116,7 @@
 	
 
 
-  <input type="button" class="btn btn-primary" value="新增員工資料" onclick="location.href='<%=request.getContextPath()%>/back-end/adm/addAdm.jsp'">
+  <input type="button" class="btn btn-primary" value="新增員工資料" onclick="location.href='<%=request.getContextPath()%>/back-end/protected/adm/addAdm.jsp'">
 
 	</div>
 </div>
@@ -160,7 +160,26 @@
 
         </main>
     </div>
+<%-- 成功表列 --%>
 
+	<c:if test="${not empty successMsgs }">
+	<%
+		java.util.List<String> successMsgs = (java.util.List<String>) request.getAttribute("successMsgs");
+		String message = "";
+		for (String msg : successMsgs) {
+			message += msg;
+			message += "\\n";
+		}
+	%>
+	<script>
+		Swal.fire({
+			icon: 'success',
+			title: '<%=message%>'
+		});
+	</script>
+	
+	</c:if>
+	<%-- 成功表列 --%>
 </body>
 
 </html>

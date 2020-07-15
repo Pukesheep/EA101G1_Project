@@ -11,7 +11,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <title></title>
 <%@ include file="/back-end/css/BackHeaderCssLink"%>
 
@@ -271,6 +271,32 @@ div.chart_row {
 			plugins : labelWrap
 		});
 	</script>
+	
+
+	
+	<%-- 成功表列 --%>
+
+	<c:if test="${not empty successMsgs }">
+	<%
+		java.util.List<String> successMsgs = (java.util.List<String>) request.getAttribute("successMsgs");
+		String message = "";
+		for (String msg : successMsgs) {
+			message += msg;
+			message += "\\n";
+		}
+	%>
+	<script>
+		Swal.fire({
+			icon: 'success',
+			title: '<%=message%>'
+		});
+	</script>
+	
+	</c:if>
+	<%-- 成功表列 --%>
+
+	
+
 
 </body>
 

@@ -1,9 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ page import="java.util.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.shopCart.model.PRODUCT" %>
 <%@page import="com.member.model.*"%>
 <%@page import="com.productOrderList.model.*"%>
 
+<% 
+String card = (String)request.getParameter("card");
+%>
 <html>
 <head>
  <meta charset="UTF-8">
@@ -63,23 +68,29 @@
 		div.col-12>img{
 			width: 20%;
 		}
-
+		hr.class-1 { 
+            border-top: 5px solid #8c8b8b; 
+            width:2000;
+        } 
 		
  </style>
 </head>
 <!-- navbar -->
-    <%@ include file="/../../files/header.jsp" %>
+    <%@ include file="/files/header.jsp" %>
     <!-- navbar end -->
     <section class="blank0"></section>
     
     <!-- 內容 -->
     <section class="blank1">
+
 <div class="container">
+    <div class="row"><font style="color:#E0E0E0;font-size:40px">確認結帳</font ><hr class="class-1" /></div>
+
    		<div class="row justify-content bg-primary mb-3 rounded" id="head" style="height:40px">
    			<div class="col-5 align-self-center"><font>商品明細</font></div>
    			<div class="col-1 align-self-center"><font>價格</font></div>
    			<div class="col-2 align-self-center"><font>數量</font></div>
-   			<div class="col-2 align-self-center"><font>小計</font></div>
+   			<div class="col-4 align-self-center"><font>小計</font></div>
    		</div>
    		<%
 		Vector<PRODUCT> buylist = (Vector<PRODUCT>) session.getAttribute("shoppingcart");
@@ -106,16 +117,16 @@
    		<div class="row justify-content mb-2 bg-white rounded">
    			<div class="col-2 align-self-center"><img src="<%=request.getContextPath()%>/shopCart/ShopCartPic.do?p_id=<%=order.getId()%>"></div>
    			<div class="col-3 align-self-center"><a href="<%=request.getContextPath()%>/front-end/product/listOneProduct.jsp?p_id=<%=p_id%>"><font><%=name%></font></a></div>
-   			<div class="col-1 align-self-center"><font>$<%=price%></font></div>
+   			<div class="col-1 align-self-center"><font>$<fmt:formatNumber pattern="#" value="<%=price%>" /></font></div>
    			<div class="col-2 align-self-center"><font><%=quantity%></font></div>
-   			<div class="col-2 align-self-center"><font>$<%=sub%></font></div>
+   			<div class="col-4 align-self-center"><font>$<fmt:formatNumber pattern="#" value="<%=sub%>" /></font></div>
    		</div>
    		<%
 		}
 	session.setAttribute("list",list);
 	%>	
 		<div class="row justify-content-end rounded" style="background-color:white;height:60px;margin-bottom:2px">
-			<div class="col-2 align-self-center">總金額:$<%=amount%></div>
+			<div class="col-3 align-self-center">總金額:<font style="font-size: 1.5em;color:#ff5353">NT$<fmt:formatNumber pattern="#" value="<%=amount%>" /></font></div>
 		</div>
 		
 		<%
@@ -123,14 +134,25 @@
 		Double mem_bonus = amount*ratio;
 		%>
 		<div class="row justify-content-end rounded" style="background-color:white;height:60px;margin-bottom:2px">
-			<div class="col-2 align-self-center">可獲得紅利:<%=mem_bonus%>點</div>
+			<div class="col-3 align-self-center"><img style="width:20px" src="<%=request.getContextPath()%>/front-end/protected/shopCart/image/tokens.png">可獲得紅利:<font style="font-size: 1.5em;color:#ffd700"><fmt:formatNumber pattern="#" value="<%=mem_bonus%>" /></font>點</div>
 		</div>
-		
-				<div class="row justify-content-end rounded" style="background-color:white;height:60px;margin-bottom:2px">
-					<input class="btn btn-primary" id="test" type="submit" value="確認結帳">
-				</div>
 				
    		<div class="row justify-content-end rounded" style="background-color:#c6d4df">
+   			<div class="col-2 align-self-center"></div>
+   			<div class="col-2 align-self-center"></div>
+   			<div class="col-2 align-self-center">
+   			<c:if test="<%=card==null%>">
+   				<a href="<%=request.getContextPath()%>/front-end/protected/shopCart/Checkout2.jsp">
+   			<img style="width:45px" src="<%=request.getContextPath()%>/front-end/protected/shopCart/image/credit-card.png">認證信用卡
+   			</a>
+   			</c:if>
+   			
+   			<c:if test="<%=card!=null%>">
+   			<img style="width:45px" src="<%=request.getContextPath()%>/front-end/protected/shopCart/image/credit-card.png"><font color="green">驗證成功</font>
+   			</c:if>
+   			
+   			</div>
+   			<div class="col-3">
    			<div class="row p-3">
 		   		<div class="col-6 align-self-center mt-3">
 		   		 	<form name="checkoutForm" action="<%=request.getContextPath()%>/productOrder/Po.do" method="POST">
@@ -138,48 +160,15 @@
               			<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
               			<input type="hidden" name="amount" value=<%= amount%>>
               			<input type="hidden" name="mem_bonus" value=<%=mem_bonus %>>
-              			<input class="btn btn-primary" type="submit" value="確認結帳">
+              			<input class="btn btn-primary" <c:if test="<%=card==null%>">disabled="disabled"</c:if>type="submit" value="確認結帳">
          			 </form>
 		   		</div>
-		   		<div class="col-6 align-self-start mt-3"><a class="btn btn-primary" href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">繼續購物</a><s/div>
+		   		<div class="col-6 align-self-start mt-3"><a class="btn btn-primary" href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">繼續購物</a></div>
 		   		</div>
    			</div>
-<!--    			<div class="row p-3"> -->
-<!-- 				<div class="col-12 align-self-center"> -->
-<!-- 					 <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
-<!--       					<div class="input-group mb-2"> -->
-<!--         					<div class="input-group-prepend"> -->
-<!--           						<div class="input-group-text">@</div> -->
-<!--         					</div> -->
-<!--        				 		<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username"> -->
-<!--       					</div> -->
-<!-- 				</div>			 -->
-<!--    			</div> -->
+   			</div>
    		</div>
-   		
-   		<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-				
-			
-			<div class="modal-body">
-<!-- =========================================以下為原listOneEmp.jsp的內容========================================== -->
-               <jsp:include page=""/>
-<!-- =========================================以上為原listOneEmp.jsp的內容========================================== -->
-			</div>
-			
-		
-		</div>
-	</div>
-</div>
-
-	</div>
 	<script>
-
-// 			$('#test').click(function(){
-				
-<%-- 	        	 document.open("<%=request.getContextPath()%>/front-end/protected/shopCart/Checkout2.jsp","","height=550,width=1000,left=65,top=157,resizable=yes,scrollbars=yes")          --%>
-//        	 });
 		$('#test').click(function(){
 			$('#basicModal').modal({show: true});
 		});

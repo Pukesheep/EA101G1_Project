@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
     <!-- navbar -->
@@ -32,7 +32,7 @@
 
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav ml-auto">
-                <c:if test="${memberVO == null}">
+                <c:if test="${sessionScope.memberVO == null}">
                 <li class="nav-item">
                     <a class="nav-link" href="<%=request.getContextPath()%>/front-end/member/login.jsp">登入</a>
                 </li>

@@ -22,7 +22,10 @@
 }
 
 .produce-img{
-    width: 100%;
+/*    max-width: 100%; */
+    width:150px;
+    height:150px;
+   justify-content: center;
     margin: 0;
 }
 .auct-title{

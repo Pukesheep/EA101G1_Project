@@ -92,7 +92,8 @@ img.rounded{
 	height:auto;
 	max-width:100%;
 	max-height:100%;
-	border-radius:10px
+	border-radius:10px;
+	margin-top: 35px;
 }
 
 	.p_love{
@@ -175,22 +176,22 @@ img.rounded{
     </div>
     
     <div class="col-7">
-      <div class="row"style="height:10%"><div class="col align-self-center"><div class="p_name"><front style="font-size:30px">${proVO.p_name}</front></div></div></div>
+      <div class="row"style="height:10%"><div class="col align-self-center"><div class="p_name"><font style="font-size:30px">${proVO.p_name}</font></div></div></div>
       
       <div class="row"style="height:10%">
-        <div class="col-4 align-self-center"><div class="p_type"><a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=${proVO.pt_id}"><front style="font-size:20px">${ptSvc.getOneProductType(proVO.pt_id).typename}</front></a></div></div>
+        <div class="col-4 align-self-center"><div class="p_type"><a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=${proVO.pt_id}"><font style="font-size:20px">${ptSvc.getOneProductType(proVO.pt_id).typename}</font></a></div></div>
         <div class="col-8 align-self-center"></div>
         <HR width=850 SIZE=5 color="#D0D0D0">
       </div>
       
       <div class="row"style="height:60%">
-        <div class="col"><div class="p_info"><pre><font style="font-size:24px">${proVO.p_info}</font></pre></div></div>
+        <div class="col"><div class="p_info"><pre><font style="font-size:24px;font-family:Microsoft JhengHei;">${proVO.p_info}</font></pre></div></div>
         
       </div>
       
       <div class="row"style="height:10%">
       <HR width=850 SIZE=5 color="#D0D0D0">
-      	<div class="col-8 align-self-center"><div class="p_price">NT:$${proVO.p_price}</div></div>
+      	<div class="col-8 align-self-center"><div class="p_price">NT$<fmt:formatNumber pattern="#" value="${proVO.p_price}" /></div></div>
         <div class="col-4 align-self-center"><div class="p_stock">®w¦s:${proVO.p_stock}</div></div>
         <HR width=850 SIZE=5 color="#D0D0D0">
       </div>
