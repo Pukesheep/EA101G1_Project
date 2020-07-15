@@ -112,11 +112,7 @@ AdmVO admVO = (AdmVO) request.getAttribute("admVO");
 		<td><input type="TEXT" name="adm_acco" size="45"
 			 value="<%= (admVO==null)? "anthoney" : admVO.getAdm_acco()%>" /></td>
 	</tr>
-	<tr>
-		<td>員工密碼:</td>
-		<td><input type="TEXT" name="adm_pass" size="45"
-			 value="<%= (admVO==null)? "123456" : admVO.getAdm_pass()%>" /></td>
-	</tr>
+	
 	<tr>
 		<td>員工姓名:</td>
 		<td><input type="TEXT" name="adm_name" size="45"
@@ -132,10 +128,12 @@ AdmVO admVO = (AdmVO) request.getAttribute("admVO");
 
 <div id="button">
 <input type="hidden" name="action" value="insert">
-<input type="submit" class="btn btn-warning" value="新增"></FORM>
+<input type="submit" class="btn btn-warning" value="新增">
+
+</FORM>
 </div>
 
-<p><a href="<%=request.getContextPath()%>/back-end/adm/select_page.jsp" class="btn btn-primary">回首頁</a></p>
+<p><a href="<%=request.getContextPath()%>/back-end/protected/adm/select_page.jsp" class="btn btn-primary">回首頁</a></p>
    
         </main>
     </div>
