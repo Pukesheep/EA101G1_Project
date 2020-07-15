@@ -69,6 +69,28 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
+
+<style>
+
+.countdown{
+	font-size:30px;
+	color:red;
+}
+
+.row1 {
+	width: 94px;
+}
+.row2 {
+	width: 138px;
+}
+.row3 {
+	width: 94px;
+}
+
+</style>
+
+
+
 </head>
 
 <!-- 進入頁面onload 連線 connect()             -->
@@ -134,9 +156,7 @@
             <li class="auct-navbtn">
                 <a href="<%=request.getContextPath()%>/front-end/protected/auct/Results_all.jsp">結標專區</a>
             </li>
-            <li class="auct-navbtn">
-                <a href="">出價記錄</a>
-            </li>
+           
             <li class="auct-navbtn">
                 <a href="<%=request.getContextPath()%>/front-end/protected/auct/buy_order.jsp">戰利品</a>
             </li>
@@ -164,7 +184,7 @@
 							<h6 class="text-center">商品名稱</h6>
 						</div>
 						<div class="auct-list">
-							<div>
+							<div class="text-center">
 								<img class="produce-img"
 									src="<%=request.getContextPath()%>/front-end/auct/pic.do?auct_id=${auctVO.auct_id}"
 									alt="">
@@ -195,9 +215,9 @@
 						<div class="auct-list1 mx-5">
 							<div class=" py-2 bg-white">
 								<ul>
-									<li class="market">市價 : 5000元</li>
-									<li class="market" id="score"></li>
-									<li class="market">現省 : 元</li>
+									<li class="market" >市價 : <font id="marketPrice">${auctVO.marketPrice}</font> 元</li>
+									<li class="market" >目前 : <font id="score"></font> 元</li>
+									<li class="market" >現省 : <font id="saveMoney" style="color:red;"></font> 元</li>
 								</ul>
 							</div>
 						</div>
@@ -209,7 +229,7 @@
 								<input type="hidden" name="${memVO.mem_id}" id="${memVO.mem_id}"
 									value="${memVO.mem_id}">
 								<li><button type="submit" class="bid-btn my-2" id="button"
-										onclick="sendMessage();">BID / 競標</button></li>
+										onclick="sendMessage();saveMoney();">BID / 競標</button></li>
 							</ul>
 						</div>
 					</div>
@@ -220,7 +240,7 @@
 							<h6 class="text-center">排行榜</h6>
 						</div>
 						<div class="bid-table">
-							<div style="height:300px; overflow-y:scroll;">
+							<div style="height:285px; overflow-y:hidden;">
 								<table>
 									<tr>
 										<th class="mx-5">名次</th>
@@ -294,12 +314,15 @@
  
 //      alert(jsonObj.userName);
 					var rank=1;
-					var str =  '<tr><td>' + rank + '</td>'
-								 + '<td>' + arr[i].userName + '</td>'
-								 + '<td>' + arr[i].score + '</td></tr>';
+					var str =  '<tr><td class="row1">' + rank + '</td>'
+								 + '<td class="row2">' + arr[i].userName + '</td>'
+								 + '<td class="row3">' + arr[i].score + '</td></tr>';
 
 					$("#messagesArea").prepend(str); //jQuery 加在字串的前面
-    				
+
+					$('.row1').each(function(i, item){ 
+						$(item).text(i+1);			   
+					});
 				}
 				
 			};
@@ -324,7 +347,7 @@
 			};
 
 			webSocket.send(JSON.stringify(jsonObj));//傳入 競標者ID+刷新最高價
-
+			
 		}
 		
 		function disconnect() {  //disconnect()斷線
@@ -338,10 +361,12 @@
 		<%
 			Long auct_end = auctVO.getAuct_end().getTime();
 		%>
+		var remain = null;
 		
 		function init(){
 			
 			var auct_end = <%=auct_end%>;
+			var initSize = 12;
 			var timer = setInterval(function(){
 				var now = new Date().getTime();
 				    remain = Math.ceil((auct_end - now) / 1000);
@@ -350,12 +375,23 @@
 				var minute = Math.floor((remain % 86400 % 3600) / 60);
 				var second = (((remain % 86400) % 3600) % 60);
 				
-				$('#countdown').text(day+'天'+' ' + hour+'小時'+' ' + minute+'分'+' ' + second+'秒');
+				$('#countdown').text(day+'天'+' ' + hour+':'+' ' + minute+':'+' ' + second);
+				$('#countdown').addClass('countdown');
 				
-				if(remain <= 0){
+				saveMoney();
+				
+				//倒數10秒, 數字變大
+				if(remain < 10 && remain > 0) {
+					initSize += 0.3;
+					$('#countdown').css('font-size', initSize+'px');
+				}
+				
+				//時間到, 競標結束
+				if(remain  == 0){
+					if(timer) clearInterval(timer);	 //停止timer,不會每0.1秒做一次			
 					sendAjax();
 				}
-			}, 1000);
+			}, 100);
 			
 			
 		}
@@ -368,11 +404,44 @@
 				type: 'POST', 
 				data: {
 					auct_id: '<%=auctVO.getAuct_id()%>',
+					mem_id:'<%=memVO.getMem_id()%>',
 					action: 'timeout'
-				}
+				},
+				success: function(result){
 				
+				    if(true){
+				    	
+				    alert("恭喜得標");
+				    document.location.href = '<%=request.getContextPath()%>/front-end/protected/auct/payMoney.jsp';		
+				    }
+				
+				    if(false){
+					alert("競標結束 !!"); 
+// 					alert("OK"); //可以改sweetAlert
+					document.location.href = '<%=request.getContextPath()%>/front-end/protected/auct/Auct_index.jsp';
+				    }
+				}// success結束
 			});  // Ajax結束
 		}
+		
+		
+		/********現省多少錢********/
+		function saveMoney(){
+			var marketPrice = $('#marketPrice').text();
+// 			console.log(marketPrice);
+			var score = $('#score').text();
+// 			console.log(score);
+			var saveMoney = marketPrice-score;
+			$('#saveMoney').text(saveMoney);
+// 			console.log(saveMoney);
+
+			//如果 小於10秒, 每點一次加回10秒
+// 			if(remain < 10 && remain > 0) {
+// 				auct_end = ((10 - remain) + auct_end/1000) * 1000;
+// 			}
+			
+		}
+		
 		
 	</script>
 
