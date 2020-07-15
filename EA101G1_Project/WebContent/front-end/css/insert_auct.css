@@ -1,31 +1,57 @@
-body{
-    /* background: url(../images/rkXP0RBoX3.jpg);
-    background-size: cover; */
-    background:linear-gradient(120deg,#00818a,#076394,  orange) ;
+body{    
+    background-image: url(../auct/images/666.jpg);
+    background-size: cover; 
+    background-attachment: fixed;
+
+}
+body:after{
+    content:"";
+    width: 130%;
+    height: 130%;
+    display: block;
+    background: #00334e;
     /* background: #00818a; */
+    /* background: rgb(0, 119, 255); */
+    opacity: 0.5;
+    position: absolute;
+    left:0px; /*定位到左上角*/
+    top:0px;
+    z-index: 1;
+}
+section{
+    filter: brightness(1.2);
+    position: relative;
+    z-index: 5;
 }
 
 .banner{
-    color: white;
+    height: 50px;
+    color: rgb(248, 246, 241);
+    font-weight: bolder;
+     text-shadow: 3px 0px 18px rgb(238, 214, 196);
     background:linear-gradient(45deg,#076394, #00818a) ;
     border-radius: 0px;
+    box-shadow:0 10px 38px #305b94; 
     height: 120px;
     margin-bottom: 0px;
     padding: 100px 0px;
-    position: relative;
-    /* filter: brightness(1.5); ��漁摨� */
-    box-shadow:0 10px 38px #305b94;  
-
+    filter: brightness(1.2);
+     
 }
+
+
 .back-btn{
     position: relative;
     right:-200px;
 }
 
 form{
-    color:#f2a51a;
+    color:rgb(248, 200, 192);
     font-weight: bold;
+     text-shadow: 3px 0px 18px rgb(238, 214, 196);
 }
+
+
  .add-btn{
      color:rgb(235, 232, 229);
      font-size: 18px;
@@ -33,3 +59,20 @@ form{
      text-shadow: 3px 0px 18px rgb(238, 214, 196);
 
  }
+
+ #goBackBtn {
+    width: 40px;
+    height: 40px;
+    border:none;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 1000;
+    border-radius: 50%;
+}
+.backbtn{
+    
+    position: relative;
+    top: 4px;
+}
+
