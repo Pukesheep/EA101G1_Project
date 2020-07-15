@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ page import="java.util.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.shopCart.model.PRODUCT" %>
 <%@page import="com.member.model.*"%>
@@ -116,16 +117,16 @@ String card = (String)request.getParameter("card");
    		<div class="row justify-content mb-2 bg-white rounded">
    			<div class="col-2 align-self-center"><img src="<%=request.getContextPath()%>/shopCart/ShopCartPic.do?p_id=<%=order.getId()%>"></div>
    			<div class="col-3 align-self-center"><a href="<%=request.getContextPath()%>/front-end/product/listOneProduct.jsp?p_id=<%=p_id%>"><font><%=name%></font></a></div>
-   			<div class="col-1 align-self-center"><font>$<%=price%></font></div>
+   			<div class="col-1 align-self-center"><font>$<fmt:formatNumber pattern="#" value="<%=price%>" /></font></div>
    			<div class="col-2 align-self-center"><font><%=quantity%></font></div>
-   			<div class="col-4 align-self-center"><font>$<%=sub%></font></div>
+   			<div class="col-4 align-self-center"><font>$<fmt:formatNumber pattern="#" value="<%=sub%>" /></font></div>
    		</div>
    		<%
 		}
 	session.setAttribute("list",list);
 	%>	
 		<div class="row justify-content-end rounded" style="background-color:white;height:60px;margin-bottom:2px">
-			<div class="col-3 align-self-center">總金額:<font style="font-size: 1.5em;color:#ff5353">NT$<%=amount%></font></div>
+			<div class="col-3 align-self-center">總金額:<font style="font-size: 1.5em;color:#ff5353">NT$<fmt:formatNumber pattern="#" value="<%=amount%>" /></font></div>
 		</div>
 		
 		<%
@@ -133,7 +134,7 @@ String card = (String)request.getParameter("card");
 		Double mem_bonus = amount*ratio;
 		%>
 		<div class="row justify-content-end rounded" style="background-color:white;height:60px;margin-bottom:2px">
-			<div class="col-3 align-self-center"><img style="width:20px" src="<%=request.getContextPath()%>/front-end/protected/shopCart/image/tokens.png">可獲得紅利:<font style="font-size: 1.5em;color:#ffd700"><%=mem_bonus%></font>點</div>
+			<div class="col-3 align-self-center"><img style="width:20px" src="<%=request.getContextPath()%>/front-end/protected/shopCart/image/tokens.png">可獲得紅利:<font style="font-size: 1.5em;color:#ffd700"><fmt:formatNumber pattern="#" value="<%=mem_bonus%>" /></font>點</div>
 		</div>
 				
    		<div class="row justify-content-end rounded" style="background-color:#c6d4df">

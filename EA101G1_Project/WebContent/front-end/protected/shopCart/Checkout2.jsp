@@ -200,15 +200,17 @@ const showLoading = function() {
 	    }
 	  )
 	};
-	var timer = setTimeout(function(){
-		
-		document.location.href = '<%=request.getContextPath()%>/front-end/protected/shopCart/Checkout.jsp?card=1';
-	}, 4000);
+	
 	//showLoading();
 
 	document.getElementById("check")
 	  .addEventListener('click', (event) => {
 	    showLoading();
+	    
+	    var timer = setTimeout(function(){
+			
+			document.location.href = '<%=request.getContextPath()%>/front-end/protected/shopCart/Checkout.jsp?card=1';
+		}, 4000);
 	  });
 </script>
 </body>

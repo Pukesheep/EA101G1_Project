@@ -331,7 +331,7 @@
 			<input type="hidden" name="p_id" value="${proVO.p_id}">
 			<input type="hidden" name="action" value="getOne_For_Display">
 		</form>
-			<div class="p_price">$${proVO.p_price}</div>
+			<div class="p_price">$<fmt:formatNumber pattern="#" value="${proVO.p_price}" /></div>
 			
 			<div class="p_love" > 
 			<c:choose>
