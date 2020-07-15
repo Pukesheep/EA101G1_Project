@@ -3,18 +3,24 @@
 <%@ page import="com.shopCart.model.PRODUCT" %>
 <%@page import="com.member.model.*"%>
 <%@page import="com.productOrderList.model.*"%>
-
+<%@ page import="com.auct.model.*"%>
+<%
+  AuctVO auctVO = (AuctVO) request.getAttribute("auctVO"); //AuctServlet.java (Controller) 存入req的auctVO物件 (包括幫忙取出的auctVO, 也包括輸入資料錯誤時的auctVO物件)
+	
+  MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
+ 
+%>
 <html>
 <head>
  <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Raleway|Rock+Salt|Source+Code+Pro:300,400,600" rel="stylesheet"><link rel="stylesheet" href="credit-card/dist/style.css">
-  
+	<link rel='stylesheet' href='https://cdn.jsdelivr.net/sweetalert2/5.3.8/sweetalert2.css'>
 </head>
 <!-- navbar -->
 <body>
 <!-- partial:index.partial.html -->
 <div class="payment-title">
-        <h1>Payment Information</h1>
+        <h1>信用卡資訊</h1>
     </div>
     <div class="container preload">
         <div class="creditcard">
@@ -116,30 +122,94 @@
     </div>
     <div class="form-container">
         <div class="field-container">
-            <label for="name">Name</label>
-            <input id="name" maxlength="20" type="text">
+            <label for="name">持卡人姓名</label>
+            <input id="name" maxlength="20" value="${memberVO.mem_name}" type="text">
         </div>
         <div class="field-container">
-            <label for="cardnumber">Card Number</label><span id="generatecard">generate random</span>
-            <input id="cardnumber" type="text" pattern="[0-9]*" inputmode="numeric">
+            <label for="cardnumber">卡片號碼</label><span id="generatecard">generate random</span>
+            <input id="cardnumber" type="text" pattern="[0-9]*" value="${memberVO.card_no}" inputmode="numeric">
             <svg id="ccicon" class="ccicon" width="750" height="471" viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"> 
 
             </svg>
         </div>
         <div class="field-container">
-            <label for="expirationdate">Expiration (mm/yy)</label>
-            <input id="expirationdate" type="text" pattern="[0-9]*" inputmode="numeric">
+            <label for="expirationdate">有效日期 (mm/yy)</label>
+            <input id="expirationdate" type="text" pattern="[0-9]*" value="${memberVO.card_mm}+${memberVO.card_yy}" inputmode="numeric">
         </div>
         <div class="field-container">
-            <label for="securitycode">Security Code</label>
-            <input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric">
+            <label for="securitycode">驗證碼</label>
+            <input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric" value="${memberVO.card_sec}">
+        </div>
+        <div class="field-container">
+            <button type="button" id="check">送出</button>
         </div>
     </div>
 <!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/imask/3.4.0/imask.min.js'></script><script  src="script.js"></script>
-
   <script src='https://cdnjs.cloudflare.com/ajax/libs/imask/3.4.0/imask.min.js'></script><script  src="credit-card/dist/script.js"></script>
 
+<!--BootStrap -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	 <script src='https://cdn.jsdelivr.net/sweetalert2/5.3.8/sweetalert2.js'></script>
+	
+<script>
+// $('.check').click(function(){
+// Swal.fire({
+// 	icon: 'info',
+// 	title: '驗證中',
+// 	showConfirmButton: false,
+// 	timer: 1500,
+// 	swal.showLoading();
+// }).then(function(){
+// Swal.fire({
+// 	icon: 'info',
+// 	title: '驗證成功',
+// 	showConfirmButton: false,
+// 	timer: 1500
+// })
+// })
+// var timer = setTimeout(function(){
+	
+<%-- 	document.location.href = '<%=request.getContextPath()%>/front-end/protected/shopCart/Checkout.jsp?card=1'; --%>
+// }, 4000);
+// });
+
+const showLoading = function() {
+	  swal({
+	    title: '驗證中',
+	    allowEscapeKey: false,
+	    allowOutsideClick: false,
+	    timer: 2000,
+	    onOpen: () => {
+	      swal.showLoading();
+	    }
+	  }).then(
+	    () => {},
+	    (dismiss) => {
+	      if (dismiss === 'timer') {
+	        console.log('closed by timer!!!!');
+	        swal({ 
+	          title: '驗證成功',
+	          type: 'success',
+	          timer: 2000,
+	          showConfirmButton: false
+	        })
+	      }
+	    }
+	  )
+	};
+	var timer = setTimeout(function(){
+		
+		document.location.href = '<%=request.getContextPath()%>/front-end/protected/shopCart/Checkout.jsp?card=1';
+	}, 4000);
+	//showLoading();
+
+	document.getElementById("check")
+	  .addEventListener('click', (event) => {
+	    showLoading();
+	  });
+</script>
 </body>
 </html>
