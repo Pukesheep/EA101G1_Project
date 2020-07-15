@@ -30,7 +30,7 @@ public class ShopCartServlet extends HttpServlet {
 				buylist.removeElementAt(d);// buylist.remove(d);新版寫法
 			}
 			// 新增書籍至購物車中
-			else if (action.equals("ADD")) {
+			else if (action.equals("ADD")||action.equals("ADD2")) {
 				boolean match = false;
 				// 取得後來新增的書籍
 				PRODUCT aproduct = getProduct(req);
@@ -60,10 +60,23 @@ public class ShopCartServlet extends HttpServlet {
 						buylist.add(aproduct);
 				}
 			}
-
+			
 			session.setAttribute("shoppingcart", buylist);
 			String url = req.getParameter("url");
+			if(action.equals("ADD")||action.equals("DELETE")) {
 			res.sendRedirect(url);
+			}else if (action.equals("ADD2")){
+				String keyword = req.getParameter("keyword").trim();
+				List<ProVO> list = new ArrayList<ProVO>();
+				session = req.getSession();
+				List<ProVO> list2 = (List<ProVO>) session.getAttribute("keyWordlist");
+				ProService proSvc = new ProService();
+				list = proSvc.getByKeyWord(keyword, list2);
+				
+				req.setAttribute("list",list);
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/product/listProductByKeyWord.jsp");
+				failureView.forward(req, res);
+			}
 		}
 
 		// 結帳，計算購物車書籍價錢總數
