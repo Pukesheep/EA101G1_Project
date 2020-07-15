@@ -123,7 +123,7 @@
                     <label for="auct_pic">商品圖片: </label>
                     <div>
 					<img id="previewPic" src="<%=request.getContextPath()%>/front-end/auct/pic.do?auct_id=${auctVO.auct_id}" width="250px" height="250px"  style="border-radius: 5px;">
-					<input type="FILE" id="auct_pic" name="auct_pic" value="<%=(auctVO == null) ? "" : auctVO.getAuct_pic()%>" placeholder="請上傳圖片"  class=" mb-5" required/>
+					<input type="FILE" id="auct_pic" name="auct_pic" value="<%=(auctVO == null) ? "" : auctVO.getAuct_pic()%>" placeholder="請上傳圖片"  class=" mb-5"/>
 					</div>
 
                     <br>

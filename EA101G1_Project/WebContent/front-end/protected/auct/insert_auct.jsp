@@ -124,13 +124,11 @@
 
                 <div class="form-group col-md-5">
                     <label for="auct_desc">商品描述:</label>
-                    <textarea class="inputAuct_desc form-control mb-2" name="auct_desc" id="auct_desc" rows="4" cols="10" required>
-                    <%=(auctVO == null)?"商品描述":auctVO.getAuct_desc()%>
-                    </textarea>
+                    <textarea class="inputAuct_desc form-control mb-2" name="auct_desc" id="auct_desc" rows="4" cols="10" required><%=(auctVO == null)?"商品描述":auctVO.getAuct_desc()%></textarea>
 
                     <label for="auct_pic">商品圖片: </label>
                     <div>
-					<img id="previewPic" src="<%=request.getContextPath()%>/front-end/auct/images/NOPIC.jpg" width="250px" height="250px"  style="border-radius: 5px;">
+					<img id="previewPic" src="<%=request.getContextPath()%>/front-end/protected/auct/images/NOPIC.jpg" width="250px" height="250px"  style="border-radius: 5px;">
 					<input type="FILE" id="auct_pic" name="auct_pic" value="<%=(auctVO == null) ? "" : auctVO.getAuct_pic()%>" placeholder="請上傳圖片"  class=" mb-5"  required/>
 					</div>
 
