@@ -2,7 +2,10 @@ package com.adm.logincontroller;
 import com.adm.model.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,6 +41,11 @@ public class LoginHandler extends HttpServlet {
     req.setCharacterEncoding("Big5");
     res.setContentType("text/html; charset=Big5");
     PrintWriter out = res.getWriter();
+    
+    List<String> successMsgs = new LinkedList<String>();
+	// Store this set in the request scope, in case we need to
+	// send the ErrorPage view.
+	req.setAttribute("successMsgs", successMsgs);
 
     String adm_acco = req.getParameter("adm_acco");
     String adm_pass = req.getParameter("adm_pass");
@@ -57,7 +65,10 @@ public class LoginHandler extends HttpServlet {
          }
        }catch (Exception ignored) { }
 
-      res.sendRedirect(req.getContextPath()+"/back-end/index.jsp");  
+      successMsgs.add("登入成功");
+      RequestDispatcher successView = req
+				.getRequestDispatcher("/back-end/index.jsp");
+		successView.forward(req, res);
     }
   }
 }
