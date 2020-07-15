@@ -1,6 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+
 <%@ page import="java.util.*" %>
 <%@ page import="com.shopCart.model.*" %>
+<%@page import="com.member.model.*"%>
+
+<%
+// 	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+%>
 <html>
 <head>
  <meta charset="UTF-8">
@@ -58,19 +64,24 @@
 		div.col-12>img{
 			width: 20%;
 		}
-
+		hr.class-1 { 
+            border-top: 5px solid #8c8b8b; 
+            width:2000;
+        } 
 		
  </style>
 </head>
 <body >
 <!-- navbar -->
-<%--     <%@ include file="/../../files/header.jsp" %> --%>
+    <%@ include file="/files/header.jsp" %>
     <!-- navbar end -->
     <section class="blank0"></section>
     
     <!-- 內容 -->
     <section class="blank1">
    <div class="container">
+   <div class="row"><font style="color:#E0E0E0;font-size:40px">購物車</font ><hr class="class-1" /></div>
+   
    		<div class="row justify-content bg-primary mb-3 rounded" id="head" style="height:40px">
    			<div class="col-5 align-self-center"><font>商品明細</font></div>
    			<div class="col-1 align-self-center"><font>價格</font></div>
