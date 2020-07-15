@@ -37,5 +37,5 @@
   <b><font color=red>第<%=whichPage%>/<%=pageNumber%>頁</font></b>
 <%}%> --%>
 
- <b style="color: rgb(102, 102, 102);">共 <font><%=rowNumber%></font> 樣商品</b> 
+ <b class="bg-light" style="color: rgb(102, 102, 102);">共 <font><%=rowNumber%></font> 件商品</b> 
 <%-- <b>●符 合 查 詢 條 件 如 下 所 示: 共<font color=red><%=rowNumber%></font>筆</b> --%>

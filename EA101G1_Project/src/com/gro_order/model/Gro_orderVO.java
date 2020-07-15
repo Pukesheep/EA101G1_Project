@@ -1,46 +1,75 @@
 package com.gro_order.model;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
+import java.io.*;
+import java.sql.*;
 
-public class Gro_orderVO implements Serializable{
-//private String gro_Id;
-	private String ord_Id;
-	private String mem_Id;
-	private String ordstat_Id;
-	private String gro_Id;
-	private Timestamp add_Date;
-	public String getOrd_Id() {
-		return ord_Id;
-	}
-	public void setOrd_Id(String ord_Id) {
-		this.ord_Id = ord_Id;
-	}
-	public String getMem_Id() {
-		return mem_Id;
-	}
-	public void setMem_Id(String mem_Id) {
-		this.mem_Id = mem_Id;
-	}
-	public String getOrdstat_Id() {
-		return ordstat_Id;
-	}
-	public void setOrdstat_Id(String ordstat_Id) {
-		this.ordstat_Id = ordstat_Id;
-	}
-	public String getGro_Id() {
-		return gro_Id;
-	}
-	public void setGro_Id(String gro_Id) {
-		this.gro_Id = gro_Id;
-	}
-	public Timestamp getAdd_Date() {
-		return add_Date;
-	}
-	public void setAdd_Date(Timestamp add_Date) {
-		this.add_Date = add_Date;
-	}
+public class Gro_orderVO implements Serializable {
+
+	private static final long serialVersionUID = -2253671985885788436L;
 	
-
+	private String ord_id;
+	private String gro_id;
+	private String mem_id;
+	private String ordstat_id;
+	private Double ord_price;
+	private Timestamp ord_date;
+	private String receive_name;
+	private String address;
+	private String phone;
+	
+	public String getOrd_id() {
+		return ord_id;
+	}
+	public void setOrd_id(String ord_id) {
+		this.ord_id = ord_id;
+	}
+	public String getGro_id() {
+		return gro_id;
+	}
+	public void setGro_id(String gro_id) {
+		this.gro_id = gro_id;
+	}
+	public String getMem_id() {
+		return mem_id;
+	}
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+	public String getOrdstat_id() {
+		return ordstat_id;
+	}
+	public void setOrdstat_id(String ordstat_id) {
+		this.ordstat_id = ordstat_id;
+	}
+	public Double getOrd_price() {
+		return ord_price;
+	}
+	public void setOrd_price(Double ord_price) {
+		this.ord_price = ord_price;
+	}
+	public Timestamp getOrd_date() {
+		return ord_date;
+	}
+	public void setOrd_date(Timestamp ord_date) {
+		this.ord_date = ord_date;
+	}
+	public String getReceive_name() {
+		return receive_name;
+	}
+	public void setReceive_name(String receive_name) {
+		this.receive_name = receive_name;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	
 }

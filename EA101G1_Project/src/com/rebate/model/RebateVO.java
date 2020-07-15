@@ -1,29 +1,34 @@
 package com.rebate.model;
 
-public class RebateVO implements java.io.Serializable{
+import java.io.*;
+
+public class RebateVO implements Serializable {
+
+	private static final long serialVersionUID = 2951005854674310194L;
+
+	private String reb_no;
+	private Double discount;
+	private Integer people;
 	
-	private String reb_No;
-	private Integer discount;
-	private String  people;
-	public String getReb_No() {
-		return reb_No;
+	public String getReb_no() {
+		return reb_no;
 	}
-	public void setReb_No(String reb_No) {
-		this.reb_No = reb_No;
+	public void setReb_no(String reb_no) {
+		this.reb_no = reb_no;
 	}
-	public Integer getDiscount() {
+	public Double getDiscount() {
 		return discount;
 	}
-	public void setDiscount(Integer discount) {
+	public void setDiscount(Double discount) {
 		this.discount = discount;
 	}
-	public String getPeople() {
+	public Integer getPeople() {
 		return people;
 	}
-	public void setPeople(String people) {
+	public void setPeople(Integer people) {
 		this.people = people;
 	}
 	
-
-
+	
+	
 }

@@ -1,50 +1,47 @@
 package com.rebate.model;
 
-import java.sql.Date;
-import java.util.List;
+import java.util.*;
 
 public class RebateService {
 
 	private RebateDAO_interface dao;
-
+	
 	public RebateService() {
 		dao = new RebateDAO();
 	}
-
-	public RebateVO addRebate(Integer discount, String people) {
-
+	
+	public RebateVO addRebate(Double discount, Integer people) {
+		
 		RebateVO rebateVO = new RebateVO();
+		
 		rebateVO.setDiscount(discount);
 		rebateVO.setPeople(people);
 		dao.insert(rebateVO);
+		
 		return rebateVO;
-
 	}
-
-	public RebateVO updateRebate(String reb_No, Integer discount, String people) {
-
+	
+	public RebateVO updateRebate(String reb_no, Double discount, Integer people) {
+		
 		RebateVO rebateVO = new RebateVO();
-		rebateVO.setReb_No(reb_No);
+		
+		rebateVO.setReb_no(reb_no);
 		rebateVO.setDiscount(discount);
 		rebateVO.setPeople(people);
-
-		dao.update(rebateVO);
-
+		
 		return rebateVO;
-
 	}
-
-	public void deleteRebate(String reb_No) {
-		dao.delete(reb_No);
+	
+	public void deleteRebate(String reb_no) {
+		dao.delete(reb_no);
 	}
-
-	public RebateVO getOneRebate(String reb_No) {
-		System.out.println("6 " + reb_No);
-		return dao.findByPrimaryKey(reb_No);
+	
+	public RebateVO getOneRebate(String reb_no) {
+		return dao.findByPrimaryKey(reb_no);
 	}
-
-	public List<RebateVO> getAll() {
+	
+	public List<RebateVO> getAll(){
 		return dao.getAll();
 	}
-
+	
 }

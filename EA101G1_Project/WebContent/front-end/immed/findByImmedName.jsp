@@ -426,7 +426,7 @@ ul.navbar-Nav .nav-link {
 					</div>
 
 					<div class="row pl-5">
-						<%@ include file="/files/immed/immedPage2.file"%>
+						<%@ include file="/files/immed/page2B.file"%>
 					</div>
 				</div>
 			</div>

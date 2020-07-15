@@ -1,14 +1,7 @@
 package com.rebate.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.rebate.model.*;
+import java.sql.*;
+import java.util.*;
 
 public class RebateJDBCDAO implements RebateDAO_interface {
 
@@ -16,40 +9,34 @@ public class RebateJDBCDAO implements RebateDAO_interface {
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "EA101G1";
 	String passwd = "123456";
-
-	private static final String INSERT_STMT = "INSERT INTO REBATE(REB_NO,DISCOUNT,PEOPLE) VALUES ('R'||LPAD(REBATE_seq.NEXTVAL,9,'0'),?,?)";
-	private static final String GET_ALL_STMT = "SELECT REB_NO,DISCOUNT,PEOPLE FROM REBATE order by REB_NO";
-	private static final String GET_ONE_STMT = "SELECT REB_NO,DISCOUNT,PEOPLE FROM REBATE where REB_NO = ?";
-	private static final String DELETE = "DELETE FROM REBATE where REB_NO = ?";
-	private static final String UPDATE = "UPDATE REBATE set DISCOUNT=?, PEOPLE=? where REB_NO = ?";
-
-	// "SELECT GRO_ID,P_ID,REB1_NO,REB2_NO,REB3_NO, GROTIME_DATE, START_DATE,
-	// END_DATE,MONEY,PEOPLE,STATUS FROM GROUPBUY order by GRO_ID";
+	
+	private static final String INSERT_STMT = "INSERT INTO rebate (reb_no, discount, people) VALUES ('R'||LPAD(REBATE_seq.NEXTVAL, 6, '0'), ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT reb_no, discount, people FROM rebate ORDER BY reb_no";
+	private static final String GET_ONE_STMT = "SELECT reb_no, discount, people FROM rebate WHERE reb_no = ?";
+	private static final String DELETE = "DELETE FROM rebate WHERE reb_no = ?";
+	private static final String UPDATE = "UPDATE rebate SET discount = ?, people = ? WHERE reb_no = ?";
+	
 	@Override
 	public void insert(RebateVO rebateVO) {
-
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
+		
 		try {
-
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
-
-//			pstmt.setString(1, rebateVO.getReb_No());
-			pstmt.setInt(1, rebateVO.getDiscount());
-			pstmt.setString(2, rebateVO.getPeople());
-
+		
+			pstmt.setDouble(1, rebateVO.getDiscount());
+			pstmt.setInt(2, rebateVO.getPeople());
 			pstmt.executeUpdate();
-
+			
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
 		} finally {
+			
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -57,6 +44,7 @@ public class RebateJDBCDAO implements RebateDAO_interface {
 					se.printStackTrace(System.err);
 				}
 			}
+			
 			if (con != null) {
 				try {
 					con.close();
@@ -65,33 +53,31 @@ public class RebateJDBCDAO implements RebateDAO_interface {
 				}
 			}
 		}
-
 	}
 
 	@Override
 	public void update(RebateVO rebateVO) {
-
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
+		
 		try {
-
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
-
-			pstmt.setString(1, rebateVO.getReb_No());
-			pstmt.setInt(2, rebateVO.getDiscount());
-			pstmt.setString(3, rebateVO.getPeople());
-
+			
+			pstmt.setDouble(1, rebateVO.getDiscount());
+			pstmt.setInt(2, rebateVO.getPeople());
+			pstmt.setString(3, rebateVO.getReb_no());
+			
 			pstmt.executeUpdate();
+			
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
 		} finally {
+			
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -99,6 +85,7 @@ public class RebateJDBCDAO implements RebateDAO_interface {
 					se.printStackTrace(System.err);
 				}
 			}
+			
 			if (con != null) {
 				try {
 					con.close();
@@ -107,31 +94,29 @@ public class RebateJDBCDAO implements RebateDAO_interface {
 				}
 			}
 		}
-
 	}
 
 	@Override
-	public void delete(String reb_No) {
-
+	public void delete(String reb_no) {
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
+		
 		try {
-
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
-
-			pstmt.setString(1, reb_No);
-
+			
+			pstmt.setString(1, reb_no);
+			
 			pstmt.executeUpdate();
+			
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
 		} finally {
+			
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -139,6 +124,7 @@ public class RebateJDBCDAO implements RebateDAO_interface {
 					se.printStackTrace(System.err);
 				}
 			}
+			
 			if (con != null) {
 				try {
 					con.close();
@@ -147,48 +133,36 @@ public class RebateJDBCDAO implements RebateDAO_interface {
 				}
 			}
 		}
-
 	}
 
 	@Override
-	public RebateVO findByPrimaryKey(String reb_No) {
-
-		RebateVO rebateVO = null;
+	public RebateVO findByPrimaryKey(String reb_no) {
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
+		RebateVO rebateVO = null;
+		
 		try {
-
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-
-			pstmt.setString(1, reb_No);
-
+			pstmt.setString(1, reb_no);
 			rs = pstmt.executeQuery();
-
+			rebateVO = new RebateVO();
+			
 			while (rs.next()) {
-				rebateVO = new RebateVO();
-				rebateVO.setReb_No(rs.getString("reb_No"));
-				rebateVO.setDiscount(rs.getInt("discount"));
-				rebateVO.setPeople(rs.getString("people"));
-
+				rebateVO.setReb_no(rs.getString("reb_no"));
+				rebateVO.setDiscount(rs.getDouble("discount"));
+				rebateVO.setPeople(rs.getInt("people"));
 			}
+			
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
+			
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -196,6 +170,7 @@ public class RebateJDBCDAO implements RebateDAO_interface {
 					se.printStackTrace(System.err);
 				}
 			}
+			
 			if (con != null) {
 				try {
 					con.close();
@@ -209,43 +184,34 @@ public class RebateJDBCDAO implements RebateDAO_interface {
 
 	@Override
 	public List<RebateVO> getAll() {
-		List<RebateVO> list = new ArrayList<RebateVO>();
-		RebateVO rebateVO = null;
-
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
+		List<RebateVO> list = null;
+		RebateVO rebateVO = null;
+		
 		try {
-
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
-
+			list = new ArrayList<RebateVO>();
+			
 			while (rs.next()) {
-
 				rebateVO = new RebateVO();
-				rebateVO.setReb_No(rs.getString("reb_no"));
-				rebateVO.setDiscount(rs.getInt("discount"));
-				rebateVO.setPeople(rs.getString("people"));
-
-				list.add(rebateVO); // Store the row in the list
+				rebateVO.setReb_no(rs.getString("reb_no"));
+				rebateVO.setDiscount(rs.getDouble("discount"));
+				rebateVO.setPeople(rs.getInt("people"));
+				list.add(rebateVO);
 			}
+			
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
+			
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -253,6 +219,7 @@ public class RebateJDBCDAO implements RebateDAO_interface {
 					se.printStackTrace(System.err);
 				}
 			}
+			
 			if (con != null) {
 				try {
 					con.close();
@@ -265,40 +232,49 @@ public class RebateJDBCDAO implements RebateDAO_interface {
 	}
 
 	public static void main(String[] args) {
+		
 		RebateJDBCDAO dao = new RebateJDBCDAO();
-// 查詢全部    
-//		List<RebateVO> list = dao.getAll();
-//	for (RebateVO rebate : list) {
-//		System.out.print(rebate.getReb_No() + ",");
-//		System.out.print(rebate.getDiscount() + ",");
-//		System.out.print(rebate.getPeople());		
-//		System.out.println();
-
-		// insert
-//    RebateVO reb1 = new RebateVO();
-////    reb1.setReb_No("R00000009");
-//    reb1.setDiscount(5); 
-//    reb1.setPeople("15");
-//	dao.insert(reb1);
-//	System.err.println("新增成功");
-
-		// update
-//	RebateVO reb1 = new RebateVO();
-//	reb1.setReb_No("R000000009");
-//  reb1.setDiscount(7); 
-//  reb1.setPeople("10");
-//	System.err.println("修改成功");
-
+		
+		// 新增
+//		RebateVO rebateVO1 = new RebateVO();
+//		rebateVO1.setDiscount(0.35d);
+//		rebateVO1.setPeople(100);
+//		dao.insert(rebateVO1);
+//		
+//		rebateVO1.setDiscount(0.26d);
+//		rebateVO1.setPeople(122);
+//		dao.insert(rebateVO1);
+//		
+//		rebateVO1.setDiscount(0.21d);
+//		rebateVO1.setPeople(139);
+//		dao.insert(rebateVO1);
+		
+		// 修改
+//		RebateVO rebateVO2 = new RebateVO();
+//		rebateVO2.setDiscount(0.18d);
+//		rebateVO2.setPeople(150);
+//		rebateVO2.setReb_no("R000007");
+//		dao.update(rebateVO2);
+		
 		// 刪除
-//	dao.delete("R000000009");
-//	System.err.println("刪除成功");
-
-		RebateVO reb = dao.findByPrimaryKey("R000000001");
-		System.out.print(reb.getReb_No() + ",");
-		System.out.print(reb.getDiscount() + ",");
-		System.out.print(reb.getPeople() + ",");
-		System.err.println("成功");
-		System.out.println("---------------------");
-
+//		dao.delete("R000010");
+		
+		// 查詢單筆
+		RebateVO rebateVO3 = dao.findByPrimaryKey("R000009");
+		System.out.println("REB_NO = " + rebateVO3.getReb_no());
+		System.out.println("DISCOUNT = " + rebateVO3.getDiscount());
+		System.out.println("PEOPLE = " + rebateVO3.getPeople());
+		System.out.println("=======================================");
+		
+		// 查詢全部
+		List<RebateVO> list = dao.getAll();
+		for (RebateVO aReb : list) {
+			System.out.println("REB_NO = " + aReb.getReb_no());
+			System.out.println("DISCOUNT = " + aReb.getDiscount());
+			System.out.println("PEOPLE = " + aReb.getPeople());
+			System.out.println("=======================================");			
+		}
 	}
+	
+	
 }

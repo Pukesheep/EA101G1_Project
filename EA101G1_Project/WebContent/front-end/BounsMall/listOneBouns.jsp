@@ -75,6 +75,25 @@
     <!-- navbar end -->
     <section class="blank0"></section>
     <!-- 內容 -->
+    
+	<!--新增成功-->
+	<c:if test="${not empty successMsgs }">
+		<%
+			java.util.List<String> successMsgs = (java.util.List<String>) request.getAttribute("successMsgs");
+			String message = "";
+			for (String msg : successMsgs) {
+				message += msg;
+				message += "\\n";
+			}
+		%>
+		<script>
+			Swal.fire({
+				icon: 'success',
+				title: '<%=message%>'
+			});
+		</script>
+	</c:if>
+	<!--新增成功-->
 
 	<div class="contianer">
 		<div class="row justify-content-center">
