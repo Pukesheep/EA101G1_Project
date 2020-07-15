@@ -303,50 +303,51 @@
 <!-- 團購 -->
 
 	<servlet>
-		<servlet-name>GroupBuyServlet</servlet-name>
-		<servlet-class>com.groupBuy.controller.GroupBuyServlet</servlet-class>
+		<servlet-name>GroupbuyServlert</servlet-name>
+		<servlet-class>com.groupbuy.controller.GroupbuyServlert</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>GroupBuyServlet</servlet-name>
-		<url-pattern>/groupBuy/groupbuy.do</url-pattern>
+		<servlet-name>GroupbuyServlert</servlet-name>
+		<url-pattern>/groupbuy/groupbuy.do</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>RebateServlet</servlet-name>
-		<servlet-class>com.rebate.controller.RebateServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>RebateServlet</servlet-name>
-		<url-pattern>/rebate/rebate.do</url-pattern>
-	</servlet-mapping>
+	  <servlet>
+	  	<servlet-name>ShowPoductInfo</servlet-name>
+	  	<servlet-class>com.groupbuy.controller.ShowPoductInfo</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+	  	<servlet-name>ShowPoductInfo</servlet-name>
+	  	<url-pattern>/groupbuy/showProductInfo.do</url-pattern>
+	  </servlet-mapping>
+	  
+	  <servlet>
+	  	<servlet-name>GromemServlet</servlet-name>
+	  	<servlet-class>com.gromem.controller.GromemServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+	  	<servlet-name>GromemServlet</servlet-name>
+	  	<url-pattern>/gromem/gromem.do</url-pattern>
+	  </servlet-mapping>
+	  
+	  <servlet>
+	  	<servlet-name>Gro_orderServlet</servlet-name>
+	  	<servlet-class>com.gro_order.controller.Gro_orderServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+	  	<servlet-name>Gro_orderServlet</servlet-name>
+	  	<url-pattern>/gro_order/gro_order.do</url-pattern>
+	  </servlet-mapping>
+	  
+	  <!-- 團購排程器(load-on-startup) -->
 
-	<servlet>
-		<servlet-name>Gro_memServlet</servlet-name>
-		<servlet-class>com.gro_mem.controller.Gro_memServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Gro_memServlet</servlet-name>
-		<url-pattern>/gro_mem/gro_mem.do</url-pattern>
-	</servlet-mapping>
-       
-     <servlet>
-		<servlet-name>Favourite_groServlet</servlet-name>
-		<servlet-class>com.favourite_gro.controller.Favourite_groServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Favourite_groServlet</servlet-name>
-		<url-pattern>/favourite_gro/favourite_gro.do</url-pattern>
-	</servlet-mapping>
-	
-     <servlet>
-		<servlet-name>Gro_orderServlet</servlet-name>
-		<servlet-class>com.gro_order.controller.Gro_orderServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Gro_orderServlet</servlet-name>
-		<url-pattern>/back-end/gro_order/Gro_order.do</url-pattern>
-	</servlet-mapping>
-
+		  <servlet>
+		  	<servlet-name>GroupbuyTimer</servlet-name>
+		  	<servlet-class>com.groupbuy.util.GroupbuyTimer</servlet-class>
+		  	<load-on-startup>10</load-on-startup>
+		  </servlet>
+			  
+		<!-- 團購排程器(load-on-startup) -->
+	  
 <!-- 團購 -->
 
 <!-- 訊息 + Q&A -->
