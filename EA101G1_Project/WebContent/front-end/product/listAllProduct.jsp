@@ -91,6 +91,7 @@
   
   front{
 		font-family:Microsoft JhengHei;
+		font-family:"·L³n¥¿¶ÂÅé";
 		}
 </style>
 
@@ -355,7 +356,7 @@
 			<img class="rounded" src="<%=request.getContextPath()%>/product/proPic.do?p_id=${proVO.p_id}">
 		</div>
 		<div class="p_word">
-		<div class="p_tital" name="p_name"><a href="<%=request.getContextPath()%>/front-end/product/listOneProduct.jsp?p_id=${proVO.p_id}"><front class="p_name">${proVO.p_name}</front></a></div>
+		<div class="p_tital" name="p_name"><a href="<%=request.getContextPath()%>/front-end/product/listOneProduct.jsp?p_id=${proVO.p_id}"><font class="p_name">${proVO.p_name}</font></a></div>
 		<form class="p_nameform" action="<%=request.getContextPath()%>/product/pro.do" method="POST">
 			<input type="hidden" name="p_id" value="${proVO.p_id}">
 			<input type="hidden" name="action" value="getOne_For_Display">

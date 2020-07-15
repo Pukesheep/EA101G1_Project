@@ -34,8 +34,8 @@ public class FavpServlet extends HttpServlet {
 				FavpService favpSvc = new FavpService();
 				favpSvc.deleteFavp(p_id, mem_id);
 				if("delete".equals(action)) {
-				String url = "listAllFavouriteProduct.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(listAllFavouriteProduct);// �������,頧漱���������雯���
+				String url = "/front-end/protected/favouriteProduct/listAllFavouriteProduct.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// �������,頧漱���������雯���
 				successView.forward(req, res);}
 			} catch(Exception e) {
 				RequestDispatcher failureView = req.getRequestDispatcher(listAllFavouriteProduct);

@@ -118,7 +118,7 @@
 </table>
 
 <%@ include file="/files/page2B.file" %>
-<a href="<%=request.getContextPath()%>/back-end/adm/select_page.jsp" class="btn btn-primary">回首頁</a>
+<a href="<%=request.getContextPath()%>/back-end/protected/adm/select_page.jsp" class="btn btn-primary">回首頁</a>
         </main>
     </div>
 </div>
