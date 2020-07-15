@@ -114,15 +114,14 @@
 	
 <!-- 會員 + 討論區 -->
 
-<!-- 競標區 -->
- 
+<!--   	競標區 -->
   	<servlet>
 		<servlet-name>AuctServlet</servlet-name>
 		<servlet-class>com.auct.controller.AuctServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>AuctServlet</servlet-name>
-		<url-pattern>/auct/auct.do</url-pattern>
+		<url-pattern>/front-end/auct/auct.do</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -131,10 +130,9 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Auct_pic</servlet-name>
-		<url-pattern>/auct/pic.do</url-pattern>
+		<url-pattern>/front-end/auct/pic.do</url-pattern>
 	</servlet-mapping>
-	
-<!-- 競標區 -->
+<!--   	競標區 END -->
 
 <!-- 直購區 -->
 
