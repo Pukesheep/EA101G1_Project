@@ -77,7 +77,7 @@
                             <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/psac/listAllun.jsp">未處理的檢舉</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/psac/select_page.jsp">所有文章檢舉管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/psac/listAllPsac.jsp">所有文章檢舉管理</a>
                         </li>
                     </ul>
                 </li>
