@@ -13,10 +13,10 @@
     
     <style>
     
-    	h1{
+    	h1,h3{
     		padding: 10px;
     		text-align: center;
-    		background-color:#BB6655;
+    		background-color:#22AA99;
     		
     	}
     	
@@ -25,11 +25,12 @@
     	}
     	
     	div.input{
-    		padding:5px;
+    		padding:10px;
+    		text-align: center;
     	}
     	
     	body{
-    		background-color:#448888;	
+    		background-color:#446688;	
     	}
     	
     	div#button{
@@ -55,13 +56,14 @@
 <!-- aside -->
 
  <main>
-
-   <FORM METHOD="post" ACTION="<%= request.getContextPath()%>/loginhandler">
-<h1>員工登入系統</h1>
-
 <div class="container">
 	<div class="row justify-content-center">
-			<div class="col-3">
+			<div class="col-10">
+   
+   			<h3>員工登入系統</h3>
+   
+   <FORM METHOD="post" ACTION="<%= request.getContextPath()%>/loginhandler">
+
 
 <div class="input">
 帳號: <input type="text"  name="adm_acco" value="" placeholder="請輸入帳號">

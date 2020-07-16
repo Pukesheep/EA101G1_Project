@@ -13,10 +13,10 @@
     <%@ include file="/back-end/css/BackHeaderCssLink" %> 
     <style>
     
-    	h1{
+    	h1,h3{
     		padding: 10px;
     		text-align: center;
-    		background-color:#BB6655;
+    		background-color:#22AA99;
     		
     	}
     	
@@ -29,7 +29,7 @@
     	}
     	
     	body{
-    		background-color:#448888;	
+    		background-color:#446688;;	
     	}
     	
     	div#button{
@@ -55,7 +55,13 @@
 <!-- aside -->
 
  <main>
-
+<div class="container">
+	<div class="row justify-content-center">
+			<div class="col-10">
+			
+			<h3>員工註冊系統</h3>
+			
+			
    <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs }">
 <%
@@ -81,16 +87,16 @@
 
 
 <FORM METHOD="post" ACTION="<%= request.getContextPath()%>/adm/adm.do">
-<h1>員工註冊系統</h1>
+
 
 <div class="container">
 	<div class="row justify-content-center">
-			<div class="col-3">
+			<div class="col-8">
 <div class="input">
-帳號: <input type="text" name="adm_name" value="" placeholder="請輸入會員名稱">
+名稱: <input type="text" name="adm_name" value="" placeholder="請輸入會員名稱">
 </div>
 <div class="input">
-密碼: <input type="text" name="adm_acco" value="" placeholder="請輸入電子信箱">
+信箱: <input type="text" name="adm_acco" value="" placeholder="請輸入電子信箱">
 </div>
 <div id="button">
 <input type="hidden" name="action" value="register">
