@@ -25,7 +25,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <title>未出貨訂單列表</title>
-<%@ include file="../css/BackHeaderCssLink"%>
+<%@ include file="../../css/BackHeaderCssLink"%>
 <style>
 	body {
 		background-image: url('https://cdn.pixabay.com/photo/2017/08/07/22/10/bled-2608425_1280.jpg');
@@ -163,7 +163,7 @@
 							</div>
 						</c:forEach>
 					</div>
-					<%@ include file="page/page2B.file" %>
+					<%@ include file="/files/page2.file" %>
 				</div>
 			</div>
 		</div>

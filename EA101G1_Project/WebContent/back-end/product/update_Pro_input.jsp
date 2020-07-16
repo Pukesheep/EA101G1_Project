@@ -181,9 +181,8 @@ div #preview {
 				<br> <input type="hidden" name="action" value="update">
 				<input type="hidden" name="p_id" value="<%=proVO.getP_id()%>">
 				<input type="hidden" name="p_sales" value="<%=proVO.getP_sales()%>">
-				<input type="hidden" name="p_add_date"
-					value="<%=proVO.getP_add_date()%>"> <input type="submit"
-					value="送出修改">
+				<input type="hidden" name="p_add_date" value="<%=proVO.getP_add_date()%>"> 
+				<input type="submit" value="送出修改">
 			</FORM>
 		
 		<script>

@@ -17,16 +17,13 @@
                         <i class="fas fa-home-alt ml-3 mr-2"></i>商城管理</div>
                     <ul class="collapse navbar-nav" id="sideNavColl02" data-parent="#navbarNav">
                     	<li class="nav-item ">
-                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/product/addPro.jsp">新增商品</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/protected/product/addPro.jsp">新增商品</a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/product/listAllProduct.jsp">商品上下架管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/protected/product/listAllProduct.jsp">商品管理</a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/product/listAllProduct.jsp">商品管理</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/productorder/listAllProductOrder.jsp">商成訂單管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/protected/productorder/listAllProductOrder.jsp">商成訂單管理</a>
                         </li>
                         
                     </ul>

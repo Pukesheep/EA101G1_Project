@@ -81,7 +81,8 @@
 <nav aria-label="breadcrumb">
 	<ol class="breadcrumb bg-transparent">
 		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/index.jsp">後台首頁</a></li>
-		<li class="breadcrumb-item active text-warning" aria-current="page">新增商品</li>
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/select_page.jsp">團購暨訂單查詢</a></li>
+		<li class="breadcrumb-item active text-warning" aria-current="page">新增團購</li>
 	</ol>
 </nav>
 		
@@ -102,35 +103,32 @@
 												<h3 class="mt-0">請輸入商品詳情</h3>
 												
 													<div class="form-group">
-														<label for="exampleInputEmail1" class="text-white">商品名稱<front style="color:red">${errorMsgs.p_name}</front></label>
+														<label for="exampleInputEmail1" class="text-white">商品名稱<c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_price}</front></c:if></label>
 														<div class="input-group mb-3">
 															<div class="input-group-prepend">
 																<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-plus"></i></span>
 															</div>
-															<input type="TEXT" class="form-control text-center" name="p_name" size="45" <c:if test="${not empty proVO.getP_name()}">value="<%=proVO.getP_name()%>"</c:if>
-																	placeholder="請輸入商品名稱" />
+															<input type="TEXT" class="form-control text-center" name="p_name" size="45" value="<%=proVO.getP_name()%>" />
 														</div>
 													</div>
 													
 													<div class="form-group">
-														<label for="exampleInputEmail1" class="text-white">商品價格<font style="color:red">${errorMsgs.p_price}</font></label>
+														<label for="exampleInputEmail1" class="text-white">商品價格<c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_price}</front></c:if></label>
 														<div class="input-group mb-3">
 															<div class="input-group-prepend">
 																<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-plus"></i></span>
 															</div>
-															<input type="TEXT" class="form-control text-center" name="p_price" size="45" <c:if test="${not empty proVO.getP_price()}">value="<%=proVO.getP_price()%>"</c:if>
-																	placeholder="請輸入商品價格" />
+															<input type="TEXT" class="form-control text-center" name="p_price" size="45" value="<%=proVO.getP_price()%>" placeholder="請輸入商品價格" />
 														</div>
 													</div>
 													
 													<div class="form-group">
-														<label for="exampleInputEmail1" class="text-white">商品庫存<font style="color:red">${errorMsgs.p_stock}</font></label>
+														<label for="exampleInputEmail1" class="text-white">商品庫存<c:if test="${not empty errorMsgs}"><font style="color:red">${errorMsgs.p_stock}</font></c:if></label>
 														<div class="input-group mb-3">
 															<div class="input-group-prepend">
 																<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-plus"></i></span>
 															</div>
-															<input type="TEXT" class="form-control text-center" name="p_stock" size="45" <c:if test="${not empty proVO.getP_stock()}">value="<%=proVO.getP_stock()%>"</c:if>
-																	placeholder="請輸入商品庫存量" />
+															<input type="TEXT" class="form-control text-center" name="p_stock" size="45" value="<%=proVO.getP_stock()%>" placeholder="請輸入商品庫存量" />
 														</div>
 														
 													</div>
@@ -167,10 +165,14 @@
 													<div class="row justify-content-center">
 														<div class="col-6 text-center">
 															<div class="btn-group">
-																<button class="btn btn-warning ">確認</button>
+																<button class="btn btn-warning dropdown-toggle btn-lg" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">確認</button>
 																<div class="dropdown-menu">
 																	<input type="hidden" name="from" value="back-end">
-																	<input type="hidden" name="action" value="insert">
+																	<input type="hidden" name="p_id" value="<%=proVO.getP_id()%>">
+																	<input type="hidden" name="p_sales" value="<%=proVO.getP_sales()%>">
+																	<input type="hidden" name="p_add_date" value="<%=proVO.getP_add_date()%>"> 
+																	<input type="hidden" name="action" value="update">
+																	<button type="submit" class="btn btn-warning dropdown-item">新增</button>
 																</div>
 															</div>
 														</div>
@@ -188,15 +190,14 @@
 							<div class="card mt-5 w-100 h-100 mb-5">
 								<div class="card-body bg-info">
 									<h2 class="mt-0 text-center">商品圖片</h2>
-									<input type="file" name="p_image" id="myFile" <c:if test="${not empty proVO.getP_image()}">value="<%=proVO.getP_image()%>"</c:if>
-									accept="image/gif, image/jpeg, image/png" style="display:none"/>
+									<input type="file" name="p_image" id="myFile" value="<%=proVO.getP_image()%>" accept="image/gif, image/jpeg, image/png" style="display:none"/>
 									<label for="myFile" style="width:100%">
 								<div id="preview" class="card product-display" style="height:400px; display:block" >
-									<img id="addDisplay" src="<%=request.getContextPath()%>/images/camera.png" class="" alt="">				
-								</div></label><front style="color:red">${errorMsgs.p_image}</front>
+									<img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${proVO.p_id}">				
+								</div></label><c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_image}</front></c:if>
 								<div class="card-body">
 								<h2 class="card-title text-center">商品描述</h2>
-								<pre><textarea name="p_info" rows="6" cols="50"><c:if test="${not empty proVO.getP_info()}"><%=proVO.getP_info()%></c:if></textarea></pre><front style="color:red">${errorMsgs.p_info}</front>
+								<pre><textarea name="p_info" rows="6" cols="50"><%=proVO.getP_info()%></textarea></pre><c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_info}</front></c:if>
 								</div>
 								</div>
 							</div>
@@ -214,7 +215,7 @@
 					
 				</div>
 			</div>
-            </FORM>
+            </form>
         </main>
     </div>
     

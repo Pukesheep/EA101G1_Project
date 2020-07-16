@@ -100,7 +100,7 @@ public class ProServlet extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("proVO", proVO); // 資料庫取出的proVO物件,存入req
-				String url = "/back-end/product/update_Pro_input.jsp";
+				String url = "/back-end/protected/product/update_Pro_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_Pro_input.jsp
 				successView.forward(req, res);
 
@@ -198,7 +198,7 @@ public class ProServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("proVO", proVO); // 含有輸入格式錯誤的proVO物件,也存入req
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/update_Pro_input.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/protected/product/update_Pro_input.jsp");
 					failureView.forward(req, res);
 					return; // 程式中斷
 				}
@@ -210,7 +210,7 @@ public class ProServlet extends HttpServlet {
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("proVO", proVO); // 資料庫update成功後,正確的的proVO物件,存入req
-				String url = "/back-end/product/listOneProduct.jsp";
+				String url = "/back-end/protected/product/listAllProduct.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOnePro.jsp
 				successView.forward(req, res);
 
@@ -302,7 +302,7 @@ public class ProServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("proVO", proVO); // 含有輸入格式錯誤的proVO物件,也存入req
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/product/addPro.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/protected/product/addPro.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -312,7 +312,7 @@ public class ProServlet extends HttpServlet {
 				proVO = proSvc.addPro(pt_id, p_name, p_price, p_image, p_info, p_stock, p_stat);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/back-end/product/listAllProduct.jsp";
+				String url = "/back-end/protected/product/listAllProduct.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllPro.jsp
 				successView.forward(req, res);
 
