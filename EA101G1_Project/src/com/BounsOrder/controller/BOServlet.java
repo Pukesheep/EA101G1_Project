@@ -244,13 +244,22 @@ public class BOServlet extends HttpServlet {
 //			String fail = "/front-end/BounsMall/listOneBouns.jsp";
 			
 			String success = "/front-end/BounsMall/listOneBouns.jsp";
-			String fail = "/front-end/BounsMall/listOneBouns.jsp";
+			String login = "/front-end/member/login.jsp";
+			String fail = "/front-end/member/listOneBouns.jsp";
 			
 			try {
 				String mem_id = req.getParameter("mem_id");
+				
 				if ( mem_id == null || mem_id.trim().length() == 0 ) {
-					errorMsgs.add( "會員ID請勿空白" );
+					errorMsgs.add( "請登入會員" );
 				}
+				
+				if ( !errorMsgs.isEmpty() ) {
+					RequestDispatcher loginureView = req.getRequestDispatcher(login);
+					loginureView.forward(req, res);
+					return;
+				}
+				
 				String bon_id = req.getParameter("bon_id");
 				
 				BOService boSvc = new BOService();
