@@ -208,13 +208,13 @@
 													
 													<div class="row justify-content-around">
 														<div class="col-4 text-center">
-															<label for="exampleInputEmail1" class="text-white">級距1折扣預覽</label>
+															<label for="exampleInputEmail1" class="text-white">級距1預覽</label>
 														</div>
 														<div class="col-4 text-center">
-															<label for="exampleInputEmail1" class="text-white">級距2折扣預覽</label>
+															<label for="exampleInputEmail1" class="text-white">級距2預覽</label>
 														</div>	
 														<div class="col-4 text-center">
-															<label for="exampleInputEmail1" class="text-white">級距3折扣預覽</label>
+															<label for="exampleInputEmail1" class="text-white">級距3預覽</label>
 														</div>
 													</div>
 													<div class="input-group mb-3">

@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<style>
-	img.nav_mem_icon {
-		width: 50px;
-		height: 50px;
-		border-radius: 50%;
-	}
-</style>
+
     <!-- navbar -->
     <!-- 使用Boostrap Navbar -->
     <!-- 設定Navbar緊貼畫面上緣 -->
@@ -47,15 +41,6 @@
                 </li>
             </c:if>
             <c:if test="${sessionScope.memberVO ne null}">
-            	<li class="nav-item">
-            		<img alt="" src="<%=request.getContextPath()%>/member/ShowMemberPic.do?mem_id=${memberVO.mem_id}" class="nav_mem_icon">
-            	</li>
-            	<li class="nav-item">
-            		<h6 class="nav-link">${sessionScope.memberVO.mem_name}</h6>
-            	</li>
-            	<li class="nav-item">
-            		<h6 class="nav-link">您好</h6>
-            	</li>
             	
                 <li class="nav-item">
                     <a class="nav-link" href="<%=request.getContextPath()%>/member/member.do?action=getOne_For_Display-front&mem_id=${sessionScope.memberVO.mem_id}">會員中心</a>

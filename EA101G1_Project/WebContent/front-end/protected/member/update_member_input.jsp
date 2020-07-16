@@ -64,7 +64,7 @@
 
 <body>
     <!-- navbar -->
-		<%@ include file="../../files/header.jsp" %>
+		<%@ include file="/files/header.jsp" %>
     <!-- navbar end -->
     <section class="blank0"></section>
     <!-- 內容 -->
@@ -428,7 +428,7 @@ $('#mem_birth').datetimepicker({
 
 
         <!-- footer -->
-        	<%@ include file="../../files/footer.jsp" %>
+        	<%@ include file="/files/footer.jsp" %>
 		<!-- footer -->
 </body>
 
