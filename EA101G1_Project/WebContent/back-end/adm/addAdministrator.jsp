@@ -26,6 +26,7 @@
     	
     	div.input{
     		padding:5px;
+    		text-align: center;
     	}
     	
     	body{
@@ -100,7 +101,7 @@
 </div>
 <div id="button">
 <input type="hidden" name="action" value="register">
-<input type="submit" class="btn btn-warning" value="登入">
+<input type="submit" class="btn btn-warning" value="註冊">
 </div>
 </div>
 </div>

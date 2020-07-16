@@ -90,7 +90,7 @@
 		<th>員工姓名</th>
 		<th>員工狀態</th>
 		<th>修改</th>
-		<th>刪除</th>
+		<th>更新員工狀態</th>
 	</tr>
 	<%@ include file="/files/page1B.file" %> 
 	<c:forEach var="admVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -100,7 +100,14 @@
 			<td>${admVO.adm_acco}</td>
 			<td>${admVO.adm_pass}</td>
 			<td>${admVO.adm_name}</td>
-			<td>${admVO.adm_state}</td>
+			<td><c:choose>
+				<c:when test="${admVO.adm_state eq 0}">
+					離職
+				</c:when>
+				<c:when test="${admVO.adm_state eq 1}">
+					在職
+				</c:when>
+			</c:choose></td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adm/adm.do" style="margin-bottom: 0px;">
 			     <input type="submit" class="btn btn-warning" value="修改">
@@ -108,11 +115,31 @@
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adm/adm.do" style="margin-bottom: 0px;">
-			     <input type="submit" class="btn btn-danger" value="刪除">
-			     <input type="hidden" name="adm_no"  value="${admVO.adm_no}">
-			     <input type="hidden" name="action" value="delete"></FORM>
+				<c:if test="${admVO.adm_state eq 1}">
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adm/adm.do" style="margin-bottom: 0px;">
+					    <input type="submit" class="btn btn-danger" value="更新員工狀態">
+					    <input type="hidden" name="adm_no"  value="${admVO.adm_no}">
+					    <input type="hidden" name="adm_acco"  value="${admVO.adm_acco}">
+					    <input type="hidden" name="adm_pass"  value="${admVO.adm_pass}">
+					    <input type="hidden" name="adm_name"  value="${admVO.adm_name}">
+					     <input type="hidden" name="adm_state"  value="0">
+					     <input type="hidden" name="action" value="admConfirm">
+					</FORM>
+				</c:if>	
+				
+				<c:if test="${admVO.adm_state eq 0}">
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adm/adm.do" style="margin-bottom: 0px;">
+					    <input type="submit" class="btn btn-danger" value="更新員工狀態">
+					    <input type="hidden" name="adm_no"  value="${admVO.adm_no}">
+					    <input type="hidden" name="adm_acco"  value="${admVO.adm_acco}">
+					    <input type="hidden" name="adm_pass"  value="${admVO.adm_pass}">
+					    <input type="hidden" name="adm_name"  value="${admVO.adm_name}">
+					     <input type="hidden" name="adm_state"  value="1">
+					     <input type="hidden" name="action" value="admConfirm">
+					</FORM>
+				</c:if>	
 			</td>
+			
 		</tr>
 	</c:forEach>
 </table>
