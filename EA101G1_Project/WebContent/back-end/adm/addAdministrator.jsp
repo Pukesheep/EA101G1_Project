@@ -94,10 +94,10 @@
 	<div class="row justify-content-center">
 			<div class="col-8">
 <div class="input">
-名稱: <input type="text" name="adm_name" value="" placeholder="請輸入會員名稱">
+名稱: <input type="text" name="adm_name"  value="" placeholder="請輸入會員名稱">
 </div>
 <div class="input">
-信箱: <input type="text" name="adm_acco" value="" placeholder="請輸入電子信箱">
+信箱: <input type="text" name="adm_acco"  value="" placeholder="請輸入電子信箱">
 </div>
 <div id="button">
 <input type="hidden" name="action" value="register">
