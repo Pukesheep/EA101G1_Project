@@ -94,7 +94,7 @@
 <body>
     <!-- navbar -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
-        <a class="navbar-brand" href="All_index.jsp">
+        <a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/index.jsp">
             <span class="logo"><i class="fas fa-bomb"></i></span>
             <span class="logo2">S.F.G</span>
             <span class="logo3">{{{</span>
