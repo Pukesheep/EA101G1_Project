@@ -95,6 +95,12 @@ div.row{
 div.container{
 margin-bottom:4px;
 }
+font{
+color:white;
+}
+.p_amont>font{
+color: #ff5353;
+}
 </style>
 </head>
 <body bgcolor='white'>
@@ -109,9 +115,9 @@ margin-bottom:4px;
     <!--頭-->
     <div class="col-md-12" >
       <div class="row"style="height:35px;" >
-        <div class="col-4 ord_id" style="background-color:#007bff;">訂單編號:${poVO.po_id}</div>
-        <div class="col-4 ord_date" style="background-color:#007bff">訂單日期:${poVO.add_date}</div>
-        <div class="col-2 ord_stat" style="background-color:#007bff">狀態:<font style="color:#67c1f5">${ordSvc.listOneOrdstat(poVO.ordstat_id).ordstat}</font></div>
+        <div class="col-4 ord_id" style="background-color:#007bff;"><font>訂單編號:${poVO.po_id}</font></div>
+        <div class="col-4 ord_date" style="background-color:#007bff"><font>訂單日期:${poVO.add_date}</font></div>
+        <div class="col-2 ord_stat" style="background-color:#007bff"><font>狀態:</font><font style="color:#67c1f5">${ordSvc.listOneOrdstat(poVO.ordstat_id).ordstat}</font></div>
         <div class="col-2 ord_change" style="background-color:#007bff"></div>
         </div>
       <!--頭-->
@@ -121,14 +127,14 @@ margin-bottom:4px;
       <div class="row"style="height:35px">
           <div class="col-4 p_name" style="background-color:white">${proSvc.getOnePro(polVO.p_id).p_name}</div>
           <div class="col-4 p_qua" style="background-color:white">X${polVO.order_qua}</div>
-            <div class="col-4 p_price" style="background-color:white">$${polVO.p_price}</div>
+            <div class="col-4 p_price" style="background-color:white">$<fmt:formatNumber pattern="#" value="${polVO.p_price}" /></div>
       </div>
       </c:forEach>
        <!--商品區-->
       
       <div class="row"style="height:35px">
         <div class="col-md-10" style="background-color:#c6d4df"><div class="empty"></div></div>
-        <div class="col-md-2" style="background-color:#c6d4df"><div class="p_amont">總金額:${poVO.amount}</div></div>
+        <div class="col-md-2" style="background-color:#c6d4df"><div class="p_amont"><font>總金額:NT$<fmt:formatNumber pattern="#" value="${poVO.amount}" /></font></div></div>
       </div>
       
     </div>

@@ -3,11 +3,11 @@
 	<%if (pageNumber>1) {%>
 		<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 			<div class="btn-group mr-2" role="group" aria-label="First group">
-				<a class="btn btn-outline-warning" href="<%=request.getRequestURI()%>?whichPage=1" role="button">首頁</a>
+				<a class="btn btn btn-light" href="<%=request.getRequestURI()%>?whichPage=1" role="button">首頁</a>
 				<%for (int i=1; i<=pageNumber; i++){%>
-					<a class="btn btn-outline-warning" href="<%=request.getRequestURI()%>?whichPage=<%=i%>#nav-cancel-tab" role="button"><%=i%></a>
+					<a class="btn btn btn-light" href="<%=request.getRequestURI()%>?whichPage=<%=i%>" role="button"><%=i%></a>
 				<%}%>
-				<a class="btn btn-outline-warning" href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>#nav-cancel-tab" role="button">末頁</a>
+				<a class="btn btn btn-light" href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>" role="button">末頁</a>
 			</div>	
 		</div>
 	<%}%>
