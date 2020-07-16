@@ -152,9 +152,9 @@ public class FBServlet extends HttpServlet {
 			List<String> successMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			req.setAttribute("successMsgs", successMsgs);
-			String success = "/front-end/BounsMall/listOneBouns.jsp";
+			String success = "/front-end/protected/BounsMall/listOneBouns.jsp";
 			String login = "/front-end/member/login.jsp";
-			String fail = "/front-end/BounsMall/listOneBouns.jsp";
+			String fail = "/front-end/protected/BounsMall/listOneBouns.jsp";
 			
 			try {
 				String mem_id = req.getParameter("mem_id");
@@ -176,14 +176,14 @@ public class FBServlet extends HttpServlet {
 				fbVO = dao.findByPrimaryKey(mem_id, bon_id);
 				if ( fbVO == null ) {
 					fbVO = fbSvc.addFB(mem_id, bon_id);
+					successMsgs.add( "成功新增" );
 				} else {
 					fbSvc.deleteFB(mem_id, bon_id);
+					successMsgs.add( "取消最愛" );
 				}
 				
 				BMService bmSvc = new BMService();
 				BMVO bmVO = bmSvc.getByPK(bon_id);
-				
-				successMsgs.add( "成功新增" );
 				
 				list = fbSvc.getMemFB(mem_id);
 				
@@ -242,8 +242,8 @@ public class FBServlet extends HttpServlet {
 			List<FBVO> list = new ArrayList<FBVO>();
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/front-end/BounsMall/listFavoriteByMember.jsp";
-			String fail = "/front-end/BounsMall/listAllBouns.jsp";
+			String success = "/front-end/protected/BounsMall/listFavoriteByMember.jsp";
+			String fail = "/front-end/protected/BounsMall/listAllBouns.jsp";
 			
 			try {
 				String mem_id = req.getParameter("mem_id");

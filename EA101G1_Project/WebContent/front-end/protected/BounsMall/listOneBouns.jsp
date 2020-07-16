@@ -9,6 +9,8 @@
 	BMService bmSvc = new BMService();
 	List<BMVO> list = bmSvc.getAll();
 	pageContext.setAttribute("list",list);
+	HashSet<BMVO> hash = bmSvc.getAll();
+	pageContext.setAttribute("hash", hash);
 	BMVO bmVO = (BMVO) request.getAttribute("bmVO");
 	MemberService memSvc = new MemberService(); 
 	MemberVO memVO = (MemberVO) request.getAttribute("memVO");
@@ -71,7 +73,7 @@
 </head>
 <body>
     <!-- navbar -->
-		<%@ include file="../../files/header.jsp" %>
+		<%@ include file="../../../files/header.jsp" %>
     <!-- navbar end -->
     <section class="blank0"></section>
     <!-- 內容 -->
@@ -119,34 +121,31 @@
 					</div>
 					<div class="row justify-content-center">
 						<div class="col-4">
-	 						<!--try -->
-	  							<!--case 1 -->
-	<%-- 						<a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=exchange&mem_id=M000007&bon_id=${bmVO.bon_id}"><button type="button" class="btn btn-danger float-left">我要兌換</button></a> --%>
-	<%-- 						<a href="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do?action=favorite&mem_id=M000007&bon_id=${bmVO.bon_id}"><button type="button" class="btn btn-secondary float-right">加入最愛</button></a> --%>
-								<!--case 2-->
-	<%-- 						<button name="exchange" type="button" class="btn btn-danger float-left" id="${sessionScope.memberVO.mem_id}${bmVO.bon_id}">我要兌換</button> --%>
-	<%-- 						<button name="favorite" type="button" class="btn btn-secondary float-right" id="${sessionScope.memberVO.mem_id}${bmVO.bon_id}">加入最愛</button> --%>
-								<!--case 3-->
-							<form class="exchange" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" method="post">
-								<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
-								<input type="hidden" name="bon_id" value="${bmVO.bon_id}">
-								<input type="hidden" name="action" value="exchange">
-								<button type="submit" class="btn btn-danger float-left" >我要兌換</button>
-							</form>
-							<form class="favorite" action="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do" method="post">
-								<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
-								<input type="hidden" name="bon_id" value="${bmVO.bon_id}">
-								<input type="hidden" name="action" value="favorite">
-								<button type="submit" class="btn btn-secondary float-right" >加入最愛</button>
-							</form>
-	 						<!--try end -->
+							<div class="row">
+								<div class="col-6">
+									<form class="exchange" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" method="post">
+										<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
+										<input type="hidden" name="bon_id" value="${bmVO.bon_id}">
+										<input type="hidden" name="action" value="exchange">
+										<button type="submit" class="btn btn-danger float-left" >我要兌換</button>
+									</form>
+								</div>
+								<div class="col-6">
+									<form class="favorite" action="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do" method="post">
+										<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
+										<input type="hidden" name="bon_id" value="${bmVO.bon_id}">
+										<input type="hidden" name="action" value="favorite">
+										<button type="submit" class="btn btn-secondary float-right" >加入最愛</button>
+									</form>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-8">
 				<div class="row">
-					<c:forEach var="bmVO" items="${list}" varStatus="s">
+					<c:forEach var="bmVO" items="${hash}" varStatus="s">
 						<c:if test="${s.count <= 4}">
 							<div class="col-3">
 								<div class="card mt-5">
@@ -166,14 +165,8 @@
 	</div>
 	<!-- 內容 -->
 	<!-- footer -->
-	<%@ include file="../../files/footer.jsp" %>
+	<%@ include file="../../../files/footer.jsp" %>
 	<!-- footer -->
-	
-	<script>
-// 		$('form.exchange').click(function(){
-			
-// 		});
-	</script>
 	
 </body>
 </html>

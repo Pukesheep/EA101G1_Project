@@ -243,9 +243,9 @@ public class BOServlet extends HttpServlet {
 //			String success = "/front-end/BounsMall/listBounsOrderByMember.jsp";
 //			String fail = "/front-end/BounsMall/listOneBouns.jsp";
 			
-			String success = "/front-end/BounsMall/listOneBouns.jsp";
+			String success = "/front-end/protected/BounsMall/listOneBouns.jsp";
 			String login = "/front-end/member/login.jsp";
-			String fail = "/front-end/member/listOneBouns.jsp";
+			String fail = "/front-end/protected/BounsMall/listOneBouns.jsp";
 			
 			try {
 				String mem_id = req.getParameter("mem_id");
@@ -336,8 +336,8 @@ public class BOServlet extends HttpServlet {
 			List<BOVO> list = new ArrayList<BOVO>();
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/front-end/BounsMall/listBounsOrderByMember.jsp";
-			String fail = "/front-end/BounsMall/listBounsOrderByMember.jsp";
+			String success = "/front-end/protected/BounsMall/listBounsOrderByMember.jsp";
+			String fail = "/front-end/protected/BounsMall/listBounsOrderByMember.jsp";
 			
 			try {
 				String ord_id = req.getParameter("ord_id");
@@ -390,8 +390,8 @@ public class BOServlet extends HttpServlet {
 			List<BOVO> list = new ArrayList<BOVO>();
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/front-end/BounsMall/listBounsOrderByMember.jsp";
-			String fail = "/front-end/BounsMall/listAllBouns.jsp";
+			String success = "/front-end/protected/BounsMall/listBounsOrderByMember.jsp";
+			String fail = "/front-end/protected/BounsMall/listAllBouns.jsp";
 			
 			try {
 				String mem_id = req.getParameter("mem_id");

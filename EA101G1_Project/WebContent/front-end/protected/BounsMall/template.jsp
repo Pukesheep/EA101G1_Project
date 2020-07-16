@@ -48,14 +48,14 @@
 </head>
 <body>
     <!-- navbar -->
-		<%@ include file="../../files/header.jsp" %>
+		<%@ include file="../../../files/header.jsp" %>
     <!-- navbar end -->
     <section class="blank0"></section>
     <!-- 內容 -->
     
 	<!-- 內容 -->
         <!-- footer -->
-			<%@ include file="../../files/footer.jsp" %>
+			<%@ include file="../../../files/footer.jsp" %>
         <!-- footer -->
 </body>
 

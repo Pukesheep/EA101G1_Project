@@ -78,8 +78,8 @@ public class BMServlet extends HttpServlet {
 		if ("getOne_For_Display".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String url = "/front-end/BounsMall/select_page.jsp";
-			String success = "/front-end/BounsMall/listOneBouns.jsp";
+			String url = "/front-end/protected/BounsMall/select_page.jsp";
+			String success = "/front-end/protected/BounsMall/listOneBouns.jsp";
 			
 			try {
 				String str = req.getParameter("BON_ID");

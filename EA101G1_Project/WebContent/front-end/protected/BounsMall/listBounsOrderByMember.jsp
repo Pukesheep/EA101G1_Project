@@ -57,10 +57,6 @@
 		<tr>
 			<td>
 				<h3>會員紅利訂單查詢 - /front-end/listBounsOrderByMember.jsp</h3>
-<!-- 				<h4> -->
-<%-- 					<a href="<%=request.getContextPath()%>/back-end/BounsOrder/select_page.jsp"> --%>
-<!-- 						<img src="images/back1.gif" width="100" height="32" border="0">回首頁</a> -->
-<!-- 				</h4> -->
 			</td>
 		</tr>
 	</table>
@@ -83,7 +79,7 @@
 			<th>執行動作</th>
 		</tr>
 		
-		<%@ include file="../../files/page1.file" %>
+		<%@ include file="../../../files/page1.file" %>
 		<c:forEach var="boVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 			<tr>
 				<td>${bmSvc.getByPK(boVO.bon_id).bon_name}</td>
@@ -101,7 +97,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<%@ include file="../../files/page2.file" %>
+	<%@ include file="../../../files/page2.file" %>
 	
 </body>
 </html>

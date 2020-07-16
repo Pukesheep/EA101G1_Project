@@ -79,7 +79,7 @@
 			<th>取消最愛</th>
 		</tr>
 		
-		<%@ include file="../../files/page1.file" %>
+		<%@ include file="../../../files/page1.file" %>
 		<c:forEach var="fbVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 			<tr>
 				<td>${bmSvc.getByPK(fbVO.bon_id).bon_name}</td>
@@ -95,7 +95,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<%@ include file="../../files/page2.file" %>
+	<%@ include file="../../../files/page2.file" %>
 	
 </body>
 </html>
