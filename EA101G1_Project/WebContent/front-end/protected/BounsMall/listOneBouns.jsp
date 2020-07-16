@@ -16,6 +16,7 @@
 	MemberVO memVO = (MemberVO) request.getAttribute("memVO");
 %>
 
+
 <jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
 
 <html lang="en">
