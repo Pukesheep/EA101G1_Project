@@ -26,7 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>訂單付款</title>
-    <%@ include file="../../../files/HeaderCssLink" %>
+    <%@ include file="/files/HeaderCssLink" %>
         
     <!-- SweetAlert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -40,7 +40,7 @@
 </head>
 <body>
     <!-- navbar -->
-		<%@ include file="../../../files/header.jsp" %>
+		<%@ include file="/files/header.jsp" %>
     <!-- navbar end -->
     <section class="blank0"></section>
     <!-- 內容 -->
@@ -237,7 +237,7 @@
 
 
         <!-- footer -->
-			<%@ include file="../../../files/footer.jsp" %>
+			<%@ include file="/files/footer.jsp" %>
         <!-- footer -->
 </body>
 <%-- 處理地址下拉式選單與手動輸入合併的區塊 --%>

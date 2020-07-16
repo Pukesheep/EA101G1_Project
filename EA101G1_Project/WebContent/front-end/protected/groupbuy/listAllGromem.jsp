@@ -26,7 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>我的團購</title>
-    <%@ include file="../../../files/HeaderCssLink" %>
+    <%@ include file="/files/HeaderCssLink" %>
         
     <!-- SweetAlert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -37,7 +37,7 @@
 </head>
 <body>
     <!-- navbar -->
-		<%@ include file="../../../files/header.jsp" %>
+		<%@ include file="/files/header.jsp" %>
     <!-- navbar end -->
     <section class="blank0"></section>
     <!-- 內容 -->
@@ -103,7 +103,7 @@
 										</div>
 										<div class="card-body">
 											<div class="media bg-secondary p-2">
-												<a class="mr-3" href="<%=request.getContextPath()%>/groupbuy/groupbuy.do?action=getOne_For_Display&from=front-end&gro_id=${groupbuyVO.gro_id}">
+												<a href="<%=request.getContextPath()%>/groupbuy/groupbuy.do?action=getOne_For_Display&from=front-end&gro_id=${groupbuyVO.gro_id}">
 													<img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${groupbuyVO.p_id}" class="align-self-end mr-3 img-listAll" alt="">
 												</a>
 												<div class="media-body">
@@ -148,7 +148,7 @@
 
 
         <!-- footer -->
-			<%@ include file="../../../files/footer.jsp" %>
+			<%@ include file="/files/footer.jsp" %>
         <!-- footer -->
 </body>
 

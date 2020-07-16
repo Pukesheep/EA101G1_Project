@@ -27,7 +27,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>團購訂單</title>
-    <%@ include file="../../../files/HeaderCssLink" %>
+    <%@ include file="/files/HeaderCssLink" %>
         
     <!-- SweetAlert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -38,7 +38,7 @@
 </head>
 <body>
     <!-- navbar -->
-		<%@ include file="../../../files/header.jsp" %>
+		<%@ include file="/files/header.jsp" %>
     <!-- navbar end -->
     <section class="blank0"></section>
     <!-- 內容 -->
@@ -128,8 +128,8 @@
 																<h4>訂單狀態： ${ordstatVO.ordstat}</h4>
 															</c:if>
 														</c:forEach>
-														<h4>原價： $<fmt:formatNumber pattern="#" value="${productSvc.getOnePro(groupbuyVO.p_id).p_price}" /></h4>
-														<h4>折扣價： $<fmt:formatNumber pattern="#" value="${groupbuyVO.money}" /></h4>
+														<h4>訂單金額： $<fmt:formatNumber pattern="#" value="${gro_orderVO.ord_price}" /></h4>
+														<h4>商品原價： $<fmt:formatNumber pattern="#" value="${productSvc.getOnePro(groupbuyVO.p_id).p_price}" /></h4>
 														<h5 class="mt-5">訂單成立時間： <fmt:formatDate value="${gro_orderVO.ord_date}" pattern="yyyy-MM-dd hh:mm:ss" /></h5>
 													</div>
 												</div>
@@ -173,7 +173,7 @@
 
 
         <!-- footer -->
-			<%@ include file="../../../files/footer.jsp" %>
+			<%@ include file="/files/footer.jsp" %>
         <!-- footer -->
 </body>
 

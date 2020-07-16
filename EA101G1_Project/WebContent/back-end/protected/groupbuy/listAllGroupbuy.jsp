@@ -63,13 +63,13 @@
 <body>
 <!-- header -->
 	
-	<%@ include file="../../css/header.jsp" %>
+	<%@ include file="/back-end/css/header.jsp" %>
 <!-- header -->
 
     <div class="content d-md-flex">
 
 <!-- aside -->
-	<%@ include file="../../css/aside.jsp" %>
+	<%@ include file="/back-end/css/aside.jsp" %>
 <!-- aside -->
 
         <main>
@@ -114,7 +114,7 @@
 <nav aria-label="breadcrumb">
 	<ol class="breadcrumb bg-transparent">
 		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/index.jsp">後台首頁</a></li>
-		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/select_page.jsp">團購查詢</a></li>
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/select_page.jsp">團購暨訂單查詢</a></li>
 		<li class="breadcrumb-item active text-warning" aria-current="page">團購列表</li>
 	</ol>
 </nav>
@@ -123,9 +123,22 @@
                 <div class="row justify-content-center mt-5">
                 	<div class="col-10">
                 		<div class="card bg-info">
-							<img alt="" src="<%=request.getContextPath()%>/images/groupbuy/meme.png" id="groupbuyHeader">	
+							<img alt="" src="<%=request.getContextPath()%>/images/groupbuy/meme.png" id="groupbuyHeader">
+								<div class="card-header bg-dark">
+									<ul class="nav float-right mr-1 mt-1 text-dark">
+										<li class="nav-item">
+											<a class="nav-link active h5" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/select_page.jsp">團購暨訂單查詢</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link active h5" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/listAllGroupbuy.jsp">團購列表</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link active h5" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/listAllGro_order.jsp">訂單管理</a>
+										</li>
+									</ul>
+									<h1 class="text-white">團購列表</h1>
+								</div>	
 								<div class="card-body">
-									<h1 class="card-text">團購列表</h1>
 									<%@ include file="../../../files/page1B.file" %>
 									<div class="row">
 										<div class="col">

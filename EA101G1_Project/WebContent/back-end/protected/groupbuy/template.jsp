@@ -45,13 +45,13 @@
 <body>
 <!-- header -->
 	
-	<%@ include file="../../css/header.jsp" %>
+	<%@ include file="/back-end/css/header.jsp" %>
 <!-- header -->
 
     <div class="content d-md-flex">
 
 <!-- aside -->
-	<%@ include file="../../css/aside.jsp" %>
+	<%@ include file="/back-end/css/aside.jsp" %>
 <!-- aside -->
 
         <main>

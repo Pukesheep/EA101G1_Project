@@ -163,7 +163,8 @@
 													<h6>訂單狀態： ${ordstatVO.ordstat}</h6>
 												</c:if>
 											</c:forEach>
-											<h6>訂單金額： ${gro_orderVO.ord_price}</h6>
+											<h6>訂單金額： <fmt:formatNumber pattern="#" value=" ${gro_orderVO.ord_price}" /></h6>
+											
 										</div>
 									</div>
 								</div>
