@@ -17,42 +17,7 @@
 
 	<title>全部訂單查詢</title>
 	<%@ include file="/back-end/css/BackHeaderCssLink" %> 
-	<style>
-		table#table-1 {
-			width: 450px;
-			background-color: #CCCCFF;
-			margin-top: 5px;
-			margin-bottom: 10px;
-			border: 3px ridge Gray;
-			height: 80px;
-			text-align: center;
-		}
-		table#table-1 h4 {
-			color: red;
-			display: block;
-			margin-bottom: 1px;
-		}
-		h4 {
-			color: blue;
-			display: inline;
-		}
-	</style>
 	
-	<style>
-		table {
-			width: 800px;
-			background-color: white;
-			margin-top: 5px;
-			margin-bottom: 5px;
-		}
-		table, th, td {
-			border: 1px solid #CCCCFF;
-		}
-		th, td {
-			padding: 5px;
-			text-align: center;
-		}
-	</style>
 </head>
 <body bgcolor='white'>
 	
