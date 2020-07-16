@@ -62,9 +62,15 @@
         .add-btn{
             position: relative; top:60px; left: 30px; 
         }    
+        body{
+        background-image: url(images/bg_buy_order.jpg);
+        background-size: cover; 
+ 	    background-attachment: fixed;
+        }
         body:after{
-		    background: #dbebfa;
+ 		    background: grey; 
 		}
+		
          
     </style>
 
