@@ -15,46 +15,17 @@
 <html>
 <head>
 <%@ include file="/back-end/css/BackHeaderCssLink" %>
-<title>所有商品資料 - listAllPro.jsp</title>
+<title>商品列表</title>
 
 <style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
-  table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-  td>img{
-  width:200px;
-  }
+	img.img-product-icon {
+		width: 100px;
+		height: 100px;
+	}
 </style>
 
 </head>
-<body style="background-color:#17a2b8">
+<body>
 <!-- header -->
 	
 	<%@ include file="/back-end/css/header.jsp" %>
@@ -65,15 +36,7 @@
 <!-- aside -->
 	<%@ include file="/back-end/css/aside.jsp" %>
 <!-- aside -->
-<div class="col" >
-<!-- <h4>此頁練習採用 EL 的寫法取值:</h4> -->
-<!-- <table id="table-1"> -->
-<!-- 	<tr><td> -->
-<!-- 		 <h3>所有商品資料 - listAllProduct.jsp</h3> -->
-<!-- 		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4> -->
-<!-- 	</td></tr> -->
-<!-- </table> -->
-
+<main>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -84,47 +47,84 @@
 	</ul>
 </c:if>
 
-<table >
-	<tr>
-		<th>商品編號</th>
-		<th>分類</th>
-		<th>商品名稱</th>
-		<th>商品價格</th>
-		<th>商品圖片</th>
-		<th>商品描述</th>
-		<th>銷售量</th>
-		<th>庫存量</th>
-		<th>上架日期</th>
-		<th>商品狀態</th>
-		<th>修改</th>
-	</tr>
-	<%@ include file="/files/page1.file" %> 
-	<c:forEach var="proVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		
-		<tr>
-			<td>${proVO.p_id}</td>
-			<td>${ ptSvc.getOneProductType(proVO.pt_id).typename }</td>
-			<td>${proVO.p_name}</td>
-			<td>${proVO.p_price}</td>
-			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/proPic.do">
-			<td><img src="<%=request.getContextPath()%>/product/proPic.do?p_id=${proVO.p_id}"></td>
-			</FORM>
-			<td>${proVO.p_info}</td>
-			<td>${proVO.p_sales}</td>
-			<td>${proVO.p_stock}</td>
-			<td><fmt:formatDate value="${proVO.p_add_date}" pattern="yyyy-MM-dd"/></td>
-			<td>${(proVO.p_stat==0)? "下架中":"上架中"}</td>
-			
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/pro.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
-			     <input type="hidden" name="p_id"  value="${proVO.p_id}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-			</td>
-		</tr>
-	</c:forEach>
-</table>
-<%@ include file="/files/page2.file" %>
+
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb bg-transparent">
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/index.jsp">後台首頁</a></li>
+		<li class="breadcrumb-item"><a class="bread" href="#">頁面一</a></li>
+		<li class="breadcrumb-item active text-warning" aria-current="page">商品列表</li>
+	</ol>
+</nav>
+
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-10">
+			<div class="card alert alert-success">
+				<div class="card-header bg-dark">
+					<ul class="nav float-right mr-1 mt-1 text-dark">
+						<li class="nav-item">
+							<a class="nav-link active h5" href="#">頁面一</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active h5" href="#">頁面二</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active h5" href="#">頁面三</a>
+						</li>
+					</ul>
+					<h1 class="text-white">商品列表</h1>
+				</div>
+				<div class="card-body alert alert-warning">
+					<%@ include file="/files/page1.file" %>
+					<div class="row mt-3">
+						<c:forEach var="proVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+							<div class="col-6 mb-1">
+								<div class="card">
+									<div class="card-header">
+										<h4>${proVO.p_name}</h4>
+									</div>
+									<div class="card-body alert alert-info">
+										<div class="media">
+											<img alt="" src="<%=request.getContextPath()%>/product/proPic.do?p_id=${proVO.p_id}" class="img-product-icon">
+											<div class="media-body alert alert-secondary">
+												<ul>
+													<li>商品價格： <fmt:formatNumber pattern="#" value="${proVO.p_price}" /></li>
+													<li>
+														商品狀態： 
+														<c:choose>
+															<c:when test="${proVO.p_stat eq 0}">
+																下架
+															</c:when>
+															<c:when test="${proVO.p_stat eq 1}">
+																上架
+															</c:when>
+														</c:choose>
+													</li>
+												</ul>
+												<h6 class="mt-1">上架日期： <fmt:formatDate value="${proVO.p_add_date}" pattern="yyyy-MM-dd" /></h6>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+					<%@ include file="/files/page2.file" %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+</main>
+</div>
 
 </body>
 </html>
