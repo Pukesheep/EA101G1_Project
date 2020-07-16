@@ -83,6 +83,28 @@ String card = (String)request.getParameter("card");
     <!-- 內容 -->
     <section class="blank1">
 
+<%-- 成功表列 --%>
+<c:if test="${not empty successMsgs }">
+<%
+	java.util.List<String> successMsgs = (java.util.List<String>) request.getAttribute("successMsgs");
+	String message = "";
+	for (String msg : successMsgs) {
+		message += msg;
+		message += "\\n";
+	}
+%>
+<script>
+	Swal.fire({
+		icon: 'success',
+		title: '<%=message%>',
+		showConfirmButton: false,
+		timer: 1000
+	});
+</script>
+</c:if>
+<%-- 成功表列 --%>
+
+
 <div class="container">
     <div class="row"><font style="color:#E0E0E0;font-size:40px">確認結帳</font ><hr class="class-1" /></div>
 
@@ -141,13 +163,13 @@ String card = (String)request.getParameter("card");
    			<div class="col-2 align-self-center"></div>
    			<div class="col-2 align-self-center"></div>
    			<div class="col-2 align-self-center">
-   			<c:if test="<%=card==null%>">
+   			<c:if test="<%=card == null %>">
    				<a href="<%=request.getContextPath()%>/front-end/protected/shopCart/Checkout2.jsp">
    			<img style="width:45px" src="<%=request.getContextPath()%>/front-end/protected/shopCart/image/credit-card.png">  驗證信用卡
    			</a>
    			</c:if>
    			
-   			<c:if test="<%=card!=null%>">
+   			<c:if test="<%=card != null %>">
    			<img style="width:45px" src="<%=request.getContextPath()%>/front-end/protected/shopCart/image/credit-card.png"><font color="green">  驗證成功</font>
    			</c:if>
    			
@@ -160,8 +182,8 @@ String card = (String)request.getParameter("card");
               			<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
               			<input type="hidden" name="amount" value=<%= amount%>>
               			<input type="hidden" name="mem_bonus" value=<%=mem_bonus %>>
-              			<c:if test="<%=card==null%>"><input class="btn btn-primary" type="button" value="確認結帳" id="notcertified"></c:if>
-              			<c:if test="<%=card!=null%>"><input class="btn btn-primary" type="submit" value="確認結帳"></c:if>
+              			<c:if test="<%=card == null %>"><input class="btn btn-primary" type="button" value="確認結帳" id="notcertified"></c:if>
+              			<c:if test="<%=card != null %>"><input class="btn btn-primary" type="submit" value="確認結帳"></c:if>
          			 </form>
 		   		</div>
 		   		<div class="col-6 align-self-start mt-3"><a class="btn btn-primary" href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">繼續購物</a></div>
@@ -182,6 +204,8 @@ String card = (String)request.getParameter("card");
 				timer: 1000
 			})
 		});
+		
+		
         </script>
 	</section>
 </body>

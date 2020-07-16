@@ -346,62 +346,7 @@
 </div>
 
 <div id="productShow" style="margin-top:10px">
-<div class="col-lg-12">
-			<form action="<%=request.getContextPath()%>/product/pro.do" method="POST">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="keyword" placeholder="搜尋商品">
-                    <input type="hidden" name="action" value="searchByKeyWord">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><i class="fas fa-search"></i></button>
-                    </span>
-                </div>
-              </form>    
-            </div>
-	<%@ include file="pages/page1.file" %> 
-	<c:forEach var="proVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		<div class="display" >
-		<div class="img"><img src="" alt=""></div>
-	<div class="card">
-		<div class="p_img" name="p_image">
-			<img class="rounded" src="<%=request.getContextPath()%>/product/proPic.do?p_id=${proVO.p_id}">
-		</div>
-		<div class="p_word">
-		<div class="p_tital" name="p_name"><a href="<%=request.getContextPath()%>/front-end/product/listOneProduct.jsp?p_id=${proVO.p_id}"><font class="p_name">${proVO.p_name}</font></a></div>
-		<form class="p_nameform" action="<%=request.getContextPath()%>/product/pro.do" method="POST">
-			<input type="hidden" name="p_id" value="${proVO.p_id}">
-			<input type="hidden" name="action" value="getOne_For_Display">
-		</form>
-			<div class="p_price">$<fmt:formatNumber pattern="#" value="${proVO.p_price}" /></div>
-			
-			<div class="p_love" > 
-			<c:choose>
-			<c:when test="${favpSvc.getOne(proVO.p_id, sessionScope.memberVO.mem_id).p_id eq null}">
-			<img class="img-icon" alt="" src="<%=request.getContextPath()%>/front-end/product/images/icons/empty.png" id="${proVO.p_id}${sessionScope.memberVO.mem_id}" title="加入最愛">
-			</c:when>
-			<c:otherwise>
-			<img class="img-icon" alt="" src="<%=request.getContextPath()%>/front-end/product/images/icons/full.png" id="${proVO.p_id}${sessionScope.memberVO.mem_id}" title="取消最愛">
-			</c:otherwise>
-			</c:choose>
-			</div>
-			
-			<div class="p_car" >
-			<form name="shoppingForm" action="<%=request.getContextPath()%>/shopCart/Shopping.do" method="POST">
-			<input type="hidden" name="p_id" value="${proVO.p_id}">
-      		<input type="hidden" name="p_name" value="${proVO.p_name}">
-      		<input type="hidden" name="quantity" value="1">
-      		<input type="hidden" name="p_price" value="${proVO.p_price}">
-      		<input type="hidden" name="p_stock" value="${proVO.p_stock}">
-      		<input type="hidden" name="action" value="ADD">	
-      		<input type="hidden" name="url" value="<%=request.getRequestURI()%>?<%=request.getQueryString()%>">
-      		<input type="image" class="img-icon" alt="Submit" src="<%=request.getContextPath()%>/front-end/product/images/icons/shopping-cart.png"  title="加入購物車" >
-			</FORM>
-			</div>
-			
-		</div>
-	</div>
-		
-	</c:forEach>
-	<%@ include file="pages/page2B.file" %>
+
 </div>
 </div>
 </div>

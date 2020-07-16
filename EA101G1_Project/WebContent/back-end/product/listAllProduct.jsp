@@ -54,12 +54,7 @@
 </style>
 
 </head>
-<<<<<<< HEAD
 <body style="background-color:#17a2b8">
-
-=======
-<body bgcolor='white'>
->>>>>>> branch 'master' of https://github.com/Pukesheep/EA101G1_Project.git
 <!-- header -->
 	
 	<%@ include file="/back-end/css/header.jsp" %>

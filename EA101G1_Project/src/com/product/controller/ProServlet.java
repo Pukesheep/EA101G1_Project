@@ -400,44 +400,57 @@ public class ProServlet extends HttpServlet {
 		
 		if ("verification".equals(action)) {
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			List<String> successMsgs = new LinkedList<String>(); 
 			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("successMsgs", successMsgs);
 
 			try {
 				String name = req.getParameter("name");
 				if (name == null || name.trim().length() == 0) {
-					errorMsgs.put("errorMsgs.name", "信用卡持卡人請勿空白");
+					errorMsgs.put("name", "信用卡持卡人請勿空白");
 				}
 
-				String cardnumber = req.getParameter("cardnumber");
-				String cardNoReg = "^[((0-9)]{16}$";
-				if (cardNoReg == null || cardNoReg.trim().length() == 0) {
-					errorMsgs.put("errorMsgs.cardnumber", "信用卡卡號請勿空白");
-				} else if (!cardNoReg.trim().matches(cardNoReg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.put("errorMsgs.cardnumber", "信用卡卡號請輸入16位數字");
+				
+				
+				String cardnumber2 = req.getParameter("cardnumber");
+				String[] st = cardnumber2.split(" ");
+				String cardnumber = "";
+				for (String sss : st) {
+					cardnumber += sss;
 				}
-				;
+				String cardNoReg = "[(0-9)]{16}";
+				if (cardnumber == null || cardnumber.trim().length() == 0) {
+					errorMsgs.put("cardnumber", "信用卡卡號請勿空白");
+				}
+				else if (!cardnumber.trim().matches(cardNoReg)) { // 以下練習正則(規)表示式(regular-expression)
+					errorMsgs.put("cardnumber", "信用卡卡號請輸入16位數字");
+				}
 
 				String expirationdate = req.getParameter("expirationdate");
 				String cardYmReg = "^[(0-9/)]{5}$";
 				if (expirationdate == null || expirationdate.trim().length() == 0) {
-					errorMsgs.put("errorMsgs.espirationdate", "信用卡到期日期請勿空白");
+					errorMsgs.put("espirationdate", "信用卡到期日期請勿空白");
 				}
 
 				String securitycode = req.getParameter("securitycode");
 				String cardSecReg = "^[(0-9)]{3}$";
 				if (securitycode == null || securitycode.trim().length() == 0) {
-					errorMsgs.put("errorMsgs.securitycode", "信用卡認證碼請勿空白");
-				} else if (!securitycode.trim().matches(cardSecReg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.put("errorMsgs.securitycode", "信用卡認證碼請輸入三位數字");
+					errorMsgs.put("securitycode", "信用卡認證碼請勿空白");
+				}else if (!securitycode.trim().matches(cardSecReg)) { // 以下練習正則(規)表示式(regular-expression)
+					errorMsgs.put("securitycode", "信用卡認證碼請輸入三位數字");
 				}
-
+				
+				System.out.println(errorMsgs);
+				System.out.println(errorMsgs.isEmpty());
 				if (!errorMsgs.isEmpty()) {
-					String url = req.getParameter("url");
 					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/protected/shopCart/Checkout2.jsp");
-					System.out.println(failureView);
+					System.out.println(123);
 					failureView.forward(req, res);
 					return; // 程式中斷
 				}
+				successMsgs.add("驗證成功");
+				RequestDispatcher rd = req.getRequestDispatcher("/front-end/protected/shopCart/Checkout.jsp");
+				rd.forward(req, res);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

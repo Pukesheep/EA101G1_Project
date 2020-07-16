@@ -211,10 +211,6 @@
 		section.blank1 div.container {
    			 background: hsla(0, 0%, 100%, .5);
 			}
-			
-		font{
-			color:white;
-			}
 		.p_amont>font{
 			color: #ff5353;
 			}

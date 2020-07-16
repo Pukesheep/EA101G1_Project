@@ -9,11 +9,12 @@
 	
   MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
  
+  String card = (String)request.getParameter("card");
 %>
 <html>
 <head>
  <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css?family=Raleway|Rock+Salt|Source+Code+Pro:300,400,600" rel="stylesheet"><link rel="stylesheet" href="credit-card/dist/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway|Rock+Salt|Source+Code+Pro:300,400,600" rel="stylesheet"><link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/protected/shopCart/credit-card/dist/style.css">
 	<link rel='stylesheet' href='https://cdn.jsdelivr.net/sweetalert2/5.3.8/sweetalert2.css'>
 </head>
 <!-- navbar -->
@@ -120,33 +121,47 @@
             </div>
         </div>
     </div>
+    <form id="ok" action="<%=request.getContextPath()%>/product/pro.do" method="POST">
     <div class="form-container">
         <div class="field-container">
             <label for="name">持卡人姓名</label>
-            <input id="name" maxlength="20" value="${memberVO.mem_name}" type="text">
+            <input id="name" name="name" maxlength="20" value="${memberVO.mem_name}" type="text">
+            <font style="color:red">${errorMsgs.name}</font>
         </div>
         <div class="field-container">
-            <label for="cardnumber">卡片號碼</label><span id="generatecard">generate random</span>
-            <input id="cardnumber" type="text" pattern="[0-9]*" value="${memberVO.card_no}" inputmode="numeric">
+            <label for="cardnumber">卡片號碼</label><span name="generatecard" id="generatecard">generate random</span>
+            <input id="cardnumber" name="cardnumber" type="text" pattern="[0-9]*" value="${memberVO.card_no}" inputmode="numeric">
             <svg id="ccicon" class="ccicon" width="750" height="471" viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"> 
 
             </svg>
+            <font style="color:red">${errorMsgs.cardnumber}</font>
         </div>
         <div class="field-container">
             <label for="expirationdate">有效日期 (mm/yy)</label>
-            <input id="expirationdate" type="text" pattern="[0-9]*" value="${memberVO.card_mm}+${memberVO.card_yy}" inputmode="numeric">
+            <input id="expirationdate" name="expirationdate" type="text" pattern="[0-9]*" value="${memberVO.card_mm}+${memberVO.card_yy}" inputmode="numeric">
+        	<font style="color:red">${errorMsgs.espirationdate}</font>
         </div>
         <div class="field-container">
             <label for="securitycode">驗證碼</label>
-            <input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric" value="${memberVO.card_sec}">
+            <input id="securitycode" name="securitycode" type="text" pattern="[0-9]*" inputmode="numeric" value="${memberVO.card_sec}" maxlength="3">
+			<font style="color:red">${errorMsgs.securitycode}</font>       
         </div>
         <div class="field-container">
+        		
+<%--         	<input type="hidden" name="name"value="${memberVO.mem_name}"> --%>
+<%--         	<input type="hidden" name="cardnumber"value="${memberVO.card_no}"> --%>
+<%--         	<input type="hidden" name="expirationdate"value="${memberVO.card_mm}+${memberVO.card_yy}"> --%>
+<%--         	<input type="hidden" name="securitycode"value="${memberVO.card_sec}"> --%>
+			<input type="hidden" name="card" value="1">
+			<input type="hidden" id="card1" value="<%=card%>">
+        	<input type="hidden" name="action" value="verification">
             <button type="button" id="check">送出</button>
         </div>
     </div>
+    </form>
 <!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/imask/3.4.0/imask.min.js'></script><script  src="credit-card/dist/script.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/imask/3.4.0/imask.min.js'></script><script  src="<%=request.getContextPath()%>/front-end/protected/shopCart/credit-card/dist/script.js"></script>
 
 <!--BootStrap -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -181,24 +196,35 @@ const showLoading = function() {
 	    title: '驗證中',
 	    allowEscapeKey: false,
 	    allowOutsideClick: false,
-	    timer: 2000,
+	    
 	    onOpen: () => {
 	      swal.showLoading();
 	    }
-	  }).then(
-	    () => {},
-	    (dismiss) => {
-	      if (dismiss === 'timer') {
-	        console.log('closed by timer!!!!');
-	        swal({ 
-	          title: '驗證成功',
-	          type: 'success',
-	          timer: 2000,
-	          showConfirmButton: false
-	        })
-	      }
-	    }
-	  )
+	  })
+// 	  .then(
+// 	    () => {},
+// 	    (dismiss) => {
+// 	      if (dismiss === 'timer') {
+	    	  
+// 	    	  if ($('#card1').val()=== null){
+// 	    		  swal({
+// 	    			  title: '驗證失敗',
+// 	    			  type: 'error',
+// 	    			  timer: 2000,
+// 	    			  showConfirmButton: false
+// 	    		  })
+// 	    	  } else {
+// 	        console.log('closed by timer!!!!');
+// 	        swal({ 
+// 	          title: '驗證成功',
+// 	          type: 'success',
+// 	          timer: 2000,
+// 	          showConfirmButton: false
+// 	        })
+// 	      }
+// 	    }
+// 	    }
+// 	  )
 	};
 	
 	//showLoading();
@@ -206,10 +232,9 @@ const showLoading = function() {
 	document.getElementById("check")
 	  .addEventListener('click', (event) => {
 	    showLoading();
-	    
+	    var ok = $('#ok');
 	    var timer = setTimeout(function(){
-			
-			document.location.href = '<%=request.getContextPath()%>/front-end/protected/shopCart/Checkout.jsp?card=1';
+			ok.submit();
 		}, 4000);
 	  });
 </script>
