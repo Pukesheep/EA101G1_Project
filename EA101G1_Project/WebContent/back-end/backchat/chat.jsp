@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	request.setAttribute("userName", "Customer");
+	request.setAttribute("userName", "CustomerSever");
 %>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/back-end/backchat/css/chat.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

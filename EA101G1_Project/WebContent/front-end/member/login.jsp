@@ -84,7 +84,7 @@
 	
 <div class="container">
 	<div class="d-flex justify-content-center h-100">
-		<div class="card login">
+		<div class="card login mt-5">
 			<div class="card-header">
 				<h3>登入</h3>
 				<div class="d-flex justify-content-end social_icon">
@@ -114,7 +114,7 @@
 			</div>
 			<div class="card-footer bg-warning">
 				<div class="d-flex justify-content-around links">
-					<a href="<%=request.getContextPath()%>/front-end/member/addMember.jsp">註冊</a><a href="#">忘記密碼</a>
+					<a href="<%=request.getContextPath()%>/front-end/member/addMember.jsp">註冊</a>
 				</div>
 			</div>
 		</div>
