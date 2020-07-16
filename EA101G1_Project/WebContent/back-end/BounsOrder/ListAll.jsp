@@ -74,17 +74,17 @@
 															<div align="center">
 																<h4>訂單編號</h4>
 																<h4><a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=getOneForDisplay&ord_id=${boVO.ord_id}"
-																	>${boVO.ord_id}</a></h4>
+																	title="依此訂單編號查詢" >${boVO.ord_id}</a></h4>
 															</div>
 														</div>
 														<div class="col-4">
 															<div align="center">
 																<h4>會員編號</h4>
 																<h4><a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=getAllByMember&mem_id=${boVO.mem_id}"
-																	>${boVO.mem_id}</a></h4>
+																	title="依此會員編號查詢" >${boVO.mem_id}</a></h4>
 																<h4>商品名稱</h4>
 																<h4><a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=getAllByName&bon_id=${boVO.bon_id}"
-																	>${bmSvc.getByPK(boVO.bon_id).bon_name}</a></h4>
+																	title="依此遊戲名稱查詢" >${bmSvc.getByPK(boVO.bon_id).bon_name}</a></h4>
 															</div>
 														</div>
 														<div class="col-4">
@@ -93,27 +93,22 @@
 																<h4>${boVO.ord_Date}</h4>
 																<h4>訂單狀態</h4>
 																<h4><a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=getAllByBS&bs_id=${boVO.bs_id}"
-																	>${bsSvc.getOneBS(boVO.bs_id).bs_stat}</a></h4>
+																	title="依此訂單狀態查詢" >${bsSvc.getOneBS(boVO.bs_id).bs_stat}</a></h4>
 															</div>
 														</div>
 													</div>
 												</div>
 											</div>
 											<div class="row justify-content-center">
-												<div class="col-8">
-													<div style="margin_left: 0%">
-														<form action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" method="post">
-															<input type="hidden" name="ord_id" value="${boVO.ord_id}">
-															<input type="hidden" name="action" value="getOne_For_Update">
-															<button type="submit" class="btn btn-warning float-left" >修改紅利訂單</button>
-														</form>
-													</div>
-													<div style="margin-left: 75%">
-														<form action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" method="post" >
-															<input type="hidden" name="ord_id" value="${boVO.ord_id}" >
-															<input type="hidden" name="action" value="delete">
-															<button type="submit" class="btn btn-danger float-left" >刪除紅利訂單</button>
-														</form>
+												<div class="dropdown">
+													<button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+														修改訂單狀態
+													</button>
+													<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+														<a class="dropdown-item" href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=updateBS&ord_id=${boVO.ord_id}&bs_id=BS003">已出貨</a>
+														<a class="dropdown-item" href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=updateBS&ord_id=${boVO.ord_id}&bs_id=BS004">已完成</a>
+														<a class="dropdown-item" href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=updateBS&ord_id=${boVO.ord_id}&bs_id=BS005">待審核</a>
+														<a class="dropdown-item" href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=updateBS&ord_id=${boVO.ord_id}&bs_id=BS006">已退換</a>
 													</div>
 												</div>
 											</div>
@@ -124,6 +119,10 @@
 						</div>
 					</div>
 					<%@ include file="../../files/page2.file" %>
+					<form method="post" action="<%=request.getContextPath()%>/back-end/BounsOrder/insert.jsp">
+						<input type="hidden" name="action" value="insert">
+						<input type="submit" value="新增訂單">
+					</form>
 				</div>
 			</div>
 		</div>
