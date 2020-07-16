@@ -9,12 +9,9 @@
 
 <%	
     ProService proSvc = new ProService();
-    List<ProVO> listAll = proSvc.getAllFront();
-    String pt_id = request.getParameter("pt_id");
-    List<ProVO> list = proSvc.getFrontByPtId(pt_id, listAll);
+    List<ProVO> list = proSvc.getAllFront();
     session.setAttribute("keyWordlist",list);
-    pageContext.setAttribute("list",list);
-    pageContext.setAttribute("pt_id",pt_id);
+    pageContext.setAttribute("list",list); 
 %>
 
 <jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
@@ -92,6 +89,10 @@
   width:200px;
   }
   
+  front{
+		font-family:Microsoft JhengHei;
+		font-family:"微軟正黑體";
+		}
 </style>
 
 <style type="text/css" media="screen">
@@ -185,31 +186,32 @@
 		.img-icon:hover {
 			cursor:pointer;
 		}
-		img.cart{
-			width: 90%;
-			height: 90%;
-			float: right;
-			margin: 0 2px;
-		}
-		img.cart:hover{
-			cursor:pointer;
-		}
 		.p_price{
 			color: #ff5353;
     		font-size: 1.5em;
 		}
-		front{
-		font-family:Microsoft JhengHei;
-		}
-		
 		front.p_name:hover {
 			cursor:pointer;
 			color:red;
 		}
 		
+		a {
+    	text-decoration:none;
+			}
+			
 		section.blank1 div.container {
    			 background: hsla(0, 0%, 100%, .5);
-			}	
+			}
+			
+		font{
+			color:white;
+			}
+		.p_amont>font{
+			color: #ff5353;
+			}
+		.btn{
+			height:100%;
+			}		
 	</style>
 
 </head>
@@ -228,20 +230,49 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
-    <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">商城</a></li>
-    <li class="breadcrumb-item active" aria-current="page"><%=ptSvc.getOneProductType(pt_id).getTypename() %></li>
+    <li class="breadcrumb-item active" aria-current="page">商城</li>
   </ol>
+ </nav> 
+</div>
+
+<div class="row">
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="<%=request.getContextPath() %>/front-end/product/images/front1.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="<%=request.getContextPath() %>/front-end/product/images/front2.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="<%=request.getContextPath() %>/front-end/product/images/front3.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
 </div>
 
 <div class="row">
 
 <div class="ptlist" style="margin-top:10px;margin-right:60px;width:170px">
-<div class="list-group">
 
-	<div class="Now block" style="width:170px;height:170px;display: flex;background-color:#c6d4df;margin-bottom:4px;border-radius:10px">
-	<div style="text-align:center; margin-top:70px;width:100%"><font style="font-weight:bold;font-size:20px;font-family:Microsoft JhengHei;">${ptSvc.getOneProductType(pt_id).typename}</font></div>
+<div class="Now block" style="width:170px;height:170px;display: flex;background-color:#c6d4df;margin-bottom:4px;border-radius:10px">
+	<div style="text-align:center; margin-top:70px;width:100%"><font style="font-weight:bold;font-size:20px;font-family:Microsoft JhengHei;">全部商品</font></div>
 	</div>
 	
+<div class="list-group">
 	<div class="list-group-item active">
 		<h4 class="list-group-item-heading">
 			Switch
@@ -316,7 +347,7 @@
 
 <div id="productShow" style="margin-top:10px">
 <div class="col-lg-12">
-                <form action="<%=request.getContextPath()%>/product/pro.do" method="POST">
+			<form action="<%=request.getContextPath()%>/product/pro.do" method="POST">
                 <div class="input-group">
                     <input type="text" class="form-control" name="keyword" placeholder="搜尋商品">
                     <input type="hidden" name="action" value="searchByKeyWord">
@@ -326,7 +357,7 @@
                 </div>
               </form>    
             </div>
-	<%@ include file="../../files/page1.file" %> 
+	<%@ include file="pages/page1.file" %> 
 	<c:forEach var="proVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<div class="display" >
 		<div class="img"><img src="" alt=""></div>
@@ -362,7 +393,7 @@
       		<input type="hidden" name="p_stock" value="${proVO.p_stock}">
       		<input type="hidden" name="action" value="ADD">	
       		<input type="hidden" name="url" value="<%=request.getRequestURI()%>?<%=request.getQueryString()%>">
-      		<img  class="cart" src="<%=request.getContextPath()%>/front-end/product/images/icons/shopping-cart.png">
+      		<input type="image" class="img-icon" alt="Submit" src="<%=request.getContextPath()%>/front-end/product/images/icons/shopping-cart.png"  title="加入購物車" >
 			</FORM>
 			</div>
 			
@@ -370,8 +401,7 @@
 	</div>
 		
 	</c:forEach>
-	<%@ include file="../../files/page2.file" %>
-	
+	<%@ include file="pages/page2B.file" %>
 </div>
 </div>
 </div>
@@ -401,7 +431,7 @@ $('img.img-icon').click(function(){
 			},
 			success: function(){
 				Swal.fire({
-					icon: 'info',
+					icon: 'success',
 					title: '加入成功',
 					showConfirmButton: false,
 					timer: 750
@@ -442,7 +472,7 @@ $('img.img-icon').click(function(){
 			},
 			success: function(){
 				Swal.fire({
-					icon: 'info',
+					icon: 'error',
 					title: '已取消',
 					showConfirmButton: false,
 					timer: 750
@@ -456,13 +486,7 @@ $('img.img-icon').click(function(){
 	}
 	});
 	
-//購物車
-$('img.cart').click(function(){
-	 var shop=$(this).closest('form');
-	 
-	 var timer = setTimeout(function(){
-		 shop.submit();
-		}, 800);
+$('input.img-icon').click(function(){
 	Swal.fire({
 		icon: 'success',
 		title: '加入成功',
@@ -478,7 +502,6 @@ $('img.cart').click(function(){
 // $(".p_nameform").eq(index).submit()
 // 	});
 </script>
-
 
 
 
