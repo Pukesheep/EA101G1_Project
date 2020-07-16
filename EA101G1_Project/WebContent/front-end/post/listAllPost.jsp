@@ -673,30 +673,40 @@
 				var post_id = thisID.substring(0, 10);
 				var mem_id = thisID.substring(10, 17);
 				var c_text = $(this).prevAll('input').val();
-				$.ajax({
-					url: '<%=request.getContextPath()%>/comm/comm.do',
-					type: 'POST',
-					data: {
-						post_id: post_id,
-						mem_id: mem_id,
-						c_text: c_text,
-						c_status: 1,
-						action: 'insert'
-					},
-					success: function(){
-						Swal.fire({
-							icon: 'success',
-							title: '留言成功',
-							showConfirmButton: false,
-							timer: 1200
-						})
-						var timer = setTimeout(function(){
-							
-							document.location.href = '<%=request.getContextPath()%>/front-end/post/listAllPost.jsp';
-							
-						}, 500);
-					}
-				});
+				
+				if (c_text.trim().length === 0){
+					Swal.fire({
+						icon: 'error',
+						title: '請輸入留言內容'
+					})
+				} else {
+					
+					$.ajax({
+						url: '<%=request.getContextPath()%>/comm/comm.do',
+						type: 'POST',
+						data: {
+							post_id: post_id,
+							mem_id: mem_id,
+							c_text: c_text,
+							c_status: 1,
+							action: 'insert'
+						},
+						success: function(){
+							Swal.fire({
+								icon: 'success',
+								title: '留言成功',
+								showConfirmButton: false,
+								timer: 1200
+							})
+							var timer = setTimeout(function(){
+								
+								document.location.href = '<%=request.getContextPath()%>/front-end/post/listAllPost.jsp';
+								
+							}, 500);
+						}
+					});
+				}
+				
 				
 			} else if (thisID.includes('COMM')){
 				
@@ -704,30 +714,38 @@
 				var comm_id = thisID.substring(0, 10);
 				var mem_id = thisID.substring(10, 17);
 				var c_text = $(this).prevAll('input').val();
-				console.log(c_text);
-				$.ajax({
-					url: '<%=request.getContextPath()%>/comm/comm.do',
-					type: 'POST',
-					data: {
-						post_id: post_id,
-						comm_id: comm_id,
-						mem_id: mem_id,
-						c_status: 1,
-						c_text: c_text,
-						action: 'update'
-					}, 
-					success: function(){
-						Swal.fire({
-							icon: 'success',
-							title: '修改成功',
-							showConfirmButton: false,
-							timer: 1200
-						})
-						var timer = setTimeout(function(){
-							location.reload();
-						}, 500);
-					}
-				})
+				
+				if (c_text.trim().length === 0) {
+					Swal.fire({
+						icon: 'error',
+						title: '請輸入留言內容'
+					})
+				} else {
+					$.ajax({
+						url: '<%=request.getContextPath()%>/comm/comm.do',
+						type: 'POST',
+						data: {
+							post_id: post_id,
+							comm_id: comm_id,
+							mem_id: mem_id,
+							c_status: 1,
+							c_text: c_text,
+							action: 'update'
+						}, 
+						success: function(){
+							Swal.fire({
+								icon: 'success',
+								title: '修改成功',
+								showConfirmButton: false,
+								timer: 1200
+							})
+							var timer = setTimeout(function(){
+								location.reload();
+							}, 500);
+						}
+					})
+				}
+				
 				
 			}
 				
@@ -825,7 +843,7 @@
         
     }
     
-    window.onload = init;	
+    window.onload = init;
 	
 	
 	
@@ -838,7 +856,7 @@
 
 
         <!-- footer -->
-        	<%@ include file="../../files/footer.jsp" %>
+        	<%@ include file="/files/footer.jsp" %>
         <!-- footer -->
 </body>
 

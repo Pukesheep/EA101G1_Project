@@ -9,6 +9,7 @@
 	pageContext.setAttribute("list", list);
 %>
 
+<!DOCTYPE html>
 <html>
 <head>
 <title>全部紅利商品訊息</title>
@@ -57,82 +58,7 @@ img#display {
 
 </head>
 <body bgcolor='white'>
-<<<<<<< HEAD
-	
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>所有紅利商品資料</h3>
-	<!-- 			<h4> -->
-	<%-- 				<a href="<%=request.getContextPath()%>/back-end/BounsMall/select_page.jsp"> --%>
-	<!-- 					<img src="images/back1.gif" width="100" height="32" border="0">回首頁</a> -->
-	<!-- 			</h4> -->
-			</td>
-		</tr>
-	</table>
-	
-	<%-- 錯誤列表 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color:red">請修正以下錯誤：</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color:red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
-	
-	<table>
-		<tr>
-			<th>紅利商品編號</th>
-			<th>商品分類編號</th>
-			<th>紅利商品名稱</th>
-			<th>所需紅利點數</th>
-			<th>紅利商品圖片</th>
-			<th>紅利商品描述</th>
-			<th>已兌換數量</th>
-			<th>現有總庫存</th>
-			<th>上架日期</th>
-			<th>紅利商品上架狀態</th>
-			<th colspan="2">欲執行之動作</th>
-		</tr>
-		<%@ include file="../../files/page1.file" %>
-		<c:forEach var="bmVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-			<tr>
-				<td>${bmVO.bon_id}</td>
-				<td>${bmVO.pt_id}</td>
-				<td>${bmVO.bon_name}</td>
-				<td>${bmVO.bon_price}</td>
-				<td><img src="<%=request.getContextPath()%>/BounsMall/ImageServlet.do?bon_id=${bmVO.bon_id}" id="display"></td>
-				<td id="info">${bmVO.bon_info}</td>
-				<td>${bmVO.bon_exchange}</td>
-				<td>${bmVO.bon_stock}</td>
-				<td>${bmVO.bon_addDate}</td>
-				<td>${(bmVO.bon_status==0)? "上架":"下架"}</td>
-				<td>
-					<form method="post" action="<%=request.getContextPath()%>/BounsMall/BounsMall.do" style="margin-bottom: 0px;">
-						<input type="hidden" name="bon_id" value="${bmVO.bon_id}">
-						<input type="hidden" name="action" value="getOne_For_Update">
-						<input type="submit" value="修改">
-					</form>
-				</td>
-				<td>
-					<form method="post" action="<%=request.getContextPath()%>/BounsMall/BounsMall.do" style="margin-bottom: 0px;">
-						<input type="hidden" name="bon_id" value="${bmVO.bon_id}">
-						<input type="hidden" name="action" value="delete">
-						<input type="submit" value="刪除">
-					</form>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
-	<%@ include file="../../files/page2.file" %>
-	
-	<form method="post" action="<%=request.getContextPath()%>/back-end/BounsMall/addBM.jsp" style="margin-bottom: 0px;">
-		<input type="hidden" name="action" value="addBM">
-		<input type="submit" value="新增商品">
-	</form>
-	
-=======
+
 	<!-- header -->
 
 	<%@ include file="/back-end/css/header.jsp"%>
@@ -147,9 +73,7 @@ img#display {
 			<table id="table-1" >
 				<tr>
 					<td>
-						<h3>所有紅利商品資料</h3> <!-- 			<h4> --> <%-- 				<a href="<%=request.getContextPath()%>/back-end/BounsMall/select_page.jsp"> --%>
-						<!-- 					<img src="images/back1.gif" width="100" height="32" border="0">回首頁</a> -->
-						<!-- 			</h4> -->
+						<h3>所有紅利商品資料</h3>
 					</td>
 				</tr>
 			</table>
@@ -178,9 +102,8 @@ img#display {
 					<th>紅利商品上架狀態</th>
 					<th colspan="2">欲執行之動作</th>
 				</tr>
-				<%@ include file="../../files/page2.file"%>
-				<c:forEach var="bmVO" items="${list}" begin="<%=pageIndex%>"
-					end="<%=pageIndex+rowsPerPage-1%>">
+				<%@ include file="../../files/page1.file"%>
+				<c:forEach var="bmVO" items="${list}" begin="<%=pageIndex%>"end="<%=pageIndex+rowsPerPage-1%>">
 					<tr>
 						<td>${bmVO.bon_id}</td>
 						<td>${bmVO.pt_id}</td>
@@ -217,6 +140,6 @@ img#display {
 			</table>
 			<%@ include file="../../files/page2.file"%>
 		</div>
->>>>>>> branch 'master' of https://github.com/Pukesheep/EA101G1_Project.git
+
 </body>
 </html>

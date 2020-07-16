@@ -8,7 +8,7 @@
         </a>
 
         <div class="navbar-nav ml-auto  mr-4 mr-md-0">
-            <a class="nav-link login_color" href="<%=request.getContextPath()%>/back-end/adm/login.jsp">
+            <a class="nav-link login_color" href="<%=request.getContextPath()%>/back-end/login.jsp">
                 <i class="fas fa-user-cog"></i> <span class="ml-2">管理員登入</span> 
             </a>
         </div>

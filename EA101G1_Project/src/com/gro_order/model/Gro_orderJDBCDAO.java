@@ -1,6 +1,7 @@
 package com.gro_order.model;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.sql.*;
 
 public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
@@ -436,7 +437,7 @@ public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
 		}
 		return generatedKey;
 	}
-	
+
 	public static void main(String[] args) {
 		
 		Gro_orderJDBCDAO dao = new Gro_orderJDBCDAO();
@@ -534,31 +535,32 @@ public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
 //		dao.ording(gro_orderVO4);
 		
 		// 成立一拖拉庫訂單
-		List<Gro_orderVO> list4 = new ArrayList<Gro_orderVO>();
-		Gro_orderVO gro_orderVO5 = null;
-		for (int i = 1; i < 10; i++) {
-			gro_orderVO5 = new Gro_orderVO();
-			gro_orderVO5.setGro_id("G000003");
-			gro_orderVO5.setMem_id("M00000" + i);
-			gro_orderVO5.setOrdstat_id("002");
-			gro_orderVO5.setOrd_price(18114.0d);
-			list4.add(gro_orderVO5);
-		}
-		List<String> plist = new ArrayList<String>();
-		for (Gro_orderVO aGro_order : list4) {
-			System.out.println(aGro_order.getGro_id());
-			System.out.println(aGro_order.getMem_id());
-			System.out.println(aGro_order.getOrdstat_id());
-			System.out.println(aGro_order.getOrd_price());
-			System.out.println("=============================");
-			plist.add(dao.ording(aGro_order));
-		}
-		for (String primaryKey : plist) {
-			System.out.println(primaryKey);
-		}
+//		List<Gro_orderVO> list4 = new ArrayList<Gro_orderVO>();
+//		Gro_orderVO gro_orderVO5 = null;
+//		for (int i = 1; i < 10; i++) {
+//			gro_orderVO5 = new Gro_orderVO();
+//			gro_orderVO5.setGro_id("G000003");
+//			gro_orderVO5.setMem_id("M00000" + i);
+//			gro_orderVO5.setOrdstat_id("002");
+//			gro_orderVO5.setOrd_price(18114.0d);
+//			list4.add(gro_orderVO5);
+//		}
+//		List<String> plist = new ArrayList<String>();
+//		for (Gro_orderVO aGro_order : list4) {
+//			System.out.println(aGro_order.getGro_id());
+//			System.out.println(aGro_order.getMem_id());
+//			System.out.println(aGro_order.getOrdstat_id());
+//			System.out.println(aGro_order.getOrd_price());
+//			System.out.println("=============================");
+//			plist.add(dao.ording(aGro_order));
+//		}
+//		for (String primaryKey : plist) {
+//			System.out.println(primaryKey);
+//		}
 		
 		
 	}
+
 
 
 }

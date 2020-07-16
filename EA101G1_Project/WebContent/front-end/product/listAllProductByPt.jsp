@@ -185,6 +185,15 @@
 		.img-icon:hover {
 			cursor:pointer;
 		}
+		img.cart{
+			width: 90%;
+			height: 90%;
+			float: right;
+			margin: 0 2px;
+		}
+		img.cart:hover{
+			cursor:pointer;
+		}
 		.p_price{
 			color: #ff5353;
     		font-size: 1.5em;
@@ -331,7 +340,7 @@
 			<input type="hidden" name="p_id" value="${proVO.p_id}">
 			<input type="hidden" name="action" value="getOne_For_Display">
 		</form>
-			<div class="p_price">$${proVO.p_price}</div>
+			<div class="p_price">$<fmt:formatNumber pattern="#" value="${proVO.p_price}" /></div>
 			
 			<div class="p_love" > 
 			<c:choose>
@@ -353,7 +362,7 @@
       		<input type="hidden" name="p_stock" value="${proVO.p_stock}">
       		<input type="hidden" name="action" value="ADD">	
       		<input type="hidden" name="url" value="<%=request.getRequestURI()%>?<%=request.getQueryString()%>">
-      		<input type="image" class="img-icon" alt="Submit" src="<%=request.getContextPath()%>/front-end/product/images/icons/shopping-cart.png"  title="加入購物車" >
+      		<img  class="cart" src="<%=request.getContextPath()%>/front-end/product/images/icons/shopping-cart.png">
 			</FORM>
 			</div>
 			
@@ -447,9 +456,15 @@ $('img.img-icon').click(function(){
 	}
 	});
 	
-$('input.img-icon').click(function(){
+//購物車
+$('img.cart').click(function(){
+	 var shop=$(this).closest('form');
+	 
+	 var timer = setTimeout(function(){
+		 shop.submit();
+		}, 800);
 	Swal.fire({
-		icon: 'info',
+		icon: 'success',
 		title: '加入成功',
 		showConfirmButton: false,
 		timer: 750

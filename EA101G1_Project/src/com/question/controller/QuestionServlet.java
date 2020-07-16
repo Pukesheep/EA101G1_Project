@@ -6,16 +6,29 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+
+import com.chat.data.test;
 import com.question.model.*;
 
 @WebServlet("/QuestionServlet")
 public class QuestionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-
+	static Timer timer;
+	@Override
+	public void init() {
+		timer = new Timer();
+		test test = new test();
+		
+		timer.schedule(test, 0);
+	}
+	
+	public void destory() {
+		timer.cancel();
+	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
+		
 	}
 
 	

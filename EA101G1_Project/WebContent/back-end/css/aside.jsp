@@ -6,9 +6,7 @@
                     <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl01">
                         <i class="fas fa-user-edit ml-3"></i> 會員管理</div>
                     <ul class="collapse navbar-nav" id="sideNavColl01" data-parent="#navbarNav">
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">會員權限管理</a> 
-                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/member/select_page.jsp">會員資料管理</a>
                         </li>
@@ -18,15 +16,19 @@
                     <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl02">
                         <i class="fas fa-home-alt ml-3 mr-2"></i>商城管理</div>
                     <ul class="collapse navbar-nav" id="sideNavColl02" data-parent="#navbarNav">
+                    	<li class="nav-item ">
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/product/addPro.jsp">新增商品</a>
+                        </li>
                         <li class="nav-item ">
-                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/product/listAllProduct.jsp">商品上下架</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/product/listAllProduct.jsp">商品上下架管理</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/product/listAllProduct.jsp">商品管理</a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/productorder/listAllProductOrder.jsp">商成訂單管理</a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link pl-4" href="#">限時專案管理</a>
-                        </li>
+                        
                     </ul>
                 </li>
                 <li class="nav-item ">
@@ -49,23 +51,19 @@
                         <i class="fas fa-users-class  ml-3 mr-1"></i>團購管理</div>
                     <ul class="collapse navbar-nav pt-2" id="sideNavColl04" data-parent="#navbarNav">
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">團購訂單管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/listAllGro_order.jsp">團購訂單管理</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">團購商品管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/listAllGroupbuy.jsp">團購商品管理</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">團購商品上下架</a>
-                        </li>
+                        
                     </ul>
                 </li>
                 <li class="nav-item ">
                     <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl05">
                         <i class="fas fa-hand-pointer ml-3 mr-2"></i>交易區管理</div>
                     <ul class="collapse navbar-nav" id="sideNavColl05" data-parent="#navbarNav">
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">競標商品管理</a>
-                        </li>
+                       
                           <li class="nav-item">
                             <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/immed/listAllImmed.jsp">直購商品管理</a>
                         </li>
@@ -75,14 +73,11 @@
                     <div class="nav-link" data-toggle="collapse" data-target="#sideNavColl06">
                         <i class="fas fa-exclamation-triangle ml-3 mr-1"></i>檢舉管理</div>
                     <ul class="collapse navbar-nav" id="sideNavColl06" data-parent="#navbarNav">
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">商品檢舉管理</a>
+                       <li class="nav-item">
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/psac/listAllun.jsp">未處理的檢舉</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">會員檢舉管理</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/psac/select_page.jsp">文章檢舉管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/psac/select_page.jsp">所有文章檢舉管理</a>
                         </li>
                     </ul>
                 </li>
@@ -108,9 +103,7 @@
                          <li class="nav-item">
                             <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/protected/adm/addAdm.jsp">新增員工</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link pl-4" href="#">員工權限管理</a>
-                        </li>
+                       
                     </ul>
                 </li>
             </ul>

@@ -218,6 +218,14 @@ aside .navbar-nav .nav-link:hover {
 	display: block;
 }
 
+.img-icon {
+	width: 25px;
+	height: 25px;
+	float: right;
+	margin: 8px 2px;
+	cursor: pointer;
+}
+
 @media ( max-width : 1023px) {
 	.immed_nav .form-inline .form-control {
 		width: 250px;
@@ -422,11 +430,15 @@ aside .navbar-nav .nav-link:hover {
 										style="${immedVO.immed_sold==1 ? 'opacity: 0.5;':'opacity: 1;' }"
 										alt="...">
 									</a>
-									<div class="card-body">
+									<div class="card-body ">
 										<a
 											href="<%=request.getContextPath()%>/immed/immed.do?action=getOne_For_Display&immed_id=${immedVO.immed_id}"
 											title="${immedVO.immed_name}"><h5 class="card-title">${immedVO.immed_name}</h5></a>
-										<p class="card-price">$${immedVO.immed_prc}</p>
+										<span class="card-price">$${immedVO.immed_prc}</span> <img
+											style="" class=" img-icon" alt=""
+											src="<%=request.getContextPath()%>/front-end/product/images/icons/empty.png"
+											id="${immedVO.immed_id}${sessionScope.memberVO.mem_id}"
+											title="加入最愛">
 									</div>
 								</div>
 							</div>
@@ -462,6 +474,23 @@ aside .navbar-nav .nav-link:hover {
 		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 		crossorigin="anonymous"></script>
 
-
+	<script>
+	 $("img.img-icon").click(function(){
+		
+		   
+		   console.log(this.id);
+		$(this).toggleClass("favON").promise().done(function() {
+			if (this.hasClass('favOn')) {
+				$(this).attr('src','<%=request.getContextPath()%>/front-end/product/images/icons/full.png');
+			}
+			else if( this.hasClass('favOn') ){
+				$(this).attr('src','<%=request.getContextPath()%>/front-end/product/images/icons/empty.png');
+			}
+	    });
+		
+		 
+	 });
+	</script>
+	<%-- $(this).attr('src','<%=request.getContextPath()%>/front-end/product/images/icons/full.png') ; --%>
 </body>
 </html>

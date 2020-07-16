@@ -6,6 +6,7 @@
 <%@ page import="com.member.model.*" %>
 
 <%
+	MemberVO memVO = (MemberVO) session.getAttribute("memberVO");
     PoService poSvc = new PoService();
     List<PoVO> list = poSvc.getAll();
     pageContext.setAttribute("list",list);
@@ -86,9 +87,13 @@
   width:200px;
   }
   
-  front{
+  font{
 		font-family:Microsoft JhengHei;
 		}
+  hr.class-1 { 
+            border-top: 5px solid #8c8b8b; 
+            width:2000;
+        } 
 </style>
 
 
@@ -101,6 +106,11 @@
     
     <!-- 內容 -->
     <section class="blank1">
+    
+    <div class="container">
+    
+ <div class="row"><font style="color:#E0E0E0;font-size:40px"><%=memVO.getMem_name()%></font ><font style="font-size:40px;color:black">的最愛</font><hr class="class-1" /> </div>
+    
 <nav>
 <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
     <a class="nav-item nav-link active" id="nav-all-tab" data-toggle="tab" href="#nav-all" role="tab" aria-controls="nav-all" aria-selected="true">全部</a>
@@ -151,6 +161,7 @@
     	  console.log('ordstat_id');
     	})
     </script>
+   </div> 
 </section>
 </body>
 </html>

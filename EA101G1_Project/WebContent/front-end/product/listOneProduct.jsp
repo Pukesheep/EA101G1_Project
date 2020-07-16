@@ -191,7 +191,7 @@ img.rounded{
       
       <div class="row"style="height:10%">
       <HR width=850 SIZE=5 color="#D0D0D0">
-      	<div class="col-8 align-self-center"><div class="p_price">NT:$${proVO.p_price}</div></div>
+      	<div class="col-8 align-self-center"><div class="p_price">NT$<fmt:formatNumber pattern="#" value="${proVO.p_price}" /></div></div>
         <div class="col-4 align-self-center"><div class="p_stock">®w¦s:${proVO.p_stock}</div></div>
         <HR width=850 SIZE=5 color="#D0D0D0">
       </div>

@@ -90,16 +90,11 @@
 </c:if>
 
 <div class="container">
-<div calss="row" style="display:flex">
-	<div class="col-10">
 	<div class="row justify-content-center">
-	<div class="col">
+	<div class="col-10">
 		<div class="text-center">
 		<label for="upload">
 			<img alt="" src="<%=request.getContextPath()%>/member/ShowMemberPic.do?mem_id=${memberVO.mem_id}" class="profile rounded-circle showprofile" id="display">
-			<c:if test="${requestScope.memberVO.mem_id ne sessionScope.memberVO.mem_id}">
-				<img alt="" src="<%=request.getContextPath()%>/images/chat.png" id="chat_bubble" title="聊天">
-			</c:if>
 		</label>
 		</div>
 		</div>
@@ -166,79 +161,7 @@
 			</form>
 		</div>
 		</div>
-		<div class="col-2">
-<!--開改 -->
-		<div class="ptlist" style="margin-top:120px;margin-right:60px;width:170px">
-
-<div class="Now block" style="width:170px;height:170px;display: flex;background-color:#c6d4df;margin-bottom:4px;border-radius:10px">
-	<div style="text-align:center; margin-top:70px;width:100%"><font style="font-weight:bold;font-size:20px;font-family:Microsoft JhengHei;">會員中心</font></div>
-	</div>
-	
-<div class="list-group">
-	<div class="list-group-item active">
-		<h4 class="list-group-item-heading">
-			商城
-		</h4>
-	</div>
-	<a href="<%=request.getContextPath()%>/front-end/protected/productorder/listProductOrderIndex.jsp" class="list-group-item">
-		<h4 class="list-group-item-heading">
-			訂單管理
-		</h4>
-	</a>
-
-</div>
-
-<div class="list-group">
-	<div class="list-group-item active">
-		<h4 class="list-group-item-heading">
-			直購區
-		</h4>
-	</div>
-	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT004" class="list-group-item">
-		<h4 class="list-group-item-heading">
-			選項1
-		</h4>
-	</a>
-	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT005" class="list-group-item">
-		<h4 class="list-group-item-heading">
-			選項2
-		</h4>
-	</a>
-	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT006" class="list-group-item">
-		<h4 class="list-group-item-heading">
-			選項3
-		</h4>
-	</a>
-</div> 
-
-<div class="list-group">
-	<div class="list-group-item active">
-		<h4 class="list-group-item-heading">
-			競標區
-		</h4>
-	</div>
-	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT007" class="list-group-item">
-		<h4 class="list-group-item-heading">
-			1
-		</h4>
-	</a>
-	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT008" class="list-group-item">
-		<h4 class="list-group-item-heading">
-			2
-		</h4>
-	</a>
-	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT009" class="list-group-item">
-		<h4 class="list-group-item-heading">
-			3
-		</h4>
-	</a>
-	
-</div>
-
-</div>
-</div>
-<!-- 開改 -->
-		</div>
+		
 </div>
 
 	
@@ -246,7 +169,7 @@
 
 
         <!-- footer -->
-			<%@ include file="../../files/footer.jsp" %>
+			<%@ include file="/files/footer.jsp" %>
 		<!-- footer -->
 </body>
 

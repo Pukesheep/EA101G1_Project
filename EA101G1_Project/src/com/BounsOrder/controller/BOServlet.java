@@ -299,6 +299,30 @@ public class BOServlet extends HttpServlet {
 			}
 		}
 		
+		if ( "updateBS".equals(action) ) {
+			List<BOVO> list = new ArrayList<BOVO>();
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			String success = "/back-end/BounsOrder/ListAll.jsp";
+			String fail = "/back-end/BounsOrder/ListAll.jsp";
+			
+			try {
+				String ord_id = req.getParameter("ord_id");
+				String bs_id = req.getParameter("bs_id");
+				
+				BOService boSvc = new BOService();
+				boSvc.cancelBO(ord_id, bs_id);
+				
+				req.setAttribute("list", list);
+				RequestDispatcher successView = req.getRequestDispatcher(success);
+				successView.forward(req, res);
+			} catch ( Exception e ) {
+				errorMsgs.add( "無法取得要修改的資料" + e.getMessage() );
+				RequestDispatcher failureView = req.getRequestDispatcher(fail);
+				failureView.forward(req, res);
+			}
+		}
+		
 		if ( "cancel".equals(action) ) {
 			List<BOVO> list = new ArrayList<BOVO>();
 			List<String> errorMsgs = new LinkedList<String>();

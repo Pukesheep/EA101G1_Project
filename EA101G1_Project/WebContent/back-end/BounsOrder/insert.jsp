@@ -9,61 +9,25 @@
 <jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
 <jsp:useBean id="bmSvc" scope="page" class="com.BounsMall.model.BMService" />
 
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>穝糤璹虫</title>
 
 	<title>场璹虫琩高</title>
-	<style>
-		table#table-1 {
-			width: 450px;
-			background-color: #CCCCFF;
-			margin-top: 5px;
-			margin-bottom: 10px;
-			border: 3px ridge Gray;
-			height: 80px;
-			text-align: center;
-		}
-		table#table-1 h4 {
-			color: red;
-			display: block;
-			margin-bottom: 1px;
-		}
-		h4 {
-			color: blue;
-			display: inline;
-		}
-	</style>
+	<%@ include file="/back-end/css/BackHeaderCssLink" %> 
 	
-	<style>
-		table {
-			width: 800px;
-			background-color: white;
-			margin-top: 5px;
-			margin-bottom: 5px;
-		}
-		table, th, td {
-			border: 1px solid #CCCCFF;
-		}
-		th, td {
-			padding: 5px;
-			text-align: center;
-		}
-	</style>
 </head>
 <body bgcolor='white'>
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>场璹虫琩高 - /back-end/ListAll.jsp</h3>
-				<h4>
-					<a href="<%=request.getContextPath()%>/back-end/BounsOrder/select_page.jsp">
-						<img src="images/back1.gif" width="100" height="32" border="0"></a>
-				</h4>
-			</td>
-		</tr>
-	</table>
+	
+	<!-- header -->
+	<%@ include file="/back-end/css/header.jsp" %>
+	<!-- header -->
+	    <div class="content d-md-flex">
+	<!-- aside -->
+		<%@ include file="/back-end/css/aside.jsp" %>
+	<!-- aside -->
 	
 <!-- 	岿粇 -->
 	<c:if test="">

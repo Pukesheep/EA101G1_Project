@@ -289,6 +289,11 @@ div.content {
 	min-height: 800px;
 }
 
+pre img {
+	max-width: 400px;
+	max-height: 500px;
+}
+
 @media ( max-width : 1023px) {
 	.immed_nav .form-inline .form-control {
 		width: 250px;
@@ -523,7 +528,7 @@ div.content {
 
 				<div class="immedDesc px-3">
 					<h4 class="mb-4">°Ó«~´y­z</h4>
-					<div><%=immedVO.getImmed_desc()%></div>
+					<pre><%=immedVO.getImmed_desc()%></pre>
 
 				</div>
 
@@ -549,6 +554,29 @@ div.content {
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 		crossorigin="anonymous"></script>
+
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+
+	<script type="text/javascript">
+		$('.slider-for').slick({
+			autoplay : false,
+			slidesToShow : 1,
+			slidesToScroll : 1,
+			arrows : false,
+			fade : true,
+			asNavFor : '.slider-nav'
+		});
+		$('.slider-nav').slick({
+			autoplay : false,
+			slidesToShow : 3,
+			slidesToScroll : 1,
+			asNavFor : '.slider-for',
+			dots : false,
+			focusOnSelect : true
+		});
+	</script>
+
 
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>

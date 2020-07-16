@@ -162,7 +162,7 @@ table#table-1 {
 												<td>${immedVO.buy_id}</td>
 												<td>${ptSvc.getOneProductType(immedVO.pt_id).typename}</td>
 												<td><a
-													href="<%=request.getContextPath()%>/immed/immed.do?action=getOne_For_Display&immed_id=${immedVO.immed_id}">
+													href="<%=request.getContextPath()%>/immed/immed.do?action=backEnd_getOne_For_Display&immed_id=${immedVO.immed_id}">
 														${immedVO.immed_name}</a></td>
 												<td><fmt:formatDate value="${immedVO.immed_start}"
 														pattern="yyyy-MM-dd HH:mm:ss" /></td>

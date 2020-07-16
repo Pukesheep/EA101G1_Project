@@ -2,10 +2,8 @@ package com.auct.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Writer;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -15,12 +13,10 @@ import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.auct.model.AuctService;
@@ -382,12 +378,16 @@ String auct_id = req.getParameter("auct_id");
 		}
 
 //===========================================================================================================================
+		String  session_mem_id;
+		String  buy_id = null;
 		if("timeout".equals(action)) {  // 拍賣結束
 			
 			/*************************** 1.接收請求參數 ****************************************/
 			Integer auct_down = 1; // 下架
 			String  auct_id = req.getParameter("auct_id"); //接收 商品ID
-System.out.println("拍賣結束------------------"+auct_id);
+System.out.println("拍賣結束--商品ID----------------"+auct_id);
+			 session_mem_id = req.getParameter("mem_id"); //接收 會員ID
+System.out.println("拍賣結束--會員ID----------------"+session_mem_id);
 			
 			AuctVO auctVO = new AuctVO();
 			
@@ -399,6 +399,7 @@ System.out.println("拍賣結束------------------"+auct_id);
 			Jedis jedis = new Jedis("localhost", 6379);
 			jedis.auth("123456");
 //			String auct_id = req.getParameter(auct_id);
+			
 			
 			if (jedis.exists(auct_id)) { // 如果key存在
 				
@@ -415,7 +416,7 @@ System.out.println("拍賣結束------------------"+auct_id);
 					dollars = (int)(Math.ceil(highest)); //轉型(去除小數點)
 					
 					int auct_sold = 1; //售出
-					String buy_id = memID;
+					buy_id = memID;
 					int maxPrice = dollars;
 					
 					GregorianCalendar time1 = new GregorianCalendar();
@@ -433,6 +434,17 @@ System.out.println("拍賣結束------------------"+auct_id);
 			
 			/***************************3.修改完成,準備轉交(Send the Success view)***********/	
 			req.setAttribute("auctVO", auctVO); //修改完成, 剩下工作交給Ajax
+			
+			//Ajax回傳資料
+			res.setContentType("text/plain");
+			res.setCharacterEncoding("utf-8");
+			Writer writer = res.getWriter();
+			if(session_mem_id == buy_id)
+				writer.append("true"); //只能傳字串
+			else
+				writer.append("false");
+			writer.flush();
+			writer.close();
 			
 //			String url = "/front-end/protected/auct/Auct_index.jsp";
 //			res.sendRedirect(req.getContextPath()+url); // 請求成功後, 重導回 拍賣首頁

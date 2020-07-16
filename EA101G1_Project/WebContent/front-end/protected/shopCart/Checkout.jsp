@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ page import="java.util.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.shopCart.model.PRODUCT" %>
 <%@page import="com.member.model.*"%>
@@ -116,16 +117,16 @@ String card = (String)request.getParameter("card");
    		<div class="row justify-content mb-2 bg-white rounded">
    			<div class="col-2 align-self-center"><img src="<%=request.getContextPath()%>/shopCart/ShopCartPic.do?p_id=<%=order.getId()%>"></div>
    			<div class="col-3 align-self-center"><a href="<%=request.getContextPath()%>/front-end/product/listOneProduct.jsp?p_id=<%=p_id%>"><font><%=name%></font></a></div>
-   			<div class="col-1 align-self-center"><font>$<%=price%></font></div>
+   			<div class="col-1 align-self-center"><font>$<fmt:formatNumber pattern="#" value="<%=price%>" /></font></div>
    			<div class="col-2 align-self-center"><font><%=quantity%></font></div>
-   			<div class="col-4 align-self-center"><font>$<%=sub%></font></div>
+   			<div class="col-4 align-self-center"><font>$<fmt:formatNumber pattern="#" value="<%=sub%>" /></font></div>
    		</div>
    		<%
 		}
 	session.setAttribute("list",list);
 	%>	
 		<div class="row justify-content-end rounded" style="background-color:white;height:60px;margin-bottom:2px">
-			<div class="col-3 align-self-center">總金額:<font style="font-size: 1.5em;color:#ff5353">NT$<%=amount%></font></div>
+			<div class="col-3 align-self-center">總金額:<font style="font-size: 1.5em;color:#ff5353">NT$<fmt:formatNumber pattern="#" value="<%=amount%>" /></font></div>
 		</div>
 		
 		<%
@@ -133,7 +134,7 @@ String card = (String)request.getParameter("card");
 		Double mem_bonus = amount*ratio;
 		%>
 		<div class="row justify-content-end rounded" style="background-color:white;height:60px;margin-bottom:2px">
-			<div class="col-3 align-self-center"><img style="width:20px" src="<%=request.getContextPath()%>/front-end/protected/shopCart/image/tokens.png">可獲得紅利:<font style="font-size: 1.5em;color:#ffd700"><%=mem_bonus%></font>點</div>
+			<div class="col-3 align-self-center"><img style="width:20px" src="<%=request.getContextPath()%>/front-end/protected/shopCart/image/tokens.png">可獲得紅利:<font style="font-size: 1.5em;color:#ffd700"><fmt:formatNumber pattern="#" value="<%=mem_bonus%>" /></font>點</div>
 		</div>
 				
    		<div class="row justify-content-end rounded" style="background-color:#c6d4df">
@@ -142,12 +143,12 @@ String card = (String)request.getParameter("card");
    			<div class="col-2 align-self-center">
    			<c:if test="<%=card==null%>">
    				<a href="<%=request.getContextPath()%>/front-end/protected/shopCart/Checkout2.jsp">
-   			<img style="width:45px" src="<%=request.getContextPath()%>/front-end/protected/shopCart/image/credit-card.png">認證信用卡
+   			<img style="width:45px" src="<%=request.getContextPath()%>/front-end/protected/shopCart/image/credit-card.png">  驗證信用卡
    			</a>
    			</c:if>
    			
    			<c:if test="<%=card!=null%>">
-   			<img style="width:45px" src="<%=request.getContextPath()%>/front-end/protected/shopCart/image/credit-card.png"><font color="green">驗證成功</font>
+   			<img style="width:45px" src="<%=request.getContextPath()%>/front-end/protected/shopCart/image/credit-card.png"><font color="green">  驗證成功</font>
    			</c:if>
    			
    			</div>
@@ -159,7 +160,8 @@ String card = (String)request.getParameter("card");
               			<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
               			<input type="hidden" name="amount" value=<%= amount%>>
               			<input type="hidden" name="mem_bonus" value=<%=mem_bonus %>>
-              			<input class="btn btn-primary" <c:if test="<%=card==null%>">disabled="disabled"</c:if>type="submit" value="確認結帳">
+              			<c:if test="<%=card==null%>"><input class="btn btn-primary" type="button" value="確認結帳" id="notcertified"></c:if>
+              			<c:if test="<%=card!=null%>"><input class="btn btn-primary" type="submit" value="確認結帳"></c:if>
          			 </form>
 		   		</div>
 		   		<div class="col-6 align-self-start mt-3"><a class="btn btn-primary" href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">繼續購物</a></div>
@@ -170,6 +172,15 @@ String card = (String)request.getParameter("card");
 	<script>
 		$('#test').click(function(){
 			$('#basicModal').modal({show: true});
+		});
+		
+		$('#notcertified').click(function(){
+			Swal.fire({
+				icon:'error',
+				title:'請先驗證信用卡',
+				showConfirmButton: false,
+				timer: 1000
+			})
 		});
         </script>
 	</section>

@@ -52,7 +52,7 @@ public class MemberServlet extends HttpServlet {
 				}
 				// Send the user back to the form, if there were errors
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/member/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/index.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
@@ -66,7 +66,7 @@ public class MemberServlet extends HttpServlet {
 				}
 				// Send the user back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/member/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/index.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
@@ -80,7 +80,7 @@ public class MemberServlet extends HttpServlet {
 				/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/member/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/index.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -153,7 +153,7 @@ public class MemberServlet extends HttpServlet {
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			String update_member_input = "/front-end/member/update_member_input.jsp";
+			String update_member_input = "/front-end/protected/member/update_member_input.jsp";
 			String listOneMember = "/front-end/member/listOneMember.jsp";
 			
 			try {
@@ -210,7 +210,7 @@ public class MemberServlet extends HttpServlet {
 		}
 		
 		
-		if ("getOne_For_Update-back2".equals(action)) { // 來自listAllEmp.jsp的請求
+		if ("getOne_For_Update-back2".equals(action)) { 
 			java.util.List<String> errorMsgs = new java.util.LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -246,12 +246,16 @@ public class MemberServlet extends HttpServlet {
 		
 		if ("update-front".equals(action)) { // 來自 update_member_input.jsp 的請求
 			java.util.List<String> errorMsgs = new java.util.LinkedList<String>();
+			List<String> successMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// Send the ErrorPage View.
 			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("successMsgs", successMsgs);
 			
-			String update_member_input = "/front-end/protected/update_member_input.jsp";
+			String update_member_input = "/front-end/protected/member/update_member_input.jsp";
 			String listOneMember = "/front-end/member/listOneMember.jsp";
+			String memberCenter = "/front-end/protected/member/memberCenter.jsp";
+			MemberVO memberVO = null;
 			
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
@@ -454,7 +458,7 @@ public class MemberServlet extends HttpServlet {
 					errorMsgs.add("警告次數： 請輸入有效格式");
 				}
 				
-				MemberVO memberVO = new MemberVO();
+				memberVO = new MemberVO();
 				memberVO.setMem_id(mem_id);
 				memberVO.setMem_email(mem_email);
 				memberVO.setMem_pass(mem_pass);
@@ -490,11 +494,13 @@ public class MemberServlet extends HttpServlet {
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("memberVO", memberVO); // 資料庫 update 成功後, 正確的 memberVO 物件, 存入req
-				RequestDispatcher successView = req.getRequestDispatcher(listOneMember); // 修改成功後, 轉交 listOneMember.jsp
+				successMsgs.add("修改成功");
+				RequestDispatcher successView = req.getRequestDispatcher(memberCenter); // 修改成功後, 轉交 listOneMember.jsp
 				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
+				req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的 memberVO 物件, 也存入 req
 				errorMsgs.add("修改資料失敗： " + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher(update_member_input);
 				failureView.forward(req, res);
@@ -1152,6 +1158,32 @@ public class MemberServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher(select_page);
 				failureView.forward(req, res);
 			}
+		}
+		
+		if ("showSelf".equals(action)) {
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			String memberCenter = "/front-end/protected/member/memberCenter.jsp";
+			String index = "/front-end/index.jsp";
+			
+			try {
+				String mem_id = req.getParameter("mem_id");
+				MemberService memberSvc = new MemberService();
+				MemberVO memberVO = memberSvc.getOneMember(mem_id);
+				
+				req.setAttribute("memberVO", memberVO);
+				RequestDispatcher successView = req.getRequestDispatcher(memberCenter);
+				successView.forward(req, res);
+				
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料： " + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher(index);
+				failureView.forward(req, res);
+			}
+			
+			
 		}
 		
 		

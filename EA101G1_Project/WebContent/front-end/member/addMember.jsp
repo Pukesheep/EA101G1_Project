@@ -75,7 +75,7 @@
 		
 <div class="container">
 	<div class="d-flex justify-content-center h-100">
-		<div class="card login">
+		<div class="card login mt-5">
 			<div class="card-header">
 				<h3>註冊</h3>
 				<div class="d-flex justify-content-end social_icon">
@@ -197,7 +197,7 @@
 
 
         <!-- footer -->
-			<%@ include file="../../files/footer.jsp" %>
+<%-- 			<%@ include file="/files/footer.jsp" %> --%>
         <!-- footer -->
 
 </body>

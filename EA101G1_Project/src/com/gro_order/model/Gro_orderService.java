@@ -2,6 +2,7 @@ package com.gro_order.model;
 
 import java.sql.*;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.sql.*;
 
 public class Gro_orderService {
@@ -79,6 +80,24 @@ public class Gro_orderService {
 			primaryKeyList.add(primaryKey);
 		}
 		return primaryKeyList;
+	}
+	
+	public List<String> getGroup(){
+		
+		List<Gro_orderVO> gro_orderList = dao.getAll();
+		Map<String, List<Gro_orderVO>> groupMap = new HashMap<>();
+		List<String> groList = new ArrayList<String>();
+		
+		groupMap = gro_orderList.stream()
+				.collect(Collectors.groupingBy(Gro_orderVO::getGro_id));
+		
+		groupMap.forEach((k, v) -> {
+			groList.add(k);
+		});
+		
+		groList.sort(Comparator.comparing(String::toString));
+		
+		return groList;
 	}
 	
 }
