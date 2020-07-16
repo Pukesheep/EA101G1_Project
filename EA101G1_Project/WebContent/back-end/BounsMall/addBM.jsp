@@ -7,9 +7,9 @@
 	BMVO bmVO = (BMVO) request.getAttribute("bmVO");
 %>
 
-<jsp:useBean id="ptSvc" scope="page"
-	class="com.productType.model.PtService" />
+<jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
 
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -52,7 +52,7 @@ th, td {
 </style>
 
 </head>
-<body style="background-color:#17a2b8">
+<body style="background-color:white">
 	<!-- header -->
 
 	<%@ include file="/back-end/css/header.jsp"%>
@@ -97,19 +97,20 @@ th, td {
 					<tr>
 						<td>商品名稱：</td>
 						<td><input type="text" name="bon_name" size="45"
-							value="<%=(bmVO == null) ? "碧藍幻想 Versus" : bmVO.getBon_name()%>" /></td>
+<%-- 							value="<%=(bmVO == null) ? "碧藍幻想 Versus" : bmVO.getBon_name()%>" --%>
+							/></td>
 					</tr>
 					<tr>
 						<td>所需紅利點數：</td>
 						<td><input type="TEXT" name="bon_price" size="45"
-							value="<%=(bmVO == null) ? "50" : bmVO.getBon_price()%>" /></td>
+<%-- 							value="<%=(bmVO == null) ? "50" : bmVO.getBon_price()%>" --%>
+							/></td>
 					</tr>
 
 					<tr>
 						<td>紅利商品描述：</td>
-						<!-- 			<td><input type="TEXT" name="bon_info" size="45" -->
-						<%-- 			 value="<%= (bmVO==null)? "50" : bmVO.getBon_info()%>"/></td> --%>
-						<td><textarea rows="5" cols="50" name="bon_info"><%=(bmVO == null) ? "50" : bmVO.getBon_info()%></textarea></td>
+<%-- 						<td><textarea rows="5" cols="50" name="bon_info"><%=(bmVO == null) ? "50" : bmVO.getBon_info()%></textarea></td> --%>
+						<td><textarea rows="5" cols="50" name="bon_info"></textarea></td>
 					</tr>
 					<tr>
 						<td>紅利商品總量：</td>
@@ -121,8 +122,6 @@ th, td {
 						class="com.BounsMall.model.BMService" />
 					<tr>
 						<td>紅利商品圖片：</td>
-						<!-- 			<td><input type="image" name="bon_image" size="45" -->
-						<%-- 			 value="<%= (bmVO==null)? "50" : bmVO.getBon_info()%>"/></td> --%>
 						<td><input type="file" name="bon_image"></td>
 					<tr>
 						<td>商品分類編號：<font color=red><b>*</b></font></td>
@@ -130,9 +129,6 @@ th, td {
 								<c:forEach var="ptVO" items="${ptSvc.all}">
 									<option value="${ptVO.pt_id}">${ptVO.typename}</option>
 								</c:forEach>
-								<%-- 			<c:forEach var="bmVO" items="${bmSvc.all}"> --%>
-								<%-- 				<option value="${bsVO.pt_id}" ${(bsVO.pt_id==bmVO.pt_id)? 'selected':'PT001' } >${bmVO.pt_id} --%>
-								<%-- 			</c:forEach> --%>
 						</select></td>
 					</tr>
 				</table>

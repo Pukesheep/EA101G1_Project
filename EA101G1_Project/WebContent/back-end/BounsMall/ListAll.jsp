@@ -9,6 +9,7 @@
 	pageContext.setAttribute("list", list);
 %>
 
+<!DOCTYPE html>
 <html>
 <head>
 <title>全部紅利商品訊息</title>
@@ -72,9 +73,7 @@ img#display {
 			<table id="table-1" >
 				<tr>
 					<td>
-						<h3>所有紅利商品資料</h3> <!-- 			<h4> --> <%-- 				<a href="<%=request.getContextPath()%>/back-end/BounsMall/select_page.jsp"> --%>
-						<!-- 					<img src="images/back1.gif" width="100" height="32" border="0">回首頁</a> -->
-						<!-- 			</h4> -->
+						<h3>所有紅利商品資料</h3>
 					</td>
 				</tr>
 			</table>
@@ -103,7 +102,7 @@ img#display {
 					<th>紅利商品上架狀態</th>
 					<th colspan="2">欲執行之動作</th>
 				</tr>
-				<%@ include file="/files/page2.file"%>
+				<%@ include file="../../files/page1.file"%>
 				<c:forEach var="bmVO" items="${list}" begin="<%=pageIndex%>"end="<%=pageIndex+rowsPerPage-1%>">
 					<tr>
 						<td>${bmVO.bon_id}</td>

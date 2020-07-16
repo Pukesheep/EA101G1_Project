@@ -16,16 +16,206 @@
 <title>S.F.G首頁</title>
 <%@ include file="../../files/HeaderCssLink" %>
 
+    <!-- 使用style.css -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+
 </head>
 
 <body>
 	<!-- navbar -->
     	<%@ include file="../../files/header.jsp" %>
     <!-- navbar end -->
-    <section class="blank0"></section>
-    <!-- 內容 -->
-		<section class="blank1">index</section>
-		<!-- 內容 ---end  -->
+<!--     <section class="blank0"></section> -->
+<!-- 內容 -->
+		
+		<!-- 圖片輪播 -->
+    <!-- b4-元件-default -->
+    <!-- b4-carousel-default -->
+    <!-- id和href都要對到,否則沒有作用 -->
+    <div id="imageCarousel" class="carousel slide" data-ride="carousel">
+        <!-- 頁碼提示器 -->
+        <ol class="carousel-indicators">
+            <li data-target="#imageCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#imageCarousel" data-slide-to="1"></li>
+            <li data-target="#imageCarousel" data-slide-to="2"></li>
+        </ol>
+        <!-- 頁面容器 -->
+        <div class="carousel-inner" role="listbox">
+            <!-- page 1 -->
+            <div class="carousel-item active">
+                <img src="images/6001.jpg" class="w-100">
+            </div>
+
+            <!-- page 2 -->
+            <div class="carousel-item">
+                <img src="img/6001.jpg" class="w-100">
+            </div> 
+            <!-- page 3 -->
+             <div class="carousel-item">
+                <img src="img/6001.jpg" class="w-100">
+            </div> 
+           
+        </div>
+        <!-- 上一頁 -->
+        <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <!-- 下一頁 -->
+        <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <!-- 圖片輪播 end -->
+
+
+    <!-- header -->
+    <!-- 為Jumbotron加入背景圖被設定文字為白色 -->
+    <section class="blank-2"></section>
+    <header id="header" class="jumbotron bg-dark text-white text-center">
+
+        <div class="container">
+            <h1>Join us !! Have FUN !!</h1>
+            <p>We find the Like-minded friends &amp; play games together.</p>
+        </div>
+
+    </header>
+    <!-- header end -->
+
+
+
+    <!-- 限時優惠 -->
+    <section class="discount container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="discount1 my-4">
+                    <div class="discount1-1">
+                        <h6>限時優惠</h6>
+                    </div>
+                    <div class="discount1-2">
+                        <a href="#"><img src="img/1.jpg" alt="商城限時優惠"></a>
+                    </div>
+
+                    <div class="discount1-2">
+                        <a href="#"><img src="img/1.jpg" alt="商城限時優惠"></a>
+                    </div>
+
+                    <div class="discount1-2">
+                        <a href="#"><img src="img/1.jpg" alt="商城限時優惠"></a>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-7">
+                <div class="discount2 my-4">
+                    <div class="discount2-1">
+                        <h6>團購ING</h6>
+                    </div>
+                    <div class="discount2-2">
+                        <a href="#"><img src="img/1.jpg" alt="商城限時優惠"></a>
+                    </div>
+                </div>
+
+                <div class="discount2 my-4">
+                    <div class="discount2-1">
+                        <h6>競標ING</h6>
+                    </div>
+                    <div class="discount2-2">
+                        <a href="#"><img src="img/1.jpg" alt="商城限時優惠"></a>
+                    </div>
+                </div>
+
+                <div class="discount2 my-4">
+                    <div class="discount2-1">
+                        <h6>直購專區</h6>
+                    </div>
+                    <div class="discount2-2">
+                        <a href="#"><img src="img/1.jpg" alt="商城限時優惠"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+        <!-- reviewsSection -->
+        <section id="reviewsSection" class="py-5">
+            <!-- 使用輪播(Carousel)元件放入以下兩頁內容 -->
+            <!-- 輪播 -->
+            <div id="carouselId" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselId" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselId" data-slide-to="1"></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <!-- 第一頁 內容 -->
+                        <div class="row justify-content-center py-5">
+                            <div class="col-sm-2">
+                                <!-- 設定使用者照片變圓型 -->
+                                <img class="w-100 rounded-circle" src="./img/galleryImage1.jpg" alt="user photo">
+                            </div>
+                            <div class="col-sm-6">
+                                <h3 class="title">Food and beverage manager</h3>
+                                <h4 class="name">Robert A. Welch</h4>
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo provident quisquam a
+                                    deleniti laborum
+                                    omnis dicta aliquam repellat deserunt accusantium. Esse velit atque deleniti. Earum
+                                    maxime
+                                    necessitatibus veritatis vitae libero eveniet, accusantium culpa voluptas ipsam nisi
+                                    non
+                                    id neque
+                                    atque minus qui, natus ducimus dolores est, dolor beatae? Quis esse eius facilis
+                                    minima
+                                    aut cum vero
+                                    ex dolore obcaecati sint?</p>
+                            </div>
+                        </div>
+                        <!-- 第一頁 內容 結束 -->
+                    </div>
+                    <div class="carousel-item">
+                        <!-- 第二頁 -->
+                        <div class="row justify-content-center py-5">
+                            <div class="col-sm-2">
+                                <!-- 設定使用者照片變圓型 -->
+                                <img class="w-100 rounded-circle" src="./img/galleryImage1.jpg" alt="user photo">
+                            </div>
+                            <div class="col-sm-6">
+                                <h3 class="title">Environmental scientist</h3>
+                                <h4 class="name">Lorraine J. Rollins</h4>
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo provident quisquam a
+                                    deleniti laborum
+                                    omnis dicta aliquam repellat deserunt accusantium. Esse velit atque deleniti. Earum
+                                    maxime
+                                    necessitatibus veritatis vitae libero eveniet, accusantium culpa voluptas ipsam nisi
+                                    non
+                                    id neque
+                                    atque minus qui, natus ducimus dolores est, dolor beatae? Quis esse eius facilis
+                                    minima
+                                    aut cum vero
+                                    ex dolore obcaecati sint?</p>
+                            </div>
+                        </div>
+                        <!-- 第二頁 結束 -->
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselId" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselId" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <!-- 輪播 end -->
+        </section>
+        <!-- reviewsSection end -->
+
+<!-- 內容 ---end  -->
 
 	<div>
 		<!-- footer -->
@@ -50,7 +240,7 @@
 					<div class="col-md-3 col-sm-6 footer-list">
 						<h5 class="text-uppercase">會員互動</h5>
 						<ul>
-							<li><a class="footer-link" href="">競標區</a></li>
+							<li><a class="footer-link" href="<%=request.getContextPath()%>/front-end/member/Auct_index.jsp">競標區</a></li>
 							<li><a class="footer-link" href="">直購區</a></li>
 							<li><a class="footer-link"
 								href="<%=request.getContextPath()%>/front-end/post/listAllPost.jsp">討論區</a>

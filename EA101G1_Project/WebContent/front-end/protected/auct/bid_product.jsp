@@ -262,15 +262,15 @@
 				console.log(arr);
 				for (var i = 0; i < arr.length; i++) {
 
-					$('#titlescore').text(arr[i].score);
-					$('#score').text(arr[i].score);
+					$('#titlescore').text(parseInt(arr[i].score) );
+					$('#score').text(parseInt(arr[i].score) );
 				
  
 //      alert(jsonObj.userName);
 					var rank=1;
 					var str =  '<tr><td class="row1">' + rank + '</td>'
 								 + '<td class="row2">' + arr[i].userName + '</td>'
-								 + '<td class="row3">' + arr[i].score + '</td></tr>';
+								 + '<td class="row3">' + parseInt(arr[i].score) + '</td></tr>';
 
 					$("#messagesArea").prepend(str); //jQuery 加在字串的前面
 

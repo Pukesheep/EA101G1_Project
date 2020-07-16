@@ -4,21 +4,29 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.auct.model.*"%>
+<%@ page import="com.member.model.*"%>
 
 <%
-    AuctService auctSvc = new AuctService();
-    List<AuctVO> list = auctSvc.getAll();
+	AuctService auctSvc = new AuctService();
+
+	MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
+	String sale_id = memVO.getMem_id();
+
+    List<AuctVO> list = auctSvc.getSaleOrderList(sale_id);
     pageContext.setAttribute("list",list);
 %>
+
+
 <jsp:useBean id="PtSvc" scope="page" class="com.productType.model.PtService" />
 <jsp:useBean id="MemberSvc" scope="page" class="com.member.model.MemberService" />
+<jsp:useBean id="OrdstatSvc" scope="page" class="com.ordstat.model.OrdstatService" />
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品管理</title>
+    <title>訂單管理</title>
     <!-- TODO: 換title 的icon -->
     <link rel="icon shortcut" href="images/ICON(yellow).ico">
     <!-- Bootstrap官方網站 https://getbootstrap.com/ -->
@@ -53,7 +61,11 @@
     <style>
         .add-btn{
             position: relative; top:60px; left: 30px; 
-        }     
+        }    
+        body:after{
+		    background: #dbebfa;
+		}
+         
     </style>
 
 </head>
@@ -74,98 +86,85 @@
             </div>
 
             <div class="col-md-8 mt-3">
-                <h2>我的拍賣區 --- 競標商品管理</h2>              
+                <h2>我的拍賣區 --- 訂單管理</h2>              
             </div>
-    <!-- 競標訂單 -->
-            <a href="listAllAuct.jsp">
+    <!-- 回拍賣管理 -->
+            <a href="<%=request.getContextPath()%>/front-end/protected/auct/listAllAuct.jsp">
                 <button class="add-btn btn btn-outline-warning mx-3" class="bg-primary">
-                    <h6 class="backbtn">商品管理</h6>
+                    <h6 class="backbtn">回拍賣管理</h6>
                 </button>
             </a>
-    <!-- 新增商品 -->
-            <a href="insert_auct.jsp">
-                <button class="add-btn btn  btn-outline-light" class="bg-primary">
-                    <h6 class="backbtn">繼續新增</h6>
-                </button>
-            </a>
+   
         </div>
     </section>
 
     <!-- 賣家商品管理頁面 end-->
     <section class="section-2  mb-5">
-        <table class="table table-striped table-dark text-center">
-            <thead>
-                <tr>
-                    <th scope="col">拍賣編號</th>
-                    <th scope="col">商品名稱</th>
-                    <th scope="col">商品類別</th>
-                    <th scope="col">賣家ID</th>
-                    <th scope="col">賣家名稱</th>
-                    <th scope="col">競標開始時間</th>
-                    <th scope="col">競標結束時間</th>
-                    <th scope="col">市價</th>
-                    <th scope="col">起拍價</th>
-                    <th scope="col">出價增額</th>
-                    <th scope="col">商品圖片</th>
-                    <th scope="col">商品描述</th>
-                    <th scope="col">售出狀態</th>
-                    <th scope="col">上下架狀態</th> 
-                </tr>
-            </thead>
-
-            <tbody>
-
-<!-- JSTL for-each -->
-              <tr>
-                <th>${auctVO.auct_id}</th>
-                <td>${auctVO.auct_name}</td>
-                <td>${PtSvc.getOneProductType(auctVO.pt_id).typename}</td>
-                <td>${auctVO.sale_id}</td>
-                <td>${MemberSvc.getOneMember(auctVO.sale_id).mem_name}</td>
-                <td> <fmt:formatDate value="${auctVO.auct_start}" pattern="yyyy-MM-dd HH:mm:ss" /> </td>
-                <td> <fmt:formatDate value="${auctVO.auct_end}" pattern="yyyy-MM-dd HH:mm:ss" /> </td>
-                <td>${auctVO.marketPrice}</td>
-                <td>${auctVO.initPrice}</td>
-                <td>${auctVO.auct_inc}</td>
-			
-				<td>
-					<img src="<%=request.getContextPath()%>/front-end/auct/pic.do?auct_id=${auctVO.auct_id}" width="100px">
-				</td>
-				
-				<td>${auctVO.auct_desc}</td>
-				
-				<td>
-					<c:if test="${auctVO.auct_sold == 0}">
-						<c:out value="未售出"></c:out>
-					</c:if>
-					<c:if test="${auctVO.auct_sold == 1}">
-						<c:out value="售出"></c:out>
-					</c:if>
-				</td>
-				<td>
-					<c:if test="${auctVO.auct_down == 0}">
-						<c:out value="上架"></c:out>
-					</c:if>
-					<c:if test="${auctVO.auct_down == 1}">
-						<c:out value="下架"></c:out>
-					</c:if>
-				</td>
-
+ 		<table class="table table-striped table-secondary text-center">
+		  <thead>
+		    <tr>
+		    	
+		  		<th scope="col">拍賣編號</th>
+                <th scope="col">商品名稱</th>
+                <th scope="col">商品圖片</th>
+                <th scope="col">贏家ID</th>
+                <th scope="col">贏家名稱</th>
+                <th scope="col">拍賣金額</th>
+                <th scope="col">訂單時間</th>
+                <th scope="col">訂單狀態</th>
+                <th scope="col">出貨</th>
                 
-
-                 <td></td>
-              </tr>
-
-	        </tbody>
-	        
-	</table>
+		    </tr>
+		  </thead>
+		  
+		  <tbody>
+		  
+<!-- JSTL for-each -->
+ <%@ include file="page1.file" %> 
+<c:forEach var="auctVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">	 
+		  
+		    <tr>
+		      <th scope="row">${auctVO.auct_id}</th>
+		      <td>${auctVO.auct_name}</td>
+		      <td>
+		      	 <img src="<%=request.getContextPath()%>/front-end/auct/pic.do?auct_id=${auctVO.auct_id}" width="100px">
+		      </td>
+		      
+		      <td>${auctVO.buy_id}</td>
+		      <td>${MemberSvc.getOneMember(auctVO.buy_id).mem_name}</td>
+		      <td>${auctVO.maxPrice}</td>
+		      <td>${auctVO.ord_time}</td>
+		      <td>${OrdstatSvc.listOneOrdstat(auctVO.ordstat_id).ordstat}</td>
+		      <td>
+		     	 <c:if test="${auctVO.ordstat_id==003}">   <!-- 已付款,待出貨 -->
+					  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/auct/auct.do" style="margin-bottom: 0px;">
+				          <input class="btn btn-info" type="submit" value="出貨">
+				          <input type="hidden" name="auct_id"  value="${auctVO.auct_id}">
+				          <input type="hidden" name="action"	value="update_ordstat">
+				      </FORM>
+			     </c:if>
+			      
+			     <c:if test="${auctVO.ordstat_id==002}">   <!-- 待付款 -->
+	                  <input class="btn btn-dark" type="submit" value="出貨" disable>
+	             </c:if>
+			     <c:if test="${auctVO.ordstat_id==005}">   <!-- 待收貨 -->
+	                  <input class="btn btn-dark" type="submit" value="出貨" disable>
+	             </c:if>
+			 </td>
+		    </tr>
+	
+		  </tbody>
+</c:forEach>
 <!-- JSTL for-each   end-->
 
-    </div>  
+		</table>
+		
+<%@ include file="page2.file" %>
     
     </section>
+    
 
-    <a href="Auct_index.jsp">
+    <a href="<%=request.getContextPath()%>/front-end/protected/auct/Auct_index.jsp">
         <button id="goBackBtn" class="bg-primary">
             <h6 class="backbtn">BID</h6>
         </button>
