@@ -112,11 +112,11 @@ div #preview {
 				<td>商品圖片:</td>
 				<td>
 					<img alt="" src="<%=request.getContextPath()%>/product/proPic.do?p_image=${proVO.p_image}">
-					<input type="file" name="p_image" id="myFile" <c:if test="${not empty proVO.getP_image()}">value="<%=proVO.getP_image()%>"</c:if>
+					<input type="file" name="p_image" id="myFile1" <c:if test="${not empty proVO.getP_image()}">value="<%=proVO.getP_image()%>"</c:if>
 					accept="image/gif, image/jpeg, image/png"/><br>
 
 						<div class="row">
-							<div id="preview"></div>
+							<div id="preview1"></div>
 						</div><front style="color:red">${errorMsgs.p_image}</front></td>
 				
 			<tr>
@@ -153,6 +153,105 @@ div #preview {
 			<input type="submit" value="送出新增">
 		</FORM>
 	</div>
+	
+<!-- 	測試 -->
+			<div class="container-fluid">
+				<div class="row justify-content-center">
+					<div class="col-10">
+					<div class="row">
+						<div class="col-12">
+						<div class="card mt-5 h-100 mb-5">
+							<div class="card-body bg-info">
+								<div class="media">
+									<div class="media-body">
+										<h1 class="mt-0">新增團購</h1>
+										<div class="media mt-3">
+											<div class="media-body">
+												<h3 class="mt-0">請輸入團購詳情</h3>
+												<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/pro.do" enctype="multipart/form-data">
+													<div class="form-group">
+														<label for="exampleInputEmail1" class="text-white">商品名稱</label>
+														<div class="input-group mb-3">
+															<div class="input-group-prepend">
+																<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-plus"></i></span>
+															</div>
+															<input type="TEXT" name="p_name"class="form-control text-center" size="45" <c:if test="${not empty proVO.getP_name()}">value="<%=proVO.getP_name()%>"</c:if>
+																placeholder="請輸入商品名稱" /><front style="color:red">${errorMsgs.p_name}</front>
+														</div>
+													</div>
+													
+													<div class="form-group">
+														<label for="grotime" class="text-white">商品價格</label>
+														<div class="input-group mb-3">
+															<div class="input-group-prepend">
+																<span class="input-group-text " id="basic-addon1"><i class="fas fa-calendar-minus"></i></span>
+															</div>
+															<input type="TEXT" name="p_price" class="form-control text-center" size="45" <c:if test="${not empty proVO.getP_price()}">value="<%=proVO.getP_price()%>"</c:if>
+																placeholder="請輸入商品價格" /><front style="color:red">${errorMsgs.p_price}</front>
+														</div>
+													</div>
+													
+													<div class="form-group">
+														<label for="exampleInputEmail1" class="text-white">商品圖片</label>
+														<div class="input-group mb-3">
+															<div class="input-group-prepend">
+																<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-times"></i></span>
+															</div>
+															<img alt="" src="<%=request.getContextPath()%>/product/proPic.do?p_image=${proVO.p_image}">
+																<input type="file" name="p_image" id="myFile" <c:if test="${not empty proVO.getP_image()}">value="<%=proVO.getP_image()%>"</c:if>
+																	accept="image/gif, image/jpeg, image/png"/><br>
+
+															<div class="pre">
+																<div id="preview"></div>
+																	</div><front style="color:red">${errorMsgs.p_image}</front>
+														</div>
+													</div>
+													
+													
+													<div class="form-group">
+														<label for="amount" class="text-white">商品資訊</label>
+														<div class="input-group mb-3">
+															<pre><textarea name="p_info" class="form-control text-center" rows="6" cols="40"><c:if test="${not empty proVO.getP_info()}"><%=proVO.getP_info()%></c:if></textarea></pre><front style="color:red">${errorMsgs.p_info}</front>
+														</div>
+													</div>														
+													
+												
+										
+													
+													<div class="row justify-content-center">
+														<div class="col-6 text-center">
+															<div class="btn-group">
+																<button class="btn btn-warning dropdown-toggle btn-lg" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">確認</button>
+																<div class="dropdown-menu">
+																	<input type="hidden" name="from" value="back-end">
+																	<input type="hidden" name="action" value="insert">
+																	<button type="submit" class="btn btn-warning dropdown-item">新增</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>								
+							</div>
+						</div>
+						</div>
+						
+					
+					
+					
+					
+					
+					</div>
+					
+					
+					
+					
+				</div>
+			</div>
+<!-- 測試結束 -->
 	<script>
 		function init() {
 
