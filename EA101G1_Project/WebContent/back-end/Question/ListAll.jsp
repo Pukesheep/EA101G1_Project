@@ -85,7 +85,7 @@ table, th, td {
 <!-- 				</tr> -->
 <!-- 			</table> -->
 
-			<a href='<%=request.getContextPath()%>/back-end/Question/addQuestion.jsp' class="h1">新增一則QA</a>
+			<a href='<%=request.getContextPath()%>/back-end/Question/addQuestion.jsp' class="btn btn-secondary">新增一則QA</a>
 			<table>
 				<!-- 		<tr> -->
 				<!-- 			<th>訊息編號</th> -->
