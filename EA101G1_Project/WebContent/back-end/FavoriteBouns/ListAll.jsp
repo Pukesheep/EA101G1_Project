@@ -53,17 +53,17 @@
 	</style>
 </head>
 <body bgcolor='white'>
-<<<<<<< HEAD
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>场程稲琩高 - /back-end/ListAll.jsp</h3>
-			</td>
-		</tr>
-	</table>
-=======
+<!-- <<<<<<< HEAD -->
+<!-- 	<table id="table-1"> -->
+<!-- 		<tr> -->
+<!-- 			<td> -->
+<!-- 				<h3>场程稲琩高 - /back-end/ListAll.jsp</h3> -->
+<!-- 			</td> -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
+<!-- ======= -->
+
 <!-- header -->
-	
 	<%@ include file="/back-end/css/header.jsp" %>
 <!-- header -->
 
@@ -84,7 +84,7 @@
 <!-- 			</td> -->
 <!-- 		</tr> -->
 <!-- 	</table> -->
->>>>>>> branch 'master' of https://github.com/Pukesheep/EA101G1_Project.git
+<!-- >>>>>>> branch 'master' of https://github.com/Pukesheep/EA101G1_Project.git -->
 	
 <!-- 	岿粇 -->
 	<c:if test="">

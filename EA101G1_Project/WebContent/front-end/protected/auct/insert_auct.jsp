@@ -53,7 +53,7 @@
         <div class="row">
             <div class="LOGO col-md-2 pl-5 mt-2">
                 <div>
-                    <a class="navbar-brand" href="../index.html">
+                    <a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/index.jsp">
                         <span class="logo"><i class="fas fa-bomb"></i></span>
                         <span class="logo2">S.F.G</span>
                         <span class="logo3">{{{</span>

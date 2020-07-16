@@ -140,8 +140,6 @@
 								<button type="submit" class="btn btn-secondary float-right" >加入最愛</button>
 							</form>
 	 						<!--try end -->
-	<!-- 						<button type="button" class="btn btn-danger float-left">我要購買</button> -->
-	<!-- 						<button type="button" class="btn btn-secondary float-right">加入最愛</button> -->
 						</div>
 					</div>
 				</div>

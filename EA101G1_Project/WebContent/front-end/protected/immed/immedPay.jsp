@@ -509,7 +509,7 @@ table.immedInfo th:nth-child(2) {
 									<div class="col-md-4">
 										<div class="form-group">
 											<label>有效期限</label> <input type="text" placeholder="MM/YY"
-												maxlength=5 name="card_ym" class="form-control" />
+												maxlength=7 name="card_ym" class="form-control" />
 										</div>
 									</div>
 								</div>
@@ -517,7 +517,7 @@ table.immedInfo th:nth-child(2) {
 									<div class="col-md-8">
 										<div class="form-group">
 											<label>持卡人姓名</label> <input type="text" name="card_name"
-												max="10" class="form-control" autocomplete="off" />
+												 class="form-control" autocomplete="off" />
 										</div>
 									</div>
 									<div class="col-md-4">
