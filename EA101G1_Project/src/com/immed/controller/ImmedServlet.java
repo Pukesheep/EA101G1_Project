@@ -401,9 +401,11 @@ public class ImmedServlet extends HttpServlet {
 				String rcptNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (rcpt_name == null || rcpt_name.trim().length() == 0) {
 					errorMsgs.add("收件人姓名請勿空白");
-				} else if (!rcpt_name.trim().matches(rcptNameReg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("收件人姓名只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-				}
+				} 
+				
+//				else if (!rcpt_name.trim().matches(rcptNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("收件人姓名只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+//				}
 
 				String rcptCellReg = "^[((0-9-)]{10}$";
 				if (rcpt_cell == null || rcpt_cell.trim().length() == 0) {
