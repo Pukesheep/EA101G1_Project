@@ -20,10 +20,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.psac.model.PsacVO;
 import com.adm.model.AdmService;
 import com.adm.model.AdmVO;
 import com.member.controller.MailService;
+import com.post.model.PostService;
+import com.post.model.PostVO;
 import com.psac.model.*;
 
 
@@ -306,7 +307,8 @@ public class AdmServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-if ("register".equals(action)) {
+		
+		if ("register".equals(action)) {
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -324,19 +326,19 @@ if ("register".equals(action)) {
 				String adm_name = req.getParameter("adm_name").trim();
 				String adm_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]{2,30}$";
 				if(adm_name == null || adm_name.trim().length() == 0) {
-					errorMsgs.add("");
+					errorMsgs.add("無輸入名稱");
 				}
 				else if(!adm_name.trim().matches(adm_nameReg)) {
-					errorMsgs.add("");
+					errorMsgs.add("請輸入正確名稱格式");
 				}
 				
 				String adm_acco = req.getParameter("adm_acco").trim();
 				String adm_accoReg = "[@.(a-zA-Z0-9)]{2,30}";
 				if(adm_acco == null || adm_acco.trim().length() == 0) {
-					errorMsgs.add("");
+					errorMsgs.add("無輸入帳號");
 				} 
 				else if(!adm_acco.trim().matches(adm_accoReg)) {
-					errorMsgs.add("");
+					errorMsgs.add("請輸入正確帳號格式");
 				}
 				
 				String adm_pass = genAuthCode();
@@ -379,7 +381,47 @@ if ("register".equals(action)) {
 						.getRequestDispatcher("/front-end/adm/addAdministrator.jsp");
 				failureView.forward(req, res);
 			}
-	}
+		}
+			
+			if ("admConfirm".equals(action)) { 
+				
+				List<String> errorMsgs = new LinkedList<String>();
+				req.setAttribute("errorMsgs", errorMsgs);
+				
+				String listAllAdm = "/back-end/protected/adm/listAllAdm.jsp";
+				
+				try {
+					/***************************接收請求參數****************************************/
+					String adm_no = req.getParameter("adm_no");
+					String adm_acco = req.getParameter("adm_acco");
+					String adm_pass = req.getParameter("adm_pass");
+					String adm_name = req.getParameter("adm_name");
+					Integer adm_state = new Integer(req.getParameter("adm_state"));
+					/***************************修改員工狀態****************************************/
+					AdmVO admVO = new AdmVO();
+					admVO.setAdm_no(adm_no);
+					admVO.setAdm_acco(adm_acco);
+					admVO.setAdm_pass(adm_pass);
+					admVO.setAdm_name(adm_name);
+					admVO.setAdm_state(adm_state); 
+					
+					AdmService admSv = new AdmService();
+					admVO = admSv.updateAdm(adm_no,adm_acco, adm_pass, adm_name, adm_state);
+									
+					/***************************轉交文章頁面****************************************/  
+					RequestDispatcher adm = req.getRequestDispatcher(listAllAdm);
+					adm.forward(req, res);
+				} catch (Exception e) {
+					errorMsgs.add("修改資料失敗： " + e.getMessage());
+					RequestDispatcher failureView = req.getRequestDispatcher(listAllAdm);
+					failureView.forward(req, res);
+				}
+					
+		}
+			
+			
+			
+	
 }
 	public static String genAuthCode() {
 		char[] codePool = new char[62];
@@ -405,6 +447,8 @@ if ("register".equals(action)) {
 		}
 		return authCode;
 	}
+	
+	
 
 public static void sendMail(String to, String subject, String messageText) {
 		
