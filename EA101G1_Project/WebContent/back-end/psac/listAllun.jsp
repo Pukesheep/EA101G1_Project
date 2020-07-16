@@ -5,7 +5,7 @@
 <%@ page import="com.adm.model.*"%>
 <%
 	PsacService psacSvc = new PsacService();
-	List<PsacVO> list = psacSvc.getAll();
+	List<PsacVO> list = psacSvc.getStateEq0();
 	pageContext.setAttribute("list", list);
 	AdmVO admVO = (AdmVO) session.getAttribute("admVO");
 %>
@@ -70,7 +70,7 @@ a.btn btn-primary {
 <!-- 					<div class="row justify-content-center"> -->
 <!-- 						<div class="col-12"> -->
 
-							<h3>所有文章檢舉案資料</h3>
+							<h3>待處理的文章檢舉案</h3>
 
 
 							<%-- 錯誤表列 --%>
@@ -104,22 +104,12 @@ a.btn btn-primary {
 										<td>${psacVO.post_id}</td>
 										<td>${psacVO.adm_no}</td>
 										<td>${psacVO.psac_content}</td>
-										<td><c:choose>
-								<c:when test="${psacVO.psac_state eq 0}">
-									未處理
-								</c:when>
-								<c:when test="${psacVO.psac_state eq 1}">
-									成立
-								</c:when>
-								<c:when test="${psacVO.psac_state eq 2}">
-									不成立
-								</c:when>
-							</c:choose></td>
+										<td>${psacVO.psac_state}</td>
 										<td>
 											<FORM METHOD="post"
 												ACTION="<%=request.getContextPath()%>/psac/psac.do"
 												style="margin-bottom: 0px;">
-												<input type="submit" class="btn btn-warning" value="成立">
+												<input type="submit" class="btn btn-warning" value="確認">
 												<input type="hidden" name="psac_no"
 													value="${psacVO.psac_no}"> <input type="hidden"
 													name="mem_id" value="${psacVO.mem_id}"> <input
@@ -128,7 +118,7 @@ a.btn btn-primary {
 												<input type="hidden" name="psac_content"
 													value="${psacVO.psac_content}"> <input
 													type="hidden" name="psac_state"
-													value="1"> <input type="hidden"
+													value="${psacVO.psac_state}"> <input type="hidden"
 													name="action" value="psacConfirm">
 											</FORM>
 										</td>
@@ -136,7 +126,7 @@ a.btn btn-primary {
 											<FORM METHOD="post"
 												ACTION="<%=request.getContextPath()%>/psac/psac.do"
 												style="margin-bottom: 0px;">
-												<input type="submit" class="btn btn-info" value="不成立">
+												<input type="submit" class="btn btn-info" value="確認">
 												<input type="hidden" name="psac_no"
 													value="${psacVO.psac_no}"> <input type="hidden"
 													name="mem_id" value="${psacVO.mem_id}"> <input
@@ -145,18 +135,17 @@ a.btn btn-primary {
 												<input type="hidden" name="psac_content"
 													value="${psacVO.psac_content}"> <input
 													type="hidden" name="psac_state"
-													value="2"> <input type="hidden"
-													name="action" value="psacConfirm">
+													value="${psacVO.psac_state}"> <input type="hidden"
+													name="action" value="psacDenied">
 											</FORM>
 											
 										</td>
 									</tr>
-							
+
 								</c:forEach>
 							</table>
 
 							<%@ include file="/files/page2B.file"%>
-							
 							
 			</main>
 		</div>

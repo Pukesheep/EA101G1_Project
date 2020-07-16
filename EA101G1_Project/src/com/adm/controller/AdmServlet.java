@@ -194,8 +194,8 @@ public class AdmServlet extends HttpServlet {
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("admVO", admVO); // 資料庫update成功後,正確的的admVO物件,存入 req
-				String url = "/back-end/protected/adm/listOneAdm.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneAdm.jsp
+				String url = "/back-end/protected/adm/listAllAdm.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listAllAdm.jsp
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理*************************************/
@@ -263,7 +263,7 @@ public class AdmServlet extends HttpServlet {
 				admVO = admSvc.addAdm(adm_acco, adm_pass, adm_name, adm_state);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/back-end/protected/adm/select_page.jsp";
+				String url = "/back-end/protected/adm/addAdm.jsp";
 				successMsgs.add("新增成功");
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllAdm.jsp
 				successView.forward(req, res);				

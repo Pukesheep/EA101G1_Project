@@ -110,18 +110,18 @@ AdmVO admVO = (AdmVO) request.getAttribute("admVO");
 	<tr>
 		<td>員工帳號:</td>
 		<td><input type="TEXT" name="adm_acco" size="45"
-			 value="<%= (admVO==null)? "anthoney" : admVO.getAdm_acco()%>" /></td>
+			 value="" placeholder="請輸入員工信箱"/></td>
 	</tr>
 	
 	<tr>
 		<td>員工姓名:</td>
 		<td><input type="TEXT" name="adm_name" size="45"
-			 value="<%= (admVO==null)? "anthoney" : admVO.getAdm_name()%>" /></td>
+			 value="" placeholder="請輸入員工姓名"/></td>
 	</tr>
 	<tr>
 		<td>員工狀態:</td>
 		<td><input type="TEXT" name="adm_state" size="45"
-			 value="<%= (admVO==null)? "" : admVO.getAdm_state()%>" /></td>
+			 value="" placeholder="請輸入員工狀態" /></td>
 	</tr>
 </table>
 <br>
@@ -132,14 +132,33 @@ AdmVO admVO = (AdmVO) request.getAttribute("admVO");
 
 </FORM>
 </div>
-
-<p><a href="<%=request.getContextPath()%>/back-end/protected/adm/select_page.jsp" class="btn btn-primary">回首頁</a></p>
    
         </main>
     </div>
 </div>
 </div>
 </div>
+
+<%-- 成功表列 --%>
+
+	<c:if test="${not empty successMsgs }">
+	<%
+		java.util.List<String> successMsgs = (java.util.List<String>) request.getAttribute("successMsgs");
+		String message = "";
+		for (String msg : successMsgs) {
+			message += msg;
+			message += "\\n";
+		}
+	%>
+	<script>
+		Swal.fire({
+			icon: 'success',
+			title: '<%=message%>'
+		});
+	</script>
+	
+	</c:if>
+	<%-- 成功表列 --%>
 </body>
 
 </html>

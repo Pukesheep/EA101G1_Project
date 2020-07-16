@@ -292,6 +292,7 @@ div.chart_row {
 		});
 	</script>
 	
+	
 	</c:if>
 	<%-- 成功表列 --%>
 

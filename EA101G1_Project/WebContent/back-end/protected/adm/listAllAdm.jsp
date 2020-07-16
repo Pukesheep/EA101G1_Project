@@ -69,7 +69,7 @@
 	<div class="row justify-content-center">
 			<div class="col-10">
   
-		 <h3>所有員工資料 </h3>
+		 <h3>員工帳號管理 </h3>
 	
 
 <%-- 錯誤表列 --%>
@@ -118,7 +118,7 @@
 </table>
 
 <%@ include file="/files/page2B.file" %>
-<a href="<%=request.getContextPath()%>/back-end/protected/adm/select_page.jsp" class="btn btn-primary">回首頁</a>
+
         </main>
     </div>
 </div>

@@ -33,22 +33,38 @@
 </style>
 
 <style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
+  		h3{
+    		padding: 10px;
+    		text-align: center;
+    		background-color:#22AA99;
+    		
+    	}
+    	
+    	div.container{
+    		margin-top:20px;
+    	}
+    	
+    	div.input{
+    		padding:5px;
+    	}
+    	
+    	body{
+    		background-color:#446688;	
+    	}
+    	
+    	div#button{
+    		margin-top:10px;
+    		text-align: center;
+    	}
+    	
+    	a.btn btn-primary{
+    		padding:50px;
+    		margin-top:90%;
+    	}
 </style>
 
 </head>
-<body bgcolor='white'>
+<body>
 <!-- header -->
 	
 	<%@ include file="/back-end/css/header.jsp" %>
@@ -59,15 +75,14 @@
 <!-- aside -->
 	<%@ include file="/back-end/css/aside.jsp" %>
 <!-- aside -->
-<div>
-<table id="a">
-	<tr><td>
-		 <h3>員工修改 - update_adm_input.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/back-end/adm/select_page.jsp">回首頁</a></h4>
-	</td></tr>
-</table>
 
-<h3>資料修改:</h3>
+ <main>
+<div class="container">
+	<div class="row justify-content-center">
+			<div class="col-10">
+		 
+		 <h3>員工資料修改</h3>
+		 
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -80,7 +95,7 @@
 </c:if>
 
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adm/adm.do" name="form1">
-<table>
+<table class="table table-striped">
 	<tr>
 		<td>員工編號:<font color=red><b>*</b></font></td>
 		<td><%=admVO.getAdm_no()%></td>
@@ -106,7 +121,13 @@
 <br>
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="adm_no" value="<%=admVO.getAdm_no()%>">
-<input type="submit" value="送出修改"></FORM>
+<input type="submit" class="btn btn-warning" value="送出修改"></FORM>
+
+</main>
+    </div>
+</div>
+</div>
 </div>
 </body>
+
 </html>

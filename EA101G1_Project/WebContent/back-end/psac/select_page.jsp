@@ -85,8 +85,8 @@ body {
 
 							<input type="button" class="btn btn-primary" value="查詢全部檢舉案"
 								onclick="location.href='listAllPsac.jsp'"> <input
-								type="button" class="btn btn-primary" value="新增檢舉案"
-								onclick="location.href='<%=request.getContextPath()%>/back-end/psac/addPsac.jsp'">
+								type="button" class="btn btn-primary" value="待處理的檢舉案"
+								onclick="location.href='<%=request.getContextPath()%>/back-end/psac/listAllun.jsp'">
 
 						</div>
 					</div>

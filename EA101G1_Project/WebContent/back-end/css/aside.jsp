@@ -103,10 +103,10 @@
                         <i class="fas fa-address-card ml-3 mr-2"></i>員工管理</div>
                     <ul class="collapse navbar-nav" id="sideNavColl08" data-parent="#navbarNav">
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/adm/listAllAdm.jsp">員工帳號管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/protected/adm/listAllAdm.jsp">員工帳號管理</a>
                         </li>
                          <li class="nav-item">
-                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/adm/addAdm.jsp">新增員工</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/protected/adm/addAdm.jsp">新增員工</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link pl-4" href="#">員工權限管理</a>
