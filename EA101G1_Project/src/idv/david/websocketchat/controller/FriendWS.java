@@ -42,16 +42,16 @@ public class FriendWS {
 		State stateMessage = new State("open", userName, userNames, friends,isonline);
 		//-------------------
 		String stateMessageJson = gson.toJson(stateMessage);
-		System.out.println(stateMessageJson);
+//		System.out.println(stateMessageJson);
 		Collection<Session> sessions = sessionsMap.values();
 		for (Session session : sessions) {
 			if (session.isOpen()) {
 				session.getAsyncRemote().sendText(stateMessageJson);
 			}
 		}
-		String text = String.format("Session ID = %s, connected; userName = %s%nusers: %s", userSession.getId(),
-				userName, friends);
-		System.out.println(text);
+//		String text = String.format("Session ID = %s, connected; userName = %s%nusers: %s", userSession.getId(),
+//				userName, friends);
+//		System.out.println(text);
 	}
 
 	@OnMessage
@@ -66,7 +66,7 @@ public class FriendWS {
 			ChatMessage cmHistory = new ChatMessage("history", sender, receiver, historyMsg);
 			if (userSession != null && userSession.isOpen()) {	//這個判斷是?
 				userSession.getAsyncRemote().sendText(gson.toJson(cmHistory));//將紀錄送出
-				System.out.println("history = " + gson.toJson(cmHistory));
+//				System.out.println("history = " + gson.toJson(cmHistory));
 				return;
 			}
 		}
@@ -78,7 +78,7 @@ public class FriendWS {
 			userSession.getAsyncRemote().sendText(message);
 			JedisHandleMessage.saveChatMessage(sender, receiver, message);
 		}
-		System.out.println("Message received: " + message);
+//		System.out.println("Message received: " + message);
 	}
 
 	@OnError
@@ -109,9 +109,9 @@ public class FriendWS {
 			}
 		}
 
-		String text = String.format("session ID = %s, disconnected; close code = %d%nusers: %s", userSession.getId(),
-				reason.getCloseCode().getCode(), userNames);
-		System.out.println(text);
+//		String text = String.format("session ID = %s, disconnected; close code = %d%nusers: %s", userSession.getId(),
+//				reason.getCloseCode().getCode(), userNames);
+//		System.out.println(text);
 	}
 	
 	
@@ -126,13 +126,13 @@ public class FriendWS {
         for (String friendli : set) { 
              int mark = friendli.indexOf(":");
              String friend = friendli.substring(mark+1,friendli.length());
-             System.out.println(friend);
+//             System.out.println(friend);
              friends.add(friend);
         }
         
         for(String s:friends)
         {
-        System.out.println(s);
+//        System.out.println(s);
         }
         return friends;
 

@@ -30,15 +30,12 @@ public class test extends TimerTask{
 
 		for(int i=0;i<list.size();i++) {
 			List<String> newList = new ArrayList<>();
-			for(int j=0;j<list.size();j++) {
-				
+			for(int j=0;j<list.size();j++) {				
 				if(!(list.get(i).equals(list.get(j)))) {
 					StringBuffer str=new StringBuffer(list.get(i));
 					String key=str.append(":").append(list.get(j)).toString();
 					jedis.rpush(key,"歡迎詞");
-//					List<String> historyData = jedis.lrange(key, 0, -1);
 
-					System.out.println(key);
 				}
 				
 			}
