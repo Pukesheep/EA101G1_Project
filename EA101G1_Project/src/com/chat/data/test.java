@@ -4,6 +4,8 @@ import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import java.util.TimerTask;
 import java.util.stream.Collectors;
 
 import com.member.model.MemberJDBCDAO;
@@ -12,8 +14,9 @@ import com.member.model.MemberVO;
 
 import redis.clients.jedis.Jedis;
 
-public class test {
-	public static void main(String[] args) {
+public class test extends TimerTask{
+	public  void run() {
+		
 		Jedis jedis = null;
 		jedis=new Jedis("localhost",6379);
 		jedis.auth("123456");
