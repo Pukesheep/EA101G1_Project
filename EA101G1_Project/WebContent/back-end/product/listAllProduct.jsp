@@ -12,8 +12,13 @@
 %>
 <jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <%@ include file="/back-end/css/BackHeaderCssLink" %>
 <title>商品列表</title>
 
@@ -22,9 +27,15 @@
 		width: 100px;
 		height: 100px;
 	}
+	body {
+		background-image: url('https://cdn.pixabay.com/photo/2017/08/07/22/10/bled-2608425_1280.jpg');
+		background-size : cover;
+		background-repeat: no-repeat;
+	}
 </style>
 
 </head>
+
 <body>
 <!-- header -->
 	
@@ -36,42 +47,59 @@
 <!-- aside -->
 	<%@ include file="/back-end/css/aside.jsp" %>
 <!-- aside -->
-<main>
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
 
+        <main>
+<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs }">
+<%
+	java.util.List<String> errorMsgs = (java.util.List<String>) request.getAttribute("errorMsgs");
+	String message = "";
+	for (String msg : errorMsgs) {
+		message += msg;
+		message += "\\n";
+	}
+%>
+<script>
+	Swal.fire({
+		  icon: 'error',
+		  title: '<%=message%>'
+		});
+
+</script>
+</c:if>
+<%-- 錯誤表列 --%>
+
+<%-- 成功表列 --%>
+<c:if test="${not empty successMsgs }">
+<%
+	java.util.List<String> successMsgs = (java.util.List<String>) request.getAttribute("successMsgs");
+	String message = "";
+	for (String msg : successMsgs) {
+		message += msg;
+		message += "\\n";
+	}
+%>
+<script>
+	Swal.fire({
+		icon: 'success',
+		title: '<%=message%>'
+	});
+</script>
+</c:if>
+<%-- 成功表列 --%> 		
 
 <nav aria-label="breadcrumb">
 	<ol class="breadcrumb bg-transparent">
 		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/index.jsp">後台首頁</a></li>
-		<li class="breadcrumb-item"><a class="bread" href="#">頁面一</a></li>
 		<li class="breadcrumb-item active text-warning" aria-current="page">商品列表</li>
 	</ol>
 </nav>
-
+ 
 <div class="container">
 	<div class="row justify-content-center">
 		<div class="col-10">
 			<div class="card alert alert-success">
 				<div class="card-header bg-dark">
-					<ul class="nav float-right mr-1 mt-1 text-dark">
-						<li class="nav-item">
-							<a class="nav-link active h5" href="#">頁面一</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link active h5" href="#">頁面二</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link active h5" href="#">頁面三</a>
-						</li>
-					</ul>
 					<h1 class="text-white">商品列表</h1>
 				</div>
 				<div class="card-body alert alert-warning">
@@ -83,10 +111,10 @@
 									<div class="card-header">
 										<h4>${proVO.p_name}</h4>
 									</div>
-									<div class="card-body alert alert-info">
-										<div class="media">
+									<div class="card-body alert alert-info mb-0">
+										<div class="media alert alert-secondary">
 											<img alt="" src="<%=request.getContextPath()%>/product/proPic.do?p_id=${proVO.p_id}" class="img-product-icon">
-											<div class="media-body alert alert-secondary">
+											<div class="media-body">
 												<ul>
 													<li>商品價格： <fmt:formatNumber pattern="#" value="${proVO.p_price}" /></li>
 													<li>
@@ -100,8 +128,21 @@
 															</c:when>
 														</c:choose>
 													</li>
+													<li>商品庫存： ${proVO.p_stock}</li>
+													<li>商品銷量： ${proVO.p_sales}</li>
 												</ul>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-8">
 												<h6 class="mt-1">上架日期： <fmt:formatDate value="${proVO.p_add_date}" pattern="yyyy-MM-dd" /></h6>
+											</div>
+											<div class="col-4">
+												<form action="<%=request.getContextPath()%>/product/pro.do" method="post" class="mb-0 mt-0">
+													<input type="hidden" name="p_id" value="${proVO.p_id}">
+													<input type="hidden" name="action" value="getOne_For_Update">
+													<button type="submit" class="btn btn-outline-dark btn-sm btn-block">修改</button>
+												</form>
 											</div>
 										</div>
 									</div>
@@ -119,12 +160,11 @@
 
 
 
+            
+        </main>
+    </div>
 
-
-
-
-</main>
-</div>
 
 </body>
+
 </html>
