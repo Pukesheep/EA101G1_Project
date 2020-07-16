@@ -211,6 +211,14 @@ ul.navbar-Nav .nav-link {
 	/*     font-weight: bolder; */
 }
 
+.img-icon {
+	width: 25px;
+	height: 25px;
+	float: right;
+	margin: 8px 2px;
+	cursor: pointer;
+}
+
 @media ( max-width : 1023px) {
 	.immed_nav .form-inline .form-control {
 		width: 250px;
@@ -261,7 +269,7 @@ ul.navbar-Nav .nav-link {
 			<!-- 			<SPAN CLASS="NAVBAR-TOGGLER-ICON"></SPAN> -->
 			<!-- 		</BUTTON> -->
 			<!-- 		<div class="collapse navbar-collapse" id="navbarTogglerDemo03"> -->
-		<ul class="navbar-nav">
+			<ul class="navbar-nav">
 				<li class="nav-item "><a class="nav-link text-white"
 					href="<%=request.getContextPath()%>/front-end/protected/immed/addImmed.jsp">
 						<div>
@@ -343,7 +351,7 @@ ul.navbar-Nav .nav-link {
 
 			<div class="row pb-4">
 				<div class="col-md-2 left_side pt-2">
-						<aside class=" navbar-collapse" id="navbarNav">
+					<aside class=" navbar-collapse" id="navbarNav">
 						<ul class="navbar-nav pl-2">
 							<li class="nav-item">
 								<div class="nav-link pl-1" data-toggle="collapse"
@@ -414,11 +422,15 @@ ul.navbar-Nav .nav-link {
 										style="${immedVO.immed_sold==1 ? 'opacity: 0.5;':'opacity: 1;' }"
 										alt="...">
 									</a>
-									<div class="card-body">
+									<div class="card-body ">
 										<a
 											href="<%=request.getContextPath()%>/immed/immed.do?action=getOne_For_Display&immed_id=${immedVO.immed_id}"
 											title="${immedVO.immed_name}"><h5 class="card-title">${immedVO.immed_name}</h5></a>
-										<p class="card-price">$${immedVO.immed_prc}</p>
+										<span class="card-price">$${immedVO.immed_prc}</span> <img
+											style="" class=" img-icon" alt=""
+											src="<%=request.getContextPath()%>/front-end/product/images/icons/empty.png"
+											id="${immedVO.immed_id}${sessionScope.memberVO.mem_id}"
+											title="加入最愛">
 									</div>
 								</div>
 							</div>
