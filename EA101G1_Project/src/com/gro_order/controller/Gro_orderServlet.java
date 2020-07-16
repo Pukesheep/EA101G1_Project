@@ -22,24 +22,26 @@ public class Gro_orderServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		String from = req.getParameter("from");
 		
-		String front = 				"/front-end/protected";
-		String back = 				"/back-end/protected";
+		String front = 						"/front-end/protected";
+		String back = 						"/back-end/protected";
 		
-		String select_page = 		"/groupbuy/select_page.jsp";
-		String listOneGro_order = 	"/groupbuy/listOneGro_order.jsp";
-		String listAllGro_order = 	"/groupbuy/listAllGro_order.jsp";
-		String payment = 			"/groupbuy/payment.jsp";
+		String select_page = 				"/groupbuy/select_page.jsp";
+		String listOneGro_order = 			"/groupbuy/listOneGro_order.jsp";
+		String listAllGro_order = 			"/groupbuy/listAllGro_order.jsp";
+		String payment = 					"/groupbuy/payment.jsp";
+		String listAllGro_orderByGroup = 	"/groupbuy/listAllGro_orderByGroup.jsp";
 		
 		if (from.contains("front")) {
-			select_page = 		front + select_page;
-			listOneGro_order = 	front + listOneGro_order;
-			listAllGro_order = 	front + listAllGro_order;
-			payment = 			front + payment;
+			select_page = 				front + select_page;
+			listOneGro_order = 			front + listOneGro_order;
+			listAllGro_order = 			front + listAllGro_order;
+			payment = 					front + payment;
 		} else {
-			select_page = 		back + select_page;
-			listOneGro_order = 	back + listOneGro_order;
-			listAllGro_order = 	back + listAllGro_order;
-			payment = 			back + payment;
+			select_page = 				back + select_page;
+			listOneGro_order = 			back + listOneGro_order;
+			listAllGro_order = 			back + listAllGro_order;
+			payment = 					back + payment;
+			listAllGro_orderByGroup = 	back + listAllGro_orderByGroup;
 		}
 		
 		// 前台會員修改訂單資料
@@ -348,8 +350,35 @@ public class Gro_orderServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher(listAllGro_order);
 				failureView.forward(req, res);
 			}
+		}
+		
+		if ("getByGroup".equals(action)) {
 			
+			List<String> errorMsgs = new LinkedList<String>();
+			List<String> successMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("successMsgs", successMsgs);
 			
+			try {
+				/***************************1.接收請求參數**********************/
+				String gro_id = req.getParameter("gro_id");
+				
+				/***************************2.開始查詢資料*****************************************/
+				Gro_orderService gro_orderSvc = new Gro_orderService();
+				List<Gro_orderVO> list = gro_orderSvc.getAllByGro_id(gro_id);
+				
+				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("list", list);
+				RequestDispatcher successView = req.getRequestDispatcher(listAllGro_orderByGroup);
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+				
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料： " + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher(select_page);
+				failureView.forward(req, res);
+			}
 		}
 		
 		

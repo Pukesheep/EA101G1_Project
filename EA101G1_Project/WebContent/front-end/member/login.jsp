@@ -126,7 +126,7 @@
 
 
     <!-- navbar -->
-		<%@ include file="../../files/footer.jsp" %>
+		<%@ include file="/files/footer.jsp" %>
     <!-- navbar end -->
 </body>
 

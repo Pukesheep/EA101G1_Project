@@ -236,9 +236,11 @@ public class GroupbuyServlert extends HttpServlet {
 		if ("insert".equals(action)) {
 			
 			List<String> errorMsgs = new LinkedList<String>();
+			List<String> successMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("successMsgs", successMsgs);
 			
-//			try {
+			try {
 				/***************************1.接收請求參數****************************************/
 				
 				String p_id = req.getParameter("p_id");
@@ -325,17 +327,17 @@ public class GroupbuyServlert extends HttpServlet {
 						status, reb1_no, reb2_no, reb3_no, people, money, amount);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				
+				successMsgs.add("新增成功");
 				RequestDispatcher successView = req.getRequestDispatcher(listAllGroupbuy);
 				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理**********************************/
 
-//			} catch (Exception e) {
-//				errorMsgs.add("新增資料失敗： " + e.getMessage());
-//				RequestDispatcher failureView = req.getRequestDispatcher(addGroupbuy);
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add("新增資料失敗： " + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher(addGroupbuy);
+				failureView.forward(req, res);
+			}
 		}
 		
 		if ("delete".equals(action)) {

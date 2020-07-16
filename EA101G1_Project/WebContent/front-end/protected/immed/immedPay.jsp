@@ -20,7 +20,7 @@
 	PtService ptSvc = new PtService();
 	PtVO ptVO = ptSvc.getOneProductType(immedVO.getPt_id());
 	pageContext.setAttribute("ptVO", ptVO);
- %>
+%>
 
 <%
 	MemberService memberSvc = new MemberService();
@@ -67,7 +67,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css">
 <script
-		src="https://cdnjs.cloudflare.com/ajax/libs/card/1.3.1/js/card.min.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/card/1.3.1/js/card.min.js"></script>
 
 <style>
 body {
@@ -313,7 +313,6 @@ table.recipi  th {
 /* table.recipi tbody input { */
 /* 	width: 70%; */
 /* } */
-
 table.recipi tbody tr:nth-child(3) input {
 	width: 100%;
 }
@@ -329,6 +328,14 @@ table.immedInfo th:nth-child(1) {
 
 table.immedInfo th:nth-child(2) {
 	width: 20%;
+}
+
+.city_form_control {
+	width: 80px;
+}
+
+.town_form_control {
+	width: 120px;
 }
 
 @media ( max-width : 1023px) {
@@ -433,9 +440,9 @@ table.immedInfo th:nth-child(2) {
 		<div class="row">
 			<div class="col">
 				<table class="immedInfo table-bordered">
-					<thead >
+					<thead>
 						<tr>
-							<th style="border:none;"><div>購買商品明細</div></th>
+							<th style="border: none;"><div>購買商品明細</div></th>
 						</tr>
 					</thead>
 					<tbody class="text-center">
@@ -451,14 +458,14 @@ table.immedInfo th:nth-child(2) {
 						<tr>
 
 							<td><a
-							href="<%=request.getContextPath()%>/immed/immed.do?action=getOne_For_Display&immed_id=${immedVO.immed_id}">${immedVO.immed_name}</a></td>
+								href="<%=request.getContextPath()%>/immed/immed.do?action=getOne_For_Display&immed_id=${immedVO.immed_id}">${immedVO.immed_name}</a></td>
 							<td><img
 								src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"
-								class="card-img-top" style="height:200px;"></td>
+								class="card-img-top" style="height: 200px;"></td>
 							<td>${saleVO.mem_name}</td>
 							<td>${immedVO.immed_prc}</td>
 							<td>1</td>
-							<td class="text-red text-danger" style="font-weight:700;">${immedVO.immed_prc * 1}</td>
+							<td class="text-red text-danger" style="font-weight: 700;">${immedVO.immed_prc * 1}</td>
 						</tr>
 						<!-- 					<tr> -->
 						<!-- 						<th scope="row">收件人電話:</th> -->
@@ -502,21 +509,21 @@ table.immedInfo th:nth-child(2) {
 									<div class="col-md-4">
 										<div class="form-group">
 											<label>有效期限</label> <input type="text" placeholder="MM/YY"
-												maxlength=7 name="card_ym" class="form-control" />
+												maxlength=5 name="card_ym" class="form-control" />
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-8">
 										<div class="form-group">
-											<label>持卡人姓名</label> <input type="text" name="card_name" max="10"
-												class="form-control" autocomplete="off" />
+											<label>持卡人姓名</label> <input type="text" name="card_name"
+												max="10" class="form-control" autocomplete="off" />
 										</div>
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
-											<label>認證碼 </label> <input type="text" name="card_sec" maxlength=3
-												class="form-control" />
+											<label>認證碼 </label> <input type="text" name="card_sec"
+												maxlength=3 class="form-control" autocomplete="off"/>
 										</div>
 									</div>
 								</div>
@@ -526,7 +533,7 @@ table.immedInfo th:nth-child(2) {
 						<div class="row">
 
 
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<table class="recipi">
 									<thead>
 										<tr>
@@ -536,18 +543,24 @@ table.immedInfo th:nth-child(2) {
 									<tbody>
 										<tr>
 											<th scope="row">收件人姓名:</th>
-											<td><input type="text" name="rcpt_name"
-												autocomplete="off" value="${rcpt_name} "></td>
+											<td><input style="width: 197px;" type="text"
+												name="rcpt_name" autocomplete="off" value="${rcpt_name} "></td>
 										</tr>
 										<tr>
 											<th scope="row">收件人電話:</th>
-											<td><input type="text" name="rcpt_cell" maxlength=10
-												autocomplete="off" value="${rcpt_cell}"></td>
+											<td><input style="width: 197px;" type="text"
+												name="rcpt_cell" maxlength=10 autocomplete="off"
+												value="${rcpt_cell}"></td>
 										</tr>
 										<tr>
 											<th scope="row">收件地址:</th>
-											<td><input type="text" name="rcpt_add"
-												autocomplete="off" value="${rcpt_add}"></td>
+											<td>
+												<div class="d-flex">
+													<div id="twzipcode"></div>
+													<input id="add" style="width: 350px;" type="text"
+														name="add" autocomplete="off" value="${rcpt_add}">
+												</div>
+											</td>
 										</tr>
 										<tr>
 											<!-- 									<th><input type="hidden" name="action" -->
@@ -555,18 +568,20 @@ table.immedInfo th:nth-child(2) {
 											<%-- 										name="immed_id" value="${immedVO.immed_id}">${immedVO.immed_id} --%>
 											<%-- 										<input type="hidden" name="buy_id" value="${memberVO.mem_id}">${memberVO.mem_id} --%>
 											<!-- 										<input type="submit" value="送出"></th> -->
-											<th><div class="">
+											<th><div class=>
 													<input type="hidden" name="action" value="update_one_buy">
 													<input type="hidden" name="immed_id"
 														value="${immedVO.immed_id}"> <input type="hidden"
 														name="buy_id" value="${memberVO.mem_id}">
 													<button type="submit" class="btn btn-dark">確認送出</button>
+													
 													<!-- 											<button type="button" class="btn btn-info">Clear</button> -->
 												</div></th>
-											<td></td>
+											<td><button id="add_data" type="button" class="btn ">.0.</button></td>
 										</tr>
 									</tbody>
 								</table>
+
 							</div>
 							<div class="col-md-4">
 								<div class="pt-5">
@@ -614,6 +629,11 @@ table.immedInfo th:nth-child(2) {
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/card/1.3.1/js/card.min.js"></script>
 
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
+
 	<script type="text/javascript">
 		$('.slider-for').slick({
 			autoplay : false,
@@ -655,6 +675,37 @@ table.immedInfo th:nth-child(2) {
 				cvc : '‧‧‧'
 			}
 		})
+	</script>
+
+	<script>
+		$("#twzipcode").twzipcode({
+			zipcodeIntoDistrict : true, // 郵遞區號自動顯示在區別選單中
+			css : [ "city_form_control", "town_form_control" ], // 自訂 "城市"、"地別" class 名稱 
+			countyName : "city", // 自訂城市 select 標籤的 name 值
+			districtName : "town" // 自訂區別 select 標籤的 name 值
+			// 			'zipcodeSel'  : '320', // 此參數會優先於 countySel, districtSel
+			// 		    'countySel'   : '桃園市',
+			// 		    'districtSel' : '中壢區'
+		});
+	</script>
+
+	<script>
+		$("#add_data").click(function() {
+			$("[name='card_no']").val('5512345678901234');
+			$("[name='card_name']").val('QWE-ASD-ZXC');
+			$("[name='card_sec']").val('123');
+			$("[name='card_ym']").val('07/23');
+			
+			$("[name='rcpt_name']").val('買爆剁手手');
+			$("[name='rcpt_cell']").val('0912345678');
+			$("#twzipcode").twzipcode('set', {
+				'county' : '桃園市',
+				'district' : '中壢區',
+				'zipcode' : 320
+			});
+			$("[name='add']").val('爆肝路999號7樓');
+
+		});
 	</script>
 </body>
 </html>

@@ -60,13 +60,13 @@
 <body>
 <!-- header -->
 	
-	<%@ include file="../../css/header.jsp" %>
+	<%@ include file="/back-end/css/header.jsp" %>
 <!-- header -->
 
     <div class="content d-md-flex">
 
 <!-- aside -->
-	<%@ include file="../../css/aside.jsp" %>
+	<%@ include file="/back-end/css/aside.jsp" %>
 <!-- aside -->
 
         <main>
@@ -93,7 +93,7 @@
 <nav aria-label="breadcrumb">
 	<ol class="breadcrumb bg-transparent">
 		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/index.jsp">後台首頁</a></li>
-		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/select_page.jsp">團購查詢</a></li>
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/select_page.jsp">團購暨訂單查詢</a></li>
 		<li class="breadcrumb-item active text-warning" aria-current="page">新增團購</li>
 	</ol>
 </nav>

@@ -199,6 +199,15 @@ td:nth-of-type(5) {
 	word-wrap: break-word;
 }
 
+td:nth-of-type(6) {
+	max-width: 200px;
+	word-wrap: break-word;
+}
+td:nth-of-type(6) img{
+	max-width: 100px;
+	max-height: 150px;
+}
+
 td.previewTd {
 	display: flex;
 	flex-direction: column-reverse;

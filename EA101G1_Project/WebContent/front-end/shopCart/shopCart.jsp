@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*" %>
 <%@ page import="com.shopCart.model.*" %>
 <%@page import="com.member.model.*"%>
@@ -102,10 +102,10 @@
    		<div class="row justify-content mb-2 bg-white rounded">
    			<div class="col-2 align-self-center"><img src="<%=request.getContextPath()%>/shopCart/ShopCartPic.do?p_id=<%=order.getId()%>"></div>
    			<div class="col-3 align-self-center"><a href="<%=request.getContextPath()%>/front-end/product/listOneProduct.jsp?p_id=<%=order.getId()%>"><font><%=order.getName()%></font></a></div>
-   			<div class="col-1 align-self-center"><font>$<%=order.getPrice()%></font></div>
+   			<div class="col-1 align-self-center"><font>$<fmt:formatNumber pattern="#" value="<%=order.getPrice()%>" /></font></div>
    			<div class="col-2 align-self-center"><font><%=order.getQuantity()%></font></div>
    			<div class="col-1 align-self-center"><font><%=order.getStock()%></font></div>
-   			<div class="col-2 align-self-center"><font><%=order.getSub()%></font></div>
+   			<div class="col-2 align-self-center"><font>$<fmt:formatNumber pattern="#" value="<%=order.getSub()%>" /></font></div>
    			<div class="col-1 align-self-center">
    			<form name="deleteForm" action="<%=request.getContextPath()%>/shopCart/Shopping.do" method="POST">
               <input type="hidden" name="action" value="DELETE">

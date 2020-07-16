@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
         <!-- footer -->
         <footer id="footer" class="pt-5 ">
@@ -74,10 +74,12 @@
                 <p class="text-center">&copy; Copy right 2020</p>
             </div>
         </footer>
-
+<c:if test="${sessionScope.memberVO ne null}">
         <div id="chatBtn" class="bg-primary" onclick="on()">
             <i class="fas fa-comments"></i>
         </div>
         <%@ include file="/front-end/frontchat/chat.jsp" %>
         
 <link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/frontchat/css/chat.css">
+
+</c:if>

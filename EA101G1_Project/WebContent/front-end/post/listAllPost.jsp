@@ -825,7 +825,7 @@
         
     }
     
-    window.onload = init;	
+    window.onload = init;
 	
 	
 	
@@ -838,7 +838,7 @@
 
 
         <!-- footer -->
-        	<%@ include file="../../files/footer.jsp" %>
+        	<%@ include file="/files/footer.jsp" %>
         <!-- footer -->
 </body>
 

@@ -6,9 +6,7 @@
 <%@ page import="com.ordstat.model.*" %>
 
 <%
-	Gro_orderService gro_orderSvc = new Gro_orderService();
-	List<Gro_orderVO> list = gro_orderSvc.getAll();
-	pageContext.setAttribute("list", list);
+	List<Gro_orderVO> list = (List<Gro_orderVO>) request.getAttribute("list");
  %>
  
  <jsp:useBean id="ordstatSvc" scope="page" class="com.ordstat.model.OrdstatService" />
@@ -110,7 +108,7 @@
 <nav aria-label="breadcrumb">
 	<ol class="breadcrumb bg-transparent">
 		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/index.jsp">後台首頁</a></li>
-		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/select_page.jsp">團購暨訂單查詢</a></li>
+		<li class="breadcrumb-item"><a class="bread" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/select_page.jsp">團購查詢</a></li>
 		<li class="breadcrumb-item active text-warning" aria-current="page">團購訂單管理</li>
 	</ol>
 </nav>
@@ -118,25 +116,13 @@
 <div class="container-fluid">
 	<div class="row justify-content-center">
 		<div class="col-11">
-			<div class="card alert alert-dark bg-info">
-				<div class="card-header bg-dark">
-					<ul class="nav float-right mr-1 mt-1 text-dark">
-						<li class="nav-item">
-							<a class="nav-link active h5" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/select_page.jsp">團購暨訂單查詢</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link active h5" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/listAllGroupbuy.jsp">團購列表</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link active h5" href="<%=request.getContextPath()%>/back-end/protected/groupbuy/listAllGro_order.jsp">訂單管理</a>
-						</li>
-					</ul>
-					<h1 class="text-white">團購訂單管理</h1>
+			<div class="card alert alert-dark">
+				<div class="card-header">
+					<h1 class="card-title text-dark">團購訂單管理</h1>
 				</div>
-				<%@ include file="../../../files/page1B.file" %>
 				<div class="card-body">
 					<div class="row">
-						<c:forEach var="gro_orderVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+						<c:forEach var="gro_orderVO" items="${list}">
 							<div class="col-6">
 								<div class="card alert alert-danger">
 									<div class="card-header"><h3>訂單資訊</h3></div>
@@ -190,6 +176,7 @@
 		</div>
 	</div>
 </div>
+
 
 
 

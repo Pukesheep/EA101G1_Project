@@ -288,7 +288,10 @@ div.content {
 	background: hsla(0, 0%, 100%, .8);
 	min-height: 800px;
 }
-
+pre img{
+	max-width:400px;
+	max-height:500px;
+}
 @media ( max-width : 1023px) {
 	.immed_nav .form-inline .form-control {
 		width: 250px;
@@ -523,7 +526,7 @@ div.content {
 
 				<div class="immedDesc px-3">
 					<h4 class="mb-4">°Ó«~´y­z</h4>
-					<div><%=immedVO.getImmed_desc()%></div>
+					<pre><%=immedVO.getImmed_desc()%></pre>
 
 				</div>
 

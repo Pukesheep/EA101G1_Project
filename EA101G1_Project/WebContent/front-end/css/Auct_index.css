@@ -44,7 +44,7 @@ body {
     /* background-color: #ecf0cc; */
     background-color:white;
     /* background-color: whitesmoke; */
-    background: url(../auct/images/rkXP0RBoX3.jpg);
+    background: url(../protected/auct/images/rkXP0RBoX3.jpg);
     background-size: cover;
 }
 .nav-auct{
@@ -105,7 +105,7 @@ header img{
     
 
 }
-/* 單一商品 */
+/* �銝����� */
 .product{
     
 }
