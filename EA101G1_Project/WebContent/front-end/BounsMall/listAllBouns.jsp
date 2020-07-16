@@ -42,6 +42,13 @@
     <!-- navbar end -->
     <section class="blank0"></section>
     <!-- 內容 -->
+    	
+    	<div class="container">
+    		<div class="row">
+    			
+    			
+    		</div>
+    	</div>
     	<form action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" method="post">
 			<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
 			<input type="hidden" name="action" value="getAllByMemberFront">
@@ -52,6 +59,7 @@
 			<input type="hidden" name="action" value="getAllByMemberFront">
 			<button type="submit" class="btn btn-danger float-left" >查詢紅利最愛</button>
 		</form>
+		
 		<div class="container">
 			<div class="row">
 				<c:forEach var="bmVO" items="${list}">
@@ -61,9 +69,10 @@
 								<img src="<%=request.getContextPath()%>/BounsMall/ImageServlet.do?bon_id=${bmVO.bon_id}" class="card-img-top" alt="...">
 								<div class="card-body">
 									<p class="card-text">
-										${bmVO.bon_name}
+										${bmVO.bon_name} － <i class="fas fa-clock"></i>${bmVO.bon_price}
 									</p>
 									<a href="<%=request.getContextPath()%>/BounsMall/BounsMall.do?action=getOne_For_Display&BON_ID=${bmVO.bon_id}" class="btn btn-primary">商品詳情</a>
+									<a href="<%=request.getContextPath()%>/Bouns"></a>
 								</div>
 							</div>
 						</div>
@@ -71,6 +80,7 @@
 				</c:forEach>	
 			</div>
 		</div>
+		
 	<!-- 內容 -->
         <!-- footer -->
 			<%@ include file="../../files/footer.jsp" %>
