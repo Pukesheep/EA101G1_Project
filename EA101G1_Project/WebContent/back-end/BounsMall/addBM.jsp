@@ -90,6 +90,9 @@ th, td {
 																<div align="center">
 																	<h5>
 																		<input type="text" name="bon_name" size="45"
+																				<c:if test="${not empty bmVO.getBon_id()}">
+																					value="<%=bmVO.getBon_name()%>"
+																				</c:if>
 																			placeholder="請輸入商品名稱" />
 																	</h5>
 																</div>
@@ -99,17 +102,24 @@ th, td {
 																</div>
 																<h5>
 																	<input type="TEXT" name="bon_price" size="45"
+																			<c:if test="${not empty bmVO.getBon_price()}">
+																				value="<%=bmVO.getBon_price()%>"
+																			</c:if>
 																		placeholder="請輸入所需紅利" />
 																</h5>
 																<h5>紅利商品描述：</h5>
 
 																<h5>
 																	<textarea rows="5" cols="48" name="bon_info"
-																		placeholder="請輸入商品描述"></textarea>
+																		placeholder="請輸入商品描述"><c:if test="${not empty bmVO.getBon_info()}"
+																			>value="<%=bmVO.getBon_info()%>"</c:if></textarea>
 																</h5>
 																<h5>紅利商品總量：</h5>
 																<h5>
 																	<input type="TEXT" name="bon_stock" size="45"
+																			<c:if test="${not empty bmVO.getBon_stock()}">
+																				value="<%=bmVO.getBon_stock()%>
+																			</c:if>
 																		placeholder="請輸入商品總量" />
 																</h5>
 																<jsp:useBean id="bmSvc" scope="page"
@@ -118,9 +128,10 @@ th, td {
 																<img alt=""
 																	src="<%=request.getContextPath()%>/BounsMall/BounsMall.do?bon_image=${bmVO.bon_image}">
 																<input type="file" name="bon_image" id="myFile"
-																	<c:if test="${not empty bmVO.getBon_image()}">value="<%=bmVO.getBon_image()%>
-																</c:if>
-																	accept="image/gif, image/jpeg, image/png" /> <br>
+																		<c:if test="${not empty bmVO.getBon_image()}">
+																			value="<%=bmVO.getBon_image()%>
+																		</c:if>
+																	accept="image/gif, image/jpeg, image/png" /><br>
 																<div class="row">
 																	<div id="preview"></div>
 																</div>

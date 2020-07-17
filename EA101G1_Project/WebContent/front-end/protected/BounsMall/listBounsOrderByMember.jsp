@@ -12,54 +12,50 @@
 <jsp:useBean id="bsSvc" scope="page" class="com.BounsState.model.BSService"/>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>會員紅利訂單查詢</title>
-	<style>
-		table#table-1 {
-			width: 450px;
-			background-color: #CCCCFF;
-			margin-top: 5px;
-			margin-bottom: 10px;
-			border: 3px ridge Gray;
-			height: 80px;
-			text-align: center;
-		}
-		table#table-1 h4 {
-			color: red;
-			display: block;
-			margin-bottom: 1px;
-		}
-		h4 {
-			color: blue;
-			display: inline;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>紅利訂單查詢</title>
+    <!-- TODO: 換title 的icon -->
+    <link rel="icon shortcut" href="<%=request.getContextPath()%>/front-end/img/ICON.ico">
+    <!-- Bootstrap官方網站 https://getbootstrap.com/ -->
+    <!-- 連結Bootstrap.min.css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- 使用font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <!-- 使用google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
+
+    <!-- 使用style.css -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
+
+    <!-- 連結Bootstrap所需要的js -->
+    <!-- jquery.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- popper.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <!-- bootstrap.min.js -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        
+    <!-- SweetAlert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<!-- CKEditor -->
+	<script src="<%=request.getContextPath()%>/files/ckeditor/ckeditor.js"></script>
+	<!-- post.css -->
 	
-	<style>
-		table {
-			width: 800px;
-			background-color: white;
-			margin-top: 5px;
-			margin-bottom: 5px;
-		}
-		table, th, td {
-			border: 1px solid #CCCCFF;
-		}
-		th, td {
-			padding: 5px;
-			text-align: center;
-		}
-	</style>
 </head>
+
 <body bgcolor='white'>
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>會員紅利訂單查詢 - /front-end/listBounsOrderByMember.jsp</h3>
-			</td>
-		</tr>
-	</table>
 	
 <!-- 	錯誤列表 -->
 	<c:if test="">
@@ -70,6 +66,17 @@
 			</c:forEach>
 		</ul>
 	</c:if>
+	
+	 <!-- navbar -->
+		<%@ include file="../../../files/header.jsp" %>
+    <!-- navbar end -->
+    <section class="blank0"></section>
+    <!-- 內容 -->
+    
+	<!-- 內容 -->
+        <!-- footer -->
+			<%@ include file="../../../files/footer.jsp" %>
+        <!-- footer -->
 	
 	<table>
 		<tr>
