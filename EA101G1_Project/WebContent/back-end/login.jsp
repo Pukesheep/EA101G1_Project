@@ -66,11 +66,11 @@
 
 
 <div class="input">
-帳號: <input type="text"  name="adm_acco" value="" placeholder="請輸入帳號">
+帳號: <input type="text"  name="adm_acco" value="" placeholder="請輸入帳號" required="required">
 </div>
 
 <div class="input">
-密碼: <input type="text"  name="adm_pass" value="" placeholder="請輸入密碼">
+密碼: <input type="text"  name="adm_pass" value="" placeholder="請輸入密碼" required="required">
 </div>
 <div id="button">
 <input type="submit" class="btn btn-warning" value="登入">
