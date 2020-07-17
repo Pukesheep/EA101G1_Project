@@ -199,6 +199,7 @@
 			
 			if (remain <= 0) {
 				$('#reveal').text('團購已截止, 下次請早');
+				$('#dropdownMenuReference').hide();
 			} else {
 				$('#reveal').text(day + ' 天 ' + hour + ' 小時 ' + minute + ' 分鐘 ' + second + ' 秒 ');
 			}

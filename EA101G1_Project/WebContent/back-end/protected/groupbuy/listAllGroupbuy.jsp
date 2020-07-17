@@ -171,6 +171,10 @@
 																			<c:when test="${groupbuyVO.status eq 3}">
 																				<h4 class="mt-5">狀態： 未達標</h4>
 																			</c:when>
+																			
+																			<c:when test="${groupbuyVO.status eq 4}">
+																				<h4 class="mt-5">狀態： 成立訂單</h4>
+																			</c:when>
 																		</c:choose>
 																		<h4>原價： $<fmt:formatNumber pattern="#" value="${productSvc.getOnePro(groupbuyVO.p_id).p_price}" /></h4>
 																		<h4>折扣1： ${rebateSvc.getOneRebate(groupbuyVO.reb1_no).people} 人 / $<fmt:formatNumber pattern="#" value="${rebateSvc.getOneRebate(groupbuyVO.reb1_no).discount * productSvc.getOnePro(groupbuyVO.p_id).p_price}" /> 元</h4>

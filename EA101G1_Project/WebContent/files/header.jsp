@@ -26,13 +26,15 @@
         
         <div class="navbar2 navbar-dark">
             <div class="row">
-                    <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">商城 </a></div>
-                    <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/groupbuy/listAllGroupbuy.jsp">團購 </a></div> 
-                    <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/protected/auct/Auct_index.jsp">競標區 </a></div> 
-                    <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">直購區 </a></div> 
-                    <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/post/listAllPost.jsp">討論區 </a></div> 
-                    <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/protected/BounsMall/listAllBouns.jsp">紅利</a></div> 
-                	<div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/Question/ListAll.jsp">Q&A</a></div>
+                  <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">商城 </a></div>
+                  <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/groupbuy/listAllGroupbuy.jsp">團購 </a></div> 
+                  <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/protected/auct/Auct_index.jsp">競標區 </a></div> 
+                  <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/immed/immed_index.jsp">直購區 </a></div>
+            </div>
+            <div class="row mt-2">
+                <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/post/listAllPost.jsp">討論區 </a></div> 
+                <div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/protected/BounsMall/listAllBouns.jsp">紅利</a></div> 
+            	<div class="item col-md-2"><a href="<%=request.getContextPath()%>/front-end/Question/ListAll.jsp">Q&A</a></div>
             </div>
         </div>
 
