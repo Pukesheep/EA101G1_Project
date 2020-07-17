@@ -2,9 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.FavoriteBouns.model.*" %>
+<%@ page import="com.member.model.*" %>
 
 <%
-	List<FBVO> list = (List<FBVO>) request.getAttribute("list");
+	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+	FBService fbSvc = new FBService();
+	List<FBVO> list = fbSvc.getMemFB(memberVO.getMem_id());
+	pageContext.setAttribute("list", list);
 %>
 
 <jsp:useBean id="bmSvc" scope="page" class="com.BounsMall.model.BMService"/>
@@ -50,6 +54,13 @@
 	<script src="<%=request.getContextPath()%>/files/ckeditor/ckeditor.js"></script>
 	<!-- post.css -->
 	
+	<style>
+		img.fbImg {
+			width: 150px;
+			height: 150px;
+		}
+	</style>
+	
 </head>
 <body bgcolor='white'>
 	
@@ -68,36 +79,58 @@
     <!-- navbar end -->
     <section class="blank0"></section>
     <!-- 內容 -->
-    
+    <div class="container">
+    	<div class="card alert alert-primary">
+    		<div class="card-header">
+   				<div align="center">
+   					<h4>"${sessionScope.memberVO.mem_name}"的最愛</h4>
+    			</div>
+    		</div>
+    		<%@ include file="../../../files/page1.file" %>
+    		<div class="card-body">
+    			<div class="row">
+    				<c:forEach var="fbVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >
+    					<div class="col-12">
+    						<div class="card alert alert-light mb-3 p-4">
+    							<div class="media alert alert-success">
+	    							<img class="fbImg" src="<%=request.getContextPath()%>/BounsMall/ImageServlet.do?bon_id=${fbVO.bon_id}">
+	    							<div class="media-body">
+	    								<div class="media justify-content-around align-items-center">
+		    								<div class="col-9">
+		    									<div align="center">
+		    										<h4>紅利商品名稱</h4>
+		    										<h4>${bmSvc.getByPK(fbVO.bon_id).bon_name}</h4>
+		    									</div>
+		    								</div>
+		    								<div class="col-3">
+		    									<div align="center">
+		    										<h4>紅利商品狀態</h4>
+		    										<h4>${bmSvc.getByPK(fbVO.bon_id).bon_status==0? "上架":"下架"}</h4>
+		    									</div>
+		    								</div>
+	    								</div>
+	    							</div>
+    							</div>
+    							<div align="center">
+	    							<form method="post" action="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do" style="margin-bottom: 0px;">
+										<input type="hidden" name="mem_id" value="${fbVO.mem_id}">
+										<input type="hidden" name="bon_id" value="${fbVO.bon_id}">
+										<input type="hidden" name="action" value="cancel">
+										<button type="submit" class="btn btn-warning float-center">取消最愛</button>
+									</form>
+								</div>
+    						</div>
+    					</div>
+    				</c:forEach>
+    			</div>
+    		</div>
+    		<%@ include file="../../../files/page2C.file" %>
+    	</div>
+    </div>
 	<!-- 內容 -->
-        <!-- footer -->
-			<%@ include file="../../../files/footer.jsp" %>
-        <!-- footer -->
-	
-	<table>
-		<tr>
-			<th>紅利商品</th>
-			<th>商品狀態</th>
-			<th>取消最愛</th>
-		</tr>
-		
-		<%@ include file="../../../files/page1.file" %>
-		<c:forEach var="fbVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-			<tr>
-				<td>${bmSvc.getByPK(fbVO.bon_id).bon_name}</td>
-				<td>${bmSvc.getByPK(fbVO.bon_id).bon_status==0? "上架":"下架"}</td>
-				<td>
-					<form method="post" action="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do" style="margin-bottom: 0px;">
-						<input type="hidden" name="mem_id" value="${fbVO.mem_id}">
-						<input type="hidden" name="bon_id" value="${fbVO.bon_id}">
-						<input type="hidden" name="action" value="cancel">
-						<input type="submit" value="取消" >
-					</form>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
-	<%@ include file="../../../files/page2.file" %>
+	<!-- footer -->
+	<%@ include file="../../../files/footer.jsp" %>
+	<!-- footer -->
 	
 </body>
 </html>
