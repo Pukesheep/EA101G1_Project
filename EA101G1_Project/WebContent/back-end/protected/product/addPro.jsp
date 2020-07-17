@@ -107,7 +107,7 @@
 															<div class="input-group-prepend">
 																<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-plus"></i></span>
 															</div>
-															<input type="TEXT" class="form-control text-center" name="p_name" size="45" <c:if test="${not empty proVO.getP_name()}">value="<%=proVO.getP_name()%>"</c:if>
+															<input type="TEXT" class="form-control text-center" id="p_name" name="p_name" size="45" <c:if test="${not empty proVO.getP_name()}">value="<%=proVO.getP_name()%>"</c:if>
 																	placeholder="請輸入商品名稱" />
 														</div>
 													</div>
@@ -118,7 +118,7 @@
 															<div class="input-group-prepend">
 																<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-plus"></i></span>
 															</div>
-															<input type="TEXT" class="form-control text-center" name="p_price" size="45" <c:if test="${not empty proVO.getP_price()}">value="<%=proVO.getP_price()%>"</c:if>
+															<input type="TEXT" class="form-control text-center" id="p_price" name="p_price" size="45" <c:if test="${not empty proVO.getP_price()}">value="<%=proVO.getP_price()%>"</c:if>
 																	placeholder="請輸入商品價格" />
 														</div>
 													</div>
@@ -129,7 +129,7 @@
 															<div class="input-group-prepend">
 																<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-plus"></i></span>
 															</div>
-															<input type="TEXT" class="form-control text-center" name="p_stock" size="45" <c:if test="${not empty proVO.getP_stock()}">value="<%=proVO.getP_stock()%>"</c:if>
+															<input type="TEXT" class="form-control text-center" id="p_stock" name="p_stock" size="45" <c:if test="${not empty proVO.getP_stock()}">value="<%=proVO.getP_stock()%>"</c:if>
 																	placeholder="請輸入商品庫存量" />
 														</div>
 														
@@ -167,7 +167,7 @@
 													<div class="row justify-content-center">
 														<div class="col-6 text-center">
 															<div class="btn-group">
-																<button class="btn btn-warning ">確認</button>
+																<button class="btn btn-warning ">確認</button><div><input type="button" id="magical" class="btn btn-danger" value="神奇按鈕"></div>
 																<div class="dropdown-menu">
 																	<input type="hidden" name="from" value="back-end">
 																	<input type="hidden" name="action" value="insert">
@@ -196,7 +196,7 @@
 								</div></label><front style="color:red">${errorMsgs.p_image}</front>
 								<div class="card-body">
 								<h2 class="card-title text-center">商品描述</h2>
-								<pre><textarea name="p_info" rows="6" cols="75"><c:if test="${not empty proVO.getP_info()}"><%=proVO.getP_info()%></c:if></textarea></pre><front style="color:red">${errorMsgs.p_info}</front>
+								<pre><textarea id="p_info" name="p_info" rows="6" cols="75"><c:if test="${not empty proVO.getP_info()}"><%=proVO.getP_info()%></c:if></textarea></pre><front style="color:red">${errorMsgs.p_info}</front>
 								</div>
 								</div>
 							</div>
@@ -254,6 +254,26 @@
 				}
 			});
 		}
+		
+		$('#magical').click(function(){
+			$('#p_name').val('健身環大冒險 RingFit');
+			$('#p_price').val('3150');
+			$('#p_stock').val('200');
+			$('#p_info').val(`主機平台：Switch
+
+遊戲類型：運動
+
+發售日期：2019-10-31
+
+遊戲人數：1人
+
+作品分級：保護級
+
+製作廠商：Nintendo
+
+發行廠商：Nintendo`);
+		});
+		$('#myFile').val('<%=request.getContextPath()%>/images/example2.jpeg')
 
 		window.onload = init;
 	</script>
