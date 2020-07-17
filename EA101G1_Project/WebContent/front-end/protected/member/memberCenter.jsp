@@ -112,7 +112,7 @@
 
 
 <div class="container">
-<div calss="row" style="display:flex">
+<div class="row" style="display:flex">
 	<div class="col-10">
 	<div class="row justify-content-center">
 	<div class="col">
@@ -189,9 +189,9 @@
 <!--開改 -->
 		<div class="ptlist" style="margin-top:120px;margin-right:60px;width:170px">
 
-<div class="Now block" style="width:170px;height:170px;display: flex;background-color:#c6d4df;margin-bottom:4px;border-radius:10px">
-	<div style="text-align:center; margin-top:70px;width:100%"><font style="font-weight:bold;font-size:20px;font-family:Microsoft JhengHei;">會員中心</font></div>
-	</div>
+<!-- <div class="Now block" style="width:170px;height:170px;display: flex;background-color:#c6d4df;margin-bottom:4px;border-radius:10px"> -->
+<!-- 	<div style="text-align:center; margin-top:70px;width:100%"><font style="font-weight:bold;font-size:20px;font-family:Microsoft JhengHei;">會員中心</font></div> -->
+<!-- 	</div> -->
 	
 <div class="list-group">
 	<div class="list-group-item active">
@@ -213,19 +213,14 @@
 			直購區
 		</h4>
 	</div>
-	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT004" class="list-group-item">
+	<a href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp" class="list-group-item">
 		<h4 class="list-group-item-heading">
-			選項1
+			商品管理
 		</h4>
 	</a>
-	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT005" class="list-group-item">
+	<a href="<%=request.getContextPath()%>/front-end/protected/immed/salerManage.jsp" class="list-group-item">
 		<h4 class="list-group-item-heading">
-			選項2
-		</h4>
-	</a>
-	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT006" class="list-group-item">
-		<h4 class="list-group-item-heading">
-			選項3
+			出貨管理
 		</h4>
 	</a>
 </div> 
@@ -236,22 +231,22 @@
 			競標區
 		</h4>
 	</div>
-	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT007" class="list-group-item">
+	<a href="<%=request.getContextPath()%>/front-end/protected/auct/listAllAuct.jsp" class="list-group-item">
 		<h4 class="list-group-item-heading">
-			1
+			我的拍賣
 		</h4>
 	</a>
-	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT008" class="list-group-item">
-		<h4 class="list-group-item-heading">
-			2
-		</h4>
+<div class="list-group">
+	<div class="list-group-item active">
+		<h4 class="list-group-item-heading">團購區</h4>
+	</div>
+	<a href="<%=request.getContextPath()%>/front-end/protected/groupbuy/listAllGromem.jsp" class="list-group-item">
+		<h4>我的團購</h4>
 	</a>
-	<a href="<%=request.getContextPath()%>/front-end/product/listAllProductByPt.jsp?pt_id=PT009" class="list-group-item">
-		<h4 class="list-group-item-heading">
-			3
-		</h4>
+	<a href="<%=request.getContextPath()%>/front-end/protected/groupbuy/listAllGro_order.jsp" class="list-group-item">
+		<h4>團購訂單</h4>
 	</a>
-	
+</div>	
 </div>
 
 </div>

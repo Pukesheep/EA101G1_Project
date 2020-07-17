@@ -58,7 +58,7 @@
             	</li>
             	
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/member/member.do?action=getOne_For_Display-front&mem_id=${sessionScope.memberVO.mem_id}">會員中心</a>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/member/member.do?action=showSelf&mem_id=${sessionScope.memberVO.mem_id}">會員中心</a>
                 </li>
                 <li class="nav-item">
                 	<a class="nav-link" href="<%=request.getContextPath()%>/member/login.do?action=logout">登出</a>
