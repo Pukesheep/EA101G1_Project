@@ -69,6 +69,9 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
+	
+<!-- SweetAlert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <style>
 
@@ -159,6 +162,10 @@
 							</div>
 						</div>
 					</div>
+					<form id="myAuctForm" method="post" action="<%=request.getContextPath()%>/front-end/auct/auct.do" style="display: none;">
+				          <input type="hidden" name="auct_id" value="${auctVO.auct_id}">
+				          <input type="hidden" name="action" value="payOne_update">
+				     </form>
 				</div>
 				<div class="product col-md-4 ">
 					<div class="product-rel">
@@ -246,6 +253,8 @@
 		var titlescore = document.getElementById("titlescore");
 		var score = document.getElementById("score");
 		var webSocket;
+		
+		var binArr = [];
 
 		function connect() {
 
@@ -267,16 +276,45 @@
 				
  
 //      alert(jsonObj.userName);
-					var rank=1;
-					var str =  '<tr><td class="row1">' + rank + '</td>'
-								 + '<td class="row2">' + arr[i].userName + '</td>'
-								 + '<td class="row3">' + parseInt(arr[i].score) + '</td></tr>';
+// 					var rank=1;
+// 					var str =  '<tr><td class="row1">' + rank + '</td>'
+// 								 + '<td class="row2">' + arr[i].userName + '</td>'
+// 								 + '<td class="row3">' + parseInt(arr[i].score) + '</td></tr>';
 
-					$("#messagesArea").prepend(str); //jQuery 加在字串的前面
+// 					$("#messagesArea").prepend(str); //jQuery 加在字串的前面
+					
+// 					$('.row1').each(function(i, item){ 
+// 						$(item).text(i+1);			   
+// 					});
 
-					$('.row1').each(function(i, item){ 
-						$(item).text(i+1);			   
-					});
+					//以上是,websocket送過來 的資料 , {key,value}JS物件, 做一個binArr[]陣列, push()從後面加入
+					binArr.push({ username: arr[i].userName, score: parseInt(arr[i].score) });
+					
+					var slimArr = []; //重新做一個 : 瘦身版[]
+					var preUser = ''; //新的使用者名稱
+					for(var j = (binArr.length-1); j >= 0; j--) {  //從binArr.length-1 最後一筆(最大) 開始檢查
+						if(preUser === '') { 
+							preUser = binArr[j].username;
+							slimArr.push(binArr[j]);
+						} else {
+							if(preUser === binArr[j].username) {
+							} else {
+								slimArr.push(binArr[j]);	
+							}
+						}
+					}
+					console.log(slimArr)
+					$("#messagesArea").empty(); //清空 此區塊, 以下 塞入 瘦身[],  瘦身[]順序已經正確,所以使用.append()
+					
+					for(var j = 0; j < slimArr.length; j++) {
+						var str =  '<tr><td class="row1">' + (j+1) + '</td>'
+						 + '<td class="row2">' + slimArr[j].username + '</td>'
+						 + '<td class="row3">' + slimArr[j].score + '</td></tr>';
+						$("#messagesArea").append(str); //jQuery 加在字串的前面                // 瘦身[]順序已經正確,所以使用.append()
+					}
+					
+					
+					
 				}
 				
 			};
@@ -362,18 +400,29 @@
 					action: 'timeout'
 				},
 				success: function(result){
-				
-				    if(true){
+				    if(result === "true"){
+				    	alert("恭喜得標");
+				    	$('#myAuctForm').submit(); //做一個假form,在這裡,使用.submit()方法送出商品ID
+				    							   //這樣對向頁面,就可以收到
+				    } else {
+				    	Swal.fire({
+							icon: 'info',
+							title: "競標結束 !!",
+							html: '還剩 <span id="myMessage">10</span> 秒後跳轉畫面', //在sweet alert塞入HTML語法
+							showConfirmButton: false,
+						});   //sweet alert 畫面不會停止, 需要set timer
 				    	
-				    alert("恭喜得標");
-				    document.location.href = '<%=request.getContextPath()%>/front-end/protected/auct/payMoney.jsp';		
+				    	var leftSeconds = 10;
+				    	setInterval(function(){  //
+				    		leftSeconds--;
+				    		$('#myMessage').text(leftSeconds); //畫面倒數10秒, 跳轉 
+				    		
+				    		if(leftSeconds === 0) { 
+				    			location.href = '<%=request.getContextPath()%>/front-end/protected/auct/Auct_index.jsp';
+				    		}
+				    	}, 1000);
 				    }
 				
-				    if(false){
-					alert("競標結束 !!"); 
-// 					alert("OK"); //可以改sweetAlert
-					document.location.href = '<%=request.getContextPath()%>/front-end/protected/auct/Auct_index.jsp';
-				    }
 				}// success結束
 			});  // Ajax結束
 		}

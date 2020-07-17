@@ -97,13 +97,13 @@
 							<div class="card-body bg-info">
 								<div class="media">
 									<div class="media-body">
-										<h1 class="mt-0">新增商品</h1>
+										<h1 class="mt-0">修改商品</h1>
 										<div class="media mt-3">
 											<div class="media-body">
 												<h3 class="mt-0">請輸入商品詳情</h3>
 												
 													<div class="form-group">
-														<label for="exampleInputEmail1" class="text-white">商品名稱<c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_price}</front></c:if></label>
+														<label for="exampleInputEmail1" class="text-white">商品名稱<c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_name}</front></c:if></label>
 														<div class="input-group mb-3">
 															<div class="input-group-prepend">
 																<span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-plus"></i></span>
@@ -197,7 +197,7 @@
 								</div></label><c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_image}</front></c:if>
 								<div class="card-body">
 								<h2 class="card-title text-center">商品描述</h2>
-								<pre><textarea name="p_info" rows="6" cols="50"><%=proVO.getP_info()%></textarea></pre><c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_info}</front></c:if>
+								<pre><textarea name="p_info" rows="6" cols="75"><%=proVO.getP_info()%></textarea></pre><c:if test="${not empty errorMsgs}"><front style="color:red">${errorMsgs.p_info}</front></c:if>
 								</div>
 								</div>
 							</div>
