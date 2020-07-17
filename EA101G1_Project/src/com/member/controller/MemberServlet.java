@@ -153,8 +153,8 @@ public class MemberServlet extends HttpServlet {
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			String update_member_input = "/front-end/protected/member/update_member_input.jsp";
-			String listOneMember = "/front-end/member/listOneMember.jsp";
+			String update_member_input = 	"/front-end/protected/member/update_member_input.jsp";
+			String MemberCenter = 			"/front-end/protected/member/memberCenter.jsp";
 			
 			try {
 				/***************************1.接收請求參數****************************************/
@@ -164,17 +164,20 @@ public class MemberServlet extends HttpServlet {
 				MemberService memberSvc = new MemberService();
 				MemberVO memberVO = memberSvc.getOneMember(mem_id);
 				
+				System.out.println(mem_id);
+				System.out.println(memberVO.getMem_id());
+				
+				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				
 				req.setAttribute("memberVO", memberVO); // 資料庫取出的 memberVO 物件, 存入 req
-				String url = "/front-end/member/update_member_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(update_member_input); // 成功轉交 update_member_input.jsp
 				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料： " + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher(listOneMember);
+				RequestDispatcher failureView = req.getRequestDispatcher(MemberCenter);
 				failureView.forward(req, res);
 			}
 		}

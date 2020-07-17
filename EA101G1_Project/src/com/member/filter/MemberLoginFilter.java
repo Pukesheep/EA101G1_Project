@@ -38,15 +38,6 @@ public class MemberLoginFilter implements Filter {
 		
 		// 從 seesion 判斷此 user 是否登入過
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-		AdmVO admVO = (AdmVO) session.getAttribute("admVO");
-		
-//		if (memberVO == null && admVO == null) {
-//			session.setAttribute("location", req.getRequestURI());
-//			res.sendRedirect(req.getContextPath() + "/front-end/member/login.jsp");
-//			return;
-//		} else if (memberVO != null || admVO != null) {
-//			chain.doFilter(request, response);
-//		}
 		
 		if (memberVO == null) {
 			session.setAttribute("location", req.getRequestURI());

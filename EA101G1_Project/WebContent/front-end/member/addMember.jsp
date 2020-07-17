@@ -100,6 +100,7 @@
 					<font id="font" class="hint"></font>
 					<img id="check" class="invisible">
 					<div class="form-group">
+						<input type="hidden" name="mem_autho" value="1">
 						<input type="hidden" name="action" value="signup">
 						<input type="submit" value="註冊" class="btn float-right login_btn" id="btn-submit">
 					</div>
