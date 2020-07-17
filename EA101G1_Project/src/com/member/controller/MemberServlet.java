@@ -164,10 +164,6 @@ public class MemberServlet extends HttpServlet {
 				MemberService memberSvc = new MemberService();
 				MemberVO memberVO = memberSvc.getOneMember(mem_id);
 				
-				System.out.println(mem_id);
-				System.out.println(memberVO.getMem_id());
-				
-				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				
 				req.setAttribute("memberVO", memberVO); // 資料庫取出的 memberVO 物件, 存入 req
