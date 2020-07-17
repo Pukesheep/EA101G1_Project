@@ -33,15 +33,6 @@ img#display {
 		<%@ include file="/back-end/css/aside.jsp"%>
 		<!-- aside -->
 
-		<%-- 錯誤列表 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤：</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
 	<main>
 		<nav aria-label="breadcrumb">
 		  <ol class="breadcrumb">
@@ -54,7 +45,9 @@ img#display {
 				<div class="col-12">
 					<div class="card alert alert-info">
 						<div class="card-header">
+				<div class="alert alert-success" role="alert">
 							<h1>全部紅利商品查詢</h1>
+							
 						</div>
 						<div class="card-body">
 							<div class="row">
@@ -81,12 +74,12 @@ img#display {
 				<th>${bmVO.bon_name}</th>
 				<th>${bmVO.bon_price}</th>
 				<th><img src="<%=request.getContextPath()%>/BounsMall/ImageServlet.do?bon_id=${bmVO.bon_id}"id="display"></th>
-				<td><pre>${bmVO.bon_info}</pre></td>
-				<td>${bmVO.bon_exchange}</td>
-				<td>${bmVO.bon_stock}</td>
-				<td>${bmVO.bon_addDate}</td>
-				<td>${(bmVO.bon_status==0)? "上架":"下架"}</td>
-				<td>
+				<th><pre>${bmVO.bon_info}</pre></th>
+				<th>${bmVO.bon_exchange}</th>
+				<th>${bmVO.bon_stock}</th>
+				<th>${bmVO.bon_addDate}</th>
+				<th>${(bmVO.bon_status==0)? "上架":"下架"}</th>
+				<th>
 					<form method="post"
 						action="<%=request.getContextPath()%>/BounsMall/BounsMall.do"
 						style="margin-bottom: 0px;">
@@ -94,8 +87,8 @@ img#display {
 						<input type="hidden" name="action" value="getOne_For_Update">
 						<button type="submit" class="btn btn-outline-info">修改</button>
 					</form>
-				</td>
-				<td>
+				
+				<td><th>
 					<form method="post"
 						action="<%=request.getContextPath()%>/BounsMall/BounsMall.do"
 						style="margin-bottom: 0px;">
@@ -104,7 +97,7 @@ img#display {
 						<button type="submit" class="btn btn-outline-danger">刪除</button>
 
 					</form>
-				</td>
+				</th>
 			</tr>
 		</c:forEach>
 	</table>
@@ -113,7 +106,15 @@ img#display {
 	</div>
 	
 	</div>
-	
+		<%-- 錯誤列表 --%>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color: red">請修正以下錯誤：</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
 	</div>
 	
 	</div>
