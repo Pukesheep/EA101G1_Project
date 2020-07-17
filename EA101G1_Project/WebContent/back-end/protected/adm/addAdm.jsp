@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.adm.model.*"%>
+<%@ page import="java.util.*"%>
 <%
 AdmVO admVO = (AdmVO) request.getAttribute("admVO");
 %>
@@ -12,6 +13,17 @@ AdmVO admVO = (AdmVO) request.getAttribute("admVO");
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>員工新增 - addAdm.jsp</title>
+ <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/bootstrap.min.css">
+ <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>  
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <%@ include file="/back-end/css/BackHeaderCssLink" %>
     <style>
   table#a {
@@ -45,13 +57,14 @@ AdmVO admVO = (AdmVO) request.getAttribute("admVO");
   th, td {
     padding: 1px;
   }
-  h3{
-  	 padding: 10px;
-  	 text-align: center;
-  	 background-color: #BB6655;
-  }
+  h1,h3{
+    		padding: 10px;
+    		text-align: center;
+    		background-color:#22AA99;
+    		
+    	}
   body{
-     background-color:#448888;	
+    		background-color:#446688;	
     	}
   
   p{
@@ -87,17 +100,43 @@ AdmVO admVO = (AdmVO) request.getAttribute("admVO");
 
  <main>
 
-		 <h3>員工新增 </h3></td><td>
+		 <h3>員工新增 </h3>
 		 
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
+<%-- 錯誤訊息 --%>
+<c:if test="${not empty errorMsgs }">
+<%
+	List<String> errorMsgs = (List<String>) request.getAttribute("errorMsgs");
+	String error = "";
+	for (String er : errorMsgs) {
+		error += er+"\\n";	
+	}
+%>
+<script>
+	Swal.fire({
+		icon: 'error',
+		title: '<%=error%>'
+	});
+</script>
 </c:if>
+<%-- 錯誤訊息 --%>	
+
+<%-- 成功訊息 --%>
+<c:if test="${not empty successMsgs }">
+<%
+	List<String> successMsgs = (List<String>) request.getAttribute("successMsgs");
+	String success = "";
+	for (String su : successMsgs) {
+		success += su+"\\n";
+	}
+%>
+<script>
+	Swal.fire({
+		icon: 'success',
+		title: '<%=success%>'
+	});
+</script>
+</c:if>
+<%-- 成功訊息 --%>
 
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/adm/adm.do" name="form1">
 
@@ -118,17 +157,13 @@ AdmVO admVO = (AdmVO) request.getAttribute("admVO");
 		<td><input type="TEXT" name="adm_name" size="45"
 			 value="" placeholder="請輸入員工姓名"/></td>
 	</tr>
-	<tr>
-		<td>員工狀態:</td>
-		<td><input type="TEXT" name="adm_state" size="45"
-			 value="" placeholder="請輸入員工狀態" /></td>
-	</tr>
+
 </table>
 <br>
 
 <div id="button">
-<input type="hidden" name="action" value="insert">
-<input type="submit" class="btn btn-warning" value="新增">
+<input type="hidden" name="action" value="register">
+<input type="submit" class="btn btn-warning" id="add" value="新增">
 
 </FORM>
 </div>
@@ -151,10 +186,16 @@ AdmVO admVO = (AdmVO) request.getAttribute("admVO");
 		}
 	%>
 	<script>
-		Swal.fire({
+	$('add').click(function(){
+		 var shop=$(this).closest('form');
+		 
+		 var timer = setTimeout(function(){
+			 shop.submit();
+			}, 800);	
+	Swal.fire({
 			icon: 'success',
 			title: '<%=message%>'
-		});
+		})
 	</script>
 	
 	</c:if>

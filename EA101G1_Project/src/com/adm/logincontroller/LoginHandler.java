@@ -16,22 +16,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/loginhandler")
 public class LoginHandler extends HttpServlet {
 	
-  protected boolean allowUser(String adm_acco, String adm_pass, HttpServletRequest req) {
-	  //return true;
-	  AdmService admSvc = new AdmService();
-	  AdmVO admVO = admSvc.loginByAcco(adm_acco);
-	
-	  String account = admVO.getAdm_acco();
-	  String password = admVO.getAdm_pass();
-	  if(!adm_pass.matches(password)) {
-		  return false;
-	  }
-	  else {
-		  HttpSession session = req.getSession();
-		  req.setAttribute("admVO",admVO);
-		  session.setAttribute("admVO",admVO);
-		  return true;}
-  }
+  
   public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		doPost(req, res);
@@ -40,39 +25,98 @@ public class LoginHandler extends HttpServlet {
                                 throws ServletException, IOException {
     req.setCharacterEncoding("Big5");
     res.setContentType("text/html; charset=Big5");
-    PrintWriter out = res.getWriter();
     
-    List<String> successMsgs = new LinkedList<String>();
-	// Store this set in the request scope, in case we need to
-	// send the ErrorPage view.
-	req.setAttribute("successMsgs", successMsgs);
+    String action = req.getParameter("action");
+    if ("login".equals(action)) {
+    
+    List<String> errorMsgs = new LinkedList<String>();
+	req.setAttribute("errorMsgs", errorMsgs);
 	
+	List<String> successMsgs = new LinkedList<String>();
+	req.setAttribute("successMsgs", successMsgs);
+    
+	try {
+	
+		String adm_acco = req.getParameter("adm_acco").trim();
+		if (adm_acco == null || adm_acco.trim().length() == 0) {
+			errorMsgs.add("請輸入員工帳號");
+		}
+		String adm_pass = req.getParameter("adm_pass");
+		if (adm_pass == null || adm_pass.trim().length() == 0) {
+			errorMsgs.add("請輸入員工密碼");
+		}
+		
+		if (!errorMsgs.isEmpty()) {
+			RequestDispatcher failureView = req.getRequestDispatcher("/back-end/login.jsp");
+			failureView.forward(req, res);
+			return;
+		}
+		
+		//驗證//
+		
+		HttpSession session = req.getSession();
 
-    String adm_acco = req.getParameter("adm_acco");
-    String adm_pass = req.getParameter("adm_pass");
-
-    if (!allowUser(adm_acco, adm_pass,req)) {
+		if (!allowUser(adm_acco, adm_pass,session)) {
+			
+			errorMsgs.add("帳號或密碼無效");
+			RequestDispatcher failureView = req.getRequestDispatcher("/back-end/login.jsp");
+			failureView.forward(req, res);
+		}else {                                       
       
-      RequestDispatcher failureView = req
-				.getRequestDispatcher("/back-end/login.jsp");
-		failureView.forward(req, res);
-    }else {                                       
-      HttpSession session = req.getSession();
-      session.setAttribute("adm_acco", adm_acco);   
-      
-       try {                                                        
-         String location = (String) session.getAttribute("location");
-         if (location != null) {
-           session.removeAttribute("location");   
-           res.sendRedirect(location);            
-           return;
-         }
-       }catch (Exception ignored) { }
-
-      successMsgs.add("登入成功");
-      RequestDispatcher successView = req
-				.getRequestDispatcher("/back-end/index.jsp");
-		successView.forward(req, res);
+			try {
+				String location = (String) session.getAttribute("location");
+				if (location != null) {
+					session.removeAttribute("location");
+					res.sendRedirect(location);
+					return;
+				} 
+				
+			} catch (Exception ignored) {
+				ignored.printStackTrace(System.err);
+			}
+			successMsgs.add("登入成功");
+			RequestDispatcher successView = req.getRequestDispatcher("/back-end/index.jsp");
+			successView.forward(req, res);
+			
+		}
+	} catch (Exception ignored) {
+		ignored.printStackTrace(System.err);
+	}
     }
+    
+    if ("logout".equals(action)) {
+		
+		HttpSession session = req.getSession();
+		
+		try {
+			session.removeAttribute("admVO");
+			
+		} catch (Exception ignored) {
+			ignored.printStackTrace(System.err);
+		}
+		
+		RequestDispatcher back = req.getRequestDispatcher("/back-end/index.jsp");
+		back.forward(req, res);
+	}
+	
+  }
+  
+  
+    protected boolean allowUser(String adm_acco, String adm_pass, HttpSession session) {
+  	  
+  	  AdmService admSvc = new AdmService();
+  	  AdmVO admVO = admSvc.loginByAcco(adm_acco);
+  	  
+  	  if (admVO.getAdm_pass() == null) {
+  			return false;
+  	  } else if (!adm_pass.matches(admVO.getAdm_pass())) {
+  			return false;
+  	  }else {
+  		  session.setAttribute("admVO",admVO);
+  		  return true;
+  	  }  
+  
   }
 }
+      
+       

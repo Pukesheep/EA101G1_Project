@@ -235,19 +235,11 @@ public class AdmServlet extends HttpServlet {
 					errorMsgs.add("員工姓名請勿空白");
 				}
 				
-				Integer adm_state = null;
-				try{
-					adm_state = new Integer(req.getParameter("adm_state").trim());
-				}catch(NumberFormatException e) {
-					adm_state= 0;
-					errorMsgs.add("員工狀態請填數字");
-				}	
-				
 				AdmVO admVO = new AdmVO();
 				admVO.setAdm_acco(adm_acco);
 				admVO.setAdm_pass(adm_pass);
 				admVO.setAdm_name(adm_name);
-				admVO.setAdm_state(adm_state);
+				admVO.setAdm_state(1);
 				
 				
 				// Send the use back to the form, if there were errors
@@ -261,7 +253,7 @@ public class AdmServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				AdmService admSvc = new AdmService();
-				admVO = admSvc.addAdm(adm_acco, adm_pass, adm_name, adm_state);
+				admVO = admSvc.addAdm(adm_acco, adm_pass, adm_name, 1);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/back-end/protected/adm/addAdm.jsp";

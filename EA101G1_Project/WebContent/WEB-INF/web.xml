@@ -416,7 +416,16 @@
 <!-- 會員登入 + 會員登入濾器 -->
 
 <!-- 員工登入濾器 -->
-
+    
+    <servlet>
+		<servlet-name>LoginHandler2</servlet-name>
+		<servlet-class>com.adm.logincontroller.LoginHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginHandler2</servlet-name>
+		<url-pattern>/adm/login.do</url-pattern>
+	</servlet-mapping>
+	
 	<filter>
 		<filter-name>LoginFilter</filter-name>
 		<filter-class>com.adm.logincontroller.LoginFilter</filter-class>

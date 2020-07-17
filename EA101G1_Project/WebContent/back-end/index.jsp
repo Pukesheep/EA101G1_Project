@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.adm.model.*"%>
+<%@ page import="java.util.*"%>
 <%
 	AdmVO admVO = (AdmVO) request.getAttribute("admVO");
 %>
@@ -46,7 +47,25 @@ body {
 </head>
 
 <body>
-	<!-- header -->
+	<%-- 成功訊息 --%>
+<c:if test="${not empty successMsgs }">
+<%
+	List<String> successMsgs = (List<String>) request.getAttribute("successMsgs");
+	String success = "";
+	for (String su : successMsgs) {
+		success += su+"\\n";
+	}
+%>
+<script>
+	Swal.fire({
+		icon: 'success',
+		title: '<%=success%>'
+	});
+</script>
+</c:if>
+<%-- 成功訊息 --%>
+
+<!-- header -->
 
 	<%@ include file="/back-end/css/header.jsp"%>
 	<!-- header -->
