@@ -86,16 +86,15 @@ img#display {
 						<input type="hidden" name="bon_id" value="${bmVO.bon_id}">
 						<input type="hidden" name="action" value="getOne_For_Update">
 						<button type="submit" class="btn btn-outline-info">­×§ï</button>
-					</form>
-				
-				<td><th>
+					</form>				
+				<td><th>			
 					<form method="post"
 						action="<%=request.getContextPath()%>/BounsMall/BounsMall.do"
 						style="margin-bottom: 0px;">
 						<input type="hidden" name="bon_id" value="${bmVO.bon_id}">
 						<input type="hidden" name="action" value="delete">
 						<button type="submit" class="btn btn-outline-danger">§R°£</button>
-
+	</td></th>
 					</form>
 				</th>
 			</tr>

@@ -1,6 +1,6 @@
 package com.BounsMall.model;
 
-import java.util.List;
+import java.util.*;
 
 public class BMService {
 	
@@ -67,6 +67,14 @@ public class BMService {
 	
 	public List<BMVO> getAll() {
 		return dao.getAll();
+	}
+	
+	public Set<BMVO> getAllRan(){
+		Set<BMVO> set = new HashSet<BMVO>();
+		List<BMVO> list = dao.getAll();
+		for ( BMVO i : list )
+			set.add(i);
+		return set;
 	}
 	
 	public List<BMVO> getByPtId ( String pt_id ){

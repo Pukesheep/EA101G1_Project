@@ -9,13 +9,12 @@
 	BMService bmSvc = new BMService();
 	List<BMVO> list = bmSvc.getAll();
 	pageContext.setAttribute("list",list);
-	HashSet<BMVO> hash = bmSvc.getAll();
-	pageContext.setAttribute("hash", hash);
+	Set<BMVO> set = bmSvc.getAllRan();
+	pageContext.setAttribute("set", set);
 	BMVO bmVO = (BMVO) request.getAttribute("bmVO");
 	MemberService memSvc = new MemberService(); 
 	MemberVO memVO = (MemberVO) request.getAttribute("memVO");
 %>
-
 
 <jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
 
@@ -113,7 +112,7 @@
 								<h6>
 									<div class="row" style="height:10%">
 										<div class="col-4"><div class="bon_stock">庫存 － ${(bmVO.bon_stock-bmVO.bon_exchange)}</div></div>
-										<div class="col-4"><div class="bon_price">所需紅利 －  <i class="fas fa-clock"></i>${bmVO.bon_price}</div></div>
+										<div class="col-4"><div class="bon_price">所需紅利 －  <i class="fas fa-clock text-warning"></i>${bmVO.bon_price}</div></div>
 									</div>
 								</h6>
 								<pre>${bmVO.bon_info}</pre>
@@ -146,14 +145,14 @@
 			</div>
 			<div class="col-8">
 				<div class="row">
-					<c:forEach var="bmVO" items="${hash}" varStatus="s">
+					<c:forEach var="bmVO" items="${set}" varStatus="s">
 						<c:if test="${s.count <= 4}">
 							<div class="col-3">
 								<div class="card mt-5">
 									<figure class="figure">
 										<a href="<%=request.getContextPath()%>/BounsMall/BounsMall.do?action=getOne_For_Display&BON_ID=${bmVO.bon_id}">
 											<img src="<%=request.getContextPath()%>/BounsMall/ImageServlet.do?bon_id=${bmVO.bon_id}" class="figure-img img-fluid rounded" alt="...">
-											<figcaption class="figure-caption text-center">${bmVO.bon_name} －  <i class="fas fa-clock"></i>${bmVO.bon_price}</figcaption>
+											<figcaption class="figure-caption text-center">${bmVO.bon_name}<br><i class="fas fa-clock text-warning"></i>${bmVO.bon_price}</figcaption>
 										</a>
 									</figure>
 								</div>

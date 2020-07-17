@@ -11,56 +11,47 @@
 
 <html>
 <head>
-	<title>穦程稲琩高</title>
-	<style>
-		table#table-1 {
-			width: 450px;
-			background-color: #CCCCFF;
-			margin-top: 5px;
-			margin-bottom: 10px;
-			border: 3px ridge Gray;
-			height: 80px;
-			text-align: center;
-		}
-		table#table-1 h4 {
-			color: red;
-			display: block;
-			margin-bottom: 1px;
-		}
-		h4 {
-			color: blue;
-			display: inline;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>穦程稲琩高</title>
+    <!-- TODO: 传title icon -->
+    <link rel="icon shortcut" href="<%=request.getContextPath()%>/front-end/img/ICON.ico">
+    <!-- Bootstrap﹛よ呼 https://getbootstrap.com/ -->
+    <!-- 硈挡Bootstrap.min.css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- ㄏノfont awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <!-- ㄏノgoogle Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
+
+    <!-- ㄏノstyle.css -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
+
+    <!-- 硈挡Bootstrap┮惠璶js -->
+    <!-- jquery.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- popper.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <!-- bootstrap.min.js -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        
+    <!-- SweetAlert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<!-- CKEditor -->
+	<script src="<%=request.getContextPath()%>/files/ckeditor/ckeditor.js"></script>
+	<!-- post.css -->
 	
-	<style>
-		table {
-			width: 800px;
-			background-color: white;
-			margin-top: 5px;
-			margin-bottom: 5px;
-		}
-		table, th, td {
-			border: 1px solid #CCCCFF;
-		}
-		th, td {
-			padding: 5px;
-			text-align: center;
-		}
-	</style>
 </head>
 <body bgcolor='white'>
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>穦程稲琩高 - /front-end/listFavoriteByMember.jsp</h3>
-<!-- 				<h4> -->
-<%-- 					<a href="<%=request.getContextPath()%>/back-end/FavoriteBouns/select_page.jsp"> --%>
-<!-- 						<img src="images/back1.gif" width="100" height="32" border="0"></a> -->
-<!-- 				</h4> -->
-			</td>
-		</tr>
-	</table>
 	
 <!-- 	岿粇 -->
 	<c:if test="">
@@ -71,6 +62,17 @@
 			</c:forEach>
 		</ul>
 	</c:if>
+	
+	<!-- navbar -->
+		<%@ include file="../../../files/header.jsp" %>
+    <!-- navbar end -->
+    <section class="blank0"></section>
+    <!-- ず甧 -->
+    
+	<!-- ず甧 -->
+        <!-- footer -->
+			<%@ include file="../../../files/footer.jsp" %>
+        <!-- footer -->
 	
 	<table>
 		<tr>
