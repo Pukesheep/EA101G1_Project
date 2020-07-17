@@ -371,7 +371,7 @@
 	<servlet>
 		<servlet-name>QuestionServlet</servlet-name>
 		<servlet-class>com.question.controller.QuestionServlet</servlet-class>
-		<load-on-startup>10</load-on-startup>
+		
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>QuestionServlet</servlet-name>
