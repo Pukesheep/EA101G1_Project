@@ -1013,34 +1013,7 @@ public class MemberServlet extends HttpServlet {
 						mem_icon, mem_phone, mem_addr, bank_acc,
 						card_no, card_yy, card_mm, card_sec, mem_autho,
 						mem_bonus, mem_joindat, mem_birth, mem_warn);
-				/**************************redis新增好友欄**********************************/
-				Jedis jedis = null;
-				jedis=new Jedis("localhost",6379);
-				jedis.auth("123456");
-				MemberJDBCDAO memSvc=new MemberJDBCDAO();
-				List<MemberVO> listMember=memSvc.getAll();
-				List<String> list=new ArrayList<String>();
-				for(MemberVO mem:listMember) {
-					list.add(mem.getMem_name());
-				}
-				list.add("CustomerSever");
-				for(int i=0;i<list.size();i++) {
-					List<String> newList = new ArrayList<>();
-					for(int j=0;j<list.size();j++) {				
-						if(!(list.get(i).equals(list.get(j)))) {
-							StringBuffer str=new StringBuffer(list.get(i));
-							String key=str.append(":").append(list.get(j)).toString();
-							if (!jedis.exists(key)) {	//改
-								String message="{\"type\" : \"chat\"," + "\"sender\" : \""+list.get(i)+"\",\"receiver\":\""+list.get(j)+"\",\"message \":\" "
-										+ " happy \" }";
-								jedis.rpush(key,message);
-								System.out.println(key);
-							}
-						}
-						
-					}	
-				}
-				jedis.close();
+				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				req.setAttribute("memberVO", memberVO);
 				String url = "/front-end/member/listAllMember.jsp";
