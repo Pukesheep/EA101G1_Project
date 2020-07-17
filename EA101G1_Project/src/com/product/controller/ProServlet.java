@@ -118,45 +118,53 @@ public class ProServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-
+			ProService  proSvc = new ProService();
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				String p_id = new String(req.getParameter("p_id").trim());
-
+				
 				String p_name = req.getParameter("p_name");
 				if (p_name == null || p_name.trim().length() == 0) {
+					ProVO proVO = proSvc.getOnePro(p_id);
+					p_name = proVO.getP_name();
 					errorMsgs.put("p_name","商品名稱請勿空白");
 				}
 
 				Double p_price = null;
 				String p_pricestr = req.getParameter("p_price");
 				if (p_pricestr == null || (p_pricestr.trim()).length() == 0) {
-					p_price = 0.0;
+					ProVO proVO = proSvc.getOnePro(p_id);
+					p_price = proVO.getP_price();
 					errorMsgs.put("p_price","商品價格請勿空白");
 				} else {
 					try {
 						p_price = new Double(req.getParameter("p_price").trim());
 					} catch (NumberFormatException e) {
-						p_price = 0.0;
+						ProVO proVO = proSvc.getOnePro(p_id);
+						p_price = proVO.getP_price();
 						errorMsgs.put("p_price","商品價格請填數字.");
 					}
 				}
 
 				String p_info = req.getParameter("p_info").trim();
 				if (p_info == null || p_info.trim().length() == 0) {
+					ProVO proVO = proSvc.getOnePro(p_id);
+					p_info = proVO.getP_info();
 					errorMsgs.put("p_info","商品描述請勿空白");
 				}
 
 				Integer p_stock = null;
 				String p_stockstr = req.getParameter("p_stock");
 				if (p_stockstr == null || p_stockstr.trim().length() == 0) {
-					p_stock = 0;
+					ProVO proVO = proSvc.getOnePro(p_id);
+					p_stock = proVO.getP_stock();
 					errorMsgs.put("p_stock","商品庫存請勿空白");
 				} else {
 					try {
 						p_stock = new Integer(req.getParameter("p_stock").trim());
 					} catch (NumberFormatException e) {
-						p_stock = 0;
+						ProVO proVO = proSvc.getOnePro(p_id);
+						p_stock = proVO.getP_stock();
 						errorMsgs.put("p_stock","商品庫存請填數字.");
 					}
 				}
@@ -204,7 +212,6 @@ public class ProServlet extends HttpServlet {
 				}
 
 				/*************************** 2.開始修改資料 *****************************************/
-				ProService proSvc = new ProService();
 				proVO = proSvc.updatePro(p_id, pt_id, p_name, p_price, p_image, p_info, p_sales, p_stock, p_add_date,
 						p_stat);
 
