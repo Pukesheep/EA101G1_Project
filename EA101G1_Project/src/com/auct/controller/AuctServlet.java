@@ -439,7 +439,8 @@ System.out.println("拍賣結束--會員ID----------------"+session_mem_id);
 			res.setContentType("text/plain");
 			res.setCharacterEncoding("utf-8");
 			Writer writer = res.getWriter();
-			if(session_mem_id == buy_id)
+			System.out.println(session_mem_id.equals(buy_id));
+			if(session_mem_id.equals(buy_id))
 				writer.append("true"); //只能傳字串
 			else
 				writer.append("false");

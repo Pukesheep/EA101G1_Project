@@ -196,7 +196,7 @@
 								</div></label><front style="color:red">${errorMsgs.p_image}</front>
 								<div class="card-body">
 								<h2 class="card-title text-center">商品描述</h2>
-								<pre><textarea name="p_info" rows="6" cols="50"><c:if test="${not empty proVO.getP_info()}"><%=proVO.getP_info()%></c:if></textarea></pre><front style="color:red">${errorMsgs.p_info}</front>
+								<pre><textarea name="p_info" rows="6" cols="75"><c:if test="${not empty proVO.getP_info()}"><%=proVO.getP_info()%></c:if></textarea></pre><front style="color:red">${errorMsgs.p_info}</front>
 								</div>
 								</div>
 							</div>

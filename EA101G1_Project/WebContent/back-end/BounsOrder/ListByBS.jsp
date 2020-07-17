@@ -98,20 +98,15 @@
 												</div>
 											</div>
 											<div class="row justify-content-center">
-												<div class="col-8">
-													<div style="margin_left: 0%">
-														<form action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" method="post">
-															<input type="hidden" name="ord_id" value="${boVO.ord_id}">
-															<input type="hidden" name="action" value="getOne_For_Update">
-															<button type="submit" class="btn btn-warning float-left" >修改紅利訂單</button>
-														</form>
-													</div>
-													<div style="margin-left: 75%">
-														<form action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" method="post" >
-															<input type="hidden" name="ord_id" value="${boVO.ord_id}" >
-															<input type="hidden" name="action" value="delete">
-															<button type="submit" class="btn btn-danger float-left" >刪除紅利訂單</button>
-														</form>
+												<div class="dropdown">
+													<button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+														修改訂單狀態
+													</button>
+													<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+														<a class="dropdown-item" href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=updateBS&ord_id=${boVO.ord_id}&bs_id=BS003">已出貨</a>
+														<a class="dropdown-item" href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=updateBS&ord_id=${boVO.ord_id}&bs_id=BS004">已完成</a>
+														<a class="dropdown-item" href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=updateBS&ord_id=${boVO.ord_id}&bs_id=BS005">待審核</a>
+														<a class="dropdown-item" href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=updateBS&ord_id=${boVO.ord_id}&bs_id=BS006">已退換</a>
 													</div>
 												</div>
 											</div>

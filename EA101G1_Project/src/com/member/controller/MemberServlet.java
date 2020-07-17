@@ -10,6 +10,9 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import javax.servlet.http.Part;
 import com.member.model.*;
+
+import redis.clients.jedis.Jedis;
+
 import com.google.gson.Gson;
 import com.member.controller.*;
 
@@ -153,8 +156,8 @@ public class MemberServlet extends HttpServlet {
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			String update_member_input = "/front-end/protected/member/update_member_input.jsp";
-			String listOneMember = "/front-end/member/listOneMember.jsp";
+			String update_member_input = 	"/front-end/protected/member/update_member_input.jsp";
+			String MemberCenter = 			"/front-end/protected/member/memberCenter.jsp";
 			
 			try {
 				/***************************1.接收請求參數****************************************/
@@ -167,14 +170,13 @@ public class MemberServlet extends HttpServlet {
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				
 				req.setAttribute("memberVO", memberVO); // 資料庫取出的 memberVO 物件, 存入 req
-				String url = "/front-end/member/update_member_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(update_member_input); // 成功轉交 update_member_input.jsp
 				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料： " + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher(listOneMember);
+				RequestDispatcher failureView = req.getRequestDispatcher(MemberCenter);
 				failureView.forward(req, res);
 			}
 		}
@@ -1011,6 +1013,7 @@ public class MemberServlet extends HttpServlet {
 						card_no, card_yy, card_mm, card_sec, mem_autho,
 						mem_bonus, mem_joindat, mem_birth, mem_warn);
 				
+				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				req.setAttribute("memberVO", memberVO);
 				String url = "/front-end/member/listAllMember.jsp";
@@ -1096,9 +1099,40 @@ public class MemberServlet extends HttpServlet {
 					return;
 				}
 				
+				
 				/***************************2.開始新增資料***************************************/
 				MemberService memberSvc = new MemberService();
 				memberVO = memberSvc.signUp(mem_name, mem_email, mem_pass, mem_autho);
+				
+				
+				/**************************redis新增好友欄**********************************/
+				Jedis jedis = null;
+				jedis=new Jedis("localhost",6379);
+				jedis.auth("123456");
+				MemberDAO memSvc=new MemberDAO();
+				List<MemberVO> listMember=memSvc.getAll();
+				List<String> list=new ArrayList<String>();
+				for(MemberVO mem:listMember) {
+					list.add(mem.getMem_name());
+				}
+				list.add("CustomerSever");
+				for(int i=0;i<list.size();i++) {
+					List<String> newList = new ArrayList<>();
+					for(int j=0;j<list.size();j++) {				
+						if(!(list.get(i).equals(list.get(j)))) {
+							StringBuffer str=new StringBuffer(list.get(i));
+							String key=str.append(":").append(list.get(j)).toString();
+							if (!jedis.exists(key)) {	//改
+								String message="{\"type\" : \"chat\"," + "\"sender\" : \""+list.get(i)+"\",\"receiver\":\""+list.get(j)+"\",\"message \":\" "
+										+ " happy \" }";
+								jedis.rpush(key,message);
+								System.out.println(key);
+							}
+						}
+						
+					}	
+				}
+				jedis.close();
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String to = mem_email;

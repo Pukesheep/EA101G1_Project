@@ -24,6 +24,13 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/protected/auct/style.css">
 
 <style>
+ body{
+        background-image: url(images/bg_buy_order.jpg);
+        background-size: cover; 
+ 	    background-attachment: fixed;
+        }
+/*  ================================================================================== */
+
 * {
 	margin: 0px;
 }
@@ -174,7 +181,7 @@ color:whitesmoke;
 						<label for="securitycode">
 							<b>- ≈Á√“ΩX -</b>
 						</label>
-						<input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric" ${memberVO.card_sec} required>
+						<input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric" value="${memberVO.card_sec}" required>
 					</div>
 					<input type="hidden" name="action" value="payMoney">
 					<div class="d-flex justify-content-center">
