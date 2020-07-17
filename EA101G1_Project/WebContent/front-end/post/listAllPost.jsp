@@ -83,9 +83,9 @@
 <%-- 錯誤表列 --%>
 
 <nav aria-label="breadcrumb">
-	<ol class="breadcrumb">
-		<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
-		<li class="breadcrumb-item active" aria-current="page">討論區</li>
+	<ol class="breadcrumb bg-transparent">
+		<li class="breadcrumb-item"><a class="text-white" href="<%=request.getContextPath()%>/front-end/index.jsp">首頁</a></li>
+		<li class="breadcrumb-item active text-warning" aria-current="page">討論區</li>
 	</ol>
 </nav>
 
