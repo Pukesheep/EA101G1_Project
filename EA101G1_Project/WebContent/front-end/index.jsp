@@ -100,75 +100,112 @@
     <!-- header end -->
 
 
-    <!-- 限時優惠 -->
+
+    <!-- -->
   <section class="discount">
     <div class="col-md-12 text-center" style="border-radius:5px; list-style-type:none;">
-<!-- 			    <li class="breadcrumb-item active pt-3" aria-current="page" style="font-size:50px;font-weight:bolder;color:white;"> -->
-<!-- 			    -- 熱賣商品 --</li> -->
-			    
-    <section class="discount container" style="">
+			    <li class="breadcrumb-item active pt-3" aria-current="page" style="font-size:35px;font-weight:bolder;color:white;">
+			    -- 敬請期待 --</li>
+    </div>
+  </section>
+	  
+	  
+	  
+      <section class="discount container">
         <div class="row">
-<!--             <div class="col-md-5"> -->
-<!--                 <div class="discount1 my-4"> -->
-<!--                     <div class="discount1-1"> -->
-<!--                         <h6 class="ml-2">商城</h6> -->
-<!--                     </div> -->
-<!--                     <div class="discount1-2" style="background:none; height:550px;margin:0;"> -->
-<%--                         <a href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp"> --%>
-<!--                         	<img src="img/1.jpg" style="height:550px;"> -->
-<!--                         </a> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-
 
             <div class="col-md-12">
-                <div class="discount2 my-4" style="height:380px;">
-<!--                     <div class="discount2-1"> -->
-<!--                         <h6>團購 ING</h6> -->
-<!--                     </div> -->
-                    <div class="discount2-2">
+                <div class="discount2 my-5">
+                    
+                    <div class="" style=" max-width: 100%;
+									    height: auto;
+									    border-radius: 10px;
+									    overflow: hidden;
+									    box-shadow:0 10px 18px #00334e;">
                         <a href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">
-                     	   <img src="<%=request.getContextPath()%>/front-end/css/0717_03.JPG" style="background-size: cover;">
+                        	<img src="<%=request.getContextPath()%>/front-end/css/0717_02.JPG">
                         </a>
                     </div>
                 </div>
 
-                 <div class="discount2 my-4" style="height:345px;">
-<!--                     <div class="discount2-1"> -->
-<!--                         <h6>競標 ING</h6> -->
-<!--                     </div> -->
-                    <div class="discount2-2">
-                        <a href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">
-                        	<img src="<%=request.getContextPath()%>/front-end/css/0717_02.JPG" >
-                        </a>
-                    </div>
-                </div>
-
-                <div class="discount2 my-4" style="height:345px;">
-<!--                     <div class="discount2-1"> -->
-<!--                         <h6>直購專區</h6> -->
-<!--                     </div> -->
-                    <div class="discount2-2" style="">
-                        <a href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp" class="" style="">
-                      	    <img src="<%=request.getContextPath()%>/front-end/css/0717_01.JPG"  style="">
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
-
-		</section>
-        </div> <!-- 熱賣商品 --end -->
     </section>
+	
+	<!-- 熱賣商品 -->
+	<section class="">
+    <div class="section-3 py-5">
+        <div class="container text-center">
+            <hr>
+            <h1 class="heading-1">熱門商品</h1><br>
+            <hr>
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-md-4 mb-5">
+                    <div class="card">
+                        <img src="<%=request.getContextPath()%>/front-end/css/product1.jpg"  class="card-img-top">
+                        <div class="card-body">
+                            <h4 class="card-title">Nintendo Switch</h4>
+                            <pre class="card-text text-left ml-5">
+▉ 可遊玩時間加長!!!
+
+▉ 遊戲生活變得更加互動
+
+▉ 可連線8台主機，進行對戰或協力遊戲
+
+▉ 台灣公司貨，提供1年保固"
+                            </pre>
+                            <a href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">
+                        	    <input type="button" value="逛商城" class="btn btn-primary">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <div class="card">
+                        <img src="<%=request.getContextPath()%>/front-end/css/product7.jpg" class="card-img-top">
+                        <div class="card-body">
+                            <h4 class="card-title">Xbox One S</h4>
+                            <pre class="card-text text-left ml-5">
+▉ 全面數位化，個人遊戲庫
+
+▉ 超值的價錢 豐富的遊戲和娛樂
+			
+▉ 效能依然強悍，支援4K與HDR
+			
+▉ 內含3款遊戲
+                            </pre>
+                            <a href="<%=request.getContextPath()%>/front-end/groupbuy/listAllGroupbuy.jsp">
+                        	    <input type="button" value="去團購" class="btn btn-primary">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <div class="card">
+                        <img src="<%=request.getContextPath()%>/front-end/css/immed000003.jpg" class="card-img-top">
+                        <div class="card-body">
+                            <h4 class="card-title">PS4 PRO主機 1TB</h4>
+                            <pre class="card-text text-left ml-4">
+Days of Play
+
+原價12980元，活動時間內特價10880元
+
+售完為止
+
+此商品為雙手把組，第二支手把皆黑手把
+                            </pre>
+                            <input type="button" value="去直購" class="btn btn-primary">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </section>
+        <!-- 熱賣商品 --end -->
+	
 
 
-        <!-- reviewsSection -->
-        <!-- reviewsSection end -->
-
-<!-- 內容 ---end  -->
-
-	<div>
 		<!-- footer -->
 		<footer id="footer" class="pt-5 ">
 			<div class="container">
