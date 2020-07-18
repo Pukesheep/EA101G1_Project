@@ -413,7 +413,7 @@ public class BOServlet extends HttpServlet {
 				String ord_id = req.getParameter("ord_id");
 				String mem_id = req.getParameter("mem_id");
 				String bon_id = req.getParameter("bon_id");
-				String bs_id = "BS002";
+				String bs_id = req.getParameter("bs_id");
 				
 				BOService boSvc = new BOService();
 				boSvc.cancelBO(ord_id, bs_id);
@@ -450,6 +450,44 @@ public class BOServlet extends HttpServlet {
 				req.setAttribute("mem_id", mem_id);
 				req.setAttribute("bon_id", bon_id);
 				req.setAttribute("bmVO", bmVO);
+				
+				RequestDispatcher failureView = req.getRequestDispatcher(fail);
+				failureView.forward(req, res);
+			}
+		}
+		
+		if ( "updateBSFront".equals(action) ) {
+			List<BOVO> list = new ArrayList<BOVO>();
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			String success = "/front-end/protected/BounsMall/listBounsOrderByMember.jsp";
+			String fail = "/front-end/protected/BounsMall/listBounsOrderByMember.jsp";
+			
+			try {
+				String ord_id = req.getParameter("ord_id");
+				String mem_id = req.getParameter("mem_id");
+				String bs_id = req.getParameter("bs_id");
+				
+				BOService boSvc = new BOService();
+				boSvc.cancelBO(ord_id, bs_id);
+				
+				list = boSvc.getByMem(mem_id);
+
+				req.setAttribute("list", list);
+				req.setAttribute("mem_id", mem_id);
+				RequestDispatcher successView = req.getRequestDispatcher(success);
+				successView.forward(req, res);
+			} catch ( Exception e ) {
+				errorMsgs.add( "無法取得要修改的資料" + e.getMessage() );
+
+				String mem_id = req.getParameter("mem_id");
+				
+				BOService boSvc = new BOService();
+				
+				list = boSvc.getByMem(mem_id);
+				
+				req.setAttribute("list", list);
+				req.setAttribute("mem_id", mem_id);
 				
 				RequestDispatcher failureView = req.getRequestDispatcher(fail);
 				failureView.forward(req, res);
