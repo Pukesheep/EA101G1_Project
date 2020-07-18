@@ -22,7 +22,7 @@ public class Gro_orderJNDIDAO implements Gro_orderDAO_interface {
 	private static final String GET_ALL_STMT ="SELECT * FROM gro_order ORDER BY ord_id DESC";
 	private static final String DELETE = "DELETE FROM gro_order WHERE ord_id = ?";
 	private static final String GET_ONE_STMT = "SELECT * FROM gro_order WHERE ord_id = ?";
-	private static final String GET_ALL_BY_M = "SELECT * FROM gro_order WHERE mem_id = ? DESC";
+	private static final String GET_ALL_BY_M = "SELECT * FROM gro_order WHERE mem_id = ? ORDER BY ord_id DESC";
 	private static final String GET_ALL_BY_G = "SELECT * FROM gro_order WHERE gro_id = ?";
 	private static final String UPDATE = "UPDATE gro_order SET gro_id = ?, mem_id = ?, ordstat_id = ?, ord_price = ?, ord_date = ?, receive_name = ?, address = ?, phone = ? WHERE ord_id = ?";
 	private static final String ORDING = "INSERT INTO gro_order (ord_id, gro_id, mem_id, ordstat_id, ord_price) VALUES ('GO'||LPAD(GRO_ORDER_seq.NEXTVAL,6,'0'), ?, ?, ?, ?)";

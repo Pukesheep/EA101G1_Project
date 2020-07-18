@@ -15,7 +15,7 @@ public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
 	private static final String GET_ALL_STMT ="SELECT * FROM gro_order ORDER BY ord_id DESC";
 	private static final String DELETE = "DELETE FROM gro_order WHERE ord_id = ?";
 	private static final String GET_ONE_STMT = "SELECT * FROM gro_order WHERE ord_id = ?";
-	private static final String GET_ALL_BY_M = "SELECT * FROM gro_order WHERE mem_id = ? DESC";
+	private static final String GET_ALL_BY_M = "SELECT * FROM gro_order WHERE mem_id = ? ORDER BY ord_id DESC";
 	private static final String GET_ALL_BY_G = "SELECT * FROM gro_order WHERE gro_id = ?";
 	private static final String UPDATE = "UPDATE gro_order SET gro_id = ?, mem_id = ?, ordstat_id = ?, ord_price = ?, ord_date = ?, receive_name = ?, address = ?, phone = ? WHERE ord_id = ?";
 	private static final String ORDING = "INSERT INTO gro_order (ord_id, gro_id, mem_id, ordstat_id, ord_price) VALUES ('GO'||LPAD(GRO_ORDER_seq.NEXTVAL,6,'0'), ?, ?, ?, ?)";
@@ -497,19 +497,19 @@ public class Gro_orderJDBCDAO implements Gro_orderDAO_interface {
 //		}
 		
 		// 以會員查訂單
-//		List<Gro_orderVO> list2 = dao.findByMem_id("M000001");
-//		for (Gro_orderVO aGro_order : list2) {
-//			System.out.println("ORD_ID = " + aGro_order.getOrd_id());
-//			System.out.println("GRO_ID = " + aGro_order.getGro_id());
-//			System.out.println("MEM_ID = " + aGro_order.getMem_id());
-//			System.out.println("ORD_PRICE = " + aGro_order.getOrd_price());
-//			System.out.println("ORDSTAT_ID = " + aGro_order.getOrdstat_id());
-//			System.out.println("ORD_DATE = " + aGro_order.getOrd_date());
-//			System.out.println("RECEIVE_NAME = " + aGro_order.getReceive_name());
-//			System.out.println("ADDRESS = " + aGro_order.getAddress());
-//			System.out.println("PHONE = " + aGro_order.getPhone());
-//			System.out.println("======================================");
-//		}
+		List<Gro_orderVO> list2 = dao.findByMem_id("M000001");
+		for (Gro_orderVO aGro_order : list2) {
+			System.out.println("ORD_ID = " + aGro_order.getOrd_id());
+			System.out.println("GRO_ID = " + aGro_order.getGro_id());
+			System.out.println("MEM_ID = " + aGro_order.getMem_id());
+			System.out.println("ORD_PRICE = " + aGro_order.getOrd_price());
+			System.out.println("ORDSTAT_ID = " + aGro_order.getOrdstat_id());
+			System.out.println("ORD_DATE = " + aGro_order.getOrd_date());
+			System.out.println("RECEIVE_NAME = " + aGro_order.getReceive_name());
+			System.out.println("ADDRESS = " + aGro_order.getAddress());
+			System.out.println("PHONE = " + aGro_order.getPhone());
+			System.out.println("======================================");
+		}
 		
 		// 以團購查訂單
 //		List<Gro_orderVO> list3 = dao.findByGro_id("G000001");
