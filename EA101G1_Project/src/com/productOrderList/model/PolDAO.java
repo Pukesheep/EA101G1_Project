@@ -24,7 +24,7 @@ private static javax.sql.DataSource ds = null;
 		}
 	}
 	
-	private static final String INSERT="INSERT INTO PRODUCT_ORDER_LIST(PO_ID,P_ID,ORDER_QUA,P_PRICE) VALUES(?,?,?,?)";
+	private static final String INSERT="INSERT INTO PRODUCT_ORDER_LIST(PO_ID,P_ID,ORDER_QUA,P_PRICE,BONUS) VALUES(?,?,?,?,?)";
 	private static final String DELETE="DELETE FROM PRODUCT_ORDER_LIST WHERE PO_ID=? AND P_ID=?";
 	private static final String GET_ALL_STMT="SELECT PO_ID,P_ID,ORDER_QUA,P_PRICE FROM PRODUCT_ORDER_LIST ORDER BY PO_ID";
 	private static final String GET_ONE_STMT="SELECT PO_ID,P_ID,ORDER_QUA,P_PRICE FROM PRODUCT_ORDER_LIST WHERE PO_ID=? AND P_ID=?";
@@ -41,6 +41,7 @@ private static javax.sql.DataSource ds = null;
 			pstmt.setString(2,polVO.getP_id());
 			pstmt.setInt(3,polVO.getOrder_qua());
 			pstmt.setDouble(4,polVO.getP_price());
+			pstmt.setDouble(5,polVO.getBonus());
 			
 			pstmt.executeUpdate();
 			
@@ -78,6 +79,7 @@ private static javax.sql.DataSource ds = null;
 			pstmt.setString(2,polVO.getP_id());
 			pstmt.setInt(3,polVO.getOrder_qua());
 			pstmt.setDouble(4,polVO.getP_price());
+			pstmt.setDouble(5, polVO.getBonus());
 			
 			pstmt.executeUpdate();
 			
@@ -218,6 +220,7 @@ private static javax.sql.DataSource ds = null;
 				 polVO.setP_id(rs.getString("p_id"));
 				 polVO.setOrder_qua(rs.getInt("order_qua"));
 				 polVO.setP_price(rs.getDouble("p_price"));
+				 polVO.setBonus(rs.getDouble("bonus"));
 				 
 				 list.add(polVO);
 			 }

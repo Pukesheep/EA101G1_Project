@@ -132,7 +132,7 @@ String card = (String)request.getParameter("card");
 			polvo.setP_id(p_id);
 			polvo.setOrder_qua(quantity);
 			polvo.setP_price(price);
-			
+			polvo.setBonus(price*0.1);
 			
 			list.add(polvo);
 	%>
