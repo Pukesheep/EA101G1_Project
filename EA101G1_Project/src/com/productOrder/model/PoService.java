@@ -13,10 +13,11 @@ public class PoService {
 		dao = new PoDAO();
 	}
 	
-	public void AddOrder (String mem_id , Double amount, List<PolVO> list) {
+	public void AddOrder (String mem_id , Double amount, Double bonus, List<PolVO> list) {
 		PoVO poVO = new PoVO();
 		poVO.setMem_id(mem_id);
 		poVO.setAmount(amount);
+		poVO.setBonus(bonus);
 		
 		dao.insert(poVO, list);
 	}
@@ -51,7 +52,7 @@ public class PoService {
 		PoVO poVO = new PoVO();
 		poVO.setOrdstat_id(ordstat_id);
 		poVO.setPo_id(po_id);
-		
+		System.out.println("1");
 		dao.update(poVO);
 	}
 	

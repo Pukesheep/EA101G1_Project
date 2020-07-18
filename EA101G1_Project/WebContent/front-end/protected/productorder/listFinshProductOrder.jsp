@@ -131,6 +131,10 @@ color: #ff5353;
       </div>
       </c:forEach>
        <!--商品區-->
+       <div class="row"style="height:35px">
+        <div class="col-md-10" style="background-color:#c6d4df"><div class="empty"></div></div>
+        <div class="col-md-2" style="background-color:#c6d4df"><div class="p_amont"><img style="width:20px" src="<%=request.getContextPath()%>/front-end/protected/shopCart/image/tokens.png">獲得紅利:<font style="color:#ffd700"><fmt:formatNumber pattern="#" value="${poVO.bonus}" /></font>點</div></div>
+      </div>
       
       <div class="row"style="height:35px">
         <div class="col-md-10" style="background-color:#c6d4df"><div class="empty"></div></div>

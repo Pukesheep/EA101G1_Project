@@ -10,6 +10,7 @@ public class PoVO {
 	private Date add_date;
 	private String return_form;
 	private Double amount;
+	private Double bonus;
 	
 	
 	public PoVO() {
@@ -52,4 +53,11 @@ public class PoVO {
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
+	public Double getBonus() {
+		return bonus;
+	}
+	public void setBonus(Double bonus) {
+		this.bonus = bonus;
+	}
+	
 }

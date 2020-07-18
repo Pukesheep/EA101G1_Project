@@ -41,11 +41,11 @@ public class PoServlet extends HttpServlet {
 			try {
 				String mem_id = req.getParameter("mem_id");
 				Double amount = new Double(req.getParameter("amount"));
-				System.out.println(req.getParameter("mem_bonus"));
+				Double bonus = new Double(req.getParameter("mem_bonus"));
 				Integer mem_bonus = new Double(req.getParameter("mem_bonus")).intValue();
 				List<PolVO> list = (ArrayList<PolVO>) session.getAttribute("list");
 				PoService poSvc = new PoService();
-				poSvc.AddOrder(mem_id, amount, list);
+				poSvc.AddOrder(mem_id, amount, bonus, list);
 				MemberService memSvc = new MemberService();
 				memSvc.addBouns(mem_id, mem_bonus);
 

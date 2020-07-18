@@ -18,11 +18,11 @@ public class PoDAO implements PoDAO_interface{
 	String userid = "EA101G1";
 	String passwd = "123456";
 
-	private static final String INSERT = "INSERT INTO PRODUCT_ORDER(PO_ID,MEM_ID,ORDSTAT_ID,AMOUNT) VALUES(TO_CHAR(sysdate,'yyyy-mm-dd')||'-'||LPAD(TO_CHAR(SEQ_PO_ID.NEXTVAL),6,'0'),?,'003',?)";
+	private static final String INSERT = "INSERT INTO PRODUCT_ORDER(PO_ID,MEM_ID,ORDSTAT_ID,AMOUNT,BONUS) VALUES(TO_CHAR(sysdate,'yyyy-mm-dd')||'-'||LPAD(TO_CHAR(SEQ_PO_ID.NEXTVAL),6,'0'),?,'003',?,?)";
 	private static final String UPDATE = "UPDATE PRODUCT_ORDER SET ORDSTAT_ID=?,RETURN_FORM=? WHERE PO_ID=?";
 	private static final String DELETE = "DELETE FROM PRODUCT_ORDER WHERE PO_ID=?";
-	private static final String GET_ALL_STMT = "SELECT PO_ID,MEM_ID,ORDSTAT_ID,to_char(ADD_DATE,'yyyy-mm-dd') ADD_DATE,RETURN_FORM,AMOUNT FROM PRODUCT_ORDER ORDER BY PO_ID";
-	private static final String GET_ONE_STMT = "SELECT PO_ID,MEM_ID,ORDSTAT_ID,to_char(ADD_DATE,'yyyy-mm-dd') ADD_DATE,RETURN_FORM,AMOUNT FROM PRODUCT_ORDER WHERE PO_ID=?";
+	private static final String GET_ALL_STMT = "SELECT PO_ID,MEM_ID,ORDSTAT_ID,to_char(ADD_DATE,'yyyy-mm-dd') ADD_DATE,RETURN_FORM,AMOUNT,BONUS FROM PRODUCT_ORDER ORDER BY PO_ID";
+	private static final String GET_ONE_STMT = "SELECT PO_ID,MEM_ID,ORDSTAT_ID,to_char(ADD_DATE,'yyyy-mm-dd') ADD_DATE,RETURN_FORM,AMOUNT,BONUS FROM PRODUCT_ORDER WHERE PO_ID=?";
 	@Override
 	
 	public void insert(PoVO poVO , List<PolVO> list) {
@@ -41,6 +41,7 @@ public class PoDAO implements PoDAO_interface{
 			
 			pstmt.setString(1, poVO.getMem_id());
 			pstmt.setDouble(2, poVO.getAmount());
+			pstmt.setDouble(3, poVO.getBonus());
 			pstmt.executeUpdate();
 			
 			String next_po_id = null;
@@ -201,6 +202,7 @@ public class PoDAO implements PoDAO_interface{
 				poVO.setOrdstat_id(rs.getString("ordstat_id"));
 				poVO.setAdd_date(rs.getDate("add_date"));
 				poVO.setReturn_form(rs.getString("return_form"));
+				poVO.setBonus(rs.getDouble("bonus"));
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -258,6 +260,7 @@ public class PoDAO implements PoDAO_interface{
 				poVO.setOrdstat_id(rs.getString("ordstat_id"));
 				poVO.setAdd_date(rs.getDate("add_date"));
 				poVO.setAmount(rs.getDouble("amount"));
+				poVO.setBonus(rs.getDouble("bonus"));
 				poVO.setReturn_form(rs.getString("return_form"));
 				list.add(poVO);
 			}
