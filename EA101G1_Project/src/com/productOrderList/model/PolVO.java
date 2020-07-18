@@ -8,7 +8,6 @@ public class PolVO implements Serializable{
 	private String p_id;
 	private Integer order_qua;
 	private Double p_price;
-	private Double bonus;
 	
 	public PolVO() {
 		super();
@@ -38,11 +37,4 @@ public class PolVO implements Serializable{
 	public void setP_price(Double p_price) {
 		this.p_price = p_price;
 	}
-	public Double getBonus() {
-		return bonus;
-	}
-	public void setBonus(Double bonus) {
-		this.bonus = bonus;
-	}
-	
 }
