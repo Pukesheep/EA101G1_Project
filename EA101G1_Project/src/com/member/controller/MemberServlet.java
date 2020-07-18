@@ -1108,7 +1108,7 @@ public class MemberServlet extends HttpServlet {
 				/**************************redis新增好友欄**********************************/
 				Jedis jedis = null;
 				jedis=new Jedis("localhost",6379);
-//				jedis.auth("123456");
+				jedis.auth("123456");
 				MemberDAO memSvc=new MemberDAO();
 				List<MemberVO> listMember=memSvc.getAll();
 				List<String> list=new ArrayList<String>();
