@@ -273,8 +273,7 @@
 
 發行廠商：Nintendo`);
 		});
-		$('#myFile').val('<%=request.getContextPath()%>/images/example2.jpeg')
-
+		
 		window.onload = init;
 	</script>
 </body>

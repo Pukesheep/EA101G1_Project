@@ -36,7 +36,7 @@ public class PoService {
 	
 	public List<PoVO> getOrderByMemId(String mem_id, List<PoVO> list){
 				List<PoVO>list2 = list.stream()
-			//	.filter(p ->p.getMem_id().equals(mem_id))
+				.filter(p ->p.getMem_id().equals(mem_id))
 				.collect(Collectors.toList());
 		
 		return list2;
