@@ -18,7 +18,7 @@
 <jsp:useBean id="proSvc" scope="page" class="com.product.model.ProService" />
 <html>
 <head>
-<title>所有訂單資料<%=mem_id %></title>
+<title>所有訂單資料</title>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">

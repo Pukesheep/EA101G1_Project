@@ -7,7 +7,13 @@
 <%
   AuctVO auctVO = (AuctVO) request.getAttribute("auctVO"); //AuctServlet.java (Controller) 存入req的auctVO物件 (包括幫忙取出的auctVO, 也包括輸入資料錯誤時的auctVO物件)
 	
-  MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
+  MemberVO memVO2 = (MemberVO)session.getAttribute("memberVO");
+  
+  MemberService memSvc = new MemberService();
+  String mem_id = memVO2.getMem_id();
+  MemberVO memberVO =  memSvc.getOneMember(mem_id);
+  
+  pageContext.setAttribute("memberVO",memberVO);
  
   String card = (String)request.getParameter("card");
 %>
