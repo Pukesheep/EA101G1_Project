@@ -74,6 +74,11 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <style>
+body {
+		    background-color:white;
+		    background: url(<%=request.getContextPath()%>/front-end/protected/auct/images/rkXP0RBoX3.jpg);
+		    background-size: cover;
+		}
 
 .countdown{
 	font-size:30px;

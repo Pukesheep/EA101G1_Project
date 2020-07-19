@@ -40,13 +40,13 @@
 .hide{
 	visibility: hidden;
 }
-body {
-    /* background-color: #ecf0cc; */
-    background-color:white;
-    /* background-color: whitesmoke; */
-    background: url(../protected/auct/images/rkXP0RBoX3.jpg);
-    background-size: cover;
-}
+/* body { */
+/*     background-color: #ecf0cc; */
+/*     background-color:white; */
+/*     background-color: whitesmoke; */
+/*     background: url(../protected/auct/images/rkXP0RBoX3.jpg); */
+/*     background-size: cover; */
+/* } */
 .nav-auct{
     height: 65px;
 }
