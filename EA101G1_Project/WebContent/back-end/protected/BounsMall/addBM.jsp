@@ -146,8 +146,16 @@ th, td {
 																<button type="submit" class="btn btn-outline-secondary">送出新增</button>
 																<input type="hidden" name="action" value="insert">
 																
+																<button type="button" id="magic" class="btn btn-outline-secondary">神奇小按鈕</button>
 																<script>
-																
+																	
+																	$('#magic').click(function(){
+																		$("input[name='bon_name']").val('皮卡丘配色Switch手把');
+																		$("input[name='bon_price']").val('5');
+																		$("textarea[name='bon_info']").val('保固六個月');
+																		$("input[name='bon_stock']").val('50');
+																	});
+																	
 																	function init() {
 
 																		var myFile = document

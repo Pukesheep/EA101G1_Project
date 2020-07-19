@@ -327,7 +327,10 @@ div.buy_content {
 											<option
 												selected="${ptSvc.getOneProductType(immedVO.pt_id).typename}"
 												value="${ptVO.pt_id}">${ptVO.typename}</option>
+												
 										</c:forEach>
+										selected="selected"
+										${ptSvc.getOneProductType(immedVO.pt_id).typename}
 								</select></td>
 							</tr>
 
@@ -340,7 +343,7 @@ div.buy_content {
 							<tr>
 								<td><label for="fimmed_prc">商品直購價: </label></td>
 								<td><input type="text" name="immed_prc"
-									value="<%=(immedVO == null) ? "10000" : immedVO.getImmed_prc()%>" /></td>
+									value="${immedVO.immed_prc}" /></td>
 							</tr>
 
 							<tr>
@@ -349,17 +352,17 @@ div.buy_content {
 									onchange="readURL(this)" name="immed_pic"
 									targetID="preview_img"
 									accept="image/gif, image/jpeg, image/png"> <img
-									src="<%=request.getContextPath()%>/front-end/immed/images/upload.png"
-									style="width: 200px;" id="preview_img">
+									style="width: 200px;" id="preview_img"
+									src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}">
 								<td>
 							</tr>
 
 							<tr>
 								<td><label for="fimmed_desc">商品描述: </label></td>
-								<td><textarea name="immed_desc" id="editor1"></textarea> <!-- 							<textarea style="width: 350px; height: 250px;" name="immed_desc" -->
+								<td><textarea name="immed_desc" id="editor1"
+										value="${immedVO.immed_desc}"></textarea> <!-- 							<textarea style="width: 350px; height: 250px;" name="immed_desc" -->
 									<!-- 									id="fimmed_desc" --> <%-- 									value="<%=(immedVO == null) ? "10000" : immedVO.getImmed_desc()%>"> </textarea> --%>
-
-								</td>
+									${immedVO.immed_desc}</td>
 
 
 							</tr>

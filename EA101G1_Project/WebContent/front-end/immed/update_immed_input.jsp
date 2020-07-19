@@ -115,7 +115,7 @@ td.previewTd {
 					onchange="readURL(this)" name="immed_pic" targetID="preview_img"
 					accept="image/gif, image/jpeg, image/png"> <img
 					style="width:200px;" id="preview_img"
-					src="ImmedPicRead?ID='${immedVO.immed_id}'">
+					src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}">
 			</tr>
 
 		</table>

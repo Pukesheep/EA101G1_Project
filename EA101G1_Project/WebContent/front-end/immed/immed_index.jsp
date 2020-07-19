@@ -566,9 +566,7 @@ $('.addIcon').click(function(){
 	var thisID = this.id;
 	var immed_id = thisID.substring(0, 11);
 	var mem_id = thisID.substring(11, 18);
-		console.log(immed_id)
-		console.log(mem_id)
-		
+	
 	 if(${sessionScope.memberVO eq null}) {
 			Swal.fire({
 				icon: 'info',
@@ -581,8 +579,6 @@ $('.addIcon').click(function(){
 			})
 	}else{
 			if ($(this).hasClass("far")) {
-<%-- 				$(this).attr("src", '<%=request.getContextPath()%>/front-end/product/images/icons/full.png'); --%>
-				
 				$.ajax({
 					url: '<%=request.getContextPath()%>/favImmed/favImmed.do',
 					type: 'POST',
@@ -600,35 +596,13 @@ $('.addIcon').click(function(){
 						})
 						.then((result) => {
 							$(".modal-content").load("<%=request.getContextPath()%>/front-end/protected/immed/listAllFavImmed.jsp")
-
-// 							$.ajax({
-// 							    type: "POST",
-<%-- 							    url: "<%=request.getContextPath()%>/front-end/protected/immed/listAllFavImmed.jsp", --%>
-// 	 			 			    data: infoPO,
-// 							    success: function() {   
-// 							    	 window.location.reload(); 
-							    	
-// 							    }
-// 							});
 						})
-// 						$.ajax({
-// 						    type: "POST",
-<%-- 						    url: "<%=request.getContextPath()%>/front-end/immed/immed_index.jsp", --%>
-// //			 			    data: infoPO,
-// 						    success: function() {   
-// 						    	window.opener.reloadpage(); 
-// 						    	    window.close(); 
-// 						    }
-// 						});
 					}
 				});
 				$(this).removeClass("far");
 				$(this).addClass("fas");
-				
 			}
 			else if($(this).hasClass("fas")){
-				
-<%-- 				$(this).attr("src",  '<%=request.getContextPath()%>/front-end/product/images/icons/empty.png'); --%>
 				$.ajax({
 					url: '<%=request.getContextPath()%>/favImmed/favImmed.do',
 					type: 'POST',
@@ -651,13 +625,8 @@ $('.addIcon').click(function(){
 				});
 				$(this).removeClass("fas");
 				$(this).addClass("far");
-				
 			}
 	}
-// if(${sessionScope.memberVO eq null}) {
-<%-- 	<%session.setAttribute("location", request.getRequestURI() + "?" + request.getQueryString());%>	 --%>
-<%-- 	document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp'; --%>
-// }
 	});
 	</script>
 
@@ -674,52 +643,8 @@ $('.addIcon').click(function(){
 								document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp';  
 					})
 		}
-		else{
-			  
-// 		$.ajax({
-<%-- 										url: '<%=request.getContextPath()%>/front-end/protected/immed/listAllFavImmed.jsp', --%>
-// 		 			 					type: 'post',
-// 		 			 					data: {
-// 		// 			 						immed_id: immed_id,
-// 		// 			 						mem_id: mem_id,
-// 		// 			 						action: 'delete'
-// 		 			 					},
-// 		 			 					success: function(){
-// 		 			 						Swal.fire({
-// 		 			 							icon: 'info',
-// 		 			 							title: '已移除',
-// 		 			 							showConfirmButton: false,
-// 		 			 							timer: 750
-// 		 			 						}).then((result) => {
-// //		 			 							 window.location.reload(); 
-// //		 			 	 						})
-		 			 						
-// 		 			 					}
-		 			 					
-// 		 			 				})
-		}
-// 		$.ajax({
-<%-- 								url: '<%=request.getContextPath()%>/protected/immed/listAllFavImmed.jsp', --%>
-// 			 					type: 'POST',
-// 			 					data: {
-// // 			 						immed_id: immed_id,
-// // 			 						mem_id: mem_id,
-// // 			 						action: 'delete'
-// 			 					},
-// 			 					success: function(){
-// 			 						Swal.fire({
-// 			 							icon: 'info',
-// 			 							title: '已移除',
-// 			 							showConfirmButton: false,
-// 			 							timer: 750
-// 			 						})
-// 			 					}
-// 			 				});
-	
 	});
 	</script>
 
-
-	<%-- $(this).attr('src','<%=request.getContextPath()%>/front-end/product/images/icons/full.png') ; --%>
 </body>
 </html>
