@@ -184,7 +184,13 @@ div.content {
 div.buy_content {
 	background: hsla(0, 0%, 100%, .8);
 }
+.dropdown-menu li:hover .sub-menu {
+	visibility: visible;
+}
 
+.dropdown:hover .dropdown-menu {
+	display: block;
+}
 @media ( max-width : 1023px) {
 	header .form-inline .form-control {
 		width: 250px;
@@ -254,12 +260,13 @@ div.buy_content {
 						<a class="dropdown-item"
 							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品管理</a>
 					</div></li>
-				<li class="nav-item pl-md-2"><a class="nav-link text-white"
-					href="">
+				<li class="nav-item pl-md-2"><a
+					class="nav-link text-white favColl" href="" data-toggle="modal"
+					data-target=".bd-example-modal-lg">
 						<div>
-							<i class="fas fa-heart pl-md-3 pl-2 pb-1"></i>
+							<i class="fas fa-heart pl-md-4 pl-2 pb-1"></i>
 						</div>
-						<div>追蹤商品</div>
+						<div>已追蹤商品</div>
 				</a></li>
 
 			</ul>
@@ -327,7 +334,7 @@ div.buy_content {
 							<tr>
 								<td><label for="fimmed_prc">商品直購價: </label></td>
 								<td><input type="text" name="immed_prc"
-									value="<%=(immedVO == null) ? "10000" : immedVO.getImmed_prc()%>" /></td>
+									value="${immedVO.immed_prc}" /></td>
 							</tr>
 
 							<tr>
@@ -335,32 +342,40 @@ div.buy_content {
 								<td class="previewTd"><input type="file"
 									onchange="readURL(this)" name="immed_pic"
 									targetID="preview_img"
-									accept="image/gif, image/jpeg, image/png"> <img src="<%=request.getContextPath()%>/front-end/immed/images/upload.png"
-									style="width: 200px;" id="preview_img"> <td>
-						
+									accept="image/gif, image/jpeg, image/png"> <img
+									src="<%=request.getContextPath()%>/front-end/immed/images/upload.png"
+									style="width: 200px;" id="preview_img">
+								<td>
 							</tr>
 
-						<tr>
-							<td><label for="fimmed_desc">商品描述: </label></td>
-							<td><textarea name="immed_desc" id="editor1"></textarea> <!-- 							<textarea style="width: 350px; height: 250px;" name="immed_desc" --><!-- 									id="fimmed_desc" -->
-									<%-- 									value="<%=(immedVO == null) ? "10000" : immedVO.getImmed_desc()%>"> </textarea> --%>
+							<tr>
+								<td><label for="fimmed_desc">商品描述: </label></td>
+								<td><textarea name="immed_desc" id="editor1"></textarea> <!-- 							<textarea style="width: 350px; height: 250px;" name="immed_desc" -->
+									<!-- 									id="fimmed_desc" --> <%-- 									value="<%=(immedVO == null) ? "10000" : immedVO.getImmed_desc()%>"> </textarea> --%>
 
-							</td>
-								
-						
+								</td>
+
+
 							</tr>
-						<tr>
-							<td><input type="hidden" name="sale_id"
+							<tr>
+								<td><input type="hidden" name="sale_id"
 									value="${memberVO.mem_id}" /> <input type="hidden"
 									name="action" value="insert"> <input type="submit"
 									value="送出"></td>
-						</tr>
-					</table>
+							</tr>
+						</table>
 
-				</form>
+					</form>
 				</div>
 			</div>
-
+			<div class="modal  bd-example-modal-lg" tabindex="-1" role="dialog"
+				aria-labelledby="myLargeModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content"><jsp:include
+							page="/front-end/protected/immed/listAllFavImmed.jsp"
+							flush="true" /></div>
+				</div>
+			</div>
 
 		</div>
 
@@ -372,8 +387,8 @@ div.buy_content {
 
 	<!-- 連結Bootstrap所需要的js -->
 	<!-- jquery.min.js -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"

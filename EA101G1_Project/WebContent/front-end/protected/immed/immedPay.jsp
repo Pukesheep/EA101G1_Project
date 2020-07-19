@@ -276,10 +276,7 @@ div.intro_right div.saleInfo div {
 	font-size: 0.9rem;
 	padding: 3px 10px;
 }
-/* table#table-2 h4 { */
-/* 	color: blue; */
-/* 	display: inline; */
-/* } */
+
 div.immedDesc {
 	margin-top: 40px;
 }
@@ -337,7 +334,13 @@ table.immedInfo th:nth-child(2) {
 .town_form_control {
 	width: 120px;
 }
+.dropdown-menu li:hover .sub-menu {
+	visibility: visible;
+}
 
+.dropdown:hover .dropdown-menu {
+	display: block;
+}
 @media ( max-width : 1023px) {
 	header .form-inline .form-control {
 		width: 250px;
@@ -408,12 +411,13 @@ table.immedInfo th:nth-child(2) {
 						<a class="dropdown-item"
 							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品管理</a>
 					</div></li>
-				<li class="nav-item pl-md-2"><a class="nav-link text-white"
-					href="">
+				<li class="nav-item pl-md-2"><a
+					class="nav-link text-white favColl" href="" data-toggle="modal"
+					data-target=".bd-example-modal-lg">
 						<div>
-							<i class="fas fa-heart pl-md-3 pl-2 pb-1"></i>
+							<i class="fas fa-heart pl-md-4 pl-2 pb-1"></i>
 						</div>
-						<div>追蹤商品</div>
+						<div>已追蹤商品</div>
 				</a></li>
 
 			</ul>
@@ -509,7 +513,7 @@ table.immedInfo th:nth-child(2) {
 									<div class="col-md-4">
 										<div class="form-group">
 											<label>有效期限</label> <input type="text" placeholder="MM/YY"
-												maxlength=7 name="card_ym" class="form-control" />
+												maxlength=5 name="card_ym" class="form-control" />
 										</div>
 									</div>
 								</div>
@@ -517,13 +521,13 @@ table.immedInfo th:nth-child(2) {
 									<div class="col-md-8">
 										<div class="form-group">
 											<label>持卡人姓名</label> <input type="text" name="card_name"
-												 class="form-control" autocomplete="off" />
+												max="10" class="form-control" autocomplete="off" />
 										</div>
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
 											<label>認證碼 </label> <input type="text" name="card_sec"
-												maxlength=3 class="form-control" autocomplete="off"/>
+												maxlength=3 class="form-control" autocomplete="off" />
 										</div>
 									</div>
 								</div>
@@ -574,10 +578,11 @@ table.immedInfo th:nth-child(2) {
 														value="${immedVO.immed_id}"> <input type="hidden"
 														name="buy_id" value="${memberVO.mem_id}">
 													<button type="submit" class="btn btn-dark">確認送出</button>
-													
+
 													<!-- 											<button type="button" class="btn btn-info">Clear</button> -->
 												</div></th>
-											<td><button id="add_data" type="button" class="btn ">.0.</button></td>
+											<td><button id="add_data" type="button"
+													class="btn btn-dark">同會員資料</button></td>
 										</tr>
 									</tbody>
 								</table>
@@ -601,7 +606,13 @@ table.immedInfo th:nth-child(2) {
 				</form>
 			</div>
 		</div>
-
+		<div class="modal  bd-example-modal-lg" tabindex="-1" role="dialog"
+			aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content"><jsp:include
+						page="/front-end/protected/immed/listAllFavImmed.jsp" flush="true" /></div>
+			</div>
+		</div>
 	</div>
 
 
@@ -611,8 +622,8 @@ table.immedInfo th:nth-child(2) {
 
 	<!-- 連結Bootstrap所需要的js -->
 	<!-- JS, Popper.js, and jQuery -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -622,17 +633,17 @@ table.immedInfo th:nth-child(2) {
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 		crossorigin="anonymous"></script>
-
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
-
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/card/1.3.1/js/card.min.js"></script>
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<!-- 	<script -->
+<!-- 		src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
+
+	<!-- SweetAlert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 	<script type="text/javascript">
 		$('.slider-for').slick({
@@ -696,16 +707,17 @@ table.immedInfo th:nth-child(2) {
 			$("[name='card_sec']").val('123');
 			$("[name='card_ym']").val('07/23');
 			
-			$("[name='rcpt_name']").val('買爆剁手手');
+			$("[name='rcpt_name']").val('早餐店大冰奶');
 			$("[name='rcpt_cell']").val('0912345678');
 			$("#twzipcode").twzipcode('set', {
 				'county' : '桃園市',
 				'district' : '中壢區',
 				'zipcode' : 320
 			});
-			$("[name='add']").val('爆肝路999號7樓');
+			$("[name='add']").val('中大路300號');
 
 		});
 	</script>
+
 </body>
 </html>

@@ -3,13 +3,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.immed.model.*"%>
-
+<%@ page import="com.member.model.*"%>
+<%@ page import="com.product.model.*"%>
 <%
 	ImmedService immedSvc = new ImmedService();
 	List<ImmedVO> list = immedSvc.getAllOnSale();
 	pageContext.setAttribute("list", list);
 %>
-
+<jsp:useBean id="favImmedSvc" scope="page"
+	class="com.favImmed.model.FavImmedService" />
 <html>
 <head>
 <title>直購商品首頁</title>
@@ -40,7 +42,11 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/style.css">
 
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 <style>
+
 body {
 	padding-top: 90px;
 	background-image:
@@ -49,7 +55,6 @@ body {
 	background-repeat: no-repeat;
 	background-position: center center;
 }
-
 .immed_nav {
 	background: linear-gradient(#4475b6, #00334e) !important;
 }
@@ -159,7 +164,7 @@ section.blank1 div.left_side {
 }
 
 section.blank1 .card {
-	height: 300px;
+	height: 310px;
 	overflow: hidden;
 }
 
@@ -218,12 +223,16 @@ aside .navbar-nav .nav-link:hover {
 	display: block;
 }
 
-.img-icon {
-	width: 25px;
-	height: 25px;
+/* .img-icon { */
+/* 	width: 25px; */
+/* 	height: 25px; */
+/* 	float: right; */
+/* 	margin: 8px 2px; */
+/* 	cursor: pointer; */
+/* } */
+.favAdd {
 	float: right;
-	margin: 8px 2px;
-	cursor: pointer;
+	padding-bottom: 10px;
 }
 
 @media ( max-width : 1023px) {
@@ -240,6 +249,8 @@ aside .navbar-nav .nav-link:hover {
 		display: none;
 	}
 }
+
+
 </style>
 </head>
 
@@ -300,19 +311,19 @@ aside .navbar-nav .nav-link:hover {
 							<div>賣家管理</div>
 						</div>
 				</a>
-
 					<div class="dropdown-menu">
 						<a class="dropdown-item"
 							href="<%=request.getContextPath()%>/front-end/protected/immed/salerManage.jsp">出貨管理</a>
 						<a class="dropdown-item"
 							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品管理</a>
 					</div></li>
-				<li class="nav-item pl-md-2"><a class="nav-link text-white"
-					href="">
+				<li class="nav-item pl-md-2"><a
+					class="nav-link text-white favColl" href="" data-toggle="modal"
+					data-target=".bd-example-modal-lg">
 						<div>
-							<i class="fas fa-heart pl-md-3 pl-2 pb-1"></i>
+							<i class="fas fa-heart pl-md-4 pl-2 pb-1"></i>
 						</div>
-						<div>追蹤商品</div>
+						<div>已追蹤商品</div>
 				</a></li>
 
 			</ul>
@@ -410,6 +421,7 @@ aside .navbar-nav .nav-link:hover {
 								</ul>
 							</li>
 						</ul>
+
 					</aside>
 				</div>
 
@@ -434,17 +446,87 @@ aside .navbar-nav .nav-link:hover {
 										<a
 											href="<%=request.getContextPath()%>/immed/immed.do?action=getOne_For_Display&immed_id=${immedVO.immed_id}"
 											title="${immedVO.immed_name}"><h5 class="card-title">${immedVO.immed_name}</h5></a>
-										<span class="card-price">$${immedVO.immed_prc}</span> <img
-											style="" class=" img-icon" alt=""
-											src="<%=request.getContextPath()%>/front-end/product/images/icons/empty.png"
-											id="${immedVO.immed_id}${sessionScope.memberVO.mem_id}"
-											title="加入最愛">
+										<span class="card-price">$${immedVO.immed_prc}</span>
+										<!-- 										<form class="favAdd"> -->
+										<!-- 										method="post" -->
+										<%-- 											action="<%=request.getContextPath()%>/favImmed/favImmed.do"> --%>
+										<c:choose>
+											<c:when
+												test="${favImmedSvc.getOne(immedVO.immed_id, sessionScope.memberVO.mem_id) eq null}">
+												<%-- 			<img class="img-icon" alt="" src="<%=request.getContextPath()%>/front-end/product/images/icons/empty.png" id="${immedVO.immed_id}${sessionScope.memberVO.mem_id}" title="加入最愛"> --%>
+												<input type="hidden" name="action" value="insert">
+												<input type="hidden" name="immed_id"
+													value="${immedVO.immed_id}">
+												<input type="hidden" name="mem_id"
+													value="${memberVO.mem_id}">
+												<button type="button"
+													style="box-shadow: none !important; border: none !important;"
+													class="btn favAdd text-danger">
+													<i class="far fa-heart fa-2x addIcon"
+														id="${immedVO.immed_id}${sessionScope.memberVO.mem_id}"></i>
+												</button>
+												<!-- 													<input class="img-icon" type="image" -->
+												<%-- 														src="<%=request.getContextPath()%>/front-end/product/images/icons/empty.png" --%>
+												<!-- 														alt="Submit" width="25" height="25"> -->
+											</c:when>
+											<c:otherwise>
+												<%-- 			<img class="img-icon" alt="" src="<%=request.getContextPath()%>/front-end/product/images/icons/full.png" id="${immedVO.immed_id}${sessionScope.memberVO.mem_id}" title="取消最愛"> --%>
+												<input type="hidden" name="action" value="delete">
+												<input type="hidden" name="immed_id"
+													value="${immedVO.immed_id}">
+												<input type="hidden" name="mem_id"
+													value="${memberVO.mem_id}">
+												<button type="button"
+													style="box-shadow: none !important; border: none !important;"
+													class="btn favAdd text-danger">
+													<i class="fas fa-heart fa-2x addIcon"
+														id="${immedVO.immed_id}${sessionScope.memberVO.mem_id}"></i>
+												</button>
+												<!-- 													<input class="img-icon" type="image" -->
+												<%-- 														src="<%=request.getContextPath()%>/front-end/product/images/icons/full.png" --%>
+												<!-- 														alt="Submit" width="25" height="25"> -->
+											</c:otherwise>
+										</c:choose>
+										<!-- 										</form> -->
+										<!-- 											<img -->
+										<!-- 											style="" class=" img-icon" alt="" -->
+										<%-- 											src="<%=request.getContextPath()%>/front-end/product/images/icons/empty.png" --%>
+										<%-- 											id="${immedVO.immed_id}${sessionScope.memberVO.mem_id}" --%>
+										<!-- 											title="加入最愛"> -->
 									</div>
 								</div>
 							</div>
 						</c:forEach>
 					</div>
 
+					<!-- 					<button type="button" class="btn btn-primary" data-toggle="modal" -->
+					<!-- 						data-target=".bd-example-modal-lg">Large modal</button> -->
+
+					<div class="modal  bd-example-modal-lg" tabindex="-1" role="dialog"
+						aria-labelledby="myLargeModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content"><jsp:include
+									page="/front-end/protected/immed/listAllFavImmed.jsp"
+									flush="true" /></div>
+						</div>
+					</div>
+
+					<!-- 					Button trigger modal -->
+					<!-- 					<button type="button" class="btn btn-primary" data-toggle="modal" -->
+					<!-- 						data-target="#exampleModalLong">Launch demo modal</button> -->
+
+					<!-- 					Modal -->
+					<!-- 					<div class="modal fade" id="exampleModalLong" tabindex="-1" -->
+					<!-- 						role="dialog" aria-labelledby="exampleModalLongTitle" -->
+					<!-- 						aria-hidden="true"> -->
+					<!-- 						<div class="modal-dialog" role="document"> -->
+					<!-- 							<div class="modal-content"> -->
+
+					<!-- 								<div class="modal-body"></div> -->
+
+					<!-- 							</div> -->
+					<!-- 						</div> -->
+					<!-- 					</div> -->
 					<div class="row pl-5">
 						<%@ include file="/files/immed/page2B.file"%>
 					</div>
@@ -462,8 +544,12 @@ aside .navbar-nav .nav-link:hover {
 
 	<!-- 連結Bootstrap所需要的js -->
 	<!-- jquery.min.js -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	<!-- 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" -->
+	<!-- 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" -->
+	<!-- 		crossorigin="anonymous"></script> -->
+
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -475,22 +561,165 @@ aside .navbar-nav .nav-link:hover {
 		crossorigin="anonymous"></script>
 
 	<script>
-	 $("img.img-icon").click(function(){
+// 加入最愛
+$('.addIcon').click(function(){
+	var thisID = this.id;
+	var immed_id = thisID.substring(0, 11);
+	var mem_id = thisID.substring(11, 18);
+		console.log(immed_id)
+		console.log(mem_id)
 		
-		   
-		   console.log(this.id);
-		$(this).toggleClass("favON").promise().done(function() {
-			if (this.hasClass('favOn')) {
-				$(this).attr('src','<%=request.getContextPath()%>/front-end/product/images/icons/full.png');
+	 if(${sessionScope.memberVO eq null}) {
+			Swal.fire({
+				icon: 'info',
+				title: '請先登入會員',
+				showConfirmButton: true,
+				confirmButtonText: '好'
+			}).then((result) => {
+					  <%session.setAttribute("location", request.getRequestURI() + "?" + request.getQueryString());%>	
+						document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp';  
+			})
+	}else{
+			if ($(this).hasClass("far")) {
+<%-- 				$(this).attr("src", '<%=request.getContextPath()%>/front-end/product/images/icons/full.png'); --%>
+				
+				$.ajax({
+					url: '<%=request.getContextPath()%>/favImmed/favImmed.do',
+					type: 'POST',
+					data: {
+						immed_id: immed_id,
+						mem_id: mem_id,
+						action: 'insert'
+					},
+					success: function(){
+						Swal.fire({
+							icon: 'info',
+							title: '已加入',
+							showConfirmButton: false,
+							timer: 500
+						})
+						.then((result) => {
+							$(".modal-content").load("<%=request.getContextPath()%>/front-end/protected/immed/listAllFavImmed.jsp")
+
+// 							$.ajax({
+// 							    type: "POST",
+<%-- 							    url: "<%=request.getContextPath()%>/front-end/protected/immed/listAllFavImmed.jsp", --%>
+// 	 			 			    data: infoPO,
+// 							    success: function() {   
+// 							    	 window.location.reload(); 
+							    	
+// 							    }
+// 							});
+						})
+// 						$.ajax({
+// 						    type: "POST",
+<%-- 						    url: "<%=request.getContextPath()%>/front-end/immed/immed_index.jsp", --%>
+// //			 			    data: infoPO,
+// 						    success: function() {   
+// 						    	window.opener.reloadpage(); 
+// 						    	    window.close(); 
+// 						    }
+// 						});
+					}
+				});
+				$(this).removeClass("far");
+				$(this).addClass("fas");
+				
 			}
-			else if( this.hasClass('favOn') ){
-				$(this).attr('src','<%=request.getContextPath()%>/front-end/product/images/icons/empty.png');
+			else if($(this).hasClass("fas")){
+				
+<%-- 				$(this).attr("src",  '<%=request.getContextPath()%>/front-end/product/images/icons/empty.png'); --%>
+				$.ajax({
+					url: '<%=request.getContextPath()%>/favImmed/favImmed.do',
+					type: 'POST',
+					data: {
+						immed_id: immed_id,
+						mem_id: mem_id,
+						action: 'delete'
+					},
+					success: function(){
+						Swal.fire({
+							icon: 'info',
+							title: '已移除',
+							showConfirmButton: false,
+							timer: 500
+						})
+						.then((result) => {
+							$(".modal-content").load("<%=request.getContextPath()%>/front-end/protected/immed/listAllFavImmed.jsp")
+						})
+					}
+				});
+				$(this).removeClass("fas");
+				$(this).addClass("far");
+				
 			}
-	    });
-		
-		 
-	 });
+	}
+// if(${sessionScope.memberVO eq null}) {
+<%-- 	<%session.setAttribute("location", request.getRequestURI() + "?" + request.getQueryString());%>	 --%>
+<%-- 	document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp'; --%>
+// }
+	});
 	</script>
+
+	<script>	
+	$('.favColl').click(function(){ 			/* 已追蹤商品會員跳轉*/
+		if(${sessionScope.memberVO eq null}) {
+					Swal.fire({
+						icon: 'info',
+						title: '請先登入會員',
+						showConfirmButton: true,
+						confirmButtonText: '好'
+					}).then((result) => {
+							  <%session.setAttribute("location", request.getRequestURI() + "?" + request.getQueryString());%>	
+								document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp';  
+					})
+		}
+		else{
+			  
+// 		$.ajax({
+<%-- 										url: '<%=request.getContextPath()%>/front-end/protected/immed/listAllFavImmed.jsp', --%>
+// 		 			 					type: 'post',
+// 		 			 					data: {
+// 		// 			 						immed_id: immed_id,
+// 		// 			 						mem_id: mem_id,
+// 		// 			 						action: 'delete'
+// 		 			 					},
+// 		 			 					success: function(){
+// 		 			 						Swal.fire({
+// 		 			 							icon: 'info',
+// 		 			 							title: '已移除',
+// 		 			 							showConfirmButton: false,
+// 		 			 							timer: 750
+// 		 			 						}).then((result) => {
+// //		 			 							 window.location.reload(); 
+// //		 			 	 						})
+		 			 						
+// 		 			 					}
+		 			 					
+// 		 			 				})
+		}
+// 		$.ajax({
+<%-- 								url: '<%=request.getContextPath()%>/protected/immed/listAllFavImmed.jsp', --%>
+// 			 					type: 'POST',
+// 			 					data: {
+// // 			 						immed_id: immed_id,
+// // 			 						mem_id: mem_id,
+// // 			 						action: 'delete'
+// 			 					},
+// 			 					success: function(){
+// 			 						Swal.fire({
+// 			 							icon: 'info',
+// 			 							title: '已移除',
+// 			 							showConfirmButton: false,
+// 			 							timer: 750
+// 			 						})
+// 			 					}
+// 			 				});
+	
+	});
+	</script>
+
+
 	<%-- $(this).attr('src','<%=request.getContextPath()%>/front-end/product/images/icons/full.png') ; --%>
 </body>
 </html>
