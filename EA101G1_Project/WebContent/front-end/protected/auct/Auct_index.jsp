@@ -173,9 +173,10 @@
 
 
         <!-- ²á¤Ñ«Ç -->
-        <button id="chatBtn" class="bg-primary">
-            <i class="fas fa-comments"></i>
-        </button>
+<!--         <button id="chatBtn" class="bg-primary"> -->
+<!--             <i class="fas fa-comments"></i> -->
+<!--         </button> -->
+<%@ include file="/files/footer.jsp" %>
 
 
 </body>

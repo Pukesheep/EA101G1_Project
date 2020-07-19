@@ -80,20 +80,20 @@ body {
 		    background-size: cover;
 		}
 
-.countdown{
-	font-size:30px;
-	color:red;
-}
-
-.row1 {
-	width: 94px;
-}
-.row2 {
-	width: 138px;
-}
-.row3 {
-	width: 94px;
-}
+	.countdown{
+		font-size:30px;
+		color:red;
+	}
+	
+	.row1 {
+		width: 94px;
+	}
+	.row2 {
+		width: 138px;
+	}
+	.row3 {
+		width: 94px;
+	}
 
 </style>
 
