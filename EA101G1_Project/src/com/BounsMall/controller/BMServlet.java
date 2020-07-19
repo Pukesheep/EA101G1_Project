@@ -187,7 +187,7 @@ public class BMServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("bmVO", bmVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/BounsMall/addBM.jsp");
+							.getRequestDispatcher("/back-end/protected/BounsMall/addBM.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -206,7 +206,7 @@ public class BMServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/BounsMall/addBM.jsp");
+						.getRequestDispatcher("/back-end/protected/BounsMall/addBM.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -405,8 +405,8 @@ public class BMServlet extends HttpServlet {
 		if ("delete".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/back-end/BounsMall/ListAll.jsp" ;
-			String fail = "/back-end/BounsMall/ListAll.jsp" ;
+			String success = "/back-end/protected/BounsMall/ListAll.jsp" ;
+			String fail = "/back-end/protected/BounsMall/ListAll.jsp" ;
 			
 			try {
 				/***************************1.接收請求參數***************************************/
