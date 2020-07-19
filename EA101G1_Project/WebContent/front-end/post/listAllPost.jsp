@@ -25,7 +25,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>討論區</title>
-    <%@ include file="../../files/HeaderCssLink" %>
+    <%@ include file="/files/HeaderCssLink" %>
         
     <!-- SweetAlert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -39,7 +39,7 @@
 </head>
 <body>
     <!-- navbar -->
-    	<%@ include file="../../files/header.jsp" %>
+    	<%@ include file="/files/header.jsp" %>
     <!-- navbar end -->
     <section class="blank0"></section>
     <!-- 內容 -->
@@ -145,24 +145,6 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-1">
-								<%-- 
-<!-- 			                <div class="d-flex justify-content-between"> -->
-				                <div class="row">
-				                	<button type="button" class="btn btn-danger btn-lg canceledit">取消</button>
-				                </div>
-				                <div class="row ">
-									<button type="button" class="btn btn-secondary btn-lg cleanedit">清除</button>
-				                </div>
-				                <div class="row ">
-									<button type="submit" class="btn btn-primary btn-lg">完成</button>
-				                </div>
-								<input type="hidden" name="action" value="insert">
-								<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
-								<input type="hidden" name="p_status" value="1">
-<!-- 							</div> -->
-								--%>
-					</div>
 				</div>
 			</form>
 		</div>
@@ -207,12 +189,14 @@
 									      		</c:if>
 					      					</c:forEach>
 					      					<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/comm.png" id="${postVO.post_id}${memberVO.mem_id}" title="回覆文章">
-					      					<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/reportmember.png" id="${postVO.post_id}${memberVO.mem_id}" title="檢舉會員">
+<%-- 					      					<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/reportmember.png" id="${postVO.post_id}${memberVO.mem_id}" title="檢舉會員"> --%>
 					      					<a id="report" href="<%=request.getContextPath()%>/psac/psac.do?action=button&mem_id=${sessionScope.memberVO.mem_id}&post_id=${postVO.post_id}">
 					      					<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/reportpost.png" id="${postVO.post_id}${memberVO.mem_id}" title="檢舉文章">
 											</a>
-											<c:if test="${sessionScope.memberVO.mem_id == postVO.mem_id}">
+											<c:if test="${sessionScope.memberVO.mem_id == postVO.mem_id or sessionScope.memberVO.mem_id == 'M000012' }">
 												<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/remove.png" id="${postVO.post_id}${memberVO.mem_id}" title="移除文章">
+											</c:if>
+											<c:if test="${sessionScope.memberVO.mem_id == postVO.mem_id}">
 												<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/update.png" id="${postVO.post_id}${memberVO.mem_id}" title="修改文章">
 											</c:if>
 			      						</c:if>
@@ -267,7 +251,7 @@
 																		留言會員 ：<a href="<%=request.getContextPath()%>/member/member.do?action=getOne_For_Display-front&mem_id=${commVO.mem_id}">${memberVOcomm.mem_name}<img class="postBy" alt="" src="<%=request.getContextPath()%>/member/ShowMemberPic.do?mem_id=${commVO.mem_id}"></a>
 																	</small>
 																	<c:if test="${sessionScope.memberVO ne null}">
-																		<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/reportmember.png" id="${commVO.comm_id}${memberVO.mem_id}" title="檢舉會員">
+<%-- 																		<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/reportmember.png" id="${commVO.comm_id}${memberVO.mem_id}" title="檢舉會員"> --%>
 																		<c:if test="${sessionScope.memberVO.mem_id == commVO.mem_id}">
 																			<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/remove.png" id="${commVO.comm_id}${memberVO.mem_id}" title="移除留言">
 																			<img class="img-icon" alt="" src="<%=request.getContextPath()%>/images/icons/update.png" id="${postVO.post_id}${commVO.comm_id}${sessionScope.memberVO.mem_id}" title="修改留言">
@@ -526,6 +510,13 @@
 						showConfirmButton: false,
 						timer: 750
 					})
+				}, error: function(){
+					Swal.fire({
+						icon: 'info',
+						title: '收藏文章成功',
+						showConfirmButton: false,
+						timer: 750
+					})
 				}
 			});
 			
@@ -545,6 +536,13 @@
 					action: 'delete'
 				},
 				success: function(){
+					Swal.fire({
+						icon: 'info',
+						title: '取消收藏成功',
+						showConfirmButton: false,
+						timer: 750
+					})
+				}, error: function(){
 					Swal.fire({
 						icon: 'info',
 						title: '取消收藏成功',
@@ -641,8 +639,6 @@
 				var post_id = thisID.substring(0, 10);
 				//modal-update${postVO.post_id}
 				$('#modal-update' + post_id).modal('toggle');
-
-				
 				
 			}
 			
@@ -856,7 +852,7 @@
 
 
         <!-- footer -->
-<%--         	<%@ include file="/files/footer.jsp" %> --%>
+        	<%@ include file="/files/footer.jsp" %>
         <!-- footer -->
 </body>
 

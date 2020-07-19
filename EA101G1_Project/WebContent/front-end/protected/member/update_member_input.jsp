@@ -119,7 +119,7 @@
 							<div class="form-group">
 								<label for="mem_pass">會員密碼</label>
 								<div class="input-group mb-3">
-									<input type="password" class="form-control" id="mem_pass" name="mem_pass" value="${memberVO.mem_pass}">
+									<input type="password" class="form-control" id="mem_pass" name="mem_pass" value="${memberVO.mem_pass}" autocomplete="off">
 									<div class="input-group-append">
 										<span class="input-group-text"><img alt="" src="<%=request.getContextPath()%>/images/icons/opend-eye.png" class="float-right img-icon mem_pass" title="顯示"></span>
 									</div>

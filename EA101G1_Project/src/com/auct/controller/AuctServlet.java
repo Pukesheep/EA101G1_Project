@@ -87,14 +87,34 @@ System.out.println("--------------"+auct_id);
 			System.out.println("---------------------");
 			
 			String auct_name = req.getParameter("auct_name");
-			System.out.println(auct_name);
-			System.out.println("---------------------");
+			System.out.println(auct_name);	
+				if (auct_name == null || (auct_name.trim()).length() == 0) {
+					errorMsgs.add("請輸入商品名稱");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/protected/auct/update_auct_input.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				System.out.println("---------------------");
 			
 			java.util.GregorianCalendar time = new java.util.GregorianCalendar(); //現在時間
 			long now_ms = time.getTimeInMillis();
 			
 			java.sql.Timestamp auct_start = java.sql.Timestamp.valueOf(req.getParameter("auct_start"));
-			System.out.println("---------------------"+auct_start);
+				if (auct_start == null) {
+					errorMsgs.add("請輸入拍賣開始時間");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/protected/auct/update_auct_input.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				System.out.println("---------------------"+auct_start);
 			
 			long auct_start_long = auct_start.getTime(); 				//Timestamp 轉 long
 			Timestamp auct_start_OK =null;
