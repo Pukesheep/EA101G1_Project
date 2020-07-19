@@ -5,10 +5,10 @@
 %>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/back-end/backchat/css/chat.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<div style="border:1px solid blue; width:40px; height:40px; background-color:blue;position: fixed;right:0;bottom:0;" onclick="on()"></div>
+<div style="border:1px solid blue;z-index: 999; width:100px; height:100px; position: fixed;right:0;bottom:0;" onclick="on()"><i class="fas fa-comments"></i></div>
 
 	
-	<div id="body" style="border:1px solid black;z-index: 999;">
+	<div id="body" style="border:1px solid black; z-index: 999; position: fixed;bottom: 0px;right: 10%;" onload="connect();" >
 		<div id="close" onclick="dbclick()">close</div>
 		<h3 id="statusOutput" class="statusOutput alert alert-primary"></h3>
 		<div id="row"></div>
@@ -182,6 +182,6 @@
 	}
 	function dbclick(){
 		document.getElementById("body").style.display = "none";
-		disconnect();
+		
 	}
 </script>

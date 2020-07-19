@@ -2,9 +2,6 @@
 border:1px solid black;
 width:500px;
 height:500px;
-position: absolute;
-right:0;
-bottom:10%;
 display:none;
 }
 .panel {

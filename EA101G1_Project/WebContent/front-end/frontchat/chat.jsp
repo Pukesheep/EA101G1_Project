@@ -10,9 +10,12 @@
 	}
 
 %>
-
+<link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/frontchat/css/chat.css">
+	<div id="chatBtn" class="bg-primary" onclick="on()">
+            <i class="fas fa-comments"></i>
+        </div>
 	
-	<div id="body">
+	<div id="body" style="border:1px solid black; z-index: 999; position: fixed;bottom: 0px;right: 10%;" onload="connect();" >
 		<div id="close" onclick="dbclick()">close</div>
 		<h3 id="statusOutput" class="statusOutput alert alert-primary"></h3>
 		<div id="row" style="overflow-x: hidden;"></div>
@@ -186,7 +189,7 @@
 	}
 	function dbclick(){
 		document.getElementById("body").style.display = "none";
-		disconnect();
+		
 	}
 	
 </script>
