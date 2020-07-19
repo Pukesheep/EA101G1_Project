@@ -23,7 +23,7 @@
                             <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/protected/product/listAllProduct.jsp">商品管理</a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/protected/productorder/listAllProductOrder.jsp">商成訂單管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/protected/productorder/listAllProductOrder.jsp">商城訂單管理</a>
                         </li>
                         
                     </ul>
