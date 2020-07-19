@@ -27,8 +27,8 @@ public class BOServlet extends HttpServlet {
 		if ( "getOneForDisplay".equals(action) ) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/back-end/BounsOrder/ListOne.jsp";
-			String fail = "/back-end/BounsOrder/ListAll.jsp";
+			String success = "/back-end/protected/BounsOrder/ListOne.jsp";
+			String fail = "/back-end/protected/BounsOrder/ListAll.jsp";
 			
 			try {
 				String ord_id = req.getParameter("ord_id");
@@ -53,8 +53,8 @@ public class BOServlet extends HttpServlet {
 			List<BOVO> list = new ArrayList<BOVO>();
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/back-end/BounsOrder/ListByName.jsp";
-			String fail = "/back-end/BounsOrder/ListAll.jsp";
+			String success = "/back-end/protected/BounsOrder/ListByName.jsp";
+			String fail = "/back-end/protected/BounsOrder/ListAll.jsp";
 			
 			try {
 				String bon_id = req.getParameter("bon_id");
@@ -76,8 +76,8 @@ public class BOServlet extends HttpServlet {
 			List<BOVO> list = new ArrayList<BOVO>();
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/back-end/BounsOrder/ListByMember.jsp";
-			String fail = "/back-end/BounsOrder/ListAll.jsp";
+			String success = "/back-end/protected/BounsOrder/ListByMember.jsp";
+			String fail = "/back-end/protected/BounsOrder/ListAll.jsp";
 			
 			try {
 				String mem_id = req.getParameter("mem_id");
@@ -99,8 +99,8 @@ public class BOServlet extends HttpServlet {
 			List<BOVO> list = new ArrayList<BOVO>();
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/back-end/BounsOrder/ListByBS.jsp";
-			String fail = "/back-end/BounsOrder/ListAll.jsp";
+			String success = "/back-end/protected/BounsOrder/ListByBS.jsp";
+			String fail = "/back-end/protected/BounsOrder/ListAll.jsp";
 			
 			try {
 				String bs_id = req.getParameter("bs_id");
@@ -121,8 +121,8 @@ public class BOServlet extends HttpServlet {
 		if ( "getOne_For_Update".equals(action) ) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/back-end/BounsOrder/updateBO.jsp";
-			String fail = "/back-end/BounsOrder/ListAll.jsp";
+			String success = "/back-end/protected/BounsOrder/updateBO.jsp";
+			String fail = "/back-end/protected/BounsOrder/ListAll.jsp";
 			
 			try {
 				String ord_id = req.getParameter("ord_id");
@@ -143,8 +143,8 @@ public class BOServlet extends HttpServlet {
 		if ( "update".equals(action) ) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/back-end/BounsOrder/ListAll.jsp";
-			String fail = "/back-end/BounsOrder/updateBO.jsp";
+			String success = "/back-end/protected/BounsOrder/ListAll.jsp";
+			String fail = "/back-end/protected/BounsOrder/updateBO.jsp";
 			
 			try {
 				String ord_id = new String (req.getParameter("ord_id"));
@@ -176,8 +176,8 @@ public class BOServlet extends HttpServlet {
 		if ( "insert".equals(action) ) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/back-end/BounsOrder/ListAll.jsp";
-			String fail = "/back-end/BounsOrder/insert.jsp";
+			String success = "/back-end/protected/BounsOrder/ListAll.jsp";
+			String fail = "/back-end/protected/BounsOrder/insert.jsp";
 			
 			try {
 				String mem_id = req.getParameter("mem_id");
@@ -216,8 +216,8 @@ public class BOServlet extends HttpServlet {
 		if ( "delete".equals(action) ) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/back-end/BounsOrder/ListAll.jsp";
-			String fail = "/back-end/BounsOrder/ListAll.jsp";
+			String success = "/back-end/protected/BounsOrder/ListAll.jsp";
+			String fail = "/back-end/protected/BounsOrder/ListAll.jsp";
 			
 			try {
 				String ord_id = req.getParameter("ord_id");
@@ -382,8 +382,8 @@ public class BOServlet extends HttpServlet {
 			List<BOVO> list = new ArrayList<BOVO>();
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/back-end/BounsOrder/ListAll.jsp";
-			String fail = "/back-end/BounsOrder/ListAll.jsp";
+			String success = "/back-end/protected/BounsOrder/ListAll.jsp";
+			String fail = "/back-end/protected/BounsOrder/ListAll.jsp";
 			
 			try {
 				String ord_id = req.getParameter("ord_id");
@@ -402,18 +402,18 @@ public class BOServlet extends HttpServlet {
 			}
 		}
 		
-		if ( "cancel".equals(action) ) {
+		if ( "modify".equals(action) ) {
 			List<BOVO> list = new ArrayList<BOVO>();
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/front-end/protected/BounsMall/listBounsOrderByMember.jsp";
-			String fail = "/front-end/protected/BounsMall/listBounsOrderByMember.jsp";
+			String success = "/back-end/protected/BounsOrder/ListAll.jsp";
+			String fail = "/back-end/protected/BounsOrder/ListAll.jsp";
 			
 			try {
 				String ord_id = req.getParameter("ord_id");
 				String mem_id = req.getParameter("mem_id");
 				String bon_id = req.getParameter("bon_id");
-				String bs_id = "BS002";
+				String bs_id = req.getParameter("bs_id");
 				
 				BOService boSvc = new BOService();
 				boSvc.cancelBO(ord_id, bs_id);
@@ -450,6 +450,98 @@ public class BOServlet extends HttpServlet {
 				req.setAttribute("mem_id", mem_id);
 				req.setAttribute("bon_id", bon_id);
 				req.setAttribute("bmVO", bmVO);
+				
+				RequestDispatcher failureView = req.getRequestDispatcher(fail);
+				failureView.forward(req, res);
+			}
+		}
+		
+		if ( "cancel".equals(action) ) {
+			List<BOVO> list = new ArrayList<BOVO>();
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			String success = "/front-end/protected/BounsMall/listBounsOrderByMember.jsp";
+			String fail = "/front-end/protected/BounsMall/listBounsOrderByMember.jsp";
+			
+			try {
+				String ord_id = req.getParameter("ord_id");
+				String mem_id = req.getParameter("mem_id");
+				String bon_id = req.getParameter("bon_id");
+				String bs_id = req.getParameter("bs_id");
+				
+				BOService boSvc = new BOService();
+				boSvc.cancelBO(ord_id, bs_id);
+				
+				list = boSvc.getByMem(mem_id);
+
+				BMService bmSvc = new BMService();
+				BMVO bmVO = bmSvc.getByPK(bon_id);
+				Integer bon_exchange = bmVO.getBon_exchange();
+				bon_exchange--;
+				bmSvc.updateExchange(bon_id, bon_exchange);
+				
+				MemberService memSvc = new MemberService();
+				MemberVO memVO = memSvc.getOneMember(mem_id);
+				Integer mem_bonus = memVO.getMem_bonus();
+				Integer bon_price = bmVO.getBon_price();
+				mem_bonus += bon_price;
+				memSvc.updateBonus(mem_id, mem_bonus);
+				
+				req.setAttribute("list", list);
+				req.setAttribute("mem_id", mem_id);
+				RequestDispatcher successView = req.getRequestDispatcher(success);
+				successView.forward(req, res);
+			} catch ( Exception e ) {
+				errorMsgs.add( "無法取得要修改的資料" + e.getMessage() );
+
+				String mem_id = req.getParameter("mem_id");
+				String bon_id = req.getParameter("bon_id");
+				
+				BMService bmSvc = new BMService();
+				BMVO bmVO = bmSvc.getByPK(bon_id);
+				
+				req.setAttribute("list", list);
+				req.setAttribute("mem_id", mem_id);
+				req.setAttribute("bon_id", bon_id);
+				req.setAttribute("bmVO", bmVO);
+				
+				RequestDispatcher failureView = req.getRequestDispatcher(fail);
+				failureView.forward(req, res);
+			}
+		}
+		
+		if ( "updateBSFront".equals(action) ) {
+			List<BOVO> list = new ArrayList<BOVO>();
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			String success = "/front-end/protected/BounsMall/listBounsOrderByMember.jsp";
+			String fail = "/front-end/protected/BounsMall/listBounsOrderByMember.jsp";
+			
+			try {
+				String ord_id = req.getParameter("ord_id");
+				String mem_id = req.getParameter("mem_id");
+				String bs_id = req.getParameter("bs_id");
+				
+				BOService boSvc = new BOService();
+				boSvc.cancelBO(ord_id, bs_id);
+				
+				list = boSvc.getByMem(mem_id);
+
+				req.setAttribute("list", list);
+				req.setAttribute("mem_id", mem_id);
+				RequestDispatcher successView = req.getRequestDispatcher(success);
+				successView.forward(req, res);
+			} catch ( Exception e ) {
+				errorMsgs.add( "無法取得要修改的資料" + e.getMessage() );
+
+				String mem_id = req.getParameter("mem_id");
+				
+				BOService boSvc = new BOService();
+				
+				list = boSvc.getByMem(mem_id);
+				
+				req.setAttribute("list", list);
+				req.setAttribute("mem_id", mem_id);
 				
 				RequestDispatcher failureView = req.getRequestDispatcher(fail);
 				failureView.forward(req, res);

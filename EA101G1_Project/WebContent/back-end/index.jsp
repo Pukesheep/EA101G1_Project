@@ -111,7 +111,7 @@ body {
 
 					<div class="col-lg-3">
 						<a
-							href="<%=request.getContextPath()%>/back-end/BounsMall/ListAll.jsp">
+							href="<%=request.getContextPath()%>/back-end/protected/BounsMall/ListAll.jsp">
 							<div class="card">
 								<div class="card-body d-flex align-items-center">
 									<div class="fas fa-coins fa-4x mr-2 d-none d-sm-block"></div>
