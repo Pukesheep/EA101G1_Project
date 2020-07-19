@@ -101,7 +101,7 @@ a.btn btn-primary {
 									<tr>
 										<td>${psacVO.psac_no}</td>
 										<td>${psacVO.mem_id}</td>
-										<td>${psacVO.post_id}</td>
+										<td><a href="<%=request.getContextPath()%>/front-end/post/listAllPost.jsp" ">${psacVO.post_id}</a></td>
 										<td>${psacVO.adm_no}</td>
 										<td>${psacVO.psac_content}</td>
 										<td><c:choose>
