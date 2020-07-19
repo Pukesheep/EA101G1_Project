@@ -179,13 +179,23 @@
 									<div class="row mt-5 mb-4">
 									<form action="<%=request.getContextPath()%>/gro_order/gro_order.do" method="post" style="width: 100%">
 										<div class="col-12 text-center">
+											<input type="hidden" name="ordstat_id" value="007">
+											<input type="hidden" name="ord_id" value="${gro_orderVO.ord_id}">
+											<input type="hidden" name="from" value="front-end">
+											<input type="hidden" name="action" value="update">
+											<button type="submit" class="btn btn-outline-dark btn-block">取消訂單</button>
+										</div>
+									</form>
+									
+									<form action="<%=request.getContextPath()%>/gro_order/gro_order.do" method="post" style="width: 100%">
+										<div class="col-12 text-center">
 											<input type="hidden" name="ordstat_id" value="014">
 											<input type="hidden" name="ord_id" value="${gro_orderVO.ord_id}">
 											<input type="hidden" name="from" value="front-end">
 											<input type="hidden" name="action" value="update">
 											<button type="submit" class="btn btn-outline-dark btn-block">完成訂單</button>
 										</div>
-										</form>
+									</form>
 									</div>
 								</div>
 							</div>
