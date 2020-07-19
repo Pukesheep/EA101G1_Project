@@ -91,8 +91,8 @@ a.btn btn-primary {
 									<th>管理員編號</th>
 									<th>檢舉案內容</th>
 									<th>檢舉案狀態</th>
-									<th>檢舉成立</th>
-									<th>檢舉不成立</th>
+<!-- 									<th>檢舉成立</th> -->
+<!-- 									<th>檢舉不成立</th> -->
 								</tr>
 								<%@ include file="../../files/page1B.file"%>
 								<c:forEach var="psacVO" items="${list}" begin="<%=pageIndex%>"
@@ -115,41 +115,41 @@ a.btn btn-primary {
 									不成立
 								</c:when>
 							</c:choose></td>
-										<td>
-											<FORM METHOD="post"
-												ACTION="<%=request.getContextPath()%>/psac/psac.do"
-												style="margin-bottom: 0px;">
-												<input type="submit" class="btn btn-warning" value="成立">
-												<input type="hidden" name="psac_no"
-													value="${psacVO.psac_no}"> <input type="hidden"
-													name="mem_id" value="${psacVO.mem_id}"> <input
-													type="hidden" name="post_id" value="${psacVO.post_id}">
-												<input type="hidden" name="adm_no" value="${admVO.adm_no}">
-												<input type="hidden" name="psac_content"
-													value="${psacVO.psac_content}"> <input
-													type="hidden" name="psac_state"
-													value="1"> <input type="hidden"
-													name="action" value="psacConfirm">
-											</FORM>
-										</td>
-										<td>
-											<FORM METHOD="post"
-												ACTION="<%=request.getContextPath()%>/psac/psac.do"
-												style="margin-bottom: 0px;">
-												<input type="submit" class="btn btn-info" value="不成立">
-												<input type="hidden" name="psac_no"
-													value="${psacVO.psac_no}"> <input type="hidden"
-													name="mem_id" value="${psacVO.mem_id}"> <input
-													type="hidden" name="post_id" value="${psacVO.post_id}">
-												<input type="hidden" name="adm_no" value="${admVO.adm_no}">
-												<input type="hidden" name="psac_content"
-													value="${psacVO.psac_content}"> <input
-													type="hidden" name="psac_state"
-													value="2"> <input type="hidden"
-													name="action" value="psacConfirm">
-											</FORM>
+<!-- 										<td> -->
+<!-- 											<FORM METHOD="post" -->
+<%-- 												ACTION="<%=request.getContextPath()%>/psac/psac.do" --%>
+<!-- 												style="margin-bottom: 0px;"> -->
+<!-- 												<input type="submit" class="btn btn-warning" value="成立"> -->
+<!-- 												<input type="hidden" name="psac_no" -->
+<%-- 													value="${psacVO.psac_no}"> <input type="hidden" --%>
+<%-- 													name="mem_id" value="${psacVO.mem_id}"> <input --%>
+<%-- 													type="hidden" name="post_id" value="${psacVO.post_id}"> --%>
+<%-- 												<input type="hidden" name="adm_no" value="${admVO.adm_no}"> --%>
+<!-- 												<input type="hidden" name="psac_content" -->
+<%-- 													value="${psacVO.psac_content}"> <input --%>
+<!-- 													type="hidden" name="psac_state" -->
+<!-- 													value="1"> <input type="hidden" -->
+<!-- 													name="action" value="psacConfirm"> -->
+<!-- 											</FORM> -->
+<!-- 										</td> -->
+<!-- 										<td> -->
+<!-- 											<FORM METHOD="post" -->
+<%-- 												ACTION="<%=request.getContextPath()%>/psac/psac.do" --%>
+<!-- 												style="margin-bottom: 0px;"> -->
+<!-- 												<input type="submit" class="btn btn-info" value="不成立"> -->
+<!-- 												<input type="hidden" name="psac_no" -->
+<%-- 													value="${psacVO.psac_no}"> <input type="hidden" --%>
+<%-- 													name="mem_id" value="${psacVO.mem_id}"> <input --%>
+<%-- 													type="hidden" name="post_id" value="${psacVO.post_id}"> --%>
+<%-- 												<input type="hidden" name="adm_no" value="${admVO.adm_no}"> --%>
+<!-- 												<input type="hidden" name="psac_content" -->
+<%-- 													value="${psacVO.psac_content}"> <input --%>
+<!-- 													type="hidden" name="psac_state" -->
+<!-- 													value="2"> <input type="hidden" -->
+<!-- 													name="action" value="psacConfirm"> -->
+<!-- 											</FORM> -->
 											
-										</td>
+<!-- 										</td> -->
 									</tr>
 							
 								</c:forEach>

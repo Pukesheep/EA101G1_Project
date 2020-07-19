@@ -104,7 +104,17 @@ a.btn btn-primary {
 										<td>${psacVO.post_id}</td>
 										<td>${psacVO.adm_no}</td>
 										<td>${psacVO.psac_content}</td>
-										<td>${psacVO.psac_state}</td>
+										<td><c:choose>
+								<c:when test="${psacVO.psac_state eq 0}">
+									未處理
+								</c:when>
+								<c:when test="${psacVO.psac_state eq 1}">
+									成立
+								</c:when>
+								<c:when test="${psacVO.psac_state eq 2}">
+									不成立
+								</c:when>
+							</c:choose></td>
 										<td>
 											<FORM METHOD="post"
 												ACTION="<%=request.getContextPath()%>/psac/psac.do"
