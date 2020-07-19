@@ -167,8 +167,8 @@
 
 
 					<div class="form-group">
-						<label for="mem_warn">警告次數</label>
-						<input type="text" class="form-control" id="mem_warn" name="mem_warn" value="${memberVO.mem_warn}" readonly>
+						<label for="mem_warn">紅利點數</label>
+						<input type="text" class="form-control" id="mem_bonus" name="mem_bonus" value="${memberVO.mem_bonus}" readonly>
 					</div>
 
 					<div class="form-group">
