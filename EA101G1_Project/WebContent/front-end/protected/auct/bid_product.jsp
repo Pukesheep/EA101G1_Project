@@ -240,9 +240,11 @@ body {
 		</div>
 	</section>
 
-	<button id="chatBtn" class="bg-primary">
-		<i class="fas fa-comments"></i>
-	</button>
+	        <!-- ²á¤Ñ«Ç -->
+<!--         <button id="chatBtn" class="bg-primary"> -->
+<!--             <i class="fas fa-comments"></i> -->
+<!--         </button> -->
+<%@ include file="/files/footer.jsp" %>
 
 
 	<script type="text/javascript">
