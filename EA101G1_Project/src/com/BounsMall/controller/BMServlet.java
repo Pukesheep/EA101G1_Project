@@ -28,7 +28,7 @@ public class BMServlet extends HttpServlet {
 			
 			HttpSession session = req.getSession();
 			session.setAttribute("list", list);
-			String url = "/front-end/BounsMall/ListAll.jsp";
+			String url = "/front-end/protected/BounsMall/ListAll.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 			return;
@@ -37,8 +37,8 @@ public class BMServlet extends HttpServlet {
 		if ("getByName".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String url = "/front-end/BounsMall/select_page.jsp";
-			String success = "/front-end/BounsMall/ListAll.jsp";
+			String url = "/front-end/protected/BounsMall/select_page.jsp";
+			String success = "/front-end/protected/BounsMall/ListAll.jsp";
 			
 //			try {
 				String bon_name = req.getParameter("bon_name");
@@ -126,6 +126,8 @@ public class BMServlet extends HttpServlet {
 		if ("insert".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			String url = "/back-end/protected/BounsMall/ListAll.jsp";
+			String fail = "/back-end/protected/BounsMall/addBM.jsp";
 			
 			try {
 				String bon_name = req.getParameter("bon_name");
@@ -186,8 +188,7 @@ public class BMServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("bmVO", bmVO); // 含有輸入格式錯誤的empVO物件,也存入req
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/protected/BounsMall/addBM.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher(fail);
 					failureView.forward(req, res);
 					return;
 				}
@@ -198,15 +199,14 @@ public class BMServlet extends HttpServlet {
 				bmVO = bmSvc.addBM(pt_id, bon_name, bon_price, bon_image, bon_info, bon_stock);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/back-end/BounsMall/ListAll.jsp";
+				
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/protected/BounsMall/addBM.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher(fail);
 				failureView.forward(req, res);
 			}
 		}
@@ -214,8 +214,8 @@ public class BMServlet extends HttpServlet {
 		if ("getOne_For_Update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/back-end/BounsMall/updateBM.jsp";
-			String fail = "/back-end/BounsMall/ListAll.jsp";
+			String success = "/back-end/protected/BounsMall/updateBM.jsp";
+			String fail = "/back-end/protected/BounsMall/ListAll.jsp";
 			
 			try {
 				String bon_id = new String(req.getParameter("bon_id"));
@@ -237,8 +237,8 @@ public class BMServlet extends HttpServlet {
 		if ("update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/back-end/BounsMall/ListAll.jsp" ;
-			String fail = "/back-end/BounsMall/updateBM.jsp" ;
+			String success = "/back-end/protected/BounsMall/ListAll.jsp" ;
+			String fail = "/back-end/protected/BounsMall/updateBM.jsp" ;
 			
 //			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
@@ -359,8 +359,8 @@ public class BMServlet extends HttpServlet {
 		if ("exchange".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/front-end/BounsMall/listOneBouns.jsp" ;
-			String fail = "/front-end/BounsMall/listOneBouns.jsp" ;
+			String success = "/front-end/protected/BounsMall/listOneBouns.jsp" ;
+			String fail = "/front-end/protected/BounsMall/listOneBouns.jsp" ;
 			
 //			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
