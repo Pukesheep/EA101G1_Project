@@ -388,7 +388,11 @@ div.content {
 										</FORM>
 									</c:if> <c:if test="${immedVO.ordstat_id eq '005'}">
 										<input disabled type="submit" value="已出貨">
-									</c:if></td>
+									</c:if>
+									<c:if test="${immedVO.ordstat_id eq '014'}">
+										<input disabled type="submit" value="已出貨">
+									</c:if>
+									</td>
 								<!-- 								<td> -->
 								<!-- 									<FORM METHOD="post" -->
 								<%-- 										ACTION="<%=request.getContextPath()%>/immed/immed.do" --%>

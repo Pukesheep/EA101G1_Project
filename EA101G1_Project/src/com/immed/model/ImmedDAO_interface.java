@@ -6,8 +6,10 @@ public interface ImmedDAO_interface {
 	public void insert(ImmedVO immedVO);
 	public void update(ImmedVO immedVO);
 	
+	public void update_oneImmed(ImmedVO immedVO);
 	public void update_up(ImmedVO immedVO);
 	public void update_down(ImmedVO immedVO);
+	public void update_end(ImmedVO immedVO);
 	public void update_one_buy(ImmedVO immedVO);
 	public void update_shipping(ImmedVO immedVO);
 	public void update_disable(ImmedVO immedVO);

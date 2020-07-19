@@ -193,7 +193,7 @@ th, td {
 }
 
 td:nth-of-type(1) {
-	width: 150px;
+	width: 110px;
 }
 
 td:nth-of-type(2) {
@@ -213,6 +213,7 @@ div.content {
 	background: hsla(0, 0%, 100%, .8);
 	min-height: 100vh;
 }
+
 .dropdown-menu li:hover .sub-menu {
 	visibility: visible;
 }
@@ -220,6 +221,7 @@ div.content {
 .dropdown:hover .dropdown-menu {
 	display: block;
 }
+
 @media ( max-width : 1023px) {
 	header .form-inline .form-control {
 		width: 250px;
@@ -349,12 +351,12 @@ div.content {
 							<!-- 							<th>商品售出狀態</th> -->
 							<!-- 							<th>商品下架狀態</th> -->
 							<!-- 							<th>訂單時間</th> -->
-							<th>訂單狀態</th>
+							<th style="width: 100px;">訂單狀態</th>
 							<th>收件人姓名</th>
 							<th>收件人電話</th>
 							<th>收件人地址</th>
-							<th>取消交易</th>
-							<!-- 							<th>刪除</th> -->
+							<th style="width: 100px;">取消交易</th>
+							<th style="width: 100px;">交易完成</th>
 						</tr>
 
 						<%@ include file="/files/immed/immedPage5.file"%>
@@ -394,22 +396,31 @@ div.content {
 									<FORM METHOD="post"
 										ACTION="<%=request.getContextPath()%>/immed/immed.do"
 										style="margin-bottom: 0px;">
-										<input type="submit" value="取消"
-											${immedVO.ordstat_id eq '005' ? "disabled":""}> <input
-											type="hidden" name="immed_id" value="${immedVO.immed_id}">
-										<input type="hidden" name="action" value="update_disable">
+
+										<c:if test="${immedVO.ordstat_id ne '014'}">
+											<input type="submit" value="取消"
+												${immedVO.ordstat_id eq '005' ? "disabled":""}>
+											<input type="hidden" name="immed_id"
+												value="${immedVO.immed_id}">
+											<input type="hidden" name="action" value="update_disable">
+										</c:if>
 									</FORM>
 								</td>
-								<!-- 								<td> -->
-								<!-- 									<FORM METHOD="post" -->
-								<%-- 										ACTION="<%=request.getContextPath()%>/immed/immed.do" --%>
-								<!-- 										style="margin-bottom: 0px;"> -->
-								<!-- 										<input type="hidden" name="from" value="back-end"> <input -->
-								<!-- 											type="submit" value="刪除"> <input type="hidden" -->
-								<%-- 											name="immed_id" value="${immedVO.immed_id}"> <input --%>
-								<!-- 											type="hidden" name="action" value="delete"> -->
-								<!-- 									</FORM> -->
-								<!-- 								</td> -->
+								<td>
+									<FORM METHOD="post"
+										ACTION="<%=request.getContextPath()%>/immed/immed.do"
+										style="margin-bottom: 0px;">
+										<c:if test="${immedVO.ordstat_id eq '005'}">
+											<input type="submit" value="完成">
+											<input type="hidden" name="immed_id"
+												value="${immedVO.immed_id}">
+											<input type="hidden" name="action" value="update_end">
+										</c:if>
+										<c:if test="${immedVO.ordstat_id eq '014'}">
+											<input disabled type="submit" value="已完成">
+										</c:if>
+									</FORM>
+								</td>
 							</tr>
 						</c:forEach>
 					</table>

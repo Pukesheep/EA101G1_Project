@@ -47,8 +47,8 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css">
 
-<!-- CKEditor -->
-<script src="<%=request.getContextPath()%>/files/ckeditor/ckeditor.js"></script>
+		<!-- CKEditor -->
+	<script src="<%=request.getContextPath()%>/files/ckeditor/ckeditor.js"></script>
 
 <style>
 body {
@@ -298,7 +298,6 @@ div.buy_content {
 			<div class="col-12 buy_content">
 				<div class="">
 					<h3 class="pb-2">修改直購商品:</h3>
-					${ptSvc.getOneProductType(immedVO.pt_id)}
 					<%-- 錯誤表列 --%>
 					<c:if test="${not empty errorMsgs}">
 						<font style="color: red">請修正以下錯誤:</font>
@@ -325,25 +324,22 @@ div.buy_content {
 								<td><select name="pt_id" id="fpt_id">
 										<c:forEach var="ptVO" items="${ptSvc.all}">
 											<option
-												selected="${ptSvc.getOneProductType(immedVO.pt_id).typename}"
+												${ptVO.pt_id eq immedVO.pt_id ? 'selected' : ''}
 												value="${ptVO.pt_id}">${ptVO.typename}</option>
-												
 										</c:forEach>
-										selected="selected"
-										${ptSvc.getOneProductType(immedVO.pt_id).typename}
 								</select></td>
 							</tr>
 
 							<tr>
 								<td><label for="fimmed_name">直購商品名稱: </label></td>
-								<td><input type="text" name="immed_name" id="fimmed_name"
-									value="${immedVO.immed_name}"></td>
+								<td><input type="text" name="immed_name" id="fimmed_name" style="width:100%"
+									value="${immedVO.immed_name}" autocomplete="off"></td>
 							</tr>
 
 							<tr>
 								<td><label for="fimmed_prc">商品直購價: </label></td>
 								<td><input type="text" name="immed_prc"
-									value="${immedVO.immed_prc}" /></td>
+									value="${immedVO.immed_prc}" autocomplete="off" /></td>
 							</tr>
 
 							<tr>
@@ -359,17 +355,13 @@ div.buy_content {
 
 							<tr>
 								<td><label for="fimmed_desc">商品描述: </label></td>
-								<td><textarea name="immed_desc" id="editor1"
-										value="${immedVO.immed_desc}"></textarea> <!-- 							<textarea style="width: 350px; height: 250px;" name="immed_desc" -->
-									<!-- 									id="fimmed_desc" --> <%-- 									value="<%=(immedVO == null) ? "10000" : immedVO.getImmed_desc()%>"> </textarea> --%>
-									${immedVO.immed_desc}</td>
-
-
+								<td><textarea name="immed_desc" id="editor1">${immedVO.immed_desc}</textarea> 
+									</td>
 							</tr>
 							<tr>
-								<td><input type="hidden" name="sale_id"
-									value="${memberVO.mem_id}" /> <input type="hidden"
-									name="action" value="insert"> <input type="submit"
+								<td><input type="hidden" name="immed_id"
+									value="${immedVO.immed_id}" /> <input type="hidden"
+									name="action" value="update_oneImmed"> <input type="submit"
 									value="送出"></td>
 							</tr>
 						</table>
@@ -407,6 +399,8 @@ div.buy_content {
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 		crossorigin="anonymous"></script>
+		
+
 
 	<script>
 		function readURL(input) {

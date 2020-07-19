@@ -16,9 +16,11 @@ public class ImmedJDBCDAO implements ImmedDAO_interface {
 
 	private static final String DELETE = "DELETE FROM IMMED WHERE IMMED_ID = ?";
 	private static final String UPDATE = "UPDATE IMMED SET BUY_ID= ?, PT_ID= ?, IMMED_NAME= ?, IMMED_PRC= ?, IMMED_PIC= ?, IMMED_DESC= ?, IMMED_SOLD= ?, IMMED_DOWN= ?, ORD_TIME= ?, ORDSTAT_ID= ?, RCPT_NAME= ?, RCPT_CELL= ?, RCPT_ADD= ? WHERE IMMED_ID = ?";
-
+	
+	private static final String UPDATE_ONE_IMMED = "UPDATE IMMED SET PT_ID= ?, IMMED_NAME= ?, IMMED_PRC= ?, IMMED_PIC= ?, IMMED_DESC= ? WHERE IMMED_ID = ?";
 	private static final String UPDATE_UP = "UPDATE IMMED SET IMMED_DOWN= 0 WHERE IMMED_ID = ?";
 	private static final String UPDATE_DOWN = "UPDATE IMMED SET IMMED_DOWN= 1 WHERE IMMED_ID = ?";
+	private static final String UPDATE_END = "UPDATE IMMED SET ORDSTAT_ID= '014' WHERE IMMED_ID = ?";
 	private static final String UPDATE_ONE_BUY = "UPDATE IMMED SET BUY_ID= ?, IMMED_SOLD= 1, IMMED_down= 1, ORD_TIME= SYSTIMESTAMP, ORDSTAT_ID= '003', RCPT_NAME= ?, RCPT_CELL= ?, RCPT_ADD= ? WHERE IMMED_ID = ?";
 	private static final String UPDATE_SHIPPING = "UPDATE IMMED SET ORDSTAT_ID='005' WHERE IMMED_ID = ?";
 	private static final String UPDATE_DISABLE = "UPDATE IMMED SET BUY_ID= NULL, IMMED_SOLD= 0, IMMED_down= 0, ORD_TIME= NULL, ORDSTAT_ID= NULL, RCPT_NAME= NULL, RCPT_CELL= NULL, RCPT_ADD= NULL WHERE IMMED_ID = ?";
@@ -133,6 +135,89 @@ public class ImmedJDBCDAO implements ImmedDAO_interface {
 		}
 	}
 
+	@Override
+	public void update_oneImmed(ImmedVO immedVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE);
+
+			pstmt.setString(1, immedVO.getPt_id());
+			pstmt.setString(2, immedVO.getImmed_name());
+			pstmt.setInt(3, immedVO.getImmed_prc());
+			pstmt.setBytes(4, immedVO.getImmed_pic());
+			pstmt.setString(5, immedVO.getImmed_desc());
+			pstmt.setString(6, immedVO.getImmed_id());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void update_end(ImmedVO immedVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_END);
+
+			pstmt.setString(1, immedVO.getImmed_id());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
 	@Override
 	public void update_up(ImmedVO immedVO) {
 		Connection con = null;

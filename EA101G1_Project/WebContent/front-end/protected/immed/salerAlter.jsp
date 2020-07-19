@@ -350,7 +350,7 @@ div.content {
 							<th>商品上架時間</th>
 							<th>商品價格</th>
 							<th>商品圖片</th>
-							<th>商品描述</th>
+<!-- 							<th>商品描述</th> -->
 							<!-- 							<th>商品售出狀態</th> -->
 							<!-- 							<th>商品在架狀態</th> -->
 							<!-- 							<th>訂單時間</th> -->
@@ -378,7 +378,7 @@ div.content {
 								<td>$${immedVO.immed_prc}</td>
 								<td><img class="immed_pic"
 									src="<%=request.getContextPath()%>/immed/ImmedPic.do?immed_id=${immedVO.immed_id}"></td>
-								<td><pre class="immed_desc">${immedVO.immed_desc}</pre></td>
+								<%-- 								<td><pre class="immed_desc">${immedVO.immed_desc}</pre></td> --%>
 								<%-- 								<td>${(immedVO.immed_sold eq 1) ? '已售出' : '未售出'}</td> --%>
 								<%-- 								<td>${(immedVO.immed_down eq 1) ? "已下架" : "未下架"}</td> --%>
 								<%-- 								<td><fmt:formatDate value="${immedVO.ord_time}" --%>

@@ -47,6 +47,22 @@ public class ImmedService {
 		return immedVO;
 	}
 	
+	public ImmedVO update_oneImmed(String pt_id, String immed_name,Integer immed_prc, byte[] immed_pic, String immed_desc, String immed_id) {
+		
+		ImmedVO immedVO = new ImmedVO();
+		
+		immedVO.setPt_id(pt_id);
+		immedVO.setImmed_name(immed_name);
+		immedVO.setImmed_prc(immed_prc);
+		immedVO.setImmed_pic(immed_pic);
+		immedVO.setImmed_desc(immed_desc);
+		immedVO.setImmed_id(immed_id);
+		
+		dao.update_oneImmed(immedVO);
+		
+		return immedVO;
+	}
+	
 	public ImmedVO updateImmedUp(String immed_id) {
 		ImmedVO immedVO = new ImmedVO();
 		
@@ -61,6 +77,15 @@ public class ImmedService {
 		
 		immedVO.setImmed_id(immed_id);
 		dao.update_down(immedVO);
+		
+		return immedVO;
+	}
+	
+	public ImmedVO updateEnd(String immed_id) {
+		ImmedVO immedVO = new ImmedVO();
+		
+		immedVO.setImmed_id(immed_id);
+		dao.update_end(immedVO);
 		
 		return immedVO;
 	}

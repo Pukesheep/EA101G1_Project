@@ -327,14 +327,14 @@ div.buy_content {
 
 							<tr>
 								<td><label for="fimmed_name">直購商品名稱: </label></td>
-								<td><input type="text" name="immed_name" id="fimmed_name"
-									value="${immedVO.immed_name}"></td>
+								<td><input type="text" name="immed_name" id="fimmed_name" style="width:100%"
+									value="${immedVO.immed_name}" autocomplete="off"></td>
 							</tr>
 
 							<tr>
 								<td><label for="fimmed_prc">商品直購價: </label></td>
-								<td><input type="text" name="immed_prc"
-									value="${immedVO.immed_prc}" /></td>
+								<td><input type="text" name="immed_prc" 
+									value="${immedVO.immed_prc}" autocomplete="off" /></td>
 							</tr>
 
 							<tr>

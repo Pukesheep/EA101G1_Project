@@ -349,7 +349,7 @@ public class ImmedServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		if ("getOne_For_Update".equals(action)) { // 來自listAllImmed.jsp的請求
+		if ("getOne_For_Update".equals(action)) { // 修改商品 action 
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -640,6 +640,120 @@ public class ImmedServlet extends HttpServlet {
 			}
 		}
 
+		if ("update_oneImmed".equals(action)) { // 來自update_emp_input.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				String immed_id = req.getParameter("immed_id");
+//				System.out.println(immed_id);
+				String pt_id = req.getParameter("pt_id");
+//				System.out.println(pt_id);
+				String immed_name = req.getParameter("immed_name");
+//				System.out.println(immed_name);
+//				Integer immed_prc = new Integer(req.getParameter("immed_prc"));
+//				System.out.println(immed_prc);
+
+				Integer immed_prc = null;
+				try {
+					immed_prc = new Integer(req.getParameter("immed_prc").trim());
+					if (immed_prc <= 0) {
+						immed_prc = 0;
+						errorMsgs.add("商品價錢要大於零");
+					}
+				} catch (NumberFormatException e) {
+					immed_prc = 0;
+					errorMsgs.add("商品價錢請輸入數字");
+				}
+				
+				byte[] immed_pic = null;
+				Part immedpicPart = req.getPart("immed_pic");
+				java.io.InputStream in = immedpicPart.getInputStream();
+//				System.out.println(in.available()); //測試InputStream用
+				if (in.available() > 0) {
+					immed_pic = new byte[in.available()];
+					in.read(immed_pic);
+					in.close();
+				} else {
+					ImmedService immedSvc = new ImmedService();
+					ImmedVO immedVO = immedSvc.getOneImmed(immed_id);
+					immed_pic = immedVO.getImmed_pic();
+				}
+
+//				System.out.println(immed_pic);
+				String immed_desc = req.getParameter("immed_desc");
+//				System.out.println(immed_desc);
+
+				ImmedVO immedVO = new ImmedVO();
+
+				immedVO.setPt_id(pt_id);
+				immedVO.setImmed_name(immed_name);
+				immedVO.setImmed_prc(immed_prc);
+				immedVO.setImmed_pic(immed_pic);
+				immedVO.setImmed_desc(immed_desc);
+				immedVO.setImmed_id(immed_id);
+
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("immedVO", immedVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/protected/immed/update_immed_input.jsp");
+					failureView.forward(req, res);
+					return; // 程式中斷
+				}
+
+				/*************************** 2.開始修改資料 *****************************************/
+				ImmedService immedSvc = new ImmedService();
+				immedVO = immedSvc.update_oneImmed(pt_id, immed_name, immed_prc, immed_pic, immed_desc,immed_id);
+
+				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("immedVO", immedVO); // 資料庫update成功後,正確的的immedVO物件,存入req
+				String url = "/front-end/protected/immed/salerAlter.jsp"; // listOneImmed.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneImmed.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("修改資料失敗:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/protected/immed/salerAlter.jsp"); // update_immed_input.jsp
+				failureView.forward(req, res);
+			}
+		}
+		
+		if ("update_end".equals(action)) { // 前台商品上架
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				String immed_id = req.getParameter("immed_id");
+
+				ImmedVO immedVO = new ImmedVO();
+				immedVO.setImmed_id(immed_id);
+
+				/*************************** 2.開始修改資料 *****************************************/
+				ImmedService immedSvc = new ImmedService();
+				immedVO = immedSvc.updateEnd(immed_id);
+				/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
+				String url = "/front-end/protected/immed/buyerManage.jsp"; // listOneImmed.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneImmed.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("修改資料失敗:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/protected/immed/buyerManage.jsp"); // update_immed_input.jsp
+				failureView.forward(req, res);
+			}
+		}
+
+		
 		if ("update_up".equals(action)) { // 前台商品上架
 
 			List<String> errorMsgs = new LinkedList<String>();
