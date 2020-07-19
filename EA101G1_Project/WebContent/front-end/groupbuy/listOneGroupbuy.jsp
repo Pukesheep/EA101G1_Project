@@ -147,25 +147,19 @@
 									<div class="progress border border-dark mb-1" style="height: 30px">
 										<div class="progress-bar bg-danger" id="1stlevel" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> <h6>${groupbuyVO.people} / ${rebateSvc.getOneRebate(groupbuyVO.reb1_no).people} 人</h6></div>
 										<div class="progress-bar progress-bar-striped text-white" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
-											<h6>
-												$ <fmt:formatNumber pattern="#" value="${productVO.p_price * rebateSvc.getOneRebate(groupbuyVO.reb1_no).discount}" />
-											</h6>
+											<h6 class="h6">$ <fmt:formatNumber pattern="#" value="${productVO.p_price * rebateSvc.getOneRebate(groupbuyVO.reb1_no).discount}" /></h6>
 										</div>
 									</div>
 									<div class="progress border border-dark mb-1" style="height: 40px">
 										<div class="progress-bar bg-warning" id="2ndlevel" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> <h5>${groupbuyVO.people} / ${rebateSvc.getOneRebate(groupbuyVO.reb2_no).people} 人</h5></div>
 										<div class="progress-bar progress-bar-striped text-white" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
-											<h5>
-												$ <fmt:formatNumber pattern="#" value="${productVO.p_price * rebateSvc.getOneRebate(groupbuyVO.reb2_no).discount}" />
-											</h5>
+											<h4 class="h5">$ <fmt:formatNumber pattern="#" value="${productVO.p_price * rebateSvc.getOneRebate(groupbuyVO.reb2_no).discount}" /></h4>
 										</div>
 									</div>
 									<div class="progress border border-dark mb-2" style="height: 50px">
 										<div class="progress-bar bg-success" id="3rdlevel" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> <h4>${groupbuyVO.people} / ${rebateSvc.getOneRebate(groupbuyVO.reb3_no).people} 人</h4></div>
 										<div class="progress-bar progress-bar-striped text-white" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
-											<h4>
-												$ <fmt:formatNumber pattern="#" value="${productVO.p_price * rebateSvc.getOneRebate(groupbuyVO.reb3_no).discount}" />
-											</h4>
+											<h4 class="h4">$ <fmt:formatNumber pattern="#" value="${productVO.p_price * rebateSvc.getOneRebate(groupbuyVO.reb3_no).discount}" /></h4>
 										</div>
 									</div>	
 									
