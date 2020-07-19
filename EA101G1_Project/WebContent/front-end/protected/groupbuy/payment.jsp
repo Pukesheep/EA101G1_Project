@@ -10,15 +10,18 @@
 <%@ page import="com.ordstat.model.*" %>
 
 <%
+	MemberService memberSvc = new MemberService();
 	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 	Gro_orderVO gro_orderVO = (Gro_orderVO) request.getAttribute("gro_orderVO");
+	MemberVO memberVOreq = (MemberVO) memberSvc.getOneMember(memberVO.getMem_id());
+	pageContext.setAttribute("memberVOreq", memberVOreq);
 %>
 
 <jsp:useBean id="groupbuySvc" scope="page" class="com.groupbuy.model.GroupbuyService" />
 <jsp:useBean id="productSvc" scope="page" class="com.product.model.ProService" />
 <jsp:useBean id="rebateSvc" scope="page" class="com.rebate.model.RebateService" />
 <jsp:useBean id="ordstatSvc" scope="page" class="com.ordstat.model.OrdstatService" />
-<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
+<%-- <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" /> --%>
 
 <html lang="en">
 <head>
@@ -272,13 +275,15 @@ new TwCitySelector({
 <%-- 處理地址下拉式選單與手動輸入合併的區塊 --%>
 <script>
 	$('#fillForm').click(function(){
-		var receive_name = '${sessionScope.memberVO.mem_name}';
-		var phone = '${sessionScope.memberVO.mem_phone}';
-		var card_no = '${sessionScope.memberVO.card_no}';
-		var card_yy = '${sessionScope.memberVO.card_yy}';
-		var card_mm = '${sessionScope.memberVO.card_mm}';
-		var card_sec = '${sessionScope.memberVO.card_sec}';
-		var address = '${sessionScope.memberVO.mem_addr}';
+		
+		var receive_name = '${memberVOreq.mem_name}';
+		var phone = '${memberVOreq.mem_phone}';
+		var card_no = '${memberVOreq.card_no}';
+		var card_yy = '${memberVOreq.card_yy}';
+		var card_mm = '${memberVOreq.card_mm}';
+		var card_sec = '${memberVOreq.card_sec}';
+		var address = '${memberVOreq.mem_addr}';
+		
 		var detail = address.substring(6);
 		
 		$('#receive_name').val(receive_name);

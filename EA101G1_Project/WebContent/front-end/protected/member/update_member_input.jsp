@@ -89,213 +89,192 @@
 <%-- 錯誤表列 --%>
 
 </c:if>
+		
 
-<div class="container">
+<div class="container-fluid">
 	<div class="row justify-content-center">
-	<div class="col">
-		<div class="text-center">
-		<label for="upload">
-			<img alt="" src="<%=request.getContextPath()%>/member/ShowMemberPic.do?mem_id=${memberVO.mem_id}" class="profile rounded-circle" id="display">
-		</label>
+		<div class="col-10">
+			<div class="text-center">
+				<label for="upload">
+					<img alt="" src="<%=request.getContextPath()%>/member/ShowMemberPic.do?mem_id=${memberVO.mem_id}" class="profile rounded-circle" id="display">
+				</label>
+			</div>
 		</div>
-		</div>
-		</div>
-		<div class="card profile text-white">
-			<form action="<%=request.getContextPath()%>/member/member.do" method="post" enctype="multipart/form-data" class="profile">
-				<div class="card-body">
-				
-					<div class="form-group profile-header">
-						<label for="mem_name">會員名稱</label>
-						<input type="text" class="form-control" id="mem_name" name="mem_name" value="${memberVO.mem_name}" autocomplete="off">
-					</div>
-					
-					<div class="form-group">
-						<label for="mem_email">會員信箱</label>
-						<input type="email" class="form-control" id="mem_email" name="mem_email" value="${memberVO.mem_email}" readonly>
-					</div>
-					
-					<div class="form-group">
-						<label for="mem_pass">會員密碼</label>
-						<div class="input-group mb-3">
-							<input type="password" class="form-control" id="mem_pass" name="mem_pass" value="${memberVO.mem_pass}">
-							<div class="input-group-append">
-								<span class="input-group-text"><img alt="" src="<%=request.getContextPath()%>/images/icons/opend-eye.png" class="float-right img-icon mem_pass" title="顯示"></span>
+		<div class="col-10">
+			<div class="card profile text-white">
+				<form action="<%=request.getContextPath()%>/member/member.do" method="post" enctype="multipart/form-data" class="profile" style="width: 100%">
+					<div class="row mt-3 justify-content-center">
+						<div class="col-6 mt-3 p-5">
+						
+							<div class="form-group profile-header">
+								<label for="mem_name">會員名稱</label>
+								<input type="text" class="form-control" id="mem_name" name="mem_name" value="${memberVO.mem_name}" autocomplete="off">
 							</div>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label for="mem_phone">會員手機</label>
-						<input type="text" class="form-control" id="mem_phone" name="mem_phone" value="${memberVO.mem_phone}" autocomplete="off">
-					</div>
-					
-					<div class="form-group">
-						<label for="exampleFormControlSelect1">會員地址</label>
-						<div class="my-selector-c">
-							<div>
+							
+							<div class="form-group">
+								<label for="mem_email">會員信箱</label>
+								<input type="email" class="form-control" id="mem_email" name="mem_email" value="${memberVO.mem_email}" readonly>
+							</div>
+							
+							<div class="form-group">
+								<label for="mem_pass">會員密碼</label>
 								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text">縣市</span>
+									<input type="password" class="form-control" id="mem_pass" name="mem_pass" value="${memberVO.mem_pass}" autocomplete="off">
+									<div class="input-group-append">
+										<span class="input-group-text"><img alt="" src="<%=request.getContextPath()%>/images/icons/opend-eye.png" class="float-right img-icon mem_pass" title="顯示"></span>
 									</div>
-									<select class="form-control county" name="county" id="county">
-									</select>
 								</div>
 							</div>
-							<div>
+							
+							<div class="form-group">
+								<label for="mem_phone">會員手機</label>
+								<input type="text" class="form-control" id="mem_phone" name="mem_phone" value="${memberVO.mem_phone}" autocomplete="off">
+							</div>
+							
+							<div class="form-group">
+								<label for="mem_birth">會員生日</label>
+								<input type="text" class="form-control" id="mem_birth" name="mem_birth" value="${memberVO.mem_birth}" autocomplete="off">
+							</div>	
+							
+							<div class="form-group">
+								<label for="mem_autho">會員權限</label>
+								
+								<c:choose>
+									<c:when test="${memberVO.mem_autho eq 0}">
+										<input type="text" class="form-control" id="mem_autho" value="停權會員" readonly>
+									</c:when>
+									<c:when test="${memberVO.mem_autho eq 1 or memberVO.mem_autho eq 2}">
+										<input type="text" class="form-control" id="mem_autho" value="一般會員" readonly>
+									</c:when>
+									<c:when test="${memberVO.mem_autho eq 99}">
+										<input type="text" class="form-control" id="mem_autho" value="平台管理員" readonly>
+									</c:when>
+								</c:choose>
+								
+							</div>
+							
+							<div class="form-group">
+								<label for="exampleFormControlSelect1">會員地址</label>
+								<div class="my-selector-c">
+									<div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text">縣市</span>
+											</div>
+											<select class="form-control county" name="county" id="county">
+											</select>
+										</div>
+									</div>
+									<div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text">鄉鎮</span>
+											</div>
+											<select class="form-control district" name="district" id="district">
+											</select>
+										</div>
+									</div>
+								</div>
+								
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
-										<span class="input-group-text">鄉鎮</span>
+										<span class="input-group-text">細項</span>
 									</div>
-									<select class="form-control district" name="district" id="district">
-									</select>
+									<input type="text" class="form-control" name="detail" id="detail" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="" autocomplete="off">
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text">地址</span>
+									</div>
+									<input type="text" class="form-control" name="mem_addr" id="mem_addr" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${memberVO.mem_addr}" readonly>
+								</div>						
+							</div>
+							
+						</div>
+						<div class="col-6 mt-5 p-3">
+						
+							<div class="form-group profile-header">
+								<label for="mem_bonus">紅利點數</label>
+								<input type="text" class="form-control" id="mem_bonus" name="mem_bonus" value="${memberVO.mem_bonus}" readonly>
+							</div>
+							
+							<div class="form-group">
+								<label for="mem_warn">警告次數</label>
+								<input type="text" class="form-control" id="mem_warn" name="mem_warn" value="${memberVO.mem_warn}" readonly>
+							</div>
+							
+							<div class="form-group">
+								<label for="mem_joindat">加入日期</label>
+								<input type="text" class="form-control" id="mem_joindat" name="mem_joindat" value="${memberVO.mem_joindat}" readonly>
+							</div>
+							
+							<div class="form-group">
+								<label for="bank_acc">銀行帳戶</label>
+								<input type="text" class="form-control" id="bank_acc" name="bank_acc" value="${memberVO.bank_acc}" autocomplete="off">
+							</div>
+							
+							<div class="form-group">
+								<label for="card_no">信用卡號</label>
+								<div class="input-group mb-3">
+								<input type="password" class="form-control" id="card_no" name="card_no" value="${memberVO.card_no}" autocomplete="off">
+									<div class="input-group-append">
+										<span class="input-group-text"><img alt="" src="<%=request.getContextPath()%>/images/icons/opend-eye.png" class="float-right img-icon card_no" title="顯示"></span>
+									</div>
 								</div>
 							</div>
+							
+							<div class="form-group">
+								<label for="card_yy">到期年份</label>
+								<div class="input-group mb-3">
+								<input type="password" class="form-control" id="card_yy" name="card_yy" value="${memberVO.card_yy}" autocomplete="off">
+									<div class="input-group-append">
+										<span class="input-group-text"><img alt="" src="<%=request.getContextPath()%>/images/icons/opend-eye.png" class="float-right img-icon card_yy" title="顯示"></span>
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label for="card_mm">到期月份</label>
+								<div class="input-group mb-3">
+								<input type="password" class="form-control" id="card_mm" name="card_mm" value="${memberVO.card_mm}" autocomplete="off">
+									<div class="input-group-append">
+										<span class="input-group-text"><img alt="" src="<%=request.getContextPath()%>/images/icons/opend-eye.png" class="float-right img-icon card_mm" title="顯示"></span>
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label for="card_sec">卡片安全碼</label>
+								<div class="input-group mb-3">
+								<input type="password" class="form-control" id="card_sec" name="card_sec" value="${memberVO.card_sec}" autocomplete="off">
+									<div class="input-group-append">
+										<span class="input-group-text"><img alt="" src="<%=request.getContextPath()%>/images/icons/opend-eye.png" class="float-right img-icon card_sec" title="顯示"></span>
+									</div>
+								</div>
+							</div>
+					
 						</div>
 						
-						<%
-							String addr = memberVO.getMem_addr();
-							String deatil = addr.substring(6);
-						%>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text">細項</span>
-							</div>
-							<input type="text" class="form-control" name="detail" id="detail" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="<%=deatil%>" autocomplete="off">
+						<div class="col-1">
+							<input class="d-none" type="file" id="upload" name="mem_icon">
+							<input type="hidden" name="mem_id" value="${memberVO.mem_id}">
+							<input type="hidden" name="mem_autho" value="${memberVO.mem_autho}">
+							<input type="hidden" name="action" value="update-front">
+							<button type="submit" class="btn login_btn float-right submit">送出修改</button>
 						</div>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text">地址</span>
-							</div>
-							<input type="text" class="form-control" name="mem_addr" id="mem_addr" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="${memberVO.mem_addr}" readonly>
-						</div>						
-					</div>
-					<%-- 處理地址下拉式選單與手動輸入合併的區塊 --%>
-					<script>
-					
-						$('#county').change(function(){
-							
-							$('#mem_addr').val($('#county').val() + $('#district').val() + $('#detail').val());
-							
-						});
+						<div class="col-1">
+							<button type="button" id="magic" class="btn login_btn submit">神奇按鈕</button>
+						</div>
 						
-						$('#district').change(function(){
-							
-							$('#mem_addr').val($('#county').val() + $('#district').val() + $('#detail').val());
-							
-						});
-						
-						$('#detail').keyup(function(){
-							
-							$('#mem_addr').val($('#county').val() + $('#district').val() + $('#detail').val());
-							
-						});
-					</script>
-					<%-- 處理地址下拉式選單與手動輸入合併的區塊 --%>
-					
-					<div class="form-group">
-						<label for="mem_birth">會員生日</label>
-						<input type="text" class="form-control" id="mem_birth" name="mem_birth" autocomplete="off">
-					</div>		
-					
-					<%
-						String autho = "";
-						switch (memberVO.getMem_autho()){
-							case 0:
-								autho = "停權";
-								break;
-							case 1:
-								autho = "一般會員";
-								break;
-							case 2:
-								autho = "賣家資格會員";
-								break;
-							case 99:
-								autho = "平台管理員";
-								break;
-						}
-					%>			
-					
-					<div class="form-group">
-						<label for="mem_autho">會員權限</label>
-						<input type="text" class="form-control" id="mem_autho" value="<%=autho%>" readonly>
 					</div>
-
-					<div class="form-group">
-						<label for="mem_bonus">紅利點數</label>
-						<input type="text" class="form-control" id="mem_bonus" name="mem_bonus" value="${memberVO.mem_bonus}" readonly>
-					</div>
-
-					<div class="form-group">
-						<label for="mem_warn">警告次數</label>
-						<input type="text" class="form-control" id="mem_warn" name="mem_warn" value="${memberVO.mem_warn}" readonly>
-					</div>
-
-					<div class="form-group">
-						<label for="mem_joindat">加入日期</label>
-						<input type="text" class="form-control" id="mem_joindat" name="mem_joindat" value="${memberVO.mem_joindat}" readonly>
-					</div>
-					
-					<div class="form-group">
-						<label for="bank_acc">銀行帳戶</label>
-						<input type="text" class="form-control" id="bank_acc" name="bank_acc" value="${memberVO.bank_acc}" autocomplete="off">
-					</div>
-
-					<div class="form-group">
-						<label for="card_no">信用卡號</label>
-						<div class="input-group mb-3">
-						<input type="password" class="form-control" id="card_no" name="card_no" value="${memberVO.card_no}" autocomplete="off">
-							<div class="input-group-append">
-								<span class="input-group-text"><img alt="" src="<%=request.getContextPath()%>/images/icons/opend-eye.png" class="float-right img-icon card_no" title="顯示"></span>
-							</div>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label for="card_yy">到期年份</label>
-						<div class="input-group mb-3">
-						<input type="password" class="form-control" id="card_yy" name="card_yy" value="${memberVO.card_yy}" autocomplete="off">
-							<div class="input-group-append">
-								<span class="input-group-text"><img alt="" src="<%=request.getContextPath()%>/images/icons/opend-eye.png" class="float-right img-icon card_yy" title="顯示"></span>
-							</div>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label for="card_mm">到期月份</label>
-						<div class="input-group mb-3">
-						<input type="password" class="form-control" id="card_mm" name="card_mm" value="${memberVO.card_mm}" autocomplete="off">
-							<div class="input-group-append">
-								<span class="input-group-text"><img alt="" src="<%=request.getContextPath()%>/images/icons/opend-eye.png" class="float-right img-icon card_mm" title="顯示"></span>
-							</div>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label for="card_sec">卡片安全碼</label>
-						<div class="input-group mb-3">
-						<input type="password" class="form-control" id="card_sec" name="card_sec" value="${memberVO.card_sec}" autocomplete="off">
-							<div class="input-group-append">
-								<span class="input-group-text"><img alt="" src="<%=request.getContextPath()%>/images/icons/opend-eye.png" class="float-right img-icon card_sec" title="顯示"></span>
-							</div>
-						</div>
-					</div>
-					
-					<input class="d-none" type="file" id="upload" name="mem_icon">
-					<input type="hidden" name="mem_id" value="${memberVO.mem_id}">
-					<input type="hidden" name="mem_autho" value="${memberVO.mem_autho}">
-					<input type="hidden" name="action" value="update-front">
-					<button type="submit" class="btn login_btn float-right submit">送出修改</button>
-					
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
-		
-
-		
-		
-		
-		
+	</div>
 </div>
+
+
+
 
 <script>
 
@@ -304,6 +283,20 @@ new TwCitySelector({
     elCounty: ".county", // 在 el 裡查找 dom
     elDistrict: ".district" // 在 el 裡查找 dom
   });
+  
+$('#magic').click(function(){
+	
+	$("input[name='mem_phone']").val('0987654321');
+	$("input[name='mem_birth']").val('1970-01-01');
+	$("input[name='detail']").val('崇德路137號');
+	$("input[name='mem_addr']").val('桃園市中壢區崇德路137號');
+	$("input[name='bank_acc']").val('49583958395839');
+	$("input[name='card_no']").val('5415868759485938');
+	$("input[name='card_yy']").val('2029');
+	$("input[name='card_mm']").val('07');
+	$("input[name='card_sec']").val('338');
+	
+});
 
 
 
@@ -323,7 +316,29 @@ $('img.img-icon').click(function(){
 	}
 });
 
+$('#county').change(function(){
+	
+	$('#mem_addr').val($('#county').val() + $('#district').val() + $('#detail').val());
+	
+});
+
+$('#district').change(function(){
+	
+	$('#mem_addr').val($('#county').val() + $('#district').val() + $('#detail').val());
+	
+});
+
+$('#detail').keyup(function(){
+	
+	$('#mem_addr').val($('#county').val() + $('#district').val() + $('#detail').val());
+	
+});
+
 function init() {
+	
+	var mem_addr = '${memberVO.mem_addr}';
+	var detail = mem_addr.substring(6);
+	$('#detail').val(detail);
 	 
     var display = document.getElementById("display");
     var upload = document.getElementById("upload");

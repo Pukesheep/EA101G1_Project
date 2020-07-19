@@ -40,6 +40,25 @@
 	
 </head>
 <body>
+	
+	<!--新增成功-->
+	<c:if test="${not empty successMsgs }">
+		<%
+			java.util.List<String> successMsgs = (java.util.List<String>) request.getAttribute("successMsgs");
+			String message = "";
+			for (String msg : successMsgs) {
+				message += msg;
+				message += "\\n";
+			}
+		%>
+		<script>
+			Swal.fire({
+				icon: 'success',
+				title: '<%=message%>'
+			});
+		</script>
+	</c:if>
+	<!--新增成功-->
 		
     <!-- navbar -->
 		<%@ include file="../../../files/header.jsp" %>
@@ -90,19 +109,19 @@
 											</p>
 											<div class="row">
 												<div class="col-6">
-												<form class="" action="<%=request.getContextPath()%>/BounsMall/BounsMall.do" method="post">
-													<input type="hidden" name="BON_ID" value="${bmVO.bon_id}">
-													<input type="hidden" name="action" value="getOne_For_Display">
-													<button type="submit" class="btn btn-primary">商品詳情</button>
-												</form>
+													<form class="" action="<%=request.getContextPath()%>/BounsMall/BounsMall.do" method="post">
+														<input type="hidden" name="BON_ID" value="${bmVO.bon_id}">
+														<input type="hidden" name="action" value="getOne_For_Display">
+														<button type="submit" class="btn btn-primary">商品詳情</button>
+													</form>
 												</div>
 												<div class="col-6">
-												<form class="exchange" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" method="post">
-													<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
-													<input type="hidden" name="bon_id" value="${bmVO.bon_id}">
-													<input type="hidden" name="action" value="exchange">
-													<button type="submit" class="btn btn-danger float-right" >我要兌換</button>
-												</form>
+													<form class="exchange" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" method="post">
+														<input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
+														<input type="hidden" name="bon_id" value="${bmVO.bon_id}">
+														<input type="hidden" name="action" value="exchangeListAll">
+														<button type="submit" class="btn btn-danger float-right" >我要兌換</button>
+													</form>
 												</div>
 											</div>
 										</div>

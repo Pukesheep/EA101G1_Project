@@ -31,4 +31,5 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 	</header>
+	<%@ include file="/back-end/backchat/chat.jsp"%>
 </div>

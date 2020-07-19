@@ -1126,7 +1126,7 @@ public class MemberServlet extends HttpServlet {
 								String message="{\"type\" : \"chat\"," + "\"sender\" : \""+list.get(i)+"\",\"receiver\":\""+list.get(j)+"\",\"message \":\" "
 										+ " happy \" }";
 								jedis.rpush(key,message);
-								System.out.println(key);
+//								System.out.println(key);
 							}
 						}
 						

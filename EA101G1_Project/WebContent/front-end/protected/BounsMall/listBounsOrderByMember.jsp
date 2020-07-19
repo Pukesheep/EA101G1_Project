@@ -1,11 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.BounsOrder.model.*" %>
 <%@ page import="com.BounsMall.model.*" %>
+<%@ page import="com.member.model.*" %>
 
 <%
-	List<BOVO> list = (List<BOVO>) request.getAttribute("list");
+	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+	BOService boSvc = new BOService();
+	List<BOVO> list = (List<BOVO>) boSvc.getByMem(memberVO.getMem_id());
+	pageContext.setAttribute("list", list);
 %>
 
 <jsp:useBean id="bmSvc" scope="page" class="com.BounsMall.model.BMService" />
@@ -53,6 +58,12 @@
 	<script src="<%=request.getContextPath()%>/files/ckeditor/ckeditor.js"></script>
 	<!-- post.css -->
 	
+	<style>
+	img.boImg {
+		width: 150px;
+		height: 150px;	
+	}
+	</style>
 </head>
 
 <body bgcolor='white'>
@@ -68,43 +79,104 @@
 	</c:if>
 	
 	 <!-- navbar -->
-		<%@ include file="../../../files/header.jsp" %>
+	<%@ include file="../../../files/header.jsp" %>
     <!-- navbar end -->
     <section class="blank0"></section>
     <!-- 內容 -->
     
+    <div class="container">
+    	<div class="card alert alert-primary">
+    		<div class="card-header">
+    			<div align="center">
+    				<h4>"${sessionScope.memberVO.mem_name}"的紅利訂單</h4>
+    			</div>
+    		</div>
+    		<%@ include file="../../../files/page1.file" %>
+    		<div class="card-body">
+    			<div class="row">
+    				<c:forEach var="boVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >
+    					<c:if test="${boVO.bs_id!='BS002'}">
+	    					<div class="col-12">
+	    						<div class="card alert alert-light mb-3 p-4">
+	    							<div class="media alert alert-success">
+		    							<img class="boImg" src="<%=request.getContextPath()%>/BounsMall/ImageServlet.do?bon_id=${boVO.bon_id}">
+		    							<div class="media-body">
+		    								<div class="media justify-content-around align-items-center">
+			    								<div class="col-6">
+			    									<div align="center">
+			    										<h4>紅利商品名稱</h4>
+			    										<h4>${bmSvc.getByPK(boVO.bon_id).bon_name}</h4>
+			    									</div>
+			    								</div>
+			    								<div class="col-3">
+			    									<div align="center">
+			    										<h4>下定日期</h4>
+			    										<h4>${boVO.ord_Date}</h4>
+			    									</div>
+			    								</div>
+			    								<div class="col-3">
+			    									<div align="center">
+			    										<h4>訂單狀態</h4>
+			    										<h4>${bsSvc.getOneBS(boVO.bs_id).bs_stat}</h4>
+			    									</div>
+			    								</div>
+		    								</div>
+		    							</div>
+	    							</div>
+	    							<c:choose>
+	    								<c:when test="${boVO.bs_id=='BS001'}">
+	    									<div align="center">
+				    							<form method="post" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" style="margin-bottom: 0px;">
+													<input type="hidden" name="ord_id" value="${boVO.ord_id}">
+													<input type="hidden" name="mem_id" value="${boVO.mem_id}">
+													<input type="hidden" name="bon_id" value="${boVO.bon_id}">
+													<input type="hidden" name="bs_id" value="BS002">
+													<input type="hidden" name="action" value="cancel">
+													<button type="submit" class="btn btn-warning float-center">取消訂單</button>
+												</form>
+											</div>
+	    								</c:when>
+	    								<c:when test="${boVO.bs_id=='BS003'}">
+	    									<div align="center">
+	    										<div class="col-8">
+			    									<div class="row">
+			    										<div class="col-6">
+							    							<form method="post" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" style="margin-bottom: 0px;">
+																<input type="hidden" name="ord_id" value="${boVO.ord_id}">
+																<input type="hidden" name="mem_id" value="${boVO.mem_id}">
+																<input type="hidden" name="bs_id" value="BS004">
+																<input type="hidden" name="action" value="updateBSFront">
+																<button type="submit" class="btn btn-success float-center">完成訂單</button>
+															</form>
+														</div>
+														<div class="col-6">
+								    						<form method="post" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" style="margin-bottom: 0px;">
+																<input type="hidden" name="ord_id" value="${boVO.ord_id}">
+																<input type="hidden" name="mem_id" value="${boVO.mem_id}">
+																<input type="hidden" name="bs_id" value="BS005">
+																<input type="hidden" name="action" value="updateBSFront">
+																<button type="submit" class="btn btn-danger float-center">我要退貨</button>
+															</form>
+														</div>
+													</div>
+												</div>
+											</div>
+	    								</c:when>
+	    							</c:choose>
+	    						</div>
+	    					</div>
+	    				</c:if>
+    				</c:forEach>
+    			</div>
+    		</div>
+    		<%@ include file="../../../files/page2C.file" %>
+    	</div>
+    </div>
+
 	<!-- 內容 -->
-        <!-- footer -->
-			<%@ include file="../../../files/footer.jsp" %>
-        <!-- footer -->
-	
-	<table>
-		<tr>
-			<th>紅利商品名稱</th>
-			<th>下訂日期</th>
-			<th>訂單狀態</th>
-			<th>執行動作</th>
-		</tr>
-		
-		<%@ include file="../../../files/page1.file" %>
-		<c:forEach var="boVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-			<tr>
-				<td>${bmSvc.getByPK(boVO.bon_id).bon_name}</td>
-				<td>${boVO.ord_Date}</td>
-				<td>${bsSvc.getOneBS(boVO.bs_id).bs_stat}</td>
-				<td>
-					<form method="post" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" style="margin-bottom: 0px;">
-						<input type="hidden" name="ord_id" value="${boVO.ord_id}">
-						<input type="hidden" name="mem_id" value="${boVO.mem_id}">
-						<input type="hidden" name="bon_id" value="${boVO.bon_id}">
-						<input type="hidden" name="action" value="cancel">
-						<input type="submit" value="取消訂單" >
-					</form>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
-	<%@ include file="../../../files/page2.file" %>
-	
+	<!-- footer -->
+	<%@ include file="../../../files/footer.jsp" %>
+	<!-- footer -->
+
 </body>
 </html>

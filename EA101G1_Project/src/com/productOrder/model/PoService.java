@@ -13,10 +13,11 @@ public class PoService {
 		dao = new PoDAO();
 	}
 	
-	public void AddOrder (String mem_id , Double amount, List<PolVO> list) {
+	public void AddOrder (String mem_id , Double amount, Double bonus, List<PolVO> list) {
 		PoVO poVO = new PoVO();
 		poVO.setMem_id(mem_id);
 		poVO.setAmount(amount);
+		poVO.setBonus(bonus);
 		
 		dao.insert(poVO, list);
 	}
@@ -36,7 +37,7 @@ public class PoService {
 	
 	public List<PoVO> getOrderByMemId(String mem_id, List<PoVO> list){
 				List<PoVO>list2 = list.stream()
-			//	.filter(p ->p.getMem_id().equals(mem_id))
+				.filter(p ->p.getMem_id().equals(mem_id))
 				.collect(Collectors.toList());
 		
 		return list2;
@@ -51,7 +52,7 @@ public class PoService {
 		PoVO poVO = new PoVO();
 		poVO.setOrdstat_id(ordstat_id);
 		poVO.setPo_id(po_id);
-		
+		System.out.println("1");
 		dao.update(poVO);
 	}
 	

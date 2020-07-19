@@ -21,7 +21,9 @@
 	PtVO ptVO = ptSvc.getOneProductType(immedTypeSearchPt_id);
 	pageContext.setAttribute("ptVO", ptVO);
 %>
-
+<jsp:useBean id="favImmedSvc" scope="page"
+	class="com.favImmed.model.FavImmedService" />
+	
 <html>
 <head>
 <title>EA101G1 Immed: HOME</title>
@@ -172,7 +174,7 @@ section.blank1 div.left_side {
 }
 
 section.blank1 .card {
-	height: 300px;
+	height: 310px;
 	overflow: hidden;
 }
 
@@ -222,13 +224,24 @@ aside .navbar-nav .nav-link:hover {
 	background-color: #A9A9A9;
 	cursor: pointer;
 }
+.dropdown-menu li:hover .sub-menu {
+	visibility: visible;
+}
 
-.img-icon {
-	width: 25px;
-	height: 25px;
+.dropdown:hover .dropdown-menu {
+	display: block;
+}
+/* .img-icon { */
+/* 	width: 25px; */
+/* 	height: 25px; */
+/* 	float: right; */
+/* 	margin: 8px 2px; */
+/* 	cursor: pointer; */
+/* } */
+
+.favAdd {
 	float: right;
-	margin: 8px 2px;
-	cursor: pointer;
+	padding-bottom: 10px;
 }
 
 @media ( max-width : 1023px) {
@@ -296,7 +309,7 @@ aside .navbar-nav .nav-link:hover {
 						</div>
 						<div>已購買商品</div>
 				</a></li>
-				<li class="nav-item  pl-md-2 dropdown"><a
+					<li class="nav-item  pl-md-2 dropdown"><a
 					class="nav-link text-white " dropdown-toggle" href="" role="button"
 					id="dropdownMenuLink" data-toggle="dropdown">
 						<div>
@@ -304,19 +317,19 @@ aside .navbar-nav .nav-link:hover {
 							<div>賣家管理</div>
 						</div>
 				</a>
-
 					<div class="dropdown-menu">
 						<a class="dropdown-item"
 							href="<%=request.getContextPath()%>/front-end/protected/immed/salerManage.jsp">出貨管理</a>
 						<a class="dropdown-item"
 							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品管理</a>
 					</div></li>
-				<li class="nav-item pl-md-2"><a class="nav-link text-white"
-					href="">
+				<li class="nav-item pl-md-2"><a
+					class="nav-link text-white favColl" href="" data-toggle="modal"
+					data-target=".bd-example-modal-lg">
 						<div>
-							<i class="fas fa-heart pl-md-3 pl-2 pb-1"></i>
+							<i class="fas fa-heart pl-md-4 pl-2 pb-1"></i>
 						</div>
-						<div>追蹤商品</div>
+						<div>已追蹤商品</div>
 				</a></li>
 
 			</ul>
@@ -439,15 +452,57 @@ aside .navbar-nav .nav-link:hover {
 										<a
 											href="<%=request.getContextPath()%>/immed/immed.do?action=getOne_For_Display&immed_id=${immedVO.immed_id}"
 											title="${immedVO.immed_name}"><h5 class="card-title">${immedVO.immed_name}</h5></a>
-										<span class="card-price">$${immedVO.immed_prc}</span> <img
-											style="" class=" img-icon" alt=""
-											src="<%=request.getContextPath()%>/front-end/product/images/icons/empty.png"
-											id="${immedVO.immed_id}${sessionScope.memberVO.mem_id}"
-											title="加入最愛">
+										<span class="card-price">$${immedVO.immed_prc}</span>
+										<c:choose>
+											<c:when
+												test="${favImmedSvc.getOne(immedVO.immed_id, sessionScope.memberVO.mem_id) eq null}">
+												<%-- 			<img class="img-icon" alt="" src="<%=request.getContextPath()%>/front-end/product/images/icons/empty.png" id="${immedVO.immed_id}${sessionScope.memberVO.mem_id}" title="加入最愛"> --%>
+												<input type="hidden" name="action" value="insert">
+												<input type="hidden" name="immed_id"
+													value="${immedVO.immed_id}">
+												<input type="hidden" name="mem_id"
+													value="${memberVO.mem_id}">
+												<button type="button"
+													style="box-shadow: none !important; border: none !important;"
+													class="btn favAdd text-danger">
+													<i class="far fa-heart fa-2x addIcon"
+														id="${immedVO.immed_id}${sessionScope.memberVO.mem_id}"></i>
+												</button>
+												<!-- 													<input class="img-icon" type="image" -->
+												<%-- 														src="<%=request.getContextPath()%>/front-end/product/images/icons/empty.png" --%>
+												<!-- 														alt="Submit" width="25" height="25"> -->
+											</c:when>
+											<c:otherwise>
+												<%-- 			<img class="img-icon" alt="" src="<%=request.getContextPath()%>/front-end/product/images/icons/full.png" id="${immedVO.immed_id}${sessionScope.memberVO.mem_id}" title="取消最愛"> --%>
+												<input type="hidden" name="action" value="delete">
+												<input type="hidden" name="immed_id"
+													value="${immedVO.immed_id}">
+												<input type="hidden" name="mem_id"
+													value="${memberVO.mem_id}">
+												<button type="button"
+													style="box-shadow: none !important; border: none !important;"
+													class="btn favAdd text-danger">
+													<i class="fas fa-heart fa-2x addIcon"
+														id="${immedVO.immed_id}${sessionScope.memberVO.mem_id}"></i>
+												</button>
+												<!-- 													<input class="img-icon" type="image" -->
+												<%-- 														src="<%=request.getContextPath()%>/front-end/product/images/icons/full.png" --%>
+												<!-- 														alt="Submit" width="25" height="25"> -->
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 							</div>
 						</c:forEach>
+					</div>
+
+					<div class="modal  bd-example-modal-lg" tabindex="-1" role="dialog"
+						aria-labelledby="myLargeModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content"><jsp:include
+									page="/front-end/protected/immed/listAllFavImmed.jsp"
+									flush="true" /></div>
+						</div>
 					</div>
 
 					<div class="row pl-5">
@@ -467,8 +522,8 @@ aside .navbar-nav .nav-link:hover {
 
 	<!-- 連結Bootstrap所需要的js -->
 	<!-- jquery.min.js -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -478,6 +533,96 @@ aside .navbar-nav .nav-link:hover {
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 		crossorigin="anonymous"></script>
+
+	<!-- SweetAlert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+	<script>
+// 加入最愛
+	$('.addIcon').click(function(){
+		var thisID = this.id;
+		var immed_id = thisID.substring(0, 11);
+		var mem_id = thisID.substring(11, 18);
+		console.log(immed_id)
+		console.log(mem_id)
+		
+	 	if(${sessionScope.memberVO eq null}) {
+			Swal.fire({
+				icon: 'info',
+				title: '請先登入會員',
+				showConfirmButton: true,
+				confirmButtonText: '好'
+			}).then((result) => {
+					  <%session.setAttribute("location", request.getRequestURI() + "?" + request.getQueryString());%>	
+						document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp';  
+			})
+	}else{
+		if ($(this).hasClass("far")) {
+				$.ajax({
+					url: '<%=request.getContextPath()%>/favImmed/favImmed.do',
+					type: 'POST',
+					data: {
+						immed_id: immed_id,
+						mem_id: mem_id,
+						action: 'insert'
+					},
+					success: function(){
+						Swal.fire({
+							icon: 'info',
+							title: '已加入',
+							showConfirmButton: false,
+							timer: 500
+						}).then((result) => {
+							$(".modal-content").load("<%=request.getContextPath()%>/front-end/protected/immed/listAllFavImmed.jsp")
+						})
+					}
+				});
+				$(this).removeClass("far");
+				$(this).addClass("fas");
+			}
+			else if($(this).hasClass("fas")){
+				$.ajax({
+					url: '<%=request.getContextPath()%>/favImmed/favImmed.do',
+					type: 'POST',
+					data: {
+						immed_id: immed_id,
+						mem_id: mem_id,
+						action: 'delete'
+					},
+					success: function(){
+						Swal.fire({
+							icon: 'info',
+							title: '已移除',
+							showConfirmButton: false,
+							timer: 500
+						})
+						.then((result) => {
+							$(".modal-content").load("<%=request.getContextPath()%>/front-end/protected/immed/listAllFavImmed.jsp")
+						})
+					}
+				});
+				$(this).removeClass("fas");
+				$(this).addClass("far");	
+			}
+		}
+	});
+	</script>
+
+	<script>	
+	$('.favColl').click(function(){ 			/* 已追蹤商品會員跳轉*/
+		if(${sessionScope.memberVO eq null}) {
+					Swal.fire({
+						icon: 'info',
+						title: '請先登入會員',
+						showConfirmButton: true,
+						confirmButtonText: '好'
+					}).then((result) => {
+							  <%session.setAttribute("location", request.getRequestURI() + "?" + request.getQueryString());%>	
+								document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp';  
+					})
+		}
+	});
+	</script>
 
 </body>
 </html>

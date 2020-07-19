@@ -366,7 +366,7 @@ public class ImmedServlet extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("immedVO", immedVO); // 資料庫取出的immedVO物件,存入req
-				String url = "/front-end/immed/update_immed_input.jsp";
+				String url = "/front-end/protected/immed/update_immed_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_immed_input.jsp
 				successView.forward(req, res);
 

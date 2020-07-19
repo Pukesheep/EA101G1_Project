@@ -154,6 +154,16 @@
 		<url-pattern>/immed/ImmedPic.do</url-pattern>
 	</servlet-mapping>
 	
+		<servlet>
+		<servlet-name>FavImmedServlet</servlet-name>
+		<servlet-class>com.favImmed.controller.FavImmedServlet</servlet-class>
+	</servlet>        
+	
+	<servlet-mapping>
+		<servlet-name>FavImmedServlet</servlet-name>
+		<url-pattern>/favImmed/favImmed.do</url-pattern>
+	</servlet-mapping>
+	
 <!-- 直購區 -->
 
 <!-- 商城 -->

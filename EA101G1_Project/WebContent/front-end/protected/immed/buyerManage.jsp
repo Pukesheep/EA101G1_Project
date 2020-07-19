@@ -213,7 +213,13 @@ div.content {
 	background: hsla(0, 0%, 100%, .8);
 	min-height: 100vh;
 }
+.dropdown-menu li:hover .sub-menu {
+	visibility: visible;
+}
 
+.dropdown:hover .dropdown-menu {
+	display: block;
+}
 @media ( max-width : 1023px) {
 	header .form-inline .form-control {
 		width: 250px;
@@ -283,12 +289,13 @@ div.content {
 						<a class="dropdown-item"
 							href="<%=request.getContextPath()%>/front-end/protected/immed/salerAlter.jsp">商品管理</a>
 					</div></li>
-				<li class="nav-item pl-md-2"><a class="nav-link text-white"
-					href="">
+				<li class="nav-item pl-md-2"><a
+					class="nav-link text-white favColl" href="" data-toggle="modal"
+					data-target=".bd-example-modal-lg">
 						<div>
-							<i class="fas fa-heart pl-md-3 pl-2 pb-1"></i>
+							<i class="fas fa-heart pl-md-4 pl-2 pb-1"></i>
 						</div>
-						<div>追蹤商品</div>
+						<div>已追蹤商品</div>
 				</a></li>
 
 			</ul>
@@ -376,9 +383,10 @@ div.content {
 								<%-- 								<td>${(immedVO.immed_down eq 1) ? "已下架" : "未下架"}</td> --%>
 								<%-- 								<td><fmt:formatDate value="${immedVO.ord_time}" --%>
 								<%-- 										pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
-								<td><%
-									ordstatVO = ordSvc.listOneOrdstat(immedVO.getOrdstat_id());
-								%> <%=ordstatVO.getOrdstat()%></td>
+								<td>
+									<%
+										ordstatVO = ordSvc.listOneOrdstat(immedVO.getOrdstat_id());
+									%> <%=ordstatVO.getOrdstat()%></td>
 								<td>${immedVO.rcpt_name}</td>
 								<td>${immedVO.rcpt_cell}</td>
 								<td><p class="rcpt_add">${immedVO.rcpt_add}</p></td>
@@ -386,8 +394,7 @@ div.content {
 									<FORM METHOD="post"
 										ACTION="<%=request.getContextPath()%>/immed/immed.do"
 										style="margin-bottom: 0px;">
-										 <input
-											type="submit" value="取消"
+										<input type="submit" value="取消"
 											${immedVO.ordstat_id eq '005' ? "disabled":""}> <input
 											type="hidden" name="immed_id" value="${immedVO.immed_id}">
 										<input type="hidden" name="action" value="update_disable">
@@ -406,8 +413,16 @@ div.content {
 							</tr>
 						</c:forEach>
 					</table>
+					<div class="modal  bd-example-modal-lg" tabindex="-1" role="dialog"
+						aria-labelledby="myLargeModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content"><jsp:include
+									page="/front-end/protected/immed/listAllFavImmed.jsp"
+									flush="true" /></div>
+						</div>
+					</div>
 				</div>
-						<%@ include file="/files/immed/page2B.file"%>
+				<%@ include file="/files/immed/page2B.file"%>
 			</div>
 
 
@@ -421,8 +436,8 @@ div.content {
 
 	<!-- 連結Bootstrap所需要的js -->
 	<!-- jquery.min.js -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"

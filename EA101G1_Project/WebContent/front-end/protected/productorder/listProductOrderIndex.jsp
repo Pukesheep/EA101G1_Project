@@ -138,7 +138,7 @@
     
     <script>
     //重導後回到先前頁籤
-    $('<%= request.getAttribute("show")%>').tab('show')
+    $("<%= request.getAttribute("show")%>").tab('show')
     
 //     重新整理停留當前頁籤
     $(document).ready(function() {

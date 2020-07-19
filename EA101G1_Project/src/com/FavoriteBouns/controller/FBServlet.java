@@ -205,8 +205,8 @@ public class FBServlet extends HttpServlet {
 			List<FBVO> list = new ArrayList<FBVO>();
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String success = "/front-end/BounsMall/listFavoriteByMember.jsp";
-			String fail = "/front-end/BounsMall/listFavoriteByMember.jsp";
+			String success = "/front-end/protected/BounsMall/listFavoriteByMember.jsp";
+			String fail = "/front-end/protected/BounsMall/listFavoriteByMember.jsp";
 
 			try {
 				String mem_id = req.getParameter("mem_id");

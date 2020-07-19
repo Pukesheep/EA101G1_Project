@@ -120,11 +120,11 @@
 												</div>
 											<div class="card-body">
 												<div class="media bg-secondary p-2">
-													<img alt="" src="<%=request.getContextPath()%>/product/proPic.do?p_id=${groupbuyVO.p_id}" class="align-self-end mr-3 img-listAll">
+													<img alt="" src="<%=request.getContextPath()%>/product/proPic.do?p_id=${groupbuyVO.p_id}" class="align-self-center mr-3 img-listAll">
 													<div class="media-body">
 														<h4 class="mt-3">訂單編號： ${gro_orderVO.ord_id}</h4>
 														<c:forEach var="ordstatVO" items="${ordstatSvc.all}">
-															<c:if test="${ordstatVO.ordstat_id eq gro_orderVO.ord_id}">
+															<c:if test="${ordstatVO.ordstat_id eq gro_orderVO.ordstat_id}">
 																<h4>訂單狀態： ${ordstatVO.ordstat}</h4>
 															</c:if>
 														</c:forEach>

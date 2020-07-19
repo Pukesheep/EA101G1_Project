@@ -34,6 +34,14 @@
     <!-- 使用style.css -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/Auct_index.css">
+    
+<style>
+		body {
+		    background-color:white;
+		    background: url(<%=request.getContextPath()%>/front-end/protected/auct/images/rkXP0RBoX3.jpg);
+		    background-size: cover;
+		}
+</style>
 
    
 </head>
@@ -66,15 +74,15 @@
 
         </section>
 
-        <header class="container">
-            <!-- 圖片 -->
-            <div>
-                <a href="   "><img src="./images/ps5-0001.jpg" alt=""></a>
-            </div>
-            <!-- 圖片 end -->
-        </header>
+<!--         <header class="container"> -->
+<!--             圖片 -->
+<!--             <div> -->
+<!--                 <a href="   "><img src="./images/ps5-0001.jpg" alt=""></a> -->
+<!--             </div> -->
+<!--             圖片 end -->
+<!--         </header> -->
 
-        <section class="auct-all container">
+        <section class="auct-all container mt-3">
             <div class="">
                 <div class="auct-title py-2">
                     <span class="span1">&nbsp&nbsp&nbsp&nbsp<i class="far fa-clock"></i></span>
@@ -165,9 +173,10 @@
 
 
         <!-- 聊天室 -->
-        <button id="chatBtn" class="bg-primary">
-            <i class="fas fa-comments"></i>
-        </button>
+<!--         <button id="chatBtn" class="bg-primary"> -->
+<!--             <i class="fas fa-comments"></i> -->
+<!--         </button> -->
+<%@ include file="/files/footer.jsp" %>
 
 
 </body>

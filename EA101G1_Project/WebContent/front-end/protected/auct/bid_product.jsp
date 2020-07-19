@@ -74,21 +74,26 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <style>
+body {
+		    background-color:white;
+		    background: url(<%=request.getContextPath()%>/front-end/protected/auct/images/rkXP0RBoX3.jpg);
+		    background-size: cover;
+		}
 
-.countdown{
-	font-size:30px;
-	color:red;
-}
-
-.row1 {
-	width: 94px;
-}
-.row2 {
-	width: 138px;
-}
-.row3 {
-	width: 94px;
-}
+	.countdown{
+		font-size:30px;
+		color:red;
+	}
+	
+	.row1 {
+		width: 94px;
+	}
+	.row2 {
+		width: 138px;
+	}
+	.row3 {
+		width: 94px;
+	}
 
 </style>
 
@@ -235,9 +240,11 @@
 		</div>
 	</section>
 
-	<button id="chatBtn" class="bg-primary">
-		<i class="fas fa-comments"></i>
-	</button>
+	        <!-- ²á¤Ñ«Ç -->
+<!--         <button id="chatBtn" class="bg-primary"> -->
+<!--             <i class="fas fa-comments"></i> -->
+<!--         </button> -->
+<%@ include file="/files/footer.jsp" %>
 
 
 	<script type="text/javascript">

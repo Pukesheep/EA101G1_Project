@@ -123,7 +123,7 @@ color: #ff5353;
 			     <input type="submit" value="งนฆจ">
 			     <input type="hidden" name="po_id"  value="${poVO.po_id}">
 			     <input type="hidden" name="ordstat_id"  value="014">
-			     <input type="hidden" name="show" value="#nav-waiting-tab">
+			     <input type="hidden" name="show" value="#nav-arrival-tab">
 			     <input type="hidden" name="url" value="<%=request.getServletPath()%>?<%=request.getQueryString()%>">
 			     <input type="hidden" name="action"	value="updateOrdStat"></FORM>
         </div>

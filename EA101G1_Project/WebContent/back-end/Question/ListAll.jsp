@@ -10,7 +10,7 @@
 	pageContext.setAttribute("list", list);
 %>
 
-
+<!DOCTYPE html>
 <html>
 <head>
 <title>所有員工資料 - listAllQue.jsp</title>
@@ -59,7 +59,7 @@ table, th, td {
 </style>
 
 </head>
-<body style="background-color:#17a2b8">
+<body style="background-color: #17a2b8">
 	<!-- header -->
 
 	<%@ include file="/back-end/css/header.jsp"%>
@@ -70,66 +70,42 @@ table, th, td {
 		<!-- aside -->
 		<%@ include file="/back-end/css/aside.jsp"%>
 		<!-- aside -->
-		<div class="container" >
-<!-- 			<h4>此頁練習採用 EL 的寫法取值:</h4> -->
-<!-- 			<table id="table-1"> -->
-<!-- 				<tr> -->
-<!-- 					<td> -->
-<!-- 						<h3>所有員工資料 - listAllEmp.jsp</h3> -->
-<!-- 						<h4> -->
-<!-- 							<a -->
-<%-- 								href="<%=request.getContextPath()%>/back-end/Question/select_page.jsp"><img --%>
-<!-- 								src="images/back1.gif" width="100" height="32" border="0">回首頁</a> -->
-<!-- 						</h4> -->
-<!-- 					</td> -->
-<!-- 				</tr> -->
-<!-- 			</table> -->
+		<div class="container">
+			<div class="alert alert-secondary"  style="text-align:center;font-size:30px;letter-spacing:20px;">
+				疑難解答</div>
 
-			<a href='<%=request.getContextPath()%>/back-end/Question/addQuestion.jsp' class="btn btn-secondary">新增一則QA</a>
-			<table>
-				<!-- 		<tr> -->
-				<!-- 			<th>訊息編號</th> -->
-				<!-- 			<th>問題</th> -->
-				<!-- 			<th>答案</th> -->
+			<a
+				href='<%=request.getContextPath()%>/back-end/Question/addQuestion.jsp'
+				class="btn btn-secondary">新增一則QA</a>
 
-				<!-- 		</tr> -->
-				<%-- 	<%@ include file="page1.file" %>  --%>
-
-				<%-- 
-			<tr>
-				<td>${queVO.qa_id}</td>
-				<td class="que">${queVO.que}</td>
-				<td class="ans" id="${queVO.qa_id}">${queVO.ans}</td>
-			</tr>
-			--%>
-				<c:forEach var="queVO" items="${list}">
-					<div class="accordion" id="accordionExample">
-						<div class="card">
-							<div class="card-header" id="heading${queVO.qa_id}">
-								<h2 class="mb-0">
-									<button class="btn btn-link collapsed" type="button"
-										data-toggle="collapse" data-target="#collapse${queVO.qa_id}"
-										aria-expanded="false" aria-controls="collapse${queVO.qa_id}">
-										${queVO.que}</button>
-									<FORM class="deletebutton" METHOD="post"
-										ACTION="<%=request.getContextPath()%>/Question/Question.do"
-										style="margin-bottom: 0px;">
-										<input type="submit" value="刪除" class="btn btn-primary"> <input type="hidden"
-											name="qa_id" value="${queVO.qa_id}"> <input
-											type="hidden" name="action" value="delete">
-									</FORM>
-								</h2>
-							</div>
-						</div>
-						<div id="collapse${queVO.qa_id}" class="collapse"
-							aria-labelledby="heading${queVO.qa_id}"
-							data-parent="#accordionExample">
-							<div class="card-body">${queVO.ans}</div>
+			<c:forEach var="queVO" items="${list}">
+				<div class="accordion" id="accordionExample">
+					<div class="card">
+						<div class="card-header" id="heading${queVO.qa_id}">
+							<h2 class="mb-0">
+								<button class="btn btn-link collapsed" type="button"
+									data-toggle="collapse" data-target="#collapse${queVO.qa_id}"
+									aria-expanded="false" aria-controls="collapse${queVO.qa_id}">
+									${queVO.que}</button>
+								<FORM class="deletebutton" METHOD="post"
+									ACTION="<%=request.getContextPath()%>/Question/Question.do"
+									style="margin-bottom: 0px;">
+									<input type="submit" value="刪除" class="btn btn-primary">
+									<input type="hidden" name="qa_id" value="${queVO.qa_id}">
+									<input type="hidden" name="action" value="delete">
+								</FORM>
+							</h2>
 						</div>
 					</div>
+					<div id="collapse${queVO.qa_id}" class="collapse"
+						aria-labelledby="heading${queVO.qa_id}"
+						data-parent="#accordionExample">
+						<div class="card-body">${queVO.ans}</div>
+					</div>
+				</div>
 
-				</c:forEach>
-			</table>
+			</c:forEach>
+
 			<%-- <%@ include file="page2.file" %> --%>
 		</div>
 </body>
