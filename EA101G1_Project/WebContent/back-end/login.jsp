@@ -98,7 +98,7 @@
 </div>
 
 <div class="input">
-密碼: <input type="text"  name="adm_pass" value="" placeholder="請輸入密碼" >
+密碼: <input type="password"  name="adm_pass" value="" placeholder="請輸入密碼" >
 </div>
 <div id="button">
 <input type="hidden" name="action" value="login">
