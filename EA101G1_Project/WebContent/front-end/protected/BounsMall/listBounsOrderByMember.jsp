@@ -130,6 +130,7 @@
 													<input type="hidden" name="ord_id" value="${boVO.ord_id}">
 													<input type="hidden" name="mem_id" value="${boVO.mem_id}">
 													<input type="hidden" name="bon_id" value="${boVO.bon_id}">
+													<input type="hidden" name="bs_id" value="BS002">
 													<input type="hidden" name="action" value="cancel">
 													<button type="submit" class="btn btn-warning float-center">¨ú®ø­q³æ</button>
 												</form>

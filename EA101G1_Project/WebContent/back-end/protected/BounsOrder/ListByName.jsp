@@ -48,7 +48,7 @@
 	<main>
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/back-end/BounsOrder/ListAll.jsp">紅利商品訂單管理</a></li>
+				<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/back-end/protected/BounsOrder/ListAll.jsp">紅利商品訂單管理</a></li>
 				<li class="breadcrumb-item active" aria-current="page">商品名稱查詢</li>
 			</ol>
 		</nav>
@@ -62,7 +62,7 @@
 						</div>
 						<div class="card-body">
 							<div class="row">
-								<%@ include file="../../files/page1.file" %>
+								<%@ include file="../../../files/page1.file" %>
 								<c:forEach var="boVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >
 									<div class="col-12">
 										<div class="card alert alert-light mb-3 p-4">
@@ -106,7 +106,7 @@
 															<input type="hidden" name="mem_id" value="${boVO.mem_id}">
 															<input type="hidden" name="bon_id" value="${boVO.bon_id}">
 															<input type="hidden" name="bs_id" value="BS003">
-															<input type="hidden" name="action" value="cancel">
+															<input type="hidden" name="action" value="modify">
 															<button type="submit" class="btn btn-warning float-center">完成出貨</button>
 														</form>
 													</div>
@@ -118,7 +118,7 @@
 															<input type="hidden" name="mem_id" value="${boVO.mem_id}">
 															<input type="hidden" name="bon_id" value="${boVO.bon_id}">
 															<input type="hidden" name="bs_id" value="BS006">
-															<input type="hidden" name="action" value="cancel">
+															<input type="hidden" name="action" value="modify">
 															<button type="submit" class="btn btn-warning float-center">完成退換</button>
 														</form>
 													</div>
@@ -130,7 +130,7 @@
 							</div>
 						</div>
 					</div>
-					<%@ include file="../../files/page2.file" %>
+					<%@ include file="../../../files/page2.file" %>
 				</div>
 			</div>
 		</div>

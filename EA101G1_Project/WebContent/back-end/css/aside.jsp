@@ -33,13 +33,13 @@
                         <i class="fas fa-gift ml-3 mr-2"></i>紅利商城管理</div>
                     <ul class="collapse navbar-nav" id="sideNavColl03" data-parent="#navbarNav">
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="<%=request.getContextPath() %>/back-end/BounsMall/addBM.jsp">新增紅利商品</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath() %>/back-end/protected/BounsMall/addBM.jsp">新增紅利商品</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/BounsOrder/ListAll.jsp">紅利商品訂單管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/protected/BounsOrder/ListAll.jsp">紅利商品訂單管理</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/BounsMall/ListAll.jsp">紅利商品商品管理</a>
+                            <a class="nav-link pl-4" href="<%=request.getContextPath()%>/back-end/protected/BounsMall/ListAll.jsp">紅利商品商品管理</a>
                         </li>
                     </ul>
                 </li>

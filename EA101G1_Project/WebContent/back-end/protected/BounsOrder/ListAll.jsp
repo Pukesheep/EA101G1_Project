@@ -4,18 +4,20 @@
 <%@ page import="com.BounsOrder.model.*" %>
 
 <%
-	List<BOVO> list = (List<BOVO>) request.getAttribute("list");
+	BOService boSvc = new BOService();
+	List<BOVO> list = boSvc.getAll();
+	pageContext.setAttribute("list", list);
 %>
 
-<jsp:useBean id="bmSvc" scope="page" class="com.BounsMall.model.BMService" />
 <jsp:useBean id="bsSvc" scope="page" class="com.BounsState.model.BSService"/>
+<jsp:useBean id="bmSvc" scope="page" class="com.BounsMall.model.BMService"/>
 
 <!DOCTYPE html>
 <html>
 <head>
 	<title>紅利商品訂單管理</title>
 	<%@ include file="/back-end/css/BackHeaderCssLink" %> 
-	
+
 	<style>
 		img.boImg {
 			width: 150px;
@@ -24,19 +26,19 @@
 	</style>
 </head>
 <body bgcolor='white'>
-
 	
-	<!-- header -->
 	<%@ include file="/back-end/css/header.jsp" %>
-	<!-- header -->
-	    <div class="content d-md-flex">
-	<!-- aside -->
-		<%@ include file="/back-end/css/aside.jsp" %>
-	<!-- aside -->
+<!-- header -->
+
+    <div class="content d-md-flex">
+
+<!-- aside -->
+	<%@ include file="/back-end/css/aside.jsp" %>
+<!-- aside -->
 	
 <!-- 	錯誤列表 -->
-	<c:if test="${not empty errorMsgs}">
-		<font style="color:red">請修正以下錯誤:</font>
+	<c:if test="">
+		<font style="color:red">請修正以下錯誤：</font>
 		<ul>
 			<c:forEach var="message" items="${errorMsgs}">
 				<li style="color:red">${message}</li>
@@ -44,13 +46,11 @@
 		</ul>
 	</c:if>
 	
-	
 	<main>
 		<nav aria-label="breadcrumb">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/back-end/BounsOrder/ListAll.jsp">紅利商品訂單管理</a></li>
-				<li class="breadcrumb-item active" aria-current="page">會員訂單查詢</li>
-			</ol>
+		  <ol class="breadcrumb">
+		    <li class="breadcrumb-item active" aria-current="page">紅利商品訂單管理</li>
+		  </ol>
 		</nav>
 		
 		<div class="container-fluid">
@@ -58,11 +58,11 @@
 				<div class="col-11">
 					<div class="card alert alert-info">
 						<div class="card-header">
-							<h1>會員訂單查詢</h1>
+							<h1>全部紅利訂單查詢</h1>
 						</div>
 						<div class="card-body">
 							<div class="row">
-								<%@ include file="../../files/page1.file" %>
+								<%@ include file="../../../files/page1.file" %>
 								<c:forEach var="boVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >
 									<div class="col-12">
 										<div class="card alert alert-light mb-3 p-4">
@@ -74,16 +74,17 @@
 															<div align="center">
 																<h4>訂單編號</h4>
 																<h4><a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=getOneForDisplay&ord_id=${boVO.ord_id}"
-																	>${boVO.ord_id}</a></h4>
+																	title="依此訂單編號查詢" >${boVO.ord_id}</a></h4>
 															</div>
 														</div>
 														<div class="col-4">
 															<div align="center">
 																<h4>會員編號</h4>
-																<h4>${boVO.mem_id}</h4>
+																<h4><a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=getAllByMember&mem_id=${boVO.mem_id}"
+																	title="依此會員編號查詢" >${boVO.mem_id}</a></h4>
 																<h4>商品名稱</h4>
 																<h4><a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=getAllByName&bon_id=${boVO.bon_id}"
-																	>${bmSvc.getByPK(boVO.bon_id).bon_name}</a></h4>
+																	title="依此遊戲名稱查詢" >${bmSvc.getByPK(boVO.bon_id).bon_name}</a></h4>
 															</div>
 														</div>
 														<div class="col-4">
@@ -92,7 +93,7 @@
 																<h4>${boVO.ord_Date}</h4>
 																<h4>訂單狀態</h4>
 																<h4><a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=getAllByBS&bs_id=${boVO.bs_id}"
-																	>${bsSvc.getOneBS(boVO.bs_id).bs_stat}</a></h4>
+																	title="依此訂單狀態查詢" >${bsSvc.getOneBS(boVO.bs_id).bs_stat}</a></h4>
 															</div>
 														</div>
 													</div>
@@ -106,7 +107,7 @@
 															<input type="hidden" name="mem_id" value="${boVO.mem_id}">
 															<input type="hidden" name="bon_id" value="${boVO.bon_id}">
 															<input type="hidden" name="bs_id" value="BS003">
-															<input type="hidden" name="action" value="cancel">
+															<input type="hidden" name="action" value="modify">
 															<button type="submit" class="btn btn-warning float-center">完成出貨</button>
 														</form>
 													</div>
@@ -118,7 +119,7 @@
 															<input type="hidden" name="mem_id" value="${boVO.mem_id}">
 															<input type="hidden" name="bon_id" value="${boVO.bon_id}">
 															<input type="hidden" name="bs_id" value="BS006">
-															<input type="hidden" name="action" value="cancel">
+															<input type="hidden" name="action" value="modify">
 															<button type="submit" class="btn btn-warning float-center">完成退換</button>
 														</form>
 													</div>
@@ -130,11 +131,14 @@
 							</div>
 						</div>
 					</div>
-					<%@ include file="../../files/page2.file" %>
+					<%@ include file="../../../files/page2.file" %>
+					<form method="post" action="<%=request.getContextPath()%>/back-end/BounsOrder/insert.jsp">
+						<input type="hidden" name="action" value="insert">
+						<input type="submit" value="新增訂單">
+					</form>
 				</div>
 			</div>
 		</div>
 	</main>
-	
 </body>
 </html>
