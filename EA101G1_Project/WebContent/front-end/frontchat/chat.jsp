@@ -11,7 +11,7 @@
 
 %>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/frontchat/css/chat.css">
-	<div id="chatBtn" class="bg-primary" onclick="on()">
+	<div id="chatBtn" class="bg-primary" onclick="on()" style="padding: 10;">
             <i class="fas fa-comments"></i>
         </div>
 	
