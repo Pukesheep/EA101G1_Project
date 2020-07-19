@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*" %>
 <%@ page import="com.BounsOrder.model.*" %>
 
 <%
@@ -36,7 +38,7 @@
 	<main>
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/back-end/BounsOrder/ListAll.jsp">紅利商品訂單管理</a></li>
+				<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/back-end/protected/BounsOrder/ListAll.jsp">紅利商品訂單管理</a></li>
 				<li class="breadcrumb-item active" aria-current="page">訂單編號查詢</li>
 			</ol>
 		</nav>
@@ -84,19 +86,32 @@
 												</div>
 											</div>
 										</div>
-										<div class="row justify-content-center">
-											<div class="dropdown">
-												<button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													修改訂單狀態
-												</button>
-												<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-													<a class="dropdown-item" href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=updateBS&ord_id=${boVO.ord_id}&bs_id=BS003">已出貨</a>
-													<a class="dropdown-item" href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=updateBS&ord_id=${boVO.ord_id}&bs_id=BS004">已完成</a>
-													<a class="dropdown-item" href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=updateBS&ord_id=${boVO.ord_id}&bs_id=BS005">待審核</a>
-													<a class="dropdown-item" href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=updateBS&ord_id=${boVO.ord_id}&bs_id=BS006">已退換</a>
+										<c:choose>
+											<c:when test="${boVO.bs_id=='BS001'}">
+												<div align="center">
+						    						<form method="post" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" style="margin-bottom: 0px;">
+														<input type="hidden" name="ord_id" value="${boVO.ord_id}">
+														<input type="hidden" name="mem_id" value="${boVO.mem_id}">
+														<input type="hidden" name="bon_id" value="${boVO.bon_id}">
+														<input type="hidden" name="bs_id" value="BS003">
+														<input type="hidden" name="action" value="modify">
+														<button type="submit" class="btn btn-warning float-center">完成出貨</button>
+													</form>
 												</div>
-											</div>
-										</div>
+											</c:when>
+											<c:when test="${boVO.bs_id=='BS005'}">
+												<div align="center">
+						    						<form method="post" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" style="margin-bottom: 0px;">
+														<input type="hidden" name="ord_id" value="${boVO.ord_id}">
+														<input type="hidden" name="mem_id" value="${boVO.mem_id}">
+														<input type="hidden" name="bon_id" value="${boVO.bon_id}">
+														<input type="hidden" name="bs_id" value="BS006">
+														<input type="hidden" name="action" value="modify">
+														<button type="submit" class="btn btn-warning float-center">完成退換</button>
+													</form>
+												</div>
+											</c:when>
+										</c:choose>
 									</div>
 								</div>
 							</div>

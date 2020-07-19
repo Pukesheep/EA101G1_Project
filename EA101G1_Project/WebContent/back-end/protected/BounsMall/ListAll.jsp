@@ -66,7 +66,7 @@ img#display {
 			<th>¬õ§Q°Ó«~ª¬ºA</th>
 			<th colspan="2"></th>
 		</tr>
-		<%@ include file="../../files/page1.file"%>
+		<%@ include file="../../../files/page1.file"%>
 		<c:forEach var="bmVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >
 			<tr>
 				<th>${bmVO.bon_id}</th>
@@ -101,7 +101,7 @@ img#display {
 		</c:forEach>
 	</table>
 	</div>
-	<%@ include file="../../files/page2C.file"%>
+	<%@ include file="../../../files/page2C.file"%>
 	</div>
 	
 	</div>

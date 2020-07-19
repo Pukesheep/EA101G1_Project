@@ -3,12 +3,29 @@
 <%
 	request.setAttribute("userName", "CustomerSever");
 %>
+<style>
+#chatBtn {
+    width: 70px;
+    height: 70px;
+    border:none;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 1000;
+    border-radius: 50%;
+    font-size: 40px;
+    color:whitesmoke;
+    background:linear-gradient(#216683fb, #6ed3bdaf);
+}
+</style>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/back-end/backchat/css/chat.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<div style="border:1px solid blue; width:40px; height:40px; background-color:blue;position: fixed;right:0;bottom:0;" onclick="on()"></div>
+<div id="chatBtn" class="bg-primary" style="border:1px solid blue;z-index: 999;  position: fixed;right:0;bottom:0;padding:8px" onclick="on()"><i class="fas fa-comments"></i></div>
+
+
 
 	
-	<div id="body" style="border:1px solid black;z-index: 999;">
+	<div id="body" style="border:1px solid black; z-index: 999; position: fixed;bottom: 0px;right: 10%;" onload="connect();" >
 		<div id="close" onclick="dbclick()">close</div>
 		<h3 id="statusOutput" class="statusOutput alert alert-primary"></h3>
 		<div id="row"></div>
@@ -182,6 +199,6 @@
 	}
 	function dbclick(){
 		document.getElementById("body").style.display = "none";
-		disconnect();
+		
 	}
 </script>

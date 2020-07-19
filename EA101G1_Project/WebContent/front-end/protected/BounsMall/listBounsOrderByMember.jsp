@@ -95,7 +95,7 @@
     		<div class="card-body">
     			<div class="row">
     				<c:forEach var="boVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >
-    					<c:if test="${boVO.bs_id=='BS001'}">
+    					<c:if test="${boVO.bs_id!='BS002'}">
 	    					<div class="col-12">
 	    						<div class="card alert alert-light mb-3 p-4">
 	    							<div class="media alert alert-success">
@@ -123,15 +123,46 @@
 		    								</div>
 		    							</div>
 	    							</div>
-	    							<div align="center">
-		    							<form method="post" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" style="margin-bottom: 0px;">
-											<input type="hidden" name="ord_id" value="${boVO.ord_id}">
-											<input type="hidden" name="mem_id" value="${boVO.mem_id}">
-											<input type="hidden" name="bon_id" value="${boVO.bon_id}">
-											<input type="hidden" name="action" value="cancel">
-											<button type="submit" class="btn btn-warning float-center">取消訂單</button>
-										</form>
-									</div>
+	    							<c:choose>
+	    								<c:when test="${boVO.bs_id=='BS001'}">
+	    									<div align="center">
+				    							<form method="post" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" style="margin-bottom: 0px;">
+													<input type="hidden" name="ord_id" value="${boVO.ord_id}">
+													<input type="hidden" name="mem_id" value="${boVO.mem_id}">
+													<input type="hidden" name="bon_id" value="${boVO.bon_id}">
+													<input type="hidden" name="bs_id" value="BS002">
+													<input type="hidden" name="action" value="cancel">
+													<button type="submit" class="btn btn-warning float-center">取消訂單</button>
+												</form>
+											</div>
+	    								</c:when>
+	    								<c:when test="${boVO.bs_id=='BS003'}">
+	    									<div align="center">
+	    										<div class="col-8">
+			    									<div class="row">
+			    										<div class="col-6">
+							    							<form method="post" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" style="margin-bottom: 0px;">
+																<input type="hidden" name="ord_id" value="${boVO.ord_id}">
+																<input type="hidden" name="mem_id" value="${boVO.mem_id}">
+																<input type="hidden" name="bs_id" value="BS004">
+																<input type="hidden" name="action" value="updateBSFront">
+																<button type="submit" class="btn btn-success float-center">完成訂單</button>
+															</form>
+														</div>
+														<div class="col-6">
+								    						<form method="post" action="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do" style="margin-bottom: 0px;">
+																<input type="hidden" name="ord_id" value="${boVO.ord_id}">
+																<input type="hidden" name="mem_id" value="${boVO.mem_id}">
+																<input type="hidden" name="bs_id" value="BS005">
+																<input type="hidden" name="action" value="updateBSFront">
+																<button type="submit" class="btn btn-danger float-center">我要退貨</button>
+															</form>
+														</div>
+													</div>
+												</div>
+											</div>
+	    								</c:when>
+	    							</c:choose>
 	    						</div>
 	    					</div>
 	    				</c:if>
@@ -142,12 +173,6 @@
     	</div>
     </div>
 
-
-
-
-
-
-	
 	<!-- 內容 -->
 	<!-- footer -->
 	<%@ include file="../../../files/footer.jsp" %>

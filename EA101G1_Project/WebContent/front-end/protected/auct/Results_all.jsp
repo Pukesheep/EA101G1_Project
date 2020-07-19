@@ -29,38 +29,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>結標專區</title>
-    <!-- TODO: 換title 的icon -->
-    <link rel="icon shortcut" href="images/ICON(yellow).ico">
-    <!-- Bootstrap官方網站 https://getbootstrap.com/ -->
-    <!-- 連結Bootstrap.min.css -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <!-- 使用font awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
-        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-    <!-- 使用google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
+    <title>BID競標專區</title>
+    
+<%@ include file="/files/HeaderCssLink" %>
 
     <!-- 使用style.css -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/Auct_index.css">
-
-    <!-- 連結Bootstrap所需要的js -->
-    <!-- jquery.min.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- popper.min.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <!-- bootstrap.min.js -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+    
         
     <style type="text/css">
+  	  body {
+		    background-color:white;
+		    background: url(<%=request.getContextPath()%>/front-end/protected/auct/images/rkXP0RBoX3.jpg);
+		    background-size: cover;
+		}
+		
     	.product button {
             border: none;
             background: linear-gradient(rgb(179, 174, 174), grey, #cecdcc);
@@ -93,51 +77,10 @@
 
 <body>
     <!-- navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
-        <a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/index.jsp">
-            <span class="logo"><i class="fas fa-bomb"></i></span>
-            <span class="logo2">S.F.G</span>
-            <span class="logo3">{{{</span>
-            </a>
-            <!-- 手機選單按鈕 -->
-            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
-                aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- 內容 -->
-            <div class="navbar2 navbar-dark">
-                <div class="row">
-                    <div class="item col-md-2"><a href="#">商城 </a></div>
-                    <div class="item col-md-2"><a href="#">團購 </a></div> 
-                    <div class="item col-md-2"><a href="/auct/Auct_index.html">競標區 </a></div> 
-                    <div class="item col-md-2"><a href="#">直購區 </a></div> 
-                    <div class="item col-md-2"><a href="#">討論區 </a></div> 
-                    <div class="item col-md-2"><a href="#">紅利 </a></div> 
-                </div>
-            </div>
+    	<%@ include file="/files/header.jsp" %>
+    <!-- navbar end -->
     
-            <div class="collapse navbar-collapse" id="collapsibleNavId">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">登出</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">註冊</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">會員中心</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">我的最愛</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">購物車</a>
-                    </li>
     
-                </ul>
-            </div>
-        </nav>
-        <!-- navbar end -->
         <section class="blank0"></section>
 
         <section class="nav-auct container">
@@ -228,9 +171,10 @@
 
 
         <!-- 聊天室 -->
-        <button id="chatBtn" class="bg-primary">
-            <i class="fas fa-comments"></i>
-        </button>
+<!--         <button id="chatBtn" class="bg-primary"> -->
+<!--             <i class="fas fa-comments"></i> -->
+<!--         </button> -->
+<%@ include file="/files/footer.jsp" %>
 
 
 </body>

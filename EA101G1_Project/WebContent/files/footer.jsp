@@ -76,11 +76,9 @@
             </div>
         </footer>
 <c:if test="${sessionScope.memberVO ne null}">
-        <div id="chatBtn" class="bg-primary" onclick="on()">
-            <i class="fas fa-comments"></i>
-        </div>
+        
         <%@ include file="/front-end/frontchat/chat.jsp" %>
         
-<link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/frontchat/css/chat.css">
+
 
 </c:if>

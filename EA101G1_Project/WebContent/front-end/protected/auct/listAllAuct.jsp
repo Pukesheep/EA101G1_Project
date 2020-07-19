@@ -78,8 +78,9 @@
                 </div>
             </div>
 
-            <div class="col-md-8 mt-3">
-                <h2>我的拍賣區 --- 競標商品管理</h2>              
+            <div class="col-md-8">
+            	<img src="<%=request.getContextPath()%>/front-end/protected/auct/images/mai.gif" width="100px">
+                <h2 style="display:inline-block">我的拍賣區 --- 競標商品管理</h2>              
             </div>
     <!-- 競標訂單 -->
             <a href="<%=request.getContextPath()%>/front-end/protected/auct/sale_order.jsp">

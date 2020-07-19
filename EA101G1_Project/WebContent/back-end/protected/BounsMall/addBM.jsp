@@ -142,9 +142,10 @@ th, td {
 																		<option value="${ptVO.pt_id}">${ptVO.typename}</option>
 																	</c:forEach>
 																</select>
-														
+																
 																<button type="submit" class="btn btn-outline-secondary">送出新增</button>
 																<input type="hidden" name="action" value="insert">
+																
 																<script>
 																
 																	function init() {

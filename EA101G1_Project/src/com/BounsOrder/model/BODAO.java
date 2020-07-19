@@ -22,19 +22,19 @@ public class BODAO implements BODAO_interface {
 					+ " VALUES ('BO'||LPAD(TO_CHAR(BOUNS_ORDER_SEQ.NEXTVAL),8,'0'), ?, ?, 'BS001')";
 	private static final String GET_ALL_STMT = 
 			"SELECT ORD_ID, MEM_ID, BON_ID, TO_CHAR(ORD_DATE,'yyyy-mm-dd') ORD_DATE, BS_ID"
-					+ " FROM BOUNS_ORDER ORDER BY ORD_ID";
+					+ " FROM BOUNS_ORDER ORDER BY ORD_DATE DESC, ORD_ID ASC";
 	private static final String GET_ONE_STMT = 
 			"SELECT ORD_ID, MEM_ID, BON_ID, TO_CHAR(ORD_DATE,'yyyy-mm-dd') ORD_DATE, BS_ID"
 					+ " FROM BOUNS_ORDER WHERE ORD_ID = ?";
 	private static final String GET_BY_MEM_ID =
 			"SELECT ORD_ID, MEM_ID, BON_ID, TO_CHAR(ORD_DATE,'yyyy-mm-dd') ORD_DATE, BS_ID"
-					+ " FROM BOUNS_ORDER WHERE MEM_ID = ?";
+					+ " FROM BOUNS_ORDER WHERE MEM_ID = ? ORDER BY ORD_DATE DESC, ORD_ID ASC";
 	private static final String GET_BY_BON_ID =
 			"SELECT ORD_ID, MEM_ID, BON_ID, TO_CHAR(ORD_DATE,'yyyy-mm-dd') ORD_DATE, BS_ID"
-					+ " FROM BOUNS_ORDER WHERE BON_ID = ?";
+					+ " FROM BOUNS_ORDER WHERE BON_ID = ? ORDER BY ORD_DATE DESC, ORD_ID ASC";
 	private static final String GET_BY_BS_ID =
 			"SELECT ORD_ID, MEM_ID, BON_ID, TO_CHAR(ORD_DATE,'yyyy-mm-dd') ORD_DATE, BS_ID"
-					+ " FROM BOUNS_ORDER WHERE BS_ID = ?";
+					+ " FROM BOUNS_ORDER WHERE BS_ID = ? ORDER BY ORD_DATE DESC, ORD_ID ASC";
 	private static final String DELETE = 
 			"DELETE FROM BOUNS_ORDER WHERE ORD_ID=?";
 	private static final String UPDATE = 
