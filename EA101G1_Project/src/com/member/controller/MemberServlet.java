@@ -1124,7 +1124,7 @@ public class MemberServlet extends HttpServlet {
 							String key=str.append(":").append(list.get(j)).toString();
 							if (!jedis.exists(key)) {	//改
 								String message="{\"type\" : \"chat\"," + "\"sender\" : \""+list.get(i)+"\",\"receiver\":\""+list.get(j)+"\",\"message \":\" "
-										+ " happy \" }";
+										+ " welcome \" }";
 								jedis.rpush(key,message);
 //								System.out.println(key);
 							}
