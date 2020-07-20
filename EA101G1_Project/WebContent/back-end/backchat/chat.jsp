@@ -20,15 +20,15 @@
 </style>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/back-end/backchat/css/chat.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<div id="chatBtn" class="bg-primary" style="border:1px solid blue;z-index: 999;  position: fixed;right:0;bottom:0;padding:8px" onclick="on()"><i class="fas fa-comments"></i></div>
+<div id="chatBtn" class="bg-primary" style="z-index: 999;  position: fixed;right:0;bottom:0;padding:8px" onclick="on()"><i class="fas fa-comments"></i></div>
 
 
 
 	
-	<div id="body" style="border:1px solid black; z-index: 999; position: fixed;bottom: 0px;right: 10%;" onload="connect();" >
+	<div id="body" style=" z-index: 999; position: fixed;bottom: 0px;right: 7%; font-family:Microsoft JhengHei;" onload="connect();" >
 		<div id="close" onclick="dbclick()">close</div>
 		<h3 id="statusOutput" class="statusOutput alert alert-primary"></h3>
-		<div id="row"></div>
+		<div id="row"style="text-align: center;color: white;overflow-x: hidden"></div>
 		<div id="messagesArea" class="panel message-area"></div>
 		<div class="panel input-area">
 			<input id="message" class="text-field" type="text"
@@ -148,7 +148,7 @@
 
 					if (friends[i] === online[j]) {
 						var friend = document.getElementById(friends[i]).parentNode;
-						friend.style.background = 'blue';
+						friend.style.background = '#66B3FF';
 						console.log(friend);
 
 					}
@@ -159,7 +159,7 @@
 		} else if (jsonObj.type === "open") {
 
 			var friend = document.getElementById(me).parentNode;
-			friend.style.background = 'blue';
+			friend.style.background = '#66B3FF';
 
 		} else if (jsonObj.type === "close") {
 			var friend = document.getElementById(me).parentNode;
