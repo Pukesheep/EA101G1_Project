@@ -15,14 +15,13 @@
     border-radius: 50%;
     font-size: 40px;
     color:whitesmoke;
-    background:linear-gradient(#216683fb, #6ed3bdaf);
+    
 }
 </style>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/back-end/backchat/css/chat.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <div id="chatBtn" class="bg-primary" style="z-index: 999;  position: fixed;right:0;bottom:0;padding:8px" onclick="on()"><i class="fas fa-comments"></i></div>
-
-
 
 	
 	<div id="body" style=" z-index: 999; position: fixed;bottom: 0px;right: 7%; font-family:Microsoft JhengHei;" onload="connect();" >
