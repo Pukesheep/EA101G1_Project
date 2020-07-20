@@ -37,8 +37,8 @@ public class test {
 					StringBuffer str=new StringBuffer(list.get(i));
 					String key=str.append(":").append(list.get(j)).toString();
 					if (!jedis.exists(key)) {	//改
-						String message="{\"type\" : \"chat\"," + "\"sender\" : \""+list.get(i)+"\",\"receiver\":\""+list.get(j)+"\",\"message \":\" "
-								+ " welcome \" }";
+						String message="{\"type\" : \"chat\"," + "\"sender\" : \""+list.get(i)+"\",\"receiver\":\""+list.get(j)+"\",\"message\":\""
+								+ "welcome\" }";
 						jedis.rpush(key,message);
 						System.out.println(key);
 					}
