@@ -186,7 +186,5 @@ body {
 	<%@ include file="/files/footer.jsp"%>
 	
 
-
-
 </body>
 </html>
