@@ -185,7 +185,7 @@
 	}
 	function on(){
 		document.getElementById("body").style.display = "block";
-// 		connect();
+		connect();
 	}
 	function dbclick(){
 		document.getElementById("body").style.display = "none";
