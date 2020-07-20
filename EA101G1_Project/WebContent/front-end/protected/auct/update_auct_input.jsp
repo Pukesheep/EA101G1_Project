@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.auct.model.*"%>
 <%@ page import="com.productType.model.*"%>
 
@@ -99,10 +100,10 @@
                     <input type="text" class="form-control mb-2" name="auct_name" id="auct_name" value="<%=auctVO.getAuct_name()%>" required>
                     
                     <label for="start_dateTime">競標開始時間:</label>
-                    <input type="text" class="form-control mb-2" name="auct_start" id="start_dateTime" value="<%=auctVO.getAuct_start()%>" required>
+                    <input type="text" class="form-control mb-2" name="auct_start" id="start_dateTime" value="<fmt:formatDate value='${auctVO.auct_start}' pattern='yyyy-MM-dd HH:mm:ss'/>" required>
                     
                     <label for="end_dateTime">競標結束時間:</label>
-                    <input type="text" class="form-control mb-2" name="auct_end" id="end_dateTime" value="<%=auctVO.getAuct_end()%>" required>
+                    <input type="text" class="form-control mb-2" name="auct_end" id="end_dateTime" value="<fmt:formatDate value='${auctVO.auct_end}' pattern='yyyy-MM-dd HH:mm:ss'/>" required>
                     
                     <label for="marketPrice">市價:</label>
                     <input type="text" class="form-control mb-2" name="marketPrice" id="marketPrice" value="<%=auctVO.getMarketPrice()%>" required>
@@ -127,15 +128,56 @@
 					</div>
 
                     <br>
+                    
+                   
+   					 
                     <input type="hidden" name="action" value="update">
 					<input type="hidden" name="auct_id" value="<%=auctVO.getAuct_id()%>">
-                    <button type="submit" class="add-btn btn btn-info">確認修改</button>
+                    <button type="submit" class="add-btn btn btn-info" style="border-radius:10px;">確認修改</button>
+                    
+                    
 					
                 </div>
             </div>
         </form>
+         <!-- 神奇小按鈕-->
+   					 <button class="btn btn-outline-warning mx-3" id="fastbtn" style="border-radius:10px;" onclick="insertValue();">
+   					 3分鐘 快速競標
+   					 </button>
+   					 
+   					 <script>
+   					 
+   					  function insertValue(){
+   						var now = new Date();
+   						var y = now.getFullYear();
+   						var M = now.getMonth()+1;
+   						var d = now.getDate();
+   						var h = now.getHours();
+   						var m = now.getMinutes();
+   						var s = now.getSeconds();
+   						
+   						$('#start_dateTime').val(y+'-'+'0'+M+'-'+d+' '+h+':'+m+':'+s); 
+   						
+   					 	now_long = now.getTime();
+   					 	after_3_mins = now_long + 60*3*1000;
+   					 	var after_3_mins_2 = new Date(after_3_mins);
+   						var y2 = after_3_mins_2.getFullYear();
+						var M2 = after_3_mins_2.getMonth()+1;
+						var d2 = after_3_mins_2.getDate();
+						var h2 = after_3_mins_2.getHours();
+						var m2 = after_3_mins_2.getMinutes();
+						var s2 = after_3_mins_2.getSeconds();
+   					 	
+						$('#end_dateTime').val(y2+'-'+'0'+M2+'-'+d2+' '+h2+':'+m2+':'+s2); 
+   					    console.log("after_3_mins : "+after_3_mins);
+   					  }
+   					 
+   					 </script>
+   					 <!-- 神奇小按鈕 --end -->
     </section>
     <!-- 賣家新增商品頁面 end-->
+    
+    
     
     <a href="<%=request.getContextPath()%>/front-end/protected/auct/Auct_index.jsp">
         <button id="goBackBtn" class="bg-primary">
