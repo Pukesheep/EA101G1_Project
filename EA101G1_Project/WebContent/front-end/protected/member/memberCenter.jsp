@@ -246,7 +246,20 @@
 	<a href="<%=request.getContextPath()%>/front-end/protected/groupbuy/listAllGro_order.jsp" class="list-group-item">
 		<h4>團購訂單</h4>
 	</a>
+</div>
+
+<div class="list-group">
+	<div class="list-group-item active">
+		<h4 class="list-group-item-heading">紅利商城</h4>
+	</div>
+	<a href="<%=request.getContextPath()%>/BounsOrder/BounsOrder.do?action=getAllByMemberFront&mem_id=${sessionScope.memberVO.mem_id}" class="list-group-item">
+		<h4>紅利訂單</h4>
+	</a>
+	<a href="<%=request.getContextPath()%>/FavoriteBouns/FBServlet.do?action=getAllByMemberFront&mem_id=${sessionScope.memberVO.mem_id}" class="list-group-item">
+		<h4>紅利最愛</h4>
+	</a>
 </div>	
+	
 </div>
 
 </div>
