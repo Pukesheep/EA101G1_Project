@@ -25,8 +25,8 @@ public class PsacJDBCDAO implements PsacDAO_interface {
 		"DELETE FROM postaccuse where psac_no = ?";
 	private static final String UPDATE = 
 		"UPDATE postaccuse set mem_id=?, post_id=?, adm_no=?, psac_content=?, psac_state=? where psac_no = ?";
-	private static final String GET_StateEq0_STMT = 
-			"SELECT psac_no,mem_id,post_id,adm_no,psac_content,psac_state FROM postaccuse where psac_state=0 ";
+	private static final String GET_StateEq_STMT = 
+			"SELECT psac_no,mem_id,post_id,adm_no,psac_content,psac_state FROM postaccuse where psac_state=3 ";
 	@Override
 	public void insert(PsacVO psacVO) {
 		
@@ -336,7 +336,7 @@ public class PsacJDBCDAO implements PsacDAO_interface {
 //		}
 	}
 	@Override
-	public List<PsacVO> getStateEq0() {
+	public List<PsacVO> getStateEq() {
 		List<PsacVO> list = null;
 		PsacVO psacVO = null;
 
@@ -348,7 +348,7 @@ public class PsacJDBCDAO implements PsacDAO_interface {
 
 //			con = ds.getConnection();
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_StateEq0_STMT);
+			pstmt = con.prepareStatement(GET_StateEq_STMT);
 			list = new ArrayList<PsacVO>();
 			rs = pstmt.executeQuery();
 

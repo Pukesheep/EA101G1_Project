@@ -5,7 +5,7 @@
 <%@ page import="com.adm.model.*"%>
 <%
 	PsacService psacSvc = new PsacService();
-	List<PsacVO> list = psacSvc.getStateEq0();
+	List<PsacVO> list = psacSvc.getStateEq();
 	pageContext.setAttribute("list", list);
 	AdmVO admVO = (AdmVO) session.getAttribute("admVO");
 %>
@@ -48,6 +48,14 @@ a.btn btn-primary {
 	padding: 50px;
 	margin-top: 90%;
 }
+
+th{
+	color: yellow;
+}
+
+td{
+	color: white;
+}
 </style>
 
 
@@ -82,7 +90,9 @@ a.btn btn-primary {
 									</c:forEach>
 								</ul>
 							</c:if>
-
+							
+							
+							
 							<table class="table table-striped">
 								<tr>
 									<th>檢舉案編號</th>
@@ -101,7 +111,7 @@ a.btn btn-primary {
 									<tr>
 										<td>${psacVO.psac_no}</td>
 										<td>${psacVO.mem_id}</td>
-										<td>${psacVO.post_id}</td>
+										<td><a href="<%=request.getContextPath()%>/front-end/post/listAllPost.jsp" font-color="red">${psacVO.post_id}</a></td>
 										<td>${psacVO.adm_no}</td>
 										<td>${psacVO.psac_content}</td>
 										<td><c:choose>
@@ -109,10 +119,13 @@ a.btn btn-primary {
 									未處理
 								</c:when>
 								<c:when test="${psacVO.psac_state eq 1}">
-									成立
+									已成立
 								</c:when>
 								<c:when test="${psacVO.psac_state eq 2}">
 									不成立
+								</c:when>
+								<c:when test="${psacVO.psac_state eq 3}">
+									未處理
 								</c:when>
 							</c:choose></td>
 										<td>
@@ -155,7 +168,6 @@ a.btn btn-primary {
 								</c:forEach>
 							</table>
 
-							<%@ include file="/files/page2B.file"%>
 							
 			</main>
 		</div>

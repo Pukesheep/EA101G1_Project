@@ -53,8 +53,8 @@ public class PsacService {
 		return dao.getAll();
 	}
 	
-	public List<PsacVO> getStateEq0() {
-		return dao.getStateEq0();
+	public List<PsacVO> getStateEq() {
+		return dao.getStateEq();
 	}
 	
 }

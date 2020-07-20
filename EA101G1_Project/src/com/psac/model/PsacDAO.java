@@ -30,8 +30,8 @@ public class PsacDAO implements PsacDAO_interface{
 			"INSERT INTO postaccuse (psac_no,mem_id,post_id,adm_no,psac_content,psac_state) VALUES ('p'||LPAD(to_char(postaccuse_seq.NEXTVAL),6,'0'), ?, ?, ?, ?, ?)";
 		private static final String GET_ALL_STMT = 
 			"SELECT psac_no,mem_id,post_id,adm_no,psac_content,psac_state FROM postaccuse order by psac_no";
-		private static final String GET_StateEq0_STMT = 
-				"SELECT psac_no,mem_id,post_id,adm_no,psac_content,psac_state FROM postaccuse where psac_state=0 ";
+		private static final String GET_StateEq_STMT = 
+				"SELECT psac_no,mem_id,post_id,adm_no,psac_content,psac_state FROM postaccuse where psac_state=3 ";
 		private static final String GET_ONE_STMT = 
 			"SELECT psac_no,mem_id,post_id,adm_no,psac_content,psac_state FROM postaccuse where psac_no = ?";
 		private static final String DELETE = 
@@ -277,7 +277,7 @@ public class PsacDAO implements PsacDAO_interface{
 			return list;
 		}
 		@Override
-		public List<PsacVO> getStateEq0() {
+		public List<PsacVO> getStateEq() {
 			List<PsacVO> list = null;
 			PsacVO psacVO = null;
 
@@ -288,7 +288,7 @@ public class PsacDAO implements PsacDAO_interface{
 			try {
 
 				con = ds.getConnection();
-				pstmt = con.prepareStatement(GET_StateEq0_STMT);
+				pstmt = con.prepareStatement(GET_StateEq_STMT);
 				list = new ArrayList<PsacVO>();
 				rs = pstmt.executeQuery();
 

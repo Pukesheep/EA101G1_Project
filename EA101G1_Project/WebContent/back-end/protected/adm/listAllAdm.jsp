@@ -144,7 +144,6 @@
 	</c:forEach>
 </table>
 
-<%@ include file="/files/page2B.file" %>
 
         </main>
     </div>

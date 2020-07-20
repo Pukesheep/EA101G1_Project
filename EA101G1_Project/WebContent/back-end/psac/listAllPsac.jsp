@@ -48,6 +48,14 @@ a.btn btn-primary {
 	padding: 50px;
 	margin-top: 90%;
 }
+
+th{
+	color: yellow;
+}
+
+td{
+	color: white;
+}
 </style>
 
 
@@ -109,10 +117,13 @@ a.btn btn-primary {
 									未處理
 								</c:when>
 								<c:when test="${psacVO.psac_state eq 1}">
-									成立
+									已成立
 								</c:when>
 								<c:when test="${psacVO.psac_state eq 2}">
 									不成立
+								</c:when>
+								<c:when test="${psacVO.psac_state eq 3}">
+									未處理
 								</c:when>
 							</c:choose></td>
 <!-- 										<td> -->
@@ -155,7 +166,7 @@ a.btn btn-primary {
 								</c:forEach>
 							</table>
 
-							<%@ include file="/files/page2B.file"%>
+							
 							
 							
 			</main>

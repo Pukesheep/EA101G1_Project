@@ -237,7 +237,7 @@ public class PsacServlet extends HttpServlet {
 				try{
 					psac_state = new Integer(req.getParameter("psac_state").trim());
 				}catch(NumberFormatException e) {
-				    psac_state= 0;
+				    psac_state= 3;
 					errorMsgs.add("檢舉狀態請填數字");
 				}	
 				
@@ -326,7 +326,7 @@ public class PsacServlet extends HttpServlet {
 		System.out.println(post_id);
 		
 		
-		Integer psac_state = 0;
+		Integer psac_state = 3;
 		
 		String adm_no = "";
 				
@@ -392,47 +392,47 @@ public class PsacServlet extends HttpServlet {
 			psacVO.setPost_id(post_id);
 			psacVO.setAdm_no(adm_no);
 			psacVO.setPsac_content(psac_content);
-			psacVO.setPsac_state(psac_state); //檢舉案處理完成，修改狀態為1(已完成)
+			psacVO.setPsac_state(1); //檢舉案處理完成，修改狀態為1(已成立)
 			
 			PsacService psacSv = new PsacService();
-			psacVO = psacSv.updatePsac(psac_no,mem_id, post_id, adm_no, psac_content, psac_state);
+			psacVO = psacSv.updatePsac(psac_no,mem_id, post_id, adm_no, psac_content, 1);
 			/***************************修改文章狀態****************************************/
 			PostService postSvc = new PostService();
 			PostVO postVO = postSvc.getOnePost(post_id);
-			postSvc.updatePost(post_id, postVO.getMem_id(), postVO.getPtype_id(), 0, postVO.getP_title(), postVO.getText(), postVO.getImage(), postVO.getLast_edit(), postVO.getPost_time());
+			postSvc.updatePost(post_id, postVO.getMem_id(), postVO.getPtype_id(), 0 , postVO.getP_title(), postVO.getText(), postVO.getImage(), postVO.getLast_edit(), postVO.getPost_time());
 							
 			/***************************轉交文章頁面****************************************/  
-			String url = "/back-end/psac/listAllPsac.jsp";
+			String url = "/back-end/psac/listAllun.jsp";
 			RequestDispatcher post = req.getRequestDispatcher(url);
 			post.forward(req, res);
 	}
 	
-//	if ("psacDenied".equals(action)) { 
-//		
-//		/***************************接收請求參數****************************************/
-//		String psac_no = req.getParameter("psac_no");
-//		String post_id = req.getParameter("post_id");
-//		String mem_id = req.getParameter("mem_id");
-//		String adm_no = req.getParameter("adm_no");
-//		String psac_content = req.getParameter("psac_content");
-//		Integer psac_state = new Integer(req.getParameter("psac_state"));
-//		/***************************修改檢舉案狀態****************************************/
-//		PsacVO psacVO = new PsacVO();
-//		psacVO.setPsac_no(psac_no);
-//		psacVO.setMem_id(mem_id);
-//		psacVO.setPost_id(post_id);
-//		psacVO.setAdm_no(adm_no);
-//		psacVO.setPsac_content(psac_content);
-//		psacVO.setPsac_state(1); //檢舉案處理完成，修改狀態為1(已完成)
-//		
-//		PsacService psacSv = new PsacService();
-//		psacVO = psacSv.updatePsac(psac_no,mem_id, post_id, adm_no, psac_content, 1);
-//			
-//		/***************************轉交listAllPsac.jsp頁面****************************************/  
-//		String url = "/back-end/psac/listAllPsac.jsp";
-//		RequestDispatcher post = req.getRequestDispatcher(url);
-//		post.forward(req, res);
-//	}
+	if ("psacDenied".equals(action)) { 
+		
+		/***************************接收請求參數****************************************/
+		String psac_no = req.getParameter("psac_no");
+		String post_id = req.getParameter("post_id");
+		String mem_id = req.getParameter("mem_id");
+		String adm_no = req.getParameter("adm_no");
+		String psac_content = req.getParameter("psac_content");
+		Integer psac_state = new Integer(req.getParameter("psac_state"));
+		/***************************修改檢舉案狀態****************************************/
+		PsacVO psacVO = new PsacVO();
+		psacVO.setPsac_no(psac_no);
+		psacVO.setMem_id(mem_id);
+		psacVO.setPost_id(post_id);
+		psacVO.setAdm_no(adm_no);
+		psacVO.setPsac_content(psac_content);
+		psacVO.setPsac_state(2); //檢舉案處理完成，修改狀態為2(不成立)
+		
+		PsacService psacSv = new PsacService();
+		psacVO = psacSv.updatePsac(psac_no,mem_id, post_id, adm_no, psac_content, 2);
+			
+		/***************************轉交listAllPsac.jsp頁面****************************************/  
+		String url = "/back-end/psac/listAllun.jsp";
+		RequestDispatcher post = req.getRequestDispatcher(url);
+		post.forward(req, res);
+	}
 }
 }
 		
