@@ -184,26 +184,7 @@ body {
 	<!--             <i class="fas fa-comments"></i> -->
 	<!--         </button> -->
 	<%@ include file="/files/footer.jsp"%>
-
-<!-- 	<script> -->
-// 	<c:forEach var="auctVO" items="${list}" varStatus="s">
-// 		function checkStatus${s.count}(){
-// 			var a = '${auctVO.auct_start}'
-// 			var b = '${auctVO.auct_end}'
-			
-// 			var startTimeInMill = Date.parse(a);
-// 			var endTimeInMill = Date.parse(b);
-			
-// 			var now = new Date();
-			
-// 			if(now < startTimeInMill){
-// 				alert('拍賣未開始');
-// 			}else if(now >= startTimeInMill && now <= endTimeInMill){
-// 				alert('拍賣進行中');
-// 			}
-// 		}
-// 	</c:forEach>
-<!-- 	</script> -->
+	
 
 
 
