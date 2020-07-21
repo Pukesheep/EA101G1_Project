@@ -175,22 +175,23 @@ color:whitesmoke;
 						<label for="expirationdate">
 							<b>- 有效日期 (mm/yy) -</b>
 						</label>
-						<input id="expirationdate" type="text" value="${memberVO.card_mm}+${memberVO.card_yy}" required>
+						<input id="expirationdate" type="text" value="" required>
 					</div>
 					<div class="field-container text-center ">
 						<label for="securitycode">
 							<b>- 驗證碼 -</b>
 						</label>
-						<input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric" value="${memberVO.card_sec}" required>
+						<input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric" value="" required>
 					</div>
 					<input type="hidden" name="action" value="payMoney">
 					<div class="d-flex justify-content-center">
 						<a href="<%=request.getContextPath()%>/front-end/protected/auct/buy_order.jsp">
-							<button type="submit" class="btn-primary">確認付款</button>
+						<button class="btn btn-outline-info mt-1" onclick="insertValue();">自動帶入</button>
+							<button type="submit" class="btn btn-success mt-1">確認付款</button>
 						</a>
 						<button id="generatecard" style="display:none;">隨機生成</button>
 					</div>
-					<button class="btn btn-warning" onclick="insertValue();">自動帶入</button>
+					
 			</div>
 		</div>
 	</div>
