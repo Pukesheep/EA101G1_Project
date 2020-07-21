@@ -62,6 +62,8 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css">
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <style>
 body {
@@ -238,11 +240,23 @@ div.content {
 }
 </style>
 
+
 </head>
 <body>
 	<!-- navbar -->
 	<%@ include file="/files/header.jsp"%>
 	<!-- navbar end -->
+
+	<c:if test="${not empty successMsg}">
+		<script>
+			Swal.fire({
+				icon : 'success',
+				title : '${successMsg}',
+				showConfirmButton : false,
+				timer : 1000
+			});
+		</script>
+	</c:if>
 
 	<div class="container immed_nav">
 		<nav class="navbar navbar-expand-md navbar-light">
@@ -325,7 +339,6 @@ div.content {
 		<div class="row flex-column">
 			<div class="col-12">
 				<h3 class="pb-2">已購買商品</h3>
-
 				<%-- 錯誤表列 --%>
 				<c:if test="${not empty errorMsgs}">
 					<font style="color: red">請修正以下錯誤:</font>

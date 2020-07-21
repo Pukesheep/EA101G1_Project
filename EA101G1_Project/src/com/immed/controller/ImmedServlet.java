@@ -481,6 +481,8 @@ public class ImmedServlet extends HttpServlet {
 				immedVO = immedSvc.updateBuyImmed(buy_id, rcpt_name, rcpt_cell, rcpt_add, immed_id);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+				String successMsg = "結帳成功";
+				req.setAttribute("successMsg", successMsg);
 				req.setAttribute("immedVO", immedVO); // 資料庫update成功後,正確的的immedVO物件,存入req
 				String url = "/front-end/protected/immed/buyerManage.jsp"; // listOneImmed.jsp
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneImmed.jsp

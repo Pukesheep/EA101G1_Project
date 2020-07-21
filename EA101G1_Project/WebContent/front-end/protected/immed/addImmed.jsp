@@ -184,6 +184,7 @@ div.content {
 div.buy_content {
 	background: hsla(0, 0%, 100%, .8);
 }
+
 .dropdown-menu li:hover .sub-menu {
 	visibility: visible;
 }
@@ -191,6 +192,7 @@ div.buy_content {
 .dropdown:hover .dropdown-menu {
 	display: block;
 }
+
 @media ( max-width : 1023px) {
 	header .form-inline .form-control {
 		width: 250px;
@@ -327,13 +329,14 @@ div.buy_content {
 
 							<tr>
 								<td><label for="fimmed_name">直購商品名稱: </label></td>
-								<td><input type="text" name="immed_name" id="fimmed_name" style="width:100%"
-									value="${immedVO.immed_name}" autocomplete="off"></td>
+								<td><input type="text" name="immed_name" id="fimmed_name"
+									style="width: 100%" value="${immedVO.immed_name}"
+									autocomplete="off"></td>
 							</tr>
 
 							<tr>
 								<td><label for="fimmed_prc">商品直購價: </label></td>
-								<td><input type="text" name="immed_prc" 
+								<td><input type="text" name="immed_prc"
 									value="${immedVO.immed_prc}" autocomplete="off" /></td>
 							</tr>
 
@@ -358,10 +361,12 @@ div.buy_content {
 
 							</tr>
 							<tr>
-								<td><input type="hidden" name="sale_id"
+								<td><input type="hidden" name="sale_id" 
 									value="${memberVO.mem_id}" /> <input type="hidden"
 									name="action" value="insert"> <input type="submit"
-									value="送出"></td>
+									value="送出" class="btn btn-dark"></td>
+								<td><button id="add_data" type="button"
+										class="btn btn-dark">快速新增</button></td>
 							</tr>
 						</table>
 
@@ -421,6 +426,20 @@ div.buy_content {
 			language : 'zh',
 			height : 350
 		});
+	</script>
+	
+	<script>
+	$("#add_data").click(function() {
+		$("[name='pt_id']").val('PT005');
+		$("[name='immed_name']").val('★小拳王電玩★限時優惠衝評價 PS4 最後生還者 2 二部曲 中文一般版');
+		$("[name='immed_prc']").val('1060');
+		CKEDITOR.instances.editor1.setData( "★小拳王電玩★ PS4 最後生還者 二部曲 中文特別版商品封面以實體封面為準<br>"+
+"&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;中文特別版  收錄以下內容：<br>"+
+"&emsp;&emsp;&emsp;最後生還者 二部曲 中英文合版 遊戲軟體（以特製鐵盒包裝）<br>"+
+"&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;迷你美術集（約 48 頁，出自 Dark Horse）<br>"+
+"&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;數位內容：PS4 專用動態主題<br>"+
+"&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;數位內容：PSN 個人造型（一組共 6 個）" ) ;
+	});
 	</script>
 </body>
 </html>

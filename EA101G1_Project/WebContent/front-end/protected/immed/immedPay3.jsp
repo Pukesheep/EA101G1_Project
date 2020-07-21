@@ -68,8 +68,6 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/card/1.3.1/js/card.min.js"></script>
-		<!-- SweetAlert2 -->
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <style>
 body {
@@ -368,25 +366,6 @@ table.immedInfo th:nth-child(2) {
 	<%@ include file="/files/header.jsp"%>
 	<!-- navbar end -->
 
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs }">
-		<%
-			java.util.List<String> errorMsgs = (java.util.List<String>) request.getAttribute("errorMsgs");
-				String message = "";
-				for (String msg : errorMsgs) {
-					message += msg;
-					message += "\\n";
-				}
-		%>
-		<script>
-			Swal.fire({
-			  icon: 'error',
-			  title: '<%=message%>'
-			});
-		</script>
-	</c:if>
-	<%-- 錯誤表列 --%>
-
 	<div class="container immed_nav">
 		<nav class="navbar navbar-expand-md navbar-light">
 			<a class="navbar-brand"
@@ -613,15 +592,15 @@ table.immedInfo th:nth-child(2) {
 							</div>
 							<div class="col-md-4">
 								<div class="pt-5">
-									<%-- 									錯誤表列 --%>
-									<%-- 									<c:if test="${not empty errorMsgs}"> --%>
-									<!-- 										<font style="color: red">請修正以下錯誤:</font> -->
-									<!-- 										<ul> -->
-									<%-- 											<c:forEach var="message" items="${errorMsgs}"> --%>
-									<%-- 												<li style="color: red;">${message}</li> --%>
-									<%-- 											</c:forEach> --%>
-									<!-- 										</ul> -->
-									<%-- 									</c:if> --%>
+									<%-- 錯誤表列 --%>
+									<c:if test="${not empty errorMsgs}">
+										<!-- 										<font style="color: red">請修正以下錯誤:</font> -->
+										<ul>
+											<c:forEach var="message" items="${errorMsgs}">
+												<li style="color: red;">${message}</li>
+											</c:forEach>
+										</ul>
+									</c:if>
 								</div>
 							</div>
 						</div>
@@ -665,7 +644,8 @@ table.immedInfo th:nth-child(2) {
 	<script
 		src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
 
-
+	<!-- SweetAlert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 	<script type="text/javascript">
 		$('.slider-for').slick({
@@ -776,7 +756,32 @@ table.immedInfo th:nth-child(2) {
 						    	    clearInterval(timerInterval)
 						    	  }
 						    }).then((result) => {
+// 						    	$.ajax({
+<%-- 						            url:'<%=request.getContextPath()%>/immed/immed.do', --%>
+// 						            type : "POST",
+// 						            data : { immed_id: immed_id,
+// 									mem_id: mem_id,
+// 									action: 'delete'
+// 									},
+// 						            contentType: false,
+// 						            cache: false,
+// 						            processData: false,
+// 						            success : function(data) 
+// 						            {
+// 						                console.log(data);
+// 						            },error: function(data) 
+// 						            {
+// 						                console.log('無法送出');
+// 						            }
+// 						        })
 						    	$(form).submit();
+// 						    	 Swal.fire({
+// 						    		 icon: 'success',
+// 	 						    	  confirmButtonColor: '#3085d6',
+// 	 						    	  confirmButtonText: '認證成功!'
+// 							    }).then((result) => {
+// 								    	$(form).submit();
+// 							    })
 						    })
 				  }
 				})
