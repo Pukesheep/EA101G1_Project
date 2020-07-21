@@ -184,13 +184,18 @@ color:whitesmoke;
 						<input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric" value="" required>
 					</div>
 					<input type="hidden" name="action" value="payMoney">
+					
 					<div class="d-flex justify-content-center">
+					<button class="btn btn-outline-info mt-1 mx-3" onclick="insertValue();">自動帶入</button>
+						
 						<a href="<%=request.getContextPath()%>/front-end/protected/auct/buy_order.jsp">
-						<button class="btn btn-outline-info mt-1" onclick="insertValue();">自動帶入</button>
 							<button type="submit" class="btn btn-success mt-1">確認付款</button>
 						</a>
+						
+						
 						<button id="generatecard" style="display:none;">隨機生成</button>
 					</div>
+					
 					
 			</div>
 		</div>
