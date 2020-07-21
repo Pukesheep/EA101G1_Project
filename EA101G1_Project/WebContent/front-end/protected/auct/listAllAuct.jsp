@@ -264,7 +264,7 @@
 			alert('拍賣開始 無法下架');
 		}
 		function showAlert4() {
-			alert('商品已售出');
+			alert('無法下架');
 		}
 	</script>
 
